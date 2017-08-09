@@ -40,6 +40,10 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
@@ -49,11 +53,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.4-1205-jdbc41</version><!--$NO-MVN-MAN-VER$ -->
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -62,44 +61,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-                                <!-- este plugin suele dar un error dentro del Eclipse porque no está
-                                        disponbile en el marketplace -->
-                                <!-- no afecta al desarrollo ni a la ejecución, se utiliza para el empaquetado
-                                        por línea de comando -->
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>properties-maven-plugin</artifactId>
-                                <version>1.0-alpha-2</version>
-                                <configuration>
-                                        <outputFile />
-                                        <properties />
-                                        <files>
-                                                <file>${ext.prop.dir}/application.properties</file>
-                                        </files>
-                                </configuration>
-                                <executions>
-                                        <execution>
-                                                <phase>initialize</phase>
-                                                <goals>
-                                                        <goal>read-project-properties</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
-			<plugin>
-                                <groupId>org.liquibase</groupId>
-                                <artifactId>liquibase-maven-plugin</artifactId>
-                                <version>3.1.1</version>
-                                <configuration>
-                                        <propertyFileWillOverride>true</propertyFileWillOverride>
-					<changeLogFile>src/main/resources/db/liquibase/db-changelog.xml</changeLogFile>
-                                        <driver>${spring.datasource.driver-class-name}</driver>
-                                        <url>${spring.datasource.url}</url>
-                                        <username>${spring.datasource.username}</username>
-                                        <password>${spring.datasource.password}</password>
-                                        <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                                </configuration>
-                        </plugin>
 		</plugins>
 	</build>
 
