@@ -180,51 +180,39 @@ CREATE TABLE data_collect.survey_data_collect_base (
 
 
 -- FK --
-ALTER TABLE security.user_x_role
-            ADD CONSTRAINT fk_user_x_role_user_user_id FOREIGN KEY (user_id) REFERENCES security.user (user_id);
+ALTER TABLE security.user_x_role ADD CONSTRAINT fk_user_x_role_user_user_id FOREIGN KEY (user_id) REFERENCES security.user (user_id);
 
-	ALTER TABLE ps_network.application
-	            ADD CONSTRAINT fk_application_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
-		            ADD CONSTRAINT fk_application_city_city_id FOREIGN KEY (city) REFERENCES system.city (city_id);
+ALTER TABLE ps_network.application ADD CONSTRAINT fk_application_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
+ADD CONSTRAINT fk_application_city_city_id FOREIGN KEY (city) REFERENCES system.city (city_id);
 
-			ALTER TABLE ps_network.organization
-			            ADD CONSTRAINT fk_organization_country_country_id FOREIGN KEY (country) REFERENCES system.city (city_id),
-				            ADD CONSTRAINT fk_organization_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id);
+ALTER TABLE ps_network.organization ADD CONSTRAINT fk_organization_country_country_id FOREIGN KEY (country) REFERENCES system.city (city_id),
+ADD CONSTRAINT fk_organization_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id);
 
-					ALTER TABLE ps_network.user_x_application
-					            ADD CONSTRAINT fk_user_x_application_user_user_id FOREIGN KEY (user_id) REFERENCES security.user (user_id),
-						            ADD CONSTRAINT fk_user_x_application_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id),
-							            ADD CONSTRAINT fk_user_x_application_organization_organization_id FOREIGN KEY (organization_id) REFERENCES ps_network.organization (organization_id);
+ALTER TABLE ps_network.user_x_application ADD CONSTRAINT fk_user_x_application_user_user_id FOREIGN KEY (user_id) REFERENCES security.user (user_id),
+ADD CONSTRAINT fk_user_x_application_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id),
+ADD CONSTRAINT fk_user_x_application_organization_organization_id FOREIGN KEY (organization_id) REFERENCES ps_network.organization (organization_id);
 
-								ALTER TABLE ps_families.family
-								            ADD CONSTRAINT fk_family_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
-									            ADD CONSTRAINT fk_family_person_person_id FOREIGN KEY (person_reference_id) REFERENCES ps_families.person (person_id),
-										            ADD CONSTRAINT fk_famly_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id),
-											            ADD CONSTRAINT fk_famly_organization_organization_id FOREIGN KEY (organization_id) REFERENCES ps_network.organization (organization_id);
+ALTER TABLE ps_families.family ADD CONSTRAINT fk_family_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
+ADD CONSTRAINT fk_family_person_person_id FOREIGN KEY (person_reference_id) REFERENCES ps_families.person (person_id),
+ADD CONSTRAINT fk_famly_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id),
+ADD CONSTRAINT fk_famly_organization_organization_id FOREIGN KEY (organization_id) REFERENCES ps_network.organization (organization_id);
 
-												ALTER TABLE ps_families.family_socialeconomical_attribute
-												            ADD CONSTRAINT fk_family_socialeconomical_attribute_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
+ALTER TABLE ps_families.family_socialeconomical_attribute ADD CONSTRAINT fk_family_socialeconomical_attribute_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
 
-													ALTER TABLE ps_families.family_socialeconomical_attribute_active
-													            ADD CONSTRAINT fk_family_attribute_active_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id);
+ALTER TABLE ps_families.family_socialeconomical_attribute_active ADD CONSTRAINT fk_family_attribute_active_application_application_id FOREIGN KEY (application_id) REFERENCES ps_network.application (application_id);
 
 
-														ALTER TABLE ps_families.person
-														            ADD CONSTRAINT fk_person_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
-															            ADD CONSTRAINT fk_person_city_city_id FOREIGN KEY (city) REFERENCES system.city (city_id),
-																            ADD CONSTRAINT fk_person_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
+ALTER TABLE ps_families.person ADD CONSTRAINT fk_person_country_country_id FOREIGN KEY (country) REFERENCES system.country (country_id),
+ADD CONSTRAINT fk_person_city_city_id FOREIGN KEY (city) REFERENCES system.city (city_id),
+ADD CONSTRAINT fk_person_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
 
-																	ALTER TABLE survey.survey_template
-																	            ADD CONSTRAINT fk_survey_template_user_user_id FOREIGN KEY (created_by_user_id) REFERENCES security.user (user_id);
+ALTER TABLE survey.survey_template ADD CONSTRAINT fk_survey_template_user_user_id FOREIGN KEY (created_by_user_id) REFERENCES security.user (user_id);
 
-																		ALTER TABLE survey.task
-																		            ADD CONSTRAINT fk_task_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
+ALTER TABLE survey.task ADD CONSTRAINT fk_task_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
 
-																			ALTER TABLE survey.task_tracking
-																			            ADD CONSTRAINT fk_task_tracking_task_task_id FOREIGN KEY (task_id) REFERENCES survey.task (task_id);
+ALTER TABLE survey.task_tracking ADD CONSTRAINT fk_task_tracking_task_task_id FOREIGN KEY (task_id) REFERENCES survey.task (task_id);
 
-																				ALTER TABLE data_collect.survey_data_collect_base
-																				            ADD CONSTRAINT fk_survey_data_collect_base_survey_template_survey_template_id FOREIGN KEY (survey_template_id) REFERENCES survey.survey_template (survey_template_id),
-																					            ADD CONSTRAINT fk_survey_data_collect_base_user_user_id FOREIGN KEY (survey_taken_by_user_id) REFERENCES security.user (user_id),
-																						            ADD CONSTRAINT fk_survey_data_collect_base_person_person_id FOREIGN KEY (interviewee_person_id) REFERENCES ps_families.person (person_id),
-																							            ADD CONSTRAINT fk_survey_data_collect_base_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
+ALTER TABLE data_collect.survey_data_collect_base ADD CONSTRAINT fk_survey_data_collect_base_survey_template_survey_template_id FOREIGN KEY (survey_template_id) REFERENCES survey.survey_template (survey_template_id),
+ADD CONSTRAINT fk_survey_data_collect_base_user_user_id FOREIGN KEY (survey_taken_by_user_id) REFERENCES security.user (user_id),
+ADD CONSTRAINT fk_survey_data_collect_base_person_person_id FOREIGN KEY (interviewee_person_id) REFERENCES ps_families.person (person_id),
+ADD CONSTRAINT fk_survey_data_collect_base_family_family_id FOREIGN KEY (family_id) REFERENCES ps_families.family (family_id);
