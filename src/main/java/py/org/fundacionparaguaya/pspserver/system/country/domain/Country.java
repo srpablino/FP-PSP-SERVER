@@ -34,6 +34,16 @@ public class Country extends BaseEntity {
 	
 	private String country;
 
+	public Country() {
+		
+	}
+	
+	public Country(Long countryId, String country) {
+		super();
+		this.countryId = countryId;
+		this.country = country;
+	}
+
 	public Long getCountryId() {
 		return countryId;
 	}
