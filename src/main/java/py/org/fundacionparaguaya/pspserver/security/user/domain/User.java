@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseEntity;
+
 /**
  * User DAO Layer
  * 
@@ -22,9 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user", schema = "security")
-public class User implements java.io.Serializable {
-
-	private static final long serialVersionUID = -7693678673241220633L;
+public class User extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="security.user_user_id_seq")
