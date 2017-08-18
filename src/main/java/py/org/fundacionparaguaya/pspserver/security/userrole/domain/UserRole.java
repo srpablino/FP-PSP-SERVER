@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.security.user.domain.User;
 
 /**
@@ -29,7 +30,7 @@ import py.org.fundacionparaguaya.pspserver.security.user.domain.User;
  */
 @Entity
 @Table(name = "user_x_role", schema = "security")
-public class UserRole {
+public class UserRole extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "security.user_x_role_user_x_role_id_seq")
