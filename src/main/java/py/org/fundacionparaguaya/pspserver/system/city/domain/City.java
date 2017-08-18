@@ -33,6 +33,15 @@ public class City extends BaseEntity {
 	private Long cityId;
 	
 	private String city;
+	
+	public City() {
+	}
+	
+	public City(Long cityId, String city) {
+		super();
+		this.cityId = cityId;
+		this.city = city;
+	}
 
 	public Long getCityId() {
 		return cityId;
