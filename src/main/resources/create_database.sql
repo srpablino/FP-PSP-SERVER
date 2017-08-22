@@ -4,6 +4,7 @@ ALTER ROLE "fp_psp_db" WITH createdb;
 \c "dbname=postgres user=fp_psp_db password=fp_psp_db";
 CREATE database "fp_psp_db";
 SELECT datname FROM pg_database WHERE datistemplate = false;
+
 \c "dbname=fp_psp_db user=fp_psp_db password=fp_psp_db";
 
 -- Create Schema --
@@ -13,6 +14,17 @@ CREATE SCHEMA ps_network;
 CREATE SCHEMA ps_families;
 CREATE SCHEMA survey;
 CREATE SCHEMA data_collect;
+
+-- Grant Privileges --
+GRANT ALL PRIVILEGES ON SCHEMA "security" to "fp_psp_db";
+GRANT ALL PRIVILEGES ON SCHEMA "system" to "fp_psp_db";
+GRANT ALL PRIVILEGES ON SCHEMA "ps_network" to "fp_psp_db";
+GRANT ALL PRIVILEGES ON SCHEMA "ps_families" to "fp_psp_db";
+GRANT ALL PRIVILEGES ON SCHEMA "survey" to "fp_psp_db";
+GRANT ALL PRIVILEGES ON SCHEMA "data_collect" to "fp_psp_db";
+
+
+
 
 -- Schema: security --
 CREATE TABLE security.user (
