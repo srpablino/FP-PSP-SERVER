@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import py.org.fundacionparaguaya.pspserver.base.BaseService;
+import py.org.fundacionparaguaya.pspserver.common.services.BaseService;
 import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntityDTO;
 
 public interface CityService extends BaseService  {
