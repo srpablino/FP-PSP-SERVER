@@ -16,7 +16,6 @@ An easy way to add  a change set is to write the changes to the database as we n
 
 ```
 --liquibase formatted sql
---changeset codecentric-docs:release_1.create_tables.sql
  
 CREATE TABLE SampleTable
 (
@@ -38,11 +37,13 @@ The lines starting with "-" is what makes the file a Liquibase-formatted SQL-fil
 
 The above statement simply introduces the file as a Liquibase-formatted SQL-file.
 
+Now we add the changeset in the `db-changelog-evolution.xml`. For example:
 ```
---changeset codecentric-docs:release_1.create_tables.sql
+<changeSet id="2017-08-22T12:09" author="nvaldez">
+     <sqlFile path="sql/2017-08-22T12:09.sql" />
+</changeSet>
 ```
-
-As Liquibase is working on Changesets the name of the changeset introduced with this file must be defined. The part before the “:” is the author and the part after the “:” the name of the changeset itsself. We will use the following convention:
+We will use the following convention:
 
 ``
 --changeset <author_username>:<yyyy-mm-ddThh:mm>.sql
@@ -51,11 +52,6 @@ As Liquibase is working on Changesets the name of the changeset introduced with 
 The ID is based on the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
 
 One really nice feature is the possibility to define rollback statements. If used properly it is possible to return to an earlier state of the database this way. It should be noted that a Liquibase-formatted SQL-file can contain several SQL-statements and thus several rollback statements.
-
-Now the only thing thats left is to include this file in the `db-changelog-evolution.xml` as follows:
-```
-<include file="<path_to_the_sql_file.sql" />
-```
 
 ### Using Liquibase changeset format
 Another way to introduce a change set is using Liquibase syntax. For example
