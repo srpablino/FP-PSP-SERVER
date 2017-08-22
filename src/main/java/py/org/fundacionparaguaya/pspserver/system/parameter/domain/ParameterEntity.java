@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import py.org.fundacionparaguaya.pspserver.base.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 @Entity
 @Table(name = "parameter", schema = "system")
