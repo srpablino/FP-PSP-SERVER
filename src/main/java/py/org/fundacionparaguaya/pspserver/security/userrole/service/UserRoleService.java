@@ -1,8 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.security.userrole.service;
 
-import py.org.fundacionparaguaya.pspserver.security.userrole.domain.UserRole;
-import py.org.fundacionparaguaya.pspserver.util.service.CRUDService;
+import java.util.List;
 
-public interface UserRoleService extends CRUDService<UserRole>  {
+import org.springframework.http.ResponseEntity;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseService;
+import py.org.fundacionparaguaya.pspserver.security.userrole.domain.UserRoleEntityDTO;
+
+public interface UserRoleService extends BaseService {
+
+	ResponseEntity<Void> updateUserRole(UserRoleEntityDTO userRoleEntityDTO);
+
+	ResponseEntity<UserRoleEntityDTO> addUserRole(UserRoleEntityDTO userRoleEntityDTO);
+	
+	ResponseEntity<UserRoleEntityDTO> getUserRoleById(Long userRoleId);
+	
+	ResponseEntity<List<UserRoleEntityDTO>> getAllUserRoles();
+	
+	ResponseEntity<Void> deleteUserRole(Long userRoleId);
+	
 }

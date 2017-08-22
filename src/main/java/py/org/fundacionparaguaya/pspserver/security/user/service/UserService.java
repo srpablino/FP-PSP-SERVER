@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseService;
 import py.org.fundacionparaguaya.pspserver.security.user.domain.UserEntityDTO;
 
-public interface UserService  {
+public interface UserService extends BaseService  {
 
 	ResponseEntity<Void> updateUser(UserEntityDTO user);
 

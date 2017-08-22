@@ -19,7 +19,9 @@ import py.org.fundacionparaguaya.pspserver.security.user.service.UserService;
 @RequestMapping(value = "/api/v1/users")
 public class UserController {
 
+	
 	private UserService userService;
+	
 	
 	@Autowired
 	public UserController(UserService userService) {

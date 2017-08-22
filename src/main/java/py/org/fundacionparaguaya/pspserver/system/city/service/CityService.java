@@ -1,8 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.system.city.service;
 
-import py.org.fundacionparaguaya.pspserver.system.city.domain.City;
-import py.org.fundacionparaguaya.pspserver.util.service.CRUDService;
+import java.util.List;
 
-public interface CityService extends CRUDService<City>  {
+import org.springframework.http.ResponseEntity;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseService;
+import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntityDTO;
+
+public interface CityService extends BaseService  {
+
+	ResponseEntity<Void> updateCity(CityEntityDTO cityEntityDTO);
+
+	ResponseEntity<CityEntityDTO> addCity(CityEntityDTO cityEntityDTO);
+	
+	ResponseEntity<CityEntityDTO> getCityById(Long cityId);
+	
+	ResponseEntity<List<CityEntityDTO>> getAllCities();
+	
+	ResponseEntity<Void> deleteCity(Long cityId);
+	
 }
