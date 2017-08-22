@@ -45,8 +45,10 @@ The above statement simply introduces the file as a Liquibase-formatted SQL-file
 As Liquibase is working on Changesets the name of the changeset introduced with this file must be defined. The part before the “:” is the author and the part after the “:” the name of the changeset itsself. We will use the following convention:
 
 ``
---changeset <author_username>:<serial id>.sql
+--changeset <author_username>:<yyyy-mm-ddThh:mm>.sql
 ``
+
+The ID is based on the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
 
 One really nice feature is the possibility to define rollback statements. If used properly it is possible to return to an earlier state of the database this way. It should be noted that a Liquibase-formatted SQL-file can contain several SQL-statements and thus several rollback statements.
 
