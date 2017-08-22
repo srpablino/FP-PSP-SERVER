@@ -1,8 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.security.user.service;
 
-import py.org.fundacionparaguaya.pspserver.security.user.domain.User;
-import py.org.fundacionparaguaya.pspserver.util.service.CRUDService;
+import java.util.List;
 
-public interface UserService extends CRUDService<User>  {
+import org.springframework.http.ResponseEntity;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseService;
+import py.org.fundacionparaguaya.pspserver.security.user.domain.UserEntityDTO;
+
+public interface UserService extends BaseService  {
+
+	ResponseEntity<Void> updateUser(UserEntityDTO user);
+
+	ResponseEntity<UserEntityDTO> addUser(UserEntityDTO user);
+	
+	ResponseEntity<UserEntityDTO> getUserById(Long userId);
+	
+	ResponseEntity<List<UserEntityDTO>> getAllUsers();
+	
+	ResponseEntity<Void> deleteUser(Long userId);
+	
 }

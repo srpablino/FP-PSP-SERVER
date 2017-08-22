@@ -1,8 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.families.person.service;
 
-import py.org.fundacionparaguaya.pspserver.families.person.domain.Person;
-import py.org.fundacionparaguaya.pspserver.util.service.CRUDService;
+import java.util.List;
 
-public interface PersonService extends CRUDService<Person>  {
+import org.springframework.http.ResponseEntity;
 
+import py.org.fundacionparaguaya.pspserver.base.BaseService;
+import py.org.fundacionparaguaya.pspserver.families.person.domain.PersonEntityDTO;
+
+public interface PersonService extends BaseService {
+	
+	ResponseEntity<Void> updatePerson(PersonEntityDTO personEntityDTO);
+
+	ResponseEntity<PersonEntityDTO> addPerson(PersonEntityDTO personEntityDTO);
+	
+	ResponseEntity<PersonEntityDTO> getPersonById(Long personId);
+	
+	ResponseEntity<List<PersonEntityDTO>> getAllPeople();
+	
+	ResponseEntity<Void> deletePerson(Long personId);
+	
 }
