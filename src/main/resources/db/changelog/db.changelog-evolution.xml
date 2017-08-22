@@ -3,8 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <!--
+    This script create the first schemas and tables for the project.
+    -->
     <changeSet id="2017-08-22T12:09" author="nvaldez">
-        <sqlFile path="sql/2017-08-22T12:09.sql" />
+        <sqlFile path="sql/2017-08-22T12:09.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>

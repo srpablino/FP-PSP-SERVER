@@ -1,5 +1,4 @@
---liquibase formatted sql
---changeset nvaldez:2017-08-22T11:35
+-- This script create the first schemas and tables for the project. --
 
 -- Create Schema --
 CREATE SCHEMA security;
