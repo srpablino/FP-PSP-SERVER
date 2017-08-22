@@ -24,6 +24,16 @@ Run with psql the script:
 psql -U YOUR_USER_HERE -f src/main/resources/create_database.sql
 ```
 
+Yo can also copy and paste the following snippet to your favorite PSQL client:
+
+```
+CREATE USER "fp_psp_db" WITH ENCRYPTED PASSWORD 'fp_psp_db';
+ALTER ROLE "fp_psp_db" WITH createdb;
+\c "dbname=postgres user=fp_psp_db password=fp_psp_db";
+CREATE database "fp_psp_db";
+SELECT datname FROM pg_database WHERE datistemplate = false;
+```
+
 This will generate the initial database, and from this point any DB related changes will be through [Liquibase](Liquibase.md).
 
 ### Step 2, compile the application
