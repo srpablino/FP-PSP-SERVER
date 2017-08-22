@@ -1,7 +1,14 @@
-## Changeset tag
+# Introduction
+Liquibase is a framework written in Java used to manage and apply your sql files. Their website sports the tagline “source control for your database”, which might be a bit misleading. Liquibase is not a version control system like Git or Subversion. In fact it is meant to be used in tandem with a version control system. When you use Liquibase you will have a project, just like any old Java project, that contains your sql files. When you run this project Liquibase will install your changes to the database. You can also embed Liquibase (and your sql files) into an existing project, allowing your application to manage its own database. Liquibase is meant to bring the management and deployment of your sql files into the familiar developer realms of IDE’s, version control, and continuous integration.
 
-The chageset tag is what Liquibase uses to group database changes together. Each changeSet tag is uniquely identified by the combination of the “id” tag, the “author” tag, and the changelog file classpath name. The id tag is only used as an identifier, it does not direct the order that changes are run and does not even have to be an integer.
-As Liquibase executes the databaseChangeLog, it reads the changeSets in order and, for each one, checks the “databasechangelog” table to see if the combination of id/author/filepath has been run. If it has been run, the changeSet will be skipped unless there is a true “runAlways” tag. After all the changes in the changeSet are run, Liquibase will insert a new row with the id/author/filepath along with an MD5Sum of the changeSet in the “databasechangelog”.
+# Commands
+## Create a database
+The initial change log files for the database are already created under the name `db-changelog-master.xml` and `db-changelog-evolution.xml` in the `src/main/resources/db/changelog/` directory. So its not neccesary to generate this files again. All our database changes will take place in the `db-changelog-evolution.xml`.
+
+If you are interested in know how to generate a change log file you can follow this [link](http://www.liquibase.org/documentation/command_line.html).
+
+## Update and existing database
+Changes are made using "change sets". Each changeSet tag must be uniquely identified by the combination of the “id” and "author" tag, otherwise Liquibase will skip the changes unless we explicitly tell him not to.
 
 ### Liquibase Formatted SQL
 
@@ -45,7 +52,7 @@ One really nice feature is the possibility to define rollback statements. If use
 
 Now the only thing thats left is to include this file in the `db-changelog-evolution.xml` as follows:
 ```
-<include file="<path_to_the_sql_file>/my_sql_file.sql" />
+<include file="<path_to_the_sql_file.sql" />
 ```
 
 ### Using Liquibase changeset format
