@@ -8,7 +8,7 @@ The initial change log files for the database are already created under the name
 If you are interested in know how to generate a change log file you can follow this [link](http://www.liquibase.org/documentation/command_line.html).
 
 ## Update and existing database
-Changes are made using "change sets". Each changeSet tag must be uniquely identified by the combination of the “id” and "author" tag, otherwise Liquibase will skip the changes unless we explicitly tell him not to.
+Changes are made using "change sets". Each changeSet tag must be uniquely identified by the combination of the “id” and "author" tag. If the combination of "id" and "author" its not unique, Liquibase will skip our changeset unless we explicitly tell him not to. 
 
 ### Liquibase Formatted SQL
 
@@ -37,21 +37,28 @@ The lines starting with "-" is what makes the file a Liquibase-formatted SQL-fil
 
 The above statement simply introduces the file as a Liquibase-formatted SQL-file.
 
+One really nice feature is the possibility to define rollback statements. If used properly it is possible to return to an earlier state of the database this way. It should be noted that a Liquibase-formatted SQL-file can contain several SQL-statements and thus several rollback statements.
+
+
 Now we add the changeset in the `db-changelog-evolution.xml`. For example:
 ```
+<!--
+This script create the first schemas and tables for the project.
+__>
 <changeSet id="2017-08-22T12:09" author="nvaldez">
-     <sqlFile path="sql/2017-08-22T12:09.sql" />
+     <sqlFile path="sql/2017-08-22T12:09.sql" relativeChangelogFile="true"/>
 </changeSet>
 ```
-We will use the following convention:
+It's important that add a short description for each changeset, explaining what the script will actually do. That way we can keep a record of the evolution of the database.
+
+We will use the following convention for the changeset id-author combination:
 
 ``
---changeset <author_username>:<yyyy-mm-ddThh:mm>.sql
+id="<yyyy-mm-ddThh:mm>" author="myUserName"
 ``
-
 The ID is based on the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
 
-One really nice feature is the possibility to define rollback statements. If used properly it is possible to return to an earlier state of the database this way. It should be noted that a Liquibase-formatted SQL-file can contain several SQL-statements and thus several rollback statements.
+All the `.sql` files must be in `src/main/resources/db/changelog/sql/` and the name of the file should be the same as the "id".
 
 ### Using Liquibase changeset format
 Another way to introduce a change set is using Liquibase syntax. For example
