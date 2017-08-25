@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "organization", schema = "ps_network")

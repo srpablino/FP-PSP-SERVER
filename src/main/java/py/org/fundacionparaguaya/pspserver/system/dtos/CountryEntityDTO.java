@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.country.domain;
+package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 public class CountryEntityDTO {
 

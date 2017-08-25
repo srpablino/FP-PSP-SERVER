@@ -1,10 +1,10 @@
-package py.org.fundacionparaguaya.pspserver.system.country.service;
+package py.org.fundacionparaguaya.pspserver.system.services;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import py.org.fundacionparaguaya.pspserver.common.services.BaseService;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CountryEntityDTO;
 
 public interface CountryService extends BaseService {
 

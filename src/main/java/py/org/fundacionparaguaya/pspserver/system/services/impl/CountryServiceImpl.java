@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.country.service.impl;
+package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.country.repository.CountryRepository;
-import py.org.fundacionparaguaya.pspserver.system.country.service.CountryService;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CountryEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
+import py.org.fundacionparaguaya.pspserver.system.services.CountryService;
 
 @Service
 public class CountryServiceImpl implements CountryService {

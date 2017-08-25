@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.city.domain;
+package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 import java.io.Serializable;
 

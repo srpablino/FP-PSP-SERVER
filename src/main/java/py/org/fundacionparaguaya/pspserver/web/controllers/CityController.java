@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.city.controller;
+package py.org.fundacionparaguaya.pspserver.web.controllers;
 
 import java.util.List;
 
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.city.service.CityService;
+
+import py.org.fundacionparaguaya.pspserver.system.dtos.CityEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.services.CityService;
 
 @RestController
 @RequestMapping(value = "/api/v1/cities")

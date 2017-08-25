@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.psfamilies.constants.Gender;
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "person", schema = "ps_families")

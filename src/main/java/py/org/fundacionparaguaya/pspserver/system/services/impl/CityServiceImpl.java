@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.city.service.impl;
+package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.city.repository.CityRepository;
-import py.org.fundacionparaguaya.pspserver.system.city.service.CityService;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CityEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
+import py.org.fundacionparaguaya.pspserver.system.services.CityService;
 
 @Service
 public class CityServiceImpl implements CityService {

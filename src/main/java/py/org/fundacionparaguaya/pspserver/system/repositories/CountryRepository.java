@@ -1,8 +1,8 @@
-package py.org.fundacionparaguaya.pspserver.system.country.repository;
+package py.org.fundacionparaguaya.pspserver.system.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 import java.lang.Long;
 

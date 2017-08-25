@@ -3,8 +3,8 @@ package py.org.fundacionparaguaya.pspserver.psfamilies.dtos;
 import py.org.fundacionparaguaya.pspserver.psfamilies.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.psnetwork.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.psnetwork.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 public class FamilyEntityDTO {
 

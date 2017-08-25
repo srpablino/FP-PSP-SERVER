@@ -11,8 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "application", schema = "ps_network")
