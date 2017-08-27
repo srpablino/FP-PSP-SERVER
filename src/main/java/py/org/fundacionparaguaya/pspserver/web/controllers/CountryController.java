@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.country.controller;
+package py.org.fundacionparaguaya.pspserver.web.controllers;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.country.service.CountryService;
+
+import py.org.fundacionparaguaya.pspserver.system.dtos.CountryEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.services.CountryService;
 
 @RestController
 @RequestMapping(value = "/api/v1/countries")

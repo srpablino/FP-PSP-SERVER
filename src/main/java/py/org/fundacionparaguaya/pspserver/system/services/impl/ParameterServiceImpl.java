@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.parameter.service.impl;
+package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.system.parameter.domain.ParameterEntity;
-import py.org.fundacionparaguaya.pspserver.system.parameter.domain.ParameterEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.parameter.repository.ParameterRepository;
-import py.org.fundacionparaguaya.pspserver.system.parameter.service.ParameterService;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ParameterEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.entities.ParameterEntity;
+import py.org.fundacionparaguaya.pspserver.system.repositories.ParameterRepository;
+import py.org.fundacionparaguaya.pspserver.system.services.ParameterService;
 
 @Service
 public class ParameterServiceImpl implements ParameterService {

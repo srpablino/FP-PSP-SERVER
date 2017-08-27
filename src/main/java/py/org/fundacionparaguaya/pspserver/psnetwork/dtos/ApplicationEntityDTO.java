@@ -2,8 +2,8 @@ package py.org.fundacionparaguaya.pspserver.psnetwork.dtos;
 
 import java.io.Serializable;
 
-import py.org.fundacionparaguaya.pspserver.system.city.domain.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 public class ApplicationEntityDTO implements Serializable {
 

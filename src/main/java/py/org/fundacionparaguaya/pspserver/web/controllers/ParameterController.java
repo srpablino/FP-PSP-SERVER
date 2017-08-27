@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.parameter.controller;
+package py.org.fundacionparaguaya.pspserver.web.controllers;
 
 import java.util.List;
 
@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import py.org.fundacionparaguaya.pspserver.system.parameter.domain.ParameterEntityDTO;
-import py.org.fundacionparaguaya.pspserver.system.parameter.service.ParameterService;
+
+import py.org.fundacionparaguaya.pspserver.system.dtos.ParameterEntityDTO;
+import py.org.fundacionparaguaya.pspserver.system.services.ParameterService;
 
 @RestController
 @RequestMapping(value = "/api/v1/parameters")

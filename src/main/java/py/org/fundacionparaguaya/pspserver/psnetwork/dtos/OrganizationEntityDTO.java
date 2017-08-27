@@ -1,7 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.psnetwork.dtos;
 
 import py.org.fundacionparaguaya.pspserver.psnetwork.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.system.country.domain.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 public class OrganizationEntityDTO {
 

@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.system.parameter.domain;
+package py.org.fundacionparaguaya.pspserver.system.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
