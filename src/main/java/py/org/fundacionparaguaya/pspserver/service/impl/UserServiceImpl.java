@@ -1,120 +1,104 @@
-package py.org.fundacionparaguaya.pspserver.security.services.impl;
+package py.org.fundacionparaguaya.pspserver.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
+import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
-import py.org.fundacionparaguaya.pspserver.security.dtos.UserEntityDTO;
-import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
-import py.org.fundacionparaguaya.pspserver.security.services.UserService;
+import py.org.fundacionparaguaya.pspserver.repository.ApplicationRepository;
+import py.org.fundacionparaguaya.pspserver.domain.UserEntity;
+import py.org.fundacionparaguaya.pspserver.repository.UserRepository;
+import py.org.fundacionparaguaya.pspserver.service.dto.UserDTO;
+import py.org.fundacionparaguaya.pspserver.service.UserService;
+import py.org.fundacionparaguaya.pspserver.service.exceptions.CustomParameterizedException;
+import py.org.fundacionparaguaya.pspserver.service.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.service.mapper.UserMapper;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	
-	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	private Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	
 	private UserRepository userRepository;
-	
-	
-    private ModelMapper modelMapper;
-	
-	
-	@Autowired
-	public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+
+	private final UserMapper userMapper;
+
+	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
 		this.userRepository = userRepository;
-		this.modelMapper    = modelMapper;
+        this.userMapper = userMapper;
+    }
+
+	
+	@Override
+	public UserDTO addUser(UserDTO userDTO) {
+        userRepository.findOneByUsername(userDTO.getUsername())
+                .ifPresent((user) -> {
+                    throw new CustomParameterizedException(
+                            "User already exists.",
+                            ImmutableMap.<String, String>builder().
+                                    put("username", user.getUsername()).
+                                    build()
+                    );
+                });
+        UserEntity user = new UserEntity();
+        BeanUtils.copyProperties(userDTO, user);
+        UserEntity newUser = userRepository.save(user);
+	    return userMapper.entityToDto(newUser);
+	}
+	
+	
+	@Override
+	public UserDTO getUserById(Long userId) {
+		checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
+
+        return Optional.ofNullable(userRepository.findOne(userId))
+                .map(userMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
 	}
 
 	
 	@Override
-	public ResponseEntity<UserEntityDTO> addUser(UserEntityDTO userEntityDTO) {
-		return new ResponseEntity<UserEntityDTO>((UserEntityDTO)
-				convertToDto(userRepository.save((UserEntity)
-				convertToEntity(userEntityDTO, UserEntity.class)), UserEntityDTO.class), 
-				HttpStatus.CREATED);
-	}
-	
-	
-	@Override
-	public ResponseEntity<UserEntityDTO> getUserById(Long userId) {
-		UserEntity user = userRepository.findOne(userId);
-		if (user == null) {
-			logger.debug("User with id " , userId , " does not exists");
-			return new ResponseEntity<UserEntityDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found User: " , user);
-		return new ResponseEntity<UserEntityDTO>((UserEntityDTO)convertToDto(user, UserEntityDTO.class), HttpStatus.OK);
-	}
-
-	
-	@Override
-	public ResponseEntity<List<UserEntityDTO>> getAllUsers() {
+	public List<UserDTO> getAllUsers() {
 		List<UserEntity> users = userRepository.findAll();
-		if (users.isEmpty()) {
-			logger.debug("Users does not exists");
-			return new ResponseEntity<List<UserEntityDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found ", users.size() , " Users");
-		logger.debug("Users ", users);
-		logger.debug(Arrays.toString(users.toArray()));
-		return new ResponseEntity<List<UserEntityDTO>>(convertToDtoList(users, List.class), HttpStatus.OK);
+		return userMapper.entityListToDtoList(users);
 	}
 
 	
 	@Override
-	public ResponseEntity<Void> deleteUser(Long userId) {
-		UserEntity user = userRepository.findOne(userId);
-		if (user == null) {
-			logger.debug("User with id " , userId , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userRepository.delete(userId);
-			logger.debug("User with id " , userId , " deleted");
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-	}
+	public void deleteUser(Long userId) {
+        checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
+
+        Optional.ofNullable(userRepository.findOne(userId))
+                .ifPresent(user -> {
+                    userRepository.delete(user);
+                    LOG.debug("Deleted User: {}", user);
+                });
+    }
 
 	
 	@Override
-	public ResponseEntity<Void> updateUser(UserEntityDTO userEntityDTO) {
-		UserEntity existingUser = userRepository.findOne(userEntityDTO.getUserId());
-		if (existingUser == null) {
-			logger.debug("User with id " , userEntityDTO.getUserId() , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userRepository.save((UserEntity)convertToEntity(userEntityDTO, UserEntity.class));
-			logger.debug("Updated: " , userEntityDTO);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-	}
+	public UserDTO updateUser(Long userId, UserDTO userDTO) {
+		checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
+		return Optional.ofNullable(userRepository.findOne(userId))
+                .map(user -> {
+                    BeanUtils.copyProperties(userDTO, user);
+                    LOG.debug("Changed Information for User: {}", user);
+                    return user;
+                })
+                .map(userMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
+    }
 
-	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
-	}
-
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
-	
 	
 }

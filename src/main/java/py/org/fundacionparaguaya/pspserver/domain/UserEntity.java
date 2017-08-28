@@ -1,5 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.domain;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,10 +59,7 @@ public class UserEntity extends BaseEntity {
 		this.active = active;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", pass=" + pass + ", active=" + active + "]";
-	}
+
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -76,4 +76,13 @@ public class UserEntity extends BaseEntity {
 		return userId == null ? 0 : userId.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("userId", userId)
+				.add("username", username)
+				.add("pass", pass)
+				.add("active", active)
+				.toString();
+	}
 }
