@@ -33,7 +33,8 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO> {
 
     @Override
     public UserDTO entityToDto(UserEntity entity) {
-        return modelMapper.map(entity, UserDTO.class);
+        UserDTO dto = modelMapper.map(entity, UserDTO.class);
+        return dto;
     }
 
     @Override
