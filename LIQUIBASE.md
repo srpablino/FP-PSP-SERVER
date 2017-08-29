@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// TODO In development
+=======
 # Introduction
 Liquibase is a framework written in Java used to manage and apply your sql files. Their website sports the tagline “source control for your database”, which might be a bit misleading. Liquibase is not a version control system like Git or Subversion. In fact it is meant to be used in tandem with a version control system. When you use Liquibase you will have a project, just like any old Java project, that contains your sql files. When you run this project Liquibase will install your changes to the database. You can also embed Liquibase (and your sql files) into an existing project, allowing your application to manage its own database. Liquibase is meant to bring the management and deployment of your sql files into the familiar developer realms of IDE’s, version control, and continuous integration.
 
@@ -85,3 +88,4 @@ To learn more about how to write change sets using the Liquibase format you can 
 
 
 
+>>>>>>> 7b8e7459eef193416cdba81eb0592d36ab2d630b
