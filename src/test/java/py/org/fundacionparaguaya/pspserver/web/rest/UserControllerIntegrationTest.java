@@ -15,12 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.PspServerApplication;
-import py.org.fundacionparaguaya.pspserver.security.user.controller.UserController;
-import py.org.fundacionparaguaya.pspserver.security.user.service.UserService;
+import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
-import py.org.fundacionparaguaya.pspserver.security.user.dto.UserDTO;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
-import py.org.fundacionparaguaya.pspserver.common.controller.ExceptionTranslatorAdvice;
 
 import java.util.Arrays;
 import java.util.List;

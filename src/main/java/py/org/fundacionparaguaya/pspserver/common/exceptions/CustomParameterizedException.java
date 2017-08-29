@@ -1,6 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.common.exceptions;
 
-import py.org.fundacionparaguaya.pspserver.common.dto.ParameterizedErrorDTO;
+import py.org.fundacionparaguaya.pspserver.common.dtos.ParameterizedErrorDTO;
 
 import java.util.HashMap;
 import java.util.Map;
