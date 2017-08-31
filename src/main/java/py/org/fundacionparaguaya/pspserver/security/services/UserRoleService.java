@@ -2,21 +2,20 @@ package py.org.fundacionparaguaya.pspserver.security.services;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
-import py.org.fundacionparaguaya.pspserver.common.services.BaseService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 
-public interface UserRoleService extends BaseService {
 
-	ResponseEntity<Void> updateUserRole(UserRoleDTO userRoleEntityDTO);
 
-	ResponseEntity<UserRoleDTO> addUserRole(UserRoleDTO userRoleEntityDTO);
+public interface UserRoleService {
 	
-	ResponseEntity<UserRoleDTO> getUserRoleById(Long userRoleId);
+	UserRoleDTO updateUserRole(Long userRoleId, UserRoleDTO userRoleDTO);
+
+	UserRoleDTO addUserRole(UserRoleDTO userRoleDTO);
 	
-	ResponseEntity<List<UserRoleDTO>> getAllUserRoles();
+	UserRoleDTO getUserRoleById(Long userRoleId);
 	
-	ResponseEntity<Void> deleteUserRole(Long userRoleId);
+	List<UserRoleDTO> getAllUserRoles();
+	
+	void deleteUserRole(Long userRoleId);
 	
 }

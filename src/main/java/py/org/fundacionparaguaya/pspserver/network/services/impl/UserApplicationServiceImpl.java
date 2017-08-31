@@ -1,107 +1,86 @@
 package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.network.dtos.UserApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.mapper.UserApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.UserApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.UserApplicationService;
+
 
 @Service
 public class UserApplicationServiceImpl implements UserApplicationService {
 
-	private Logger logger = LoggerFactory.getLogger(UserApplicationServiceImpl.class);
+	private Logger LOG = LoggerFactory.getLogger(UserApplicationServiceImpl.class);
 
 	private UserApplicationRepository userApplicationRepository;
 	
-	private ModelMapper modelMapper;
+	private final UserApplicationMapper userApplicationMapper;
 	
-	@Autowired
-	public UserApplicationServiceImpl(UserApplicationRepository userApplicationRepository, ModelMapper modelMapper) {
+	public UserApplicationServiceImpl(UserApplicationRepository userApplicationRepository, UserApplicationMapper userApplicationMapper) {
 		this.userApplicationRepository = userApplicationRepository;
-		this.modelMapper = modelMapper;
+		this.userApplicationMapper = userApplicationMapper;
 	}
 
 	@Override
-	public ResponseEntity<UserApplicationDTO> addUserApplication(UserApplicationDTO userApplicationEntityDTO) {
-		return new ResponseEntity<UserApplicationDTO>((UserApplicationDTO)
-				convertToDto(userApplicationRepository.save((UserApplicationEntity)
-				convertToEntity(userApplicationEntityDTO, UserApplicationEntity.class)), UserApplicationDTO.class),
-				HttpStatus.CREATED);
+	public UserApplicationDTO updateUserApplication(Long userApplicationId, UserApplicationDTO userApplicationDTO) {
+		checkArgument(userApplicationId > 0, "Argument was %s but expected nonnegative", userApplicationId);
+
+		return Optional.ofNullable(userApplicationRepository.findOne(userApplicationId))
+                .map(parameter -> {
+                    BeanUtils.copyProperties(userApplicationDTO, parameter);
+                    LOG.debug("Changed Information for User Application: {}", parameter);
+                    return parameter;
+                })
+                .map(userApplicationMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User Application does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<UserApplicationDTO> getUserApplicationById(Long userApplicationId) {
-		UserApplicationEntity userApplication = userApplicationRepository.findOne(userApplicationId);
-		if (userApplication == null) {
-			logger.debug("UserApplication with id " + userApplicationId + " does not exists");
-			return new ResponseEntity<UserApplicationDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found UserApplication:: " + userApplication);
-		return new ResponseEntity<UserApplicationDTO>((UserApplicationDTO)convertToDto(userApplication, UserApplicationDTO.class), HttpStatus.OK);
+	public UserApplicationDTO addUserApplication(UserApplicationDTO userApplicationDTO) {
+		UserApplicationEntity userApplication = new UserApplicationEntity();
+		BeanUtils.copyProperties(userApplicationDTO, userApplication);
+		UserApplicationEntity newUserApplication= userApplicationRepository.save(userApplication);
+		return userApplicationMapper.entityToDto(newUserApplication);
 	}
 
 	@Override
-	public ResponseEntity<List<UserApplicationDTO>> getAllUserApplications() {
-		List<UserApplicationEntity> userApplications = userApplicationRepository.findAll();
-		if (userApplications.isEmpty()) {
-			logger.debug("UserApplications does not exists");
-			return new ResponseEntity<List<UserApplicationDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found " + userApplications.size() + " UserApplications");
-		logger.debug(Arrays.toString(userApplications.toArray()));
-		return new ResponseEntity<List<UserApplicationDTO>>(convertToDtoList(userApplications, List.class), HttpStatus.OK);
+	public UserApplicationDTO getUserApplicationById(Long userApplicationId) {
+		checkArgument(userApplicationId > 0, "Argument was %s but expected nonnegative", userApplicationId);
+
+        return Optional.ofNullable(userApplicationRepository.findOne(userApplicationId))
+                .map(userApplicationMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User Application does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<Void> deleteUserApplication(Long userApplicationId) {
-		UserApplicationEntity userApplication = userApplicationRepository.findOne(userApplicationId);
-		if (userApplication == null) {
-			logger.debug("UserApplication with id " + userApplicationId + " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userApplicationRepository.delete(userApplicationId);
-			logger.debug("UserApplication with id " + userApplicationId + " deleted");
-			return new ResponseEntity<Void>(HttpStatus.GONE);
-		}
-	}
-
-	public ResponseEntity<Void> updateUserApplication(UserApplicationDTO userApplication){
-		UserApplicationEntity existingUserApplication = userApplicationRepository.findOne(userApplication.getUserApplicationId());
-		if (existingUserApplication == null) {
-			logger.debug("UserApplication with id " + userApplication.getUserApplicationId() + " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userApplicationRepository.save((UserApplicationEntity)convertToEntity(userApplication, UserApplicationEntity.class));
-			logger.debug("Updated:: " + userApplication);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+	public List<UserApplicationDTO> getAllUserApplications() {
+		List<UserApplicationEntity> userApplication = userApplicationRepository.findAll();
+		return userApplicationMapper.entityListToDtoList(userApplication);
 	}
 
 	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
+	public void deleteUserApplication(Long userApplicationId) {
+		checkArgument(userApplicationId > 0, "Argument was %s but expected nonnegative", userApplicationId);
+
+        Optional.ofNullable(userApplicationRepository.findOne(userApplicationId))
+                .ifPresent(userApplication -> {
+                	userApplicationRepository.delete(userApplication);
+                    LOG.debug("Deleted User Application: {}", userApplication);
+                });
+		
 	}
 
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
+	
 	
 }

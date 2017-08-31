@@ -2,20 +2,20 @@ package py.org.fundacionparaguaya.pspserver.families.services;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-import py.org.fundacionparaguaya.pspserver.common.services.BaseService;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 
-public interface FamilyService extends BaseService {
 
-	ResponseEntity<Void> updateFamily(FamilyDTO familyEntityDTO);
 
-	ResponseEntity<FamilyDTO> addFamily(FamilyDTO familyEntityDTO);
+public interface FamilyService {
+
+	FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO);
+
+	FamilyDTO addFamily(FamilyDTO familyDTO);
 	
-	ResponseEntity<FamilyDTO> getFamilyById(Long familyId);
+	FamilyDTO getFamilyById(Long familyId);
 	
-	ResponseEntity<List<FamilyDTO>> getAllFamilies();
+	List<FamilyDTO> getAllFamilies();
 	
-	ResponseEntity<Void> deleteFamily(Long familyId);
+	void deleteFamily(Long familyId);
 	
 }

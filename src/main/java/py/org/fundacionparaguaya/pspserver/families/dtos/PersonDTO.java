@@ -1,8 +1,9 @@
-package py.org.fundacionparaguaya.pspserver.families.entities;
+package py.org.fundacionparaguaya.pspserver.families.dtos;
 
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 
 public class PersonDTO {
 
