@@ -2,21 +2,20 @@ package py.org.fundacionparaguaya.pspserver.network.services;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
-
-import py.org.fundacionparaguaya.pspserver.common.services.BaseService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 
-public interface ApplicationService extends BaseService {
 
-	ResponseEntity<Void> updateApplication(ApplicationDTO applicationEntityDTO);
 
-	ResponseEntity<ApplicationDTO> addApplication(ApplicationDTO applicationEntityDTO);
+public interface ApplicationService {
+
+	ApplicationDTO updateApplication(Long applicationId, ApplicationDTO application);
+
+	ApplicationDTO addApplication(ApplicationDTO application);
 	
-	ResponseEntity<ApplicationDTO> getApplicationById(Long applicationId);
+	ApplicationDTO getApplicationById(Long applicationId);
 	
-	ResponseEntity<List<ApplicationDTO>> getAllApplications();
+	List<ApplicationDTO> getAllApplications();
 	
-	ResponseEntity<Void> deleteApplication(Long applicationId);	
+	void deleteApplication(Long applicationId);
 	
 }
