@@ -1,109 +1,85 @@
 package py.org.fundacionparaguaya.pspserver.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.service.dto.CityDTO;
 import py.org.fundacionparaguaya.pspserver.domain.CityEntity;
 import py.org.fundacionparaguaya.pspserver.repository.CityRepository;
 import py.org.fundacionparaguaya.pspserver.service.CityService;
+import py.org.fundacionparaguaya.pspserver.service.dto.CityDTO;
+import py.org.fundacionparaguaya.pspserver.service.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.service.mapper.CityMapper;
 
 @Service
 public class CityServiceImpl implements CityService {
 
-	private Logger logger = LoggerFactory.getLogger(CityServiceImpl.class);
+	private Logger LOG = LoggerFactory.getLogger(CityServiceImpl.class);
 
 	private CityRepository cityRepository;
 	
-	private ModelMapper modelMapper;
+	private final CityMapper cityMapper;
 	
-	@Autowired
-	public CityServiceImpl(CityRepository cityRepository, ModelMapper modelMapper) {
+	public CityServiceImpl(CityRepository cityRepository, CityMapper cityMapper) {
 		this.cityRepository = cityRepository;
-		this.modelMapper = modelMapper;
+		this.cityMapper = cityMapper;
 	}
 
 	@Override
-	public ResponseEntity<CityDTO> addCity(CityDTO cityEntityDTO) {
-		return new ResponseEntity<CityDTO>((CityDTO)
-				convertToDto(cityRepository.save((CityEntity)
-				convertToEntity(cityEntityDTO, CityEntity.class)), CityDTO.class),
-				HttpStatus.CREATED);
+	public CityDTO updateCity(Long cityId, CityDTO cityDTO) {
+		checkArgument(cityId > 0, "Argument was %s but expected nonnegative", cityId);
+
+		return Optional.ofNullable(cityRepository.findOne(cityId))
+                .map(city -> {
+                    BeanUtils.copyProperties(cityDTO, city);
+                    LOG.debug("Changed Information for City: {}", city);
+                    return city;
+                })
+                .map(cityMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("City does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<CityDTO>  getCityById(Long cityId) {
-		CityEntity cityEntity = cityRepository.findOne(cityId);
-		if (cityEntity == null) {
-			logger.debug("City with id " , cityId , " does not exists");
-			return new ResponseEntity<CityDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found City:: " , cityEntity);
-		return new ResponseEntity<CityDTO>((CityDTO)convertToDto(cityEntity, CityDTO.class), HttpStatus.OK);
+	public CityDTO addCity(CityDTO cityDTO) {
+		CityEntity city = new CityEntity();
+		BeanUtils.copyProperties(cityDTO, city);
+		CityEntity newCity = cityRepository.save(city);
+		return cityMapper.entityToDto(newCity);
 	}
 
 	@Override
-	public ResponseEntity<List<CityDTO>> getAllCities() {
+	public CityDTO getCityById(Long cityId) {
+		checkArgument(cityId > 0, "Argument was %s but expected nonnegative", cityId);
+
+        return Optional.ofNullable(cityRepository.findOne(cityId))
+                .map(cityMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("City does not exist"));
+	}
+
+	@Override
+	public List<CityDTO> getAllCities() {
 		List<CityEntity> cities = cityRepository.findAll();
-		if (cities.isEmpty()) {
-			logger.debug("Cities does not exists");
-			return new ResponseEntity<List<CityDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found  " , cities.size() , " Cities");
-		logger.debug("Cities " , cities);
-		logger.debug(Arrays.toString(cities.toArray()));
-		return new ResponseEntity<List<CityDTO>>(convertToDtoList(cities, List.class), HttpStatus.OK);
+		return cityMapper.entityListToDtoList(cities);
 	}
 
 	@Override
-	public ResponseEntity<Void> deleteCity(Long cityId) {
-		CityEntity city = cityRepository.findOne(cityId);
-		if (city == null) {
-			logger.debug("City with id " , cityId , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			cityRepository.delete(cityId);
-			logger.debug("City with id " , cityId , " deleted");
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+	public void deleteCity(Long cityId) {
+		checkArgument(cityId > 0, "Argument was %s but expected nonnegative", cityId);
+
+        Optional.ofNullable(cityRepository.findOne(cityId))
+                .ifPresent(city -> {
+                	cityRepository.delete(city);
+                    LOG.debug("Deleted City: {}", city);
+                });
+		
 	}
+
 	
-	@Override
-	public ResponseEntity<Void> updateCity(CityDTO cityEntityDTO){
-		CityEntity existingCity = cityRepository.findOne(cityEntityDTO.getCityId());
-		if (existingCity == null) {
-			logger.debug("City with id " , cityEntityDTO.getCityId() , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			cityRepository.save((CityEntity)convertToEntity(cityEntityDTO, CityEntity.class));
-			logger.debug("Updated:: " , cityEntityDTO);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
-	}
-
-	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
-	}
-
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
 
 }

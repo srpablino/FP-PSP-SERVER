@@ -1,78 +1,55 @@
 package py.org.fundacionparaguaya.pspserver.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.service.dto.CountryDTO;
 import py.org.fundacionparaguaya.pspserver.domain.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.repository.CountryRepository;
 import py.org.fundacionparaguaya.pspserver.service.CountryService;
+import py.org.fundacionparaguaya.pspserver.service.dto.CountryDTO;
+import py.org.fundacionparaguaya.pspserver.service.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.service.mapper.CountryMapper;
 
 @Service
 public class CountryServiceImpl implements CountryService {
 
-	private Logger logger = LoggerFactory.getLogger(CountryServiceImpl.class);
+	private Logger LOG = LoggerFactory.getLogger(CountryServiceImpl.class);
 
 	CountryRepository countryRepository;
 	
-	private ModelMapper modelMapper;
+	private final CountryMapper countryMapper;
 	
-	@Autowired
-	public CountryServiceImpl(CountryRepository countryRepository, ModelMapper modelMapper) {
+
+	public CountryServiceImpl(CountryRepository countryRepository, CountryMapper countryMapper) {
 		this.countryRepository = countryRepository;
-		this.modelMapper    = modelMapper;
+		this.countryMapper    = countryMapper;
+	}
+
+
+	@Override
+	public CountryDTO getCountryById(Long countryId) {
+		checkArgument(countryId > 0, "Argument was %s but expected nonnegative", countryId);
+
+        return Optional.ofNullable(countryRepository.findOne(countryId))
+                .map(countryMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("Country does not exist"));
+	}
+
+
+	@Override
+	public List<CountryDTO> getAllCountries() {
+		List<CountryEntity> applications = countryRepository.findAll();
+		return countryMapper.entityListToDtoList(applications);
 	}
 	
 	
-	@Override
-	public ResponseEntity<CountryDTO> getCountryById(Long countryId) {
-		CountryEntity country = countryRepository.findOne(countryId);
-		if (country == null) {
-			logger.debug("Country with id " , countryId , " does not exists");
-			return new ResponseEntity<CountryDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found Country:: " , country);
-		return new ResponseEntity<CountryDTO>((CountryDTO)convertToDto(country, CountryDTO.class), HttpStatus.OK);
-	}
-
-	@Override
-	public ResponseEntity<List<CountryDTO>> getAllCountries() {
-		List<CountryEntity> countries = countryRepository.findAll();
-		if (countries.isEmpty()) {
-			logger.debug("Countries does not exists");
-			return new ResponseEntity<List<CountryDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found " , countries.size() , " Countries");
-		logger.debug("Found " , countries);
-		logger.debug(Arrays.toString(countries.toArray()));
-		return new ResponseEntity<List<CountryDTO>>(convertToDtoList(countries, List.class), HttpStatus.OK);
-	}
-
-
-	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
-	}
-
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
+	
 
 
 }

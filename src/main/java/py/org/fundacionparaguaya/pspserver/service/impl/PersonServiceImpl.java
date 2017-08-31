@@ -1,111 +1,86 @@
 package py.org.fundacionparaguaya.pspserver.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.domain.PersonEntity;
-import py.org.fundacionparaguaya.pspserver.service.dto.PersonDTO;
 import py.org.fundacionparaguaya.pspserver.repository.PersonRepository;
 import py.org.fundacionparaguaya.pspserver.service.PersonService;
-import py.org.fundacionparaguaya.pspserver.web.rest.UserController;
+import py.org.fundacionparaguaya.pspserver.service.dto.PersonDTO;
+import py.org.fundacionparaguaya.pspserver.service.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.service.mapper.PersonMapper;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
+	private Logger LOG = LoggerFactory.getLogger(PersonServiceImpl.class);
 	
 	PersonRepository personRepository;
 
-	 private ModelMapper modelMapper;
+	 private PersonMapper personMapper;
 	
-	@Autowired
-	public PersonServiceImpl(PersonRepository personRepository, ModelMapper modelMapper) {
+	public PersonServiceImpl(PersonRepository personRepository, PersonMapper personMapper) {
 		this.personRepository = personRepository;
-		this.modelMapper = modelMapper;
+		this.personMapper = personMapper;
 	}
 
 	@Override
-	public ResponseEntity<PersonDTO> addPerson(PersonDTO personEntityDTO) {
-		return new ResponseEntity<PersonDTO>((PersonDTO)
-				convertToDto(personRepository.save((PersonEntity)
-				convertToEntity(personEntityDTO, PersonEntity.class)), PersonDTO.class),
-				HttpStatus.CREATED);
+	public PersonDTO updatePerson(Long personId, PersonDTO personDTO) {
+		checkArgument(personId > 0, "Argument was %s but expected nonnegative", personId);
+
+		return Optional.ofNullable(personRepository.findOne(personId))
+                .map(person -> {
+                    BeanUtils.copyProperties(personDTO, person);
+                    LOG.debug("Changed Information for Person: {}", person);
+                    return person;
+                })
+                .map(personMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("Person does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<PersonDTO> getPersonById(Long personId) {
-		PersonEntity person = personRepository.findOne(personId);
-		if (person == null) {
-			logger.debug("Person with id " , personId , " does not exists");
-			return new ResponseEntity<PersonDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found Person:: " , person);
-		return new ResponseEntity<PersonDTO>((PersonDTO)convertToDto(person, PersonDTO.class), HttpStatus.OK);
+	public PersonDTO addPerson(PersonDTO personDTO) {
+		PersonEntity person = new PersonEntity();
+		BeanUtils.copyProperties(personDTO, person);
+		PersonEntity newPerson = personRepository.save(person);
+		return personMapper.entityToDto(newPerson);
 	}
 
 	@Override
-	public ResponseEntity<List<PersonDTO>> getAllPeople() {
-		List<PersonEntity> people = personRepository.findAll();
-		if (people.isEmpty()) {
-			logger.debug("People does not exists");
-			return new ResponseEntity<List<PersonDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found  " , people.size() , " People");
-		logger.debug("People ", people);
-		logger.debug(Arrays.toString(people.toArray()));
-		return new ResponseEntity<List<PersonDTO>>(convertToDtoList(people, List.class), HttpStatus.OK);
+	public PersonDTO getPersonById(Long personId) {
+		checkArgument(personId > 0, "Argument was %s but expected nonnegative", personId);
+
+        return Optional.ofNullable(personRepository.findOne(personId))
+                .map(personMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("Person does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<Void> deletePerson(Long personId) {
-		PersonEntity person = personRepository.findOne(personId);
-		if (person == null) {
-			logger.debug("Person with id " , personId , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			personRepository.delete(personId);
-			logger.debug("Person with id " , personId , " deleted");
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+	public List<PersonDTO> getAllPeople() {
+		List<PersonEntity> peolpe = personRepository.findAll();
+		return personMapper.entityListToDtoList(peolpe);
 	}
 
 	@Override
-	public ResponseEntity<Void> updatePerson(PersonDTO personEntityDTO) {
-		PersonEntity existingPerson = personRepository.findOne(personEntityDTO.getPersonId());
-		if (existingPerson == null) {
-			logger.debug("Person with id " , personEntityDTO.getPersonId() , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			personRepository.save((PersonEntity)convertToEntity(personEntityDTO, PersonEntity.class));
-			logger.debug("Updated:: " , personEntityDTO);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+	public void deletePerson(Long personId) {
+		checkArgument(personId > 0, "Argument was %s but expected nonnegative", personId);
+
+        Optional.ofNullable(personRepository.findOne(personId))
+                .ifPresent(person -> {
+                	personRepository.delete(person);
+                    LOG.debug("Deleted Person: {}", person);
+                });
+		
 	}
 
-	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
-	}
-
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
+	
 	
 
 }
