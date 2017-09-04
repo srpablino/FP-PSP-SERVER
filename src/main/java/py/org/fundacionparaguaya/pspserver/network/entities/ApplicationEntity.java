@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.google.common.base.MoreObjects;
+
 @Entity
 @Table(name = "application", schema = "ps_network")
 public class ApplicationEntity extends BaseEntity {
@@ -34,11 +36,11 @@ public class ApplicationEntity extends BaseEntity {
 	
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
-	private CountryEntity countryEntity;
+	private CountryEntity country;
 	
 	@ManyToOne(targetEntity = CityEntity.class)
 	@JoinColumn(name = "city")
-	private CityEntity cityEntity;
+	private CityEntity city;
 	
 	private String information;
 	
@@ -87,19 +89,19 @@ public class ApplicationEntity extends BaseEntity {
 	}
 
 	public CountryEntity getCountry() {
-		return countryEntity;
+		return country;
 	}
 
 	public void setCountry(CountryEntity country) {
-		this.countryEntity = country;
+		this.country = country;
 	}
 
 	public CityEntity getCity() {
-		return cityEntity;
+		return city;
 	}
 
 	public void setCity(CityEntity city) {
-		this.cityEntity = city;
+		this.city = city;
 	}
 
 	public String getInformation() {
@@ -127,15 +129,6 @@ public class ApplicationEntity extends BaseEntity {
 	}
 
 	
-	
-	@Override
-	public String toString() {
-		return "ApplicationEntity [applicationId=" + applicationId + ", name=" + name + ", code=" + code
-				+ ", description=" + description + ", isActive=" + isActive + ", countryEntity=" + countryEntity
-				+ ", cityEntity=" + cityEntity + ", information=" + information + ", isHub=" + isHub + ", isDirect="
-				+ isDirect + "]";
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -151,4 +144,19 @@ public class ApplicationEntity extends BaseEntity {
 		return applicationId == null ? 0 : applicationId.hashCode();
 	}
 	
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("applicationId", applicationId)
+				.add("name", name)
+				.add("code", code)
+				.add("description", description)
+				.add("isActive", isActive)
+				.add("country", country.toString())
+				.add("city", city.toString())
+				.add("information", information)
+				.add("isHub", isHub)
+				.add("isDirect", isDirect)
+				.toString();
+	}
 }
