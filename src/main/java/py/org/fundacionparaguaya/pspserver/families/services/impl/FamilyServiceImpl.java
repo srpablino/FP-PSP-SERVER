@@ -17,8 +17,6 @@ import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 
-
-
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
@@ -26,7 +24,7 @@ public class FamilyServiceImpl implements FamilyService {
 
 	private FamilyRepository familyRepository;
 	
-	private FamilyMapper familyMapper;
+	private final FamilyMapper familyMapper;
 	
 	public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper) {
 		this.familyRepository = familyRepository;

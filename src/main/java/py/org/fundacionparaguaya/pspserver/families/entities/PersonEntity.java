@@ -13,6 +13,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.google.common.base.MoreObjects;
+
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
@@ -53,22 +55,22 @@ public class PersonEntity extends BaseEntity {
 	
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
-	private CountryEntity countryEntity;
+	private CountryEntity country;
 	
 	@ManyToOne(targetEntity = CityEntity.class)
 	@JoinColumn(name = "city")
-	private CityEntity cityEntity;
+	private CityEntity city;
 	
 	@ManyToOne(targetEntity = FamilyEntity.class)
 	@JoinColumn(name = "family_id")
-	private FamilyEntity familyEntity;
+	private FamilyEntity family;
 	
 	public FamilyEntity getFamily() {
-		return familyEntity;
+		return family;
 	}
 
 	public void setFamily(FamilyEntity family) {
-		this.familyEntity = family;
+		this.family = family;
 	}
 
 	public Long getPersonId() {
@@ -152,29 +154,19 @@ public class PersonEntity extends BaseEntity {
 	}
 
 	public CountryEntity getCountry() {
-		return countryEntity;
+		return country;
 	}
 
 	public void setCountry(CountryEntity country) {
-		this.countryEntity = country;
+		this.country = country;
 	}
 
 	public CityEntity getCity() {
-		return cityEntity;
+		return city;
 	}
 
 	public void setCity(CityEntity city) {
-		this.cityEntity = city;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "PersonEntity [personId=" + personId + ", name=" + name + ", lastname=" + lastname
-				+ ", identificationType=" + identificationType + ", identificationNumber=" + identificationNumber
-				+ ", personRole=" + personRole + ", gender=" + gender + ", activityPrimary=" + activityPrimary
-				+ ", activitySecundary=" + activitySecundary + ", phoneNumber=" + phoneNumber + ", countryEntity="
-				+ countryEntity + ", cityEntity=" + cityEntity + ", familyEntity=" + familyEntity + "]";
+		this.city = city;
 	}
 
 	@Override
@@ -190,6 +182,25 @@ public class PersonEntity extends BaseEntity {
 	@Override
 	public int hashCode() {
 		return personId == null ? 0 : personId.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("personId", personId)
+				.add("name", name)
+				.add("lastname", lastname)
+				.add("identificationType", identificationType)
+				.add("identificationNumber", identificationNumber)
+				.add("personRole", personRole)
+				.add("gender", gender)
+				.add("activityPrimary", activityPrimary)
+				.add("activitySecundary", activitySecundary)
+				.add("phoneNumber", phoneNumber)
+				.add("country", country.toString())
+				.add("city", city.toString())
+				.add("family", family.toString())
+				.toString();
 	}
 	
 }
