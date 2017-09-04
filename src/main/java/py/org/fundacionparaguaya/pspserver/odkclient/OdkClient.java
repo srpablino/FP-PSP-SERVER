@@ -2,18 +2,16 @@ package py.org.fundacionparaguaya.pspserver.odkclient;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.opendatakit.aggregate.odktables.rest.entity.OdkTablesFileManifest;
-import org.opendatakit.aggregate.odktables.rest.entity.RowList;
-import org.opendatakit.aggregate.odktables.rest.entity.RowOutcomeList;
-import org.opendatakit.aggregate.odktables.rest.entity.RowResource;
-import org.opendatakit.aggregate.odktables.rest.entity.RowResourceList;
-import org.opendatakit.aggregate.odktables.rest.entity.TableResource;
-import org.opendatakit.aggregate.odktables.rest.entity.TableResourceList;
+import org.opendatakit.aggregate.odktables.rest.entity.*;
 import org.opendatakit.api.forms.entity.FormUploadResult;
 import org.opendatakit.api.offices.entity.RegionalOffice;
 import org.opendatakit.api.users.entity.RoleDescription;
@@ -31,6 +29,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
+import static java.util.Collections.*;
 
 public class OdkClient {
 
@@ -428,5 +428,42 @@ public class OdkClient {
     public OdkClient authentication(Authentication authentication) {
         this.authentication = authentication;
         return this;
+    }
+
+    public Map<String, SurveyQuestion> getQuestionsDefinition(String tableId) {
+        OdkTablesFileManifest manifest = this.getTableManifest(tableId);
+        OdkTablesFileManifestEntry formDefEntry = null;
+        for (OdkTablesFileManifestEntry entry : manifest.getFiles()) {
+            if (entry.filename != null
+                    && entry.filename.toLowerCase().endsWith(GeneralConsts.FORMS_JSON_FILENAME.toLowerCase())) {
+                formDefEntry = entry;
+                break;
+            }
+        }
+        String jsonFormDefinition = this.getFormDefinition(formDefEntry.downloadUrl);
+        try {
+            JsonNode rootNode = new ObjectMapper().readValue(jsonFormDefinition, JsonNode.class);
+            logger.info("jsonFormDefinition:\n" + jsonFormDefinition);
+            return QuestionsUtils.getSurveyQuestionMap(rootNode);
+
+        } catch (JsonProcessingException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public List<ArrayList<DataKeyValue>> getQuestionsRows(String tableId) {
+        TableResource tableResource = this.getTableResource(tableId);
+
+        RowResourceList rowResourceList = this.getRowResourceList(tableId, tableResource.getSchemaETag(), "", true);
+
+        List<ArrayList<DataKeyValue>> collect = rowResourceList.getRows().stream()
+                .map(Row::getValues)
+                .collect(Collectors.toList());
+        return collect;
     }
 }
