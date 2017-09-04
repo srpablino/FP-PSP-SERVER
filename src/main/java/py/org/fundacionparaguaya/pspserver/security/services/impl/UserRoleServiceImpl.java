@@ -1,108 +1,86 @@
 package py.org.fundacionparaguaya.pspserver.security.services.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import org.modelmapper.ModelMapper;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
-import py.org.fundacionparaguaya.pspserver.security.repositories.UserRoleRepository;
+
+import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
+import py.org.fundacionparaguaya.pspserver.security.mapper.UserRoleMapper;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRoleRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.UserRoleService;
+
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 
-	private Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
+	private Logger LOG = LoggerFactory.getLogger(UserRoleServiceImpl.class);
 
 	private UserRoleRepository userRoleRepository;
 	
-	private ModelMapper modelMapper;
+	private UserRoleMapper userRoleMapper;
 
-	@Autowired
-	public UserRoleServiceImpl(UserRoleRepository userRoleRepository, ModelMapper modelMapper) {
+	public UserRoleServiceImpl(UserRoleRepository userRoleRepository, UserRoleMapper userRoleMapper) {
 		this.userRoleRepository = userRoleRepository;
-		this.modelMapper = modelMapper;
-	}
-	
-	@Override
-	public ResponseEntity<UserRoleDTO> addUserRole(UserRoleDTO userRoleEntityDTO) {
-		return new ResponseEntity<UserRoleDTO>((UserRoleDTO)
-				convertToDto(userRoleRepository.save((UserRoleEntity)
-				convertToEntity(userRoleEntityDTO, UserRoleEntity.class)), 
-				UserRoleDTO.class),
-				HttpStatus.CREATED);
+		this.userRoleMapper = userRoleMapper;
 	}
 
 	@Override
-	public ResponseEntity<UserRoleDTO> getUserRoleById(Long userRoleId) {
-		UserRoleEntity userRoleEntity = userRoleRepository.findOne(userRoleId);
-		if (userRoleEntity == null) {
-			logger.debug("User Role with id " , userRoleId , " does not exists");
-			return new ResponseEntity<UserRoleDTO>(HttpStatus.NOT_FOUND);
-		}
-		logger.debug("Found User Role: " , userRoleEntity);
-		return new ResponseEntity<UserRoleDTO>((UserRoleDTO)convertToDto(userRoleEntity, UserRoleDTO.class), HttpStatus.OK);
+	public UserRoleDTO updateUserRole(Long userRoleId, UserRoleDTO userRoleDTO) {
+		checkArgument(userRoleId > 0, "Argument was %s but expected nonnegative", userRoleId);
+
+		return Optional.ofNullable(userRoleRepository.findOne(userRoleId))
+                .map(userRole -> {
+                    BeanUtils.copyProperties(userRoleDTO, userRole);
+                    LOG.debug("Changed Information for User role: {}", userRole);
+                    return userRole;
+                })
+                .map(userRoleMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User role does not exist"));
 	}
 
 	@Override
-	public ResponseEntity<List<UserRoleDTO>> getAllUserRoles() {
-		List<UserRoleEntity> userRoles = userRoleRepository.findAll();
-		if (userRoles.isEmpty()) {
-			logger.debug("User Roles does not exists");
-			return new ResponseEntity<List<UserRoleDTO>>(HttpStatus.NO_CONTENT);
-		}
-		logger.debug("Found      " , userRoles.size() , " User Roles");
-		logger.debug("User Roles " , userRoles);
-		logger.debug(Arrays.toString(userRoles.toArray()));
-		return new ResponseEntity<List<UserRoleDTO>>(convertToDtoList(userRoles, List.class), HttpStatus.OK);
+	public UserRoleDTO addUserRole(UserRoleDTO userRoleDTO) {
+		UserRoleEntity userRole = new UserRoleEntity();
+		BeanUtils.copyProperties(userRoleDTO, userRole);
+		UserRoleEntity newUserRole= userRoleRepository.save(userRole);
+		return userRoleMapper.entityToDto(newUserRole);
 	}
 
 	@Override
-	public ResponseEntity<Void> deleteUserRole(Long userRoleId) {
-		UserRoleEntity userRole = userRoleRepository.findOne(userRoleId);
-		if (userRole == null) {
-			logger.debug("User with id " + userRoleId + " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userRoleRepository.delete(userRoleId);
-			logger.debug("User with id " + userRoleId + " deleted");
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+	public UserRoleDTO getUserRoleById(Long userRoleId) {
+		checkArgument(userRoleId > 0, "Argument was %s but expected nonnegative", userRoleId);
+
+        return Optional.ofNullable(userRoleRepository.findOne(userRoleId))
+                .map(userRoleMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User role does not exist"));
 	}
-	
-	public ResponseEntity<Void> updateUserRole(UserRoleDTO userRoleEntityDTO){
-		
-		UserRoleEntity existingUser = userRoleRepository.findOne(userRoleEntityDTO.getUserRoleId());
-		if (existingUser == null) {
-			logger.debug("User with id " , userRoleEntityDTO.getUserRoleId() , " does not exists");
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-		} else {
-			userRoleRepository.save((UserRoleEntity)convertToEntity(userRoleEntityDTO, UserRoleEntity.class));
-			logger.debug("Updated: " , userRoleEntityDTO);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}
+
+	@Override
+	public List<UserRoleDTO> getAllUserRoles() {
+		List<UserRoleEntity> userRole = userRoleRepository.findAll();
+		return userRoleMapper.entityListToDtoList(userRole);
+	}
+
+	@Override
+	public void deleteUserRole(Long userRoleId) {
+		checkArgument(userRoleId > 0, "Argument was %s but expected nonnegative", userRoleId);
+
+        Optional.ofNullable(userRoleRepository.findOne(userRoleId))
+                .ifPresent(userRole -> {
+                	userRoleRepository.delete(userRole);
+                    LOG.debug("Deleted User role: {}", userRole);
+                });
 		
 	}
-
-	@Override
-	public List convertToDtoList(List list, Class c) {
-		return (List) modelMapper.map(list, c);
-	}
-
-	@Override
-	public Object convertToDto(Object entity, Class c) {
-		 return modelMapper.map(entity, c);
-	}
-
-	@Override
-	public Object convertToEntity(Object entity, Class c) {
-		return  modelMapper.map(entity, c);
-	}
+	
+	
 
 }
