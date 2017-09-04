@@ -26,7 +26,7 @@ public class FamilyServiceImpl implements FamilyService {
 
 	private FamilyRepository familyRepository;
 	
-	private FamilyMapper familyMapper;
+	private final FamilyMapper familyMapper;
 	
 	public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper) {
 		this.familyRepository = familyRepository;

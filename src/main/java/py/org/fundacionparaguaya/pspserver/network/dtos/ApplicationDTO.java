@@ -31,7 +31,7 @@ public class ApplicationDTO {
 	public ApplicationDTO() {}
 	
 
-	public ApplicationDTO(Long applicationId, String name, String code, String description, boolean isActive,
+	private ApplicationDTO(Long applicationId, String name, String code, String description, boolean isActive,
 			CountryEntity country, CityEntity city, String information, boolean isHub, boolean isDirect) {
 		this.applicationId = applicationId;
 		this.name = name;
@@ -205,8 +205,8 @@ public class ApplicationDTO {
 				.add("code", code)
 				.add("description", description)
 				.add("isActive", isActive)
-				.add("country", country)
-				.add("city", city)
+				.add("country", country.toString())
+				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
 				.add("isDirect", isDirect)
