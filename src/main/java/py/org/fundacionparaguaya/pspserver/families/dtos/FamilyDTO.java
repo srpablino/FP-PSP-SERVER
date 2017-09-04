@@ -1,30 +1,105 @@
 package py.org.fundacionparaguaya.pspserver.families.dtos;
 
-import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+import javax.validation.constraints.NotNull;
+
+import com.google.common.base.MoreObjects;
+
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
 public class FamilyDTO {
 
 	private Long familyId;
 
+	@NotNull
 	private String name;
 
-	private CountryEntity country;
+	private CountryDTO country;
 
-	private CityEntity city;
+	private CityDTO city;
 
 	private String locationType;
 
 	private String locationPositionGps;
 
-	private PersonEntity personReferenceId;
+	private PersonDTO person;
 
-	private ApplicationEntity applicationId;
+	private ApplicationDTO application;
 
-	private OrganizationEntity organizationId;
+	private OrganizationDTO organization;
+	
+	public FamilyDTO(){}
+
+	private FamilyDTO(Long familyId, String name, CountryDTO country, CityDTO city, String locationType,
+			String locationPositionGps, PersonDTO person, ApplicationDTO application, OrganizationDTO organization) {
+		this.familyId = familyId;
+		this.name = name;
+		this.country = country;
+		this.city = city;
+		this.locationType = locationType;
+		this.locationPositionGps = locationPositionGps;
+		this.person = person;
+		this.application = application;
+		this.organization = organization;
+	}
+
+	public static class Builder {
+		private Long familyId;
+		private String name;
+		private CountryDTO country;
+		private CityDTO city;
+		private String locationType;
+		private String locationPositionGps;
+		private PersonDTO person;
+		private ApplicationDTO application;
+		private OrganizationDTO organization;
+		
+		public Builder familyId(Long familyId){
+			this.familyId = familyId;
+			return this;
+		}
+		public Builder name(String name){
+			this.name = name;
+			return this;
+		}
+		public Builder country(CountryDTO country){
+			this.country = country;
+			return this;
+		}
+		public Builder city(CityDTO city){
+			this.city = city;
+			return this;
+		}
+		public Builder locationType(String locationType){
+			this.locationType = locationType;
+			return this;
+		}
+		public Builder locationPositionGps(String locationPositionGps){
+			this.locationPositionGps = locationPositionGps;
+			return this;
+		}
+		public Builder person(PersonDTO person){
+			this.person = person;
+			return this;
+		}
+		public Builder application(ApplicationDTO application){
+			this.application = application;
+			return this;
+		}
+		public Builder organization(OrganizationDTO organization){
+			this.organization = organization;
+			return this;
+		}
+		public FamilyDTO build(){
+			return new FamilyDTO(familyId, name, country, city, locationType, locationPositionGps, person, application, organization);
+		}
+	}
+	
+	public static Builder builder(){
+		return new Builder();
+	}
 
 	public Long getFamilyId() {
 		return familyId;
@@ -42,19 +117,19 @@ public class FamilyDTO {
 		this.name = name;
 	}
 
-	public CountryEntity getCountry() {
+	public CountryDTO getCountry() {
 		return country;
 	}
 
-	public void setCountry(CountryEntity country) {
+	public void setCountry(CountryDTO country) {
 		this.country = country;
 	}
 
-	public CityEntity getCity() {
+	public CityDTO getCity() {
 		return city;
 	}
 
-	public void setCity(CityEntity city) {
+	public void setCity(CityDTO city) {
 		this.city = city;
 	}
 
@@ -74,28 +149,42 @@ public class FamilyDTO {
 		this.locationPositionGps = locationPositionGps;
 	}
 
-	public PersonEntity getPersonReferenceId() {
-		return personReferenceId;
+	public PersonDTO getPerson() {
+		return person;
 	}
 
-	public void setPersonReferenceId(PersonEntity personReferenceId) {
-		this.personReferenceId = personReferenceId;
+	public void setPerson(PersonDTO person) {
+		this.person = person;
 	}
 
-	public ApplicationEntity getApplicationId() {
-		return applicationId;
+	public ApplicationDTO getApplication() {
+		return application;
 	}
 
-	public void setApplicationId(ApplicationEntity applicationId) {
-		this.applicationId = applicationId;
+	public void setApplicationId(ApplicationDTO application) {
+		this.application = application;
 	}
 
-	public OrganizationEntity getOrganizationId() {
-		return organizationId;
+	public OrganizationDTO getOrganization() {
+		return organization;
 	}
 
-	public void setOrganizationId(OrganizationEntity organizationId) {
-		this.organizationId = organizationId;
+	public void setOrganizationId(OrganizationDTO organization) {
+		this.organization = organization;
 	}
-
+	
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("familyId", familyId)
+				.add("name", name)
+				.add("country", country)
+				.add("city", city.toString())
+				.add("locationType", locationType)
+				.add("locationPositionGps", locationPositionGps)
+				.add("person", person.toString())
+				.add("application", application.toString())
+				.add("organization", organization.toString())
+				.toString();
+	}
 }

@@ -257,9 +257,9 @@ public class PersonDTO {
 				.add("activityPrimary", activityPrimary)
 				.add("activitySecundary", activitySecundary)
 				.add("phoneNumber", phoneNumber)
-				.add("country", country)
-				.add("city", city)
-				.add("family", family)
+				.add("country", country.toString())
+				.add("city", city.toString())
+				.add("family", family.toString())
 				.toString();
 	}
 	

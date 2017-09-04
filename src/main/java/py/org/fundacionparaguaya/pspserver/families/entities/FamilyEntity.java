@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.google.common.base.MoreObjects;
+
 @Entity
 @Table(name = "family", schema = "ps_families")
 public class FamilyEntity extends BaseEntity {
@@ -30,11 +32,11 @@ public class FamilyEntity extends BaseEntity {
 
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
-	private CountryEntity countryEntity;
+	private CountryEntity country;
 
 	@ManyToOne(targetEntity = CityEntity.class)
 	@JoinColumn(name = "city")
-	private CityEntity cityEntity;
+	private CityEntity city;
 
 	private String locationType;
 
@@ -42,15 +44,15 @@ public class FamilyEntity extends BaseEntity {
 
 	@ManyToOne(targetEntity = PersonEntity.class)
 	@JoinColumn(name = "person_reference_id")
-	private PersonEntity personEntity;
+	private PersonEntity person;
 
 	@ManyToOne(targetEntity = ApplicationEntity.class)
 	@JoinColumn(name = "application_id")
-	private ApplicationEntity applicationEntity;
+	private ApplicationEntity application;
 
 	@ManyToOne(targetEntity = OrganizationEntity.class)
 	@JoinColumn(name = "organization_id")
-	private OrganizationEntity organizationEntity;
+	private OrganizationEntity organization;
 
 	public Long getFamilyId() {
 		return familyId;
@@ -69,19 +71,19 @@ public class FamilyEntity extends BaseEntity {
 	}
 
 	public CountryEntity getCountry() {
-		return countryEntity;
+		return country;
 	}
 
 	public void setCountry(CountryEntity country) {
-		this.countryEntity = country;
+		this.country= country;
 	}
 
 	public CityEntity getCity() {
-		return cityEntity;
+		return city;
 	}
 
 	public void setCity(CityEntity city) {
-		this.cityEntity = city;
+		this.city= city;
 	}
 
 	public String getLocationType() {
@@ -100,39 +102,31 @@ public class FamilyEntity extends BaseEntity {
 		this.locationPositionGps = locationPositionGps;
 	}
 
-	public PersonEntity getPersonReferenceId() {
-		return personEntity;
+	public PersonEntity getPerson() {
+		return person;
 	}
 
-	public void setPersonReferenceId(PersonEntity personReferenceId) {
-		this.personEntity = personReferenceId;
+	public void setPerson(PersonEntity person) {
+		this.person = person;
 	}
 
-	public ApplicationEntity getApplicationId() {
-		return applicationEntity;
+	public ApplicationEntity getApplication() {
+		return application;
 	}
 
-	public void setApplicationId(ApplicationEntity applicationId) {
-		this.applicationEntity = applicationId;
+	public void setApplication(ApplicationEntity application) {
+		this.application = application;
 	}
 
-	public OrganizationEntity getOrganizationId() {
-		return organizationEntity;
+	public OrganizationEntity getOrganization() {
+		return organization;
 	}
 
-	public void setOrganizationId(OrganizationEntity organizationId) {
-		this.organizationEntity = organizationId;
+	public void setOrganization(OrganizationEntity organization) {
+		this.organization = organization;
 	}
 
 	
-	@Override
-	public String toString() {
-		return "FamilyEntity [familyId=" + familyId + ", name=" + name + ", countryEntity=" + countryEntity
-				+ ", cityEntity=" + cityEntity + ", locationType=" + locationType + ", locationPositionGps="
-				+ locationPositionGps + ", personEntity=" + personEntity + ", applicationEntity=" + applicationEntity
-				+ ", organizationEntity=" + organizationEntity + "]";
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -148,5 +142,18 @@ public class FamilyEntity extends BaseEntity {
 		return familyId == null ? 0 : familyId.hashCode();
 	}
 
-
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("familyId", familyId)
+				.add("name", name)
+				.add("country", country.toString())
+				.add("city", city.toString())
+				.add("locationType", locationType)
+				.add("locationPositionGps", locationPositionGps)
+				.add("person", person.toString())
+				.add("application", application.toString())
+				.add("organization", organization.toString())
+				.toString();
+	}
 }
