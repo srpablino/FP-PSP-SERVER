@@ -1,14 +1,17 @@
 package py.org.fundacionparaguaya.pspserver.network.dtos;
 
+import javax.validation.constraints.NotNull;
+
 import com.google.common.base.MoreObjects;
 
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
 public class ApplicationDTO {
 
 	private Long applicationId;
 	
+	@NotNull
 	private String name;
 	
 	private String code;
@@ -17,9 +20,9 @@ public class ApplicationDTO {
 	
 	private boolean isActive;
 	
-	private CountryEntity country;
+	private CountryDTO country;
 	
-	private CityEntity city;
+	private CityDTO city;
 	
 	private String information;
 	
@@ -32,7 +35,7 @@ public class ApplicationDTO {
 	
 
 	private ApplicationDTO(Long applicationId, String name, String code, String description, boolean isActive,
-			CountryEntity country, CityEntity city, String information, boolean isHub, boolean isDirect) {
+			CountryDTO country, CityDTO city, String information, boolean isHub, boolean isDirect) {
 		this.applicationId = applicationId;
 		this.name = name;
 		this.code = code;
@@ -51,8 +54,8 @@ public class ApplicationDTO {
 		private String code;
 		private String description;
 		private boolean isActive;
-		private CountryEntity country;
-		private CityEntity city;
+		private CountryDTO country;
+		private CityDTO city;
 		private String information;
 		private boolean isHub;
 		private boolean isDirect;
@@ -82,12 +85,12 @@ public class ApplicationDTO {
 			return this;
 		}
 		
-		public Builder country(CountryEntity country) {
+		public Builder country(CountryDTO country) {
 			this.country = country;
 			return this;
 		}
 
-		public Builder city(CityEntity city) {
+		public Builder city(CityDTO city) {
 			this.city = city;
 			return this;
 		}
@@ -157,19 +160,19 @@ public class ApplicationDTO {
 		this.isActive = isActive;
 	}
 
-	public CountryEntity getCountry() {
+	public CountryDTO getCountry() {
 		return country;
 	}
 
-	public void setCountry(CountryEntity country) {
+	public void setCountry(CountryDTO country) {
 		this.country = country;
 	}
 
-	public CityEntity getCity() {
+	public CityDTO getCity() {
 		return city;
 	}
 
-	public void setCity(CityEntity city) {
+	public void setCity(CityDTO city) {
 		this.city = city;
 	}
 
