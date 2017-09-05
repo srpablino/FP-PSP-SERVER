@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.google.common.base.MoreObjects;
+
 @Entity
 @Table(name = "organization", schema = "ps_network")
 public class OrganizationEntity {
@@ -32,13 +34,13 @@ public class OrganizationEntity {
 
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
-	private CountryEntity countryEntity;
+	private CountryEntity country;
 
 	private String information;
 
 	@ManyToOne(targetEntity = ApplicationEntity.class)
 	@JoinColumn(name = "application_id")
-	private ApplicationEntity applicationEntity;
+	private ApplicationEntity application;
 
 	public Long getOrganizationId() {
 		return organizationId;
@@ -81,11 +83,11 @@ public class OrganizationEntity {
 	}
 
 	public CountryEntity getCountry() {
-		return countryEntity;
+		return country;
 	}
 
 	public void setCountry(CountryEntity country) {
-		this.countryEntity = country;
+		this.country = country;
 	}
 
 	public String getInformation() {
@@ -96,23 +98,15 @@ public class OrganizationEntity {
 		this.information = information;
 	}
 
-	public ApplicationEntity getApplicationId() {
-		return applicationEntity;
+	public ApplicationEntity getApplication() {
+		return application;
 	}
 
-	public void setApplicationId(ApplicationEntity applicationId) {
-		this.applicationEntity = applicationId;
+	public void setApplication(ApplicationEntity application) {
+		this.application = application;
 	}
 
 	
-
-	@Override
-	public String toString() {
-		return "OrganizationEntity [organizationId=" + organizationId + ", name=" + name + ", code=" + code
-				+ ", description=" + description + ", isActive=" + isActive + ", countryEntity=" + countryEntity
-				+ ", information=" + information + ", applicationEntity=" + applicationEntity + "]";
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,5 +121,20 @@ public class OrganizationEntity {
 	public int hashCode() {
 		return organizationId == null ? 0 : organizationId.hashCode();
 	}
+	
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("organizationId", organizationId)
+				.add("name", name)
+				.add("code", code)
+				.add("description", description)
+				.add("isActive", isActive)
+				.add("country", country.toString())
+				.add("information", information)
+				.add("application", application.toString())
+				.toString();
+	}
+
 	
 }

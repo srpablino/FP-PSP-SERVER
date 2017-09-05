@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 
 
 @RestController
@@ -45,11 +46,11 @@ public class OrganizationController {
 	
 	
 	@PutMapping("/{organizationId}")
-	public ResponseEntity<OrganizationDTO> updateOrganization(@PathVariable("organizationId") Long organizationId, @RequestBody OrganizationDTO organizationDTO) {
+	public ResponseEntity<OrganizationDTO> updateOrganization(@PathVariable("organizationId") long organizationId, @RequestBody OrganizationDTO organizationDTO) {
 		OrganizationDTO result = organizationService.updateOrganization(organizationId, organizationDTO);
 		return ResponseEntity.ok(result);
 	}
-
+	
 	
 	@GetMapping("/{organizationId}")
 	public ResponseEntity<OrganizationDTO> getOrganizationById(@PathVariable("organizationId") Long organizationId) {
