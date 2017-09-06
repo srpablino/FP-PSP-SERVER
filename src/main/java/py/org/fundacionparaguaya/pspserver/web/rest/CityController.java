@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.services.CityService;
 
-
-
 @RestController
 @RequestMapping(value = "/api/v1/cities")
 public class CityController {
@@ -34,7 +32,6 @@ public class CityController {
 	public CityController(CityService cityService) {
 		this.cityService = cityService;
 	}
-	
 	
 	@PostMapping()
 	public ResponseEntity<CityDTO> addCity(@Valid @RequestBody CityDTO cityDTO) throws URISyntaxException {

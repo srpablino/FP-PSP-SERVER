@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ParameterDTO;
 import py.org.fundacionparaguaya.pspserver.system.services.ParameterService;
 
-
-
 @RestController
 @RequestMapping(value = "/api/v1/parameters")
 public class ParameterController {
@@ -60,7 +58,7 @@ public class ParameterController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<ParameterDTO>> getAllCities() {
+	public ResponseEntity<List<ParameterDTO>> getAllParameters() {
 		List<ParameterDTO> parameters = parameterService.getAllParameters();
 		return ResponseEntity.ok(parameters);
 	}

@@ -59,7 +59,7 @@ public class OrganizationController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<OrganizationDTO>> getAllCities() {
+	public ResponseEntity<List<OrganizationDTO>> getAllOrganizations() {
 		List<OrganizationDTO> organizations = organizationService.getAllOrganizations();
 		return ResponseEntity.ok(organizations);
 	}

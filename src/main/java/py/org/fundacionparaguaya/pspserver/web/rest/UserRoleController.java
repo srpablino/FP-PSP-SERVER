@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 import py.org.fundacionparaguaya.pspserver.security.services.UserRoleService;
 
-
 @RestController
 @RequestMapping(value = "/api/v1/user-roles")
 public class UserRoleController {
@@ -30,9 +28,7 @@ public class UserRoleController {
 	private static final Logger LOG = LoggerFactory.getLogger(UserRoleController.class);
 	
 	private UserRoleService userRoleService;
-
 	
-	@Autowired
 	public UserRoleController(UserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}
@@ -60,7 +56,7 @@ public class UserRoleController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<UserRoleDTO>> getAllCities() {
+	public ResponseEntity<List<UserRoleDTO>> getAllUserRoles() {
 		List<UserRoleDTO> userRoles = userRoleService.getAllUserRoles();
 		return ResponseEntity.ok(userRoles);
 	}
