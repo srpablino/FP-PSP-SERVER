@@ -1,8 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.families.dtos;
 
+import javax.validation.constraints.NotNull;
+
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO.Builder;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
@@ -10,6 +13,7 @@ public class PersonDTO {
 
 	private Long personId;
 	
+	@NotNull
 	private String name;
 	
 	private String lastname;
@@ -138,6 +142,10 @@ public class PersonDTO {
 			return new PersonDTO(personId, name, lastname, identificationType, identificationNumber, personRole, gender, activityPrimary, activitySecundary, phoneNumber, country, city, family);
 		}
 		
+	}
+	
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public Long getPersonId() {

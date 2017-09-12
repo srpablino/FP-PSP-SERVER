@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 
-
 @RestController
 @RequestMapping(value = "/api/v1/applications")
 public class ApplicationController {
@@ -33,7 +32,6 @@ public class ApplicationController {
 	public ApplicationController(ApplicationService applicationService) {
 		this.applicationService = applicationService;
 	}
-	
 	
 	@PostMapping()
 	public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO) throws URISyntaxException {

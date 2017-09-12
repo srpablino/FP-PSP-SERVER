@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +30,9 @@ public class UserApplicationController {
 	
 	private UserApplicationService userApplicationService;
 	
-	
-	@Autowired
 	public UserApplicationController(UserApplicationService userApplicationService) {
 		this.userApplicationService = userApplicationService;
 	}
-	
 	
 	@PostMapping()
 	public ResponseEntity<UserApplicationDTO> addApplication(@Valid @RequestBody UserApplicationDTO userApplicationDTO) throws URISyntaxException {
@@ -44,7 +40,6 @@ public class UserApplicationController {
 		return ResponseEntity.created(new URI("/api/v1/user-applications/" + result.getUserApplicationId()))
 				.body(result);
 	}
-	
 	
 	@PutMapping("/{userApplicationId}")
 	public ResponseEntity<UserApplicationDTO> updateUserApplication(@PathVariable("userApplicationId") Long userApplicationId, @RequestBody UserApplicationDTO userApplicationDTO) {
@@ -61,7 +56,7 @@ public class UserApplicationController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<UserApplicationDTO>> getAllCities() {
+	public ResponseEntity<List<UserApplicationDTO>> getAllUserApplications() {
 		List<UserApplicationDTO> userApplications = userApplicationService.getAllUserApplications();
 		return ResponseEntity.ok(userApplications);
 	}

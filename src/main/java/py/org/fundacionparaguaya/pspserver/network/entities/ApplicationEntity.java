@@ -1,9 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.network.entities;
 
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
-import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +12,12 @@ import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
 
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+
 @Entity
 @Table(name = "application", schema = "ps_network")
-public class ApplicationEntity extends BaseEntity {
+public class ApplicationEntity  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ps_network.application_application_id_seq")

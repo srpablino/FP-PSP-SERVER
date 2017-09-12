@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.network.dtos;
 
+import javax.validation.constraints.NotNull;
+
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
@@ -8,6 +10,7 @@ public class OrganizationDTO {
 
 	private Long organizationId;
 
+	@NotNull
 	private String name;
 
 	private Integer code;
@@ -91,6 +94,10 @@ public class OrganizationDTO {
 		public OrganizationDTO build() {
 			return new OrganizationDTO(organizationId, name, code, description, isActive, country, information, application);
 		}
+	}
+	
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public Long getOrganizationId() {
@@ -180,9 +187,9 @@ public class OrganizationDTO {
 				.add("code", code)
 				.add("description", description)
 				.add("isActive", isActive)
-				.add("country", country)
+				.add("country", country.toString())
 				.add("information", information)
-				.add("application", application)
+				.add("application", application.toString())
 				.toString();
 	}
 

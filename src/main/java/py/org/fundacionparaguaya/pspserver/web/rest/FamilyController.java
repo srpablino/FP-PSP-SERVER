@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 
-
 @RestController
 @RequestMapping(value = "/api/v1/families")
 public class FamilyController {
@@ -57,7 +56,7 @@ public class FamilyController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<FamilyDTO>> getAllCities() {
+	public ResponseEntity<List<FamilyDTO>> getAllFamilies() {
 		List<FamilyDTO> families = familyService.getAllFamilies();
 		return ResponseEntity.ok(families);
 	}
