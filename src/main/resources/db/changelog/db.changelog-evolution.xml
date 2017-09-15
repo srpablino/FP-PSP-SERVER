@@ -30,11 +30,17 @@
     <changeSet id="2017-08-31T11:30" author="nvaldez">
        <sqlFile path="sql/2017-08-31T11:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
-      <!--
+
+    <!--
     Deletes "task_tracking_ancestor" column from table survey.task_tracking and adds "created_date" in the same table
     -->
     <changeSet id="2017-08-31T10:00" author="nvaldez">
        <sqlFile path="sql/2017-08-31T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Adds tables to store surveys instances -->
+    <changeSet id="2017-09-15T08:30" author="rvillalba">
+        <sqlFile path="sql/2017-09-15T08:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>

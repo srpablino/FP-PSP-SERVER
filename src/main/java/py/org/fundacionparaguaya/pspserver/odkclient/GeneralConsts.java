@@ -18,4 +18,9 @@ public class GeneralConsts {
 
     public static final String FORMS_JSON_FILENAME = "formDef.json";
 
+
+    // Hardcoded constants to test the ODK server
+    public static final String DEFAULT_TABLE_ID = "hamsterball";
+    public static final String DEFAULT_TABLE_COLUMN_MOVIE = "movie";
+    public static final String DEFAULT_TABLE_COLUMN_NAME = "name";
 }

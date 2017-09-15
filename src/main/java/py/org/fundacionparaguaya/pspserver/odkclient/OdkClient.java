@@ -461,7 +461,8 @@ public class OdkClient {
 
         RowResourceList rowResourceList = this.getRowResourceList(tableId, tableResource.getSchemaETag(), "", true);
 
-        List<ArrayList<DataKeyValue>> collect = rowResourceList.getRows().stream()
+        List<ArrayList<DataKeyValue>> collect = rowResourceList.getRows()
+                .stream()
                 .map(Row::getValues)
                 .collect(Collectors.toList());
         return collect;
