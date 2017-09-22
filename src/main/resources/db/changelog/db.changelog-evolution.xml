@@ -37,4 +37,11 @@
        <sqlFile path="sql/2017-08-31T10:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--
+    It changes the name of the 'is_direct' table from the schema 'ps_network' to 'is_organization'
+    -->
+    <changeSet id="2017-09-22T12:00" author="nvaldez"> 
+	    <sqlFile path="sql/2017-09-22T12:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

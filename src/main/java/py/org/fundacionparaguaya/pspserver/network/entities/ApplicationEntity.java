@@ -45,7 +45,7 @@ public class ApplicationEntity  {
 	
 	private boolean isHub;
 	
-	private boolean isDirect;
+	private boolean isOrganization;
 
 	public Long getApplicationId() {
 		return applicationId;
@@ -119,12 +119,12 @@ public class ApplicationEntity  {
 		this.isHub = isHub;
 	}
 
-	public boolean isDirect() {
-		return isDirect;
+	public boolean isOrganization() {
+		return isOrganization;
 	}
 
-	public void setDirect(boolean isDirect) {
-		this.isDirect = isDirect;
+	public void setDirect(boolean isOrganization) {
+		this.isOrganization = isOrganization;
 	}
 
 	
@@ -155,7 +155,7 @@ public class ApplicationEntity  {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isDirect", isDirect)
+				.add("isOrganization", isOrganization)
 				.toString();
 	}
 }

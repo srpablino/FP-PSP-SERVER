@@ -28,14 +28,14 @@ public class ApplicationDTO {
 	
 	private boolean isHub;
 	
-	private boolean isDirect;
+	private boolean isOrganization;
 	
 	
 	public ApplicationDTO() {}
 	
 
 	private ApplicationDTO(Long applicationId, String name, String code, String description, boolean isActive,
-			CountryDTO country, CityDTO city, String information, boolean isHub, boolean isDirect) {
+			CountryDTO country, CityDTO city, String information, boolean isHub, boolean isOrganization) {
 		this.applicationId = applicationId;
 		this.name = name;
 		this.code = code;
@@ -45,7 +45,7 @@ public class ApplicationDTO {
 		this.city = city;
 		this.information = information;
 		this.isHub = isHub;
-		this.isDirect = isDirect;
+		this.isOrganization = isOrganization;
 	}
 
 	public static class Builder {
@@ -58,7 +58,7 @@ public class ApplicationDTO {
 		private CityDTO city;
 		private String information;
 		private boolean isHub;
-		private boolean isDirect;
+		private boolean isOrganization;
 		
 		public Builder applicationId(Long applicationId) {
 			this.applicationId = applicationId;
@@ -105,13 +105,13 @@ public class ApplicationDTO {
 			return this;
 		}
 		
-		public Builder isDirect(boolean isDirect) {
-			this.isDirect = isDirect;
+		public Builder isOrganization(boolean isOrganization) {
+			this.isOrganization = isOrganization;
 			return this;
 		}
 		
 		public ApplicationDTO build() {
-			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub,  isDirect);
+			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub,  isOrganization);
 		}
 		
 	}
@@ -192,12 +192,12 @@ public class ApplicationDTO {
 		this.isHub = isHub;
 	}
 
-	public boolean isDirect() {
-		return isDirect;
+	public boolean isOrganization() {
+		return isOrganization;
 	}
 
-	public void setDirect(boolean isDirect) {
-		this.isDirect = isDirect;
+	public void setDirect(boolean isOrganization) {
+		this.isOrganization = isOrganization;
 	}
 	
 	@Override
@@ -212,7 +212,7 @@ public class ApplicationDTO {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isDirect", isDirect)
+				.add("isOrganization", isOrganization)
 				.toString();
 	}
 
