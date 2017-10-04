@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
+import com.google.common.base.MoreObjects;
+
 public class ActivityDTO {
 
     private Long activityId;
@@ -9,6 +11,68 @@ public class ActivityDTO {
     private Long organizationId;
     private Long applicationId;
     private String createAt;
+
+    public ActivityDTO(){}
+
+    private ActivityDTO(Long activityId, Long userId, String activityType, String description,
+                            Long organizationId, Long applicationId, String createAt){
+        this.activityId = activityId;
+        this.userId = userId;
+        this.activityType = activityType;
+        this.description = description;
+        this.organizationId = organizationId;
+        this.applicationId = applicationId;
+        this.createAt = createAt;
+    }
+
+    public static class Builder{
+        private Long activityId;
+        private Long userId;
+        private String activityType;
+        private String description;
+        private Long organizationId;
+        private Long applicationId;
+        private String createAt;
+
+        public Builder activityId(Long activityId){
+            this.activityId = activityId;
+            return this;
+        }
+
+        public Builder userId(Long userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder activityType(String activityType) {
+            this.activityId = activityId;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder organizationId(Long organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        public Builder applicationId(Long applicationId) {
+            this.applicationId = applicationId;
+            return this;
+        }
+
+        public Builder createAt(String createAt){
+            this.createAt = createAt;
+            return this;
+        }
+
+        public ActivityDTO build() {
+            return new ActivityDTO(activityId, userId, activityType, description, organizationId, applicationId, createAt);
+        }
+    }
 
     public Long getActivityId () { return activityId; }
     public void setActivityId (Long activityId) { this.activityId = activityId; }
@@ -30,4 +94,17 @@ public class ActivityDTO {
 
     public String getCreateAt() { return createAt; }
     public void setCreateAt(String createAt) { this.createAt = createAt; }
+
+    @Override
+    public String toString(){
+        return MoreObjects.toStringHelper(this)
+                .add("activityId", activityId)
+                .add("userId", userId)
+                .add("activityType", activityType)
+                .add("description", description)
+                .add("organizationId", organizationId)
+                .add("applicationId", applicationId)
+                .add("createAt", createAt)
+                .toString();
+    }
 }
