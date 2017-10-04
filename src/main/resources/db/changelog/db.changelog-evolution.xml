@@ -58,4 +58,11 @@
         <sqlFile path="sql/2017-09-26T12:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--
+    Change the "task_tracking" concept to "intervention_tracking" in the 'task_tracking' table from the schema 'survey'
+    -->
+    <changeSet id="2017-09-25T11:30" author="nvaldez">
+        <sqlFile path="sql/2017-09-25T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
