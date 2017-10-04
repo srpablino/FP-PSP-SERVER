@@ -45,7 +45,7 @@ public class ActivityDTO {
         }
 
         public Builder activityType(String activityType) {
-            this.activityId = activityId;
+            this.activityType = activityType;
             return this;
         }
 
@@ -73,6 +73,7 @@ public class ActivityDTO {
             return new ActivityDTO(activityId, userId, activityType, description, organizationId, applicationId, createAt);
         }
     }
+
 
     public Long getActivityId () { return activityId; }
     public void setActivityId (Long activityId) { this.activityId = activityId; }
