@@ -1,8 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.forms.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import py.org.fundacionparaguaya.pspserver.forms.entities.OdkTableReference;
 
 import java.util.List;
 
@@ -11,9 +11,12 @@ import java.util.List;
  */
 public class SurveySocioEconomicDTO {
 
-    private final OdkTableReference odkTableReference;
+    private OdkRowReferenceDTO odkRowReferenceDTO;
 
-    private final List<SurveyIndicatorDTO> indicators;
+    private List<SurveyIndicatorDTO> indicators;
+
+    @JsonIgnore
+    private Long surveyId;
 
     private String zona;
 
@@ -23,12 +26,17 @@ public class SurveySocioEconomicDTO {
 
     private Double salarioMensual;
 
-    SurveySocioEconomicDTO(String zona, String acteconomicaPrimaria, String actEconomicaSecundaria, Double salarioMensual, OdkTableReference odkTableReference, List<SurveyIndicatorDTO> indicators) {
+
+    public SurveySocioEconomicDTO() {
+
+    }
+
+    SurveySocioEconomicDTO(String zona, String acteconomicaPrimaria, String actEconomicaSecundaria, Double salarioMensual, OdkRowReferenceDTO odkRowReferenceDTO, List<SurveyIndicatorDTO> indicators) {
         this.zona = zona;
         this.acteconomicaPrimaria = acteconomicaPrimaria;
         this.actEconomicaSecundaria = actEconomicaSecundaria;
         this.salarioMensual = salarioMensual;
-        this.odkTableReference = odkTableReference;
+        this.odkRowReferenceDTO = odkRowReferenceDTO;
         this.indicators = indicators;
     }
 
@@ -40,8 +48,8 @@ public class SurveySocioEconomicDTO {
         return indicators;
     }
 
-    public OdkTableReference getOdkTableReference() {
-        return odkTableReference;
+    public OdkRowReferenceDTO getOdkRowReferenceDTO() {
+        return odkRowReferenceDTO;
     }
 
 
@@ -52,7 +60,7 @@ public class SurveySocioEconomicDTO {
 
         SurveySocioEconomicDTO that = (SurveySocioEconomicDTO) o;
 
-        return Objects.equal(this.odkTableReference, that.odkTableReference) &&
+        return Objects.equal(this.odkRowReferenceDTO, that.odkRowReferenceDTO) &&
                 Objects.equal(this.indicators, that.indicators) &&
                 Objects.equal(this.zona, that.zona) &&
                 Objects.equal(this.acteconomicaPrimaria, that.acteconomicaPrimaria) &&
@@ -62,19 +70,27 @@ public class SurveySocioEconomicDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(odkTableReference, indicators, zona, acteconomicaPrimaria, actEconomicaSecundaria, salarioMensual);
+        return Objects.hashCode(odkRowReferenceDTO, indicators, zona, acteconomicaPrimaria, actEconomicaSecundaria, salarioMensual);
     }
 
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("odkTableReference", odkTableReference)
+                .add("odkRowReferenceDTO", odkRowReferenceDTO)
                 .add("indicators", indicators)
                 .add("zona", zona)
                 .add("acteconomicaPrimaria", acteconomicaPrimaria)
                 .add("actEconomicaSecundaria", actEconomicaSecundaria)
                 .add("salarioMensual", salarioMensual)
                 .toString();
+    }
+
+    public Double getSalarioMensual() {
+        return salarioMensual;
+    }
+
+    public Long getSurveyId() {
+        return surveyId;
     }
 }

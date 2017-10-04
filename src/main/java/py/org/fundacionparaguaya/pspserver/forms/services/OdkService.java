@@ -1,8 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.forms.services;
 
 import org.opendatakit.aggregate.odktables.rest.entity.RowOutcomeList;
+import org.opendatakit.aggregate.odktables.rest.entity.RowResource;
+import org.opendatakit.aggregate.odktables.rest.entity.RowResourceList;
 import py.org.fundacionparaguaya.pspserver.forms.dtos.SurveyIndicatorDTO;
-import py.org.fundacionparaguaya.pspserver.forms.entities.OdkTableReference;
+import py.org.fundacionparaguaya.pspserver.forms.dtos.OdkRowReferenceDTO;
+import py.org.fundacionparaguaya.pspserver.forms.dtos.SurveySocioEconomicDTO;
 
 import java.util.List;
 
@@ -11,5 +14,11 @@ import java.util.List;
  */
 public interface OdkService {
 
-    RowOutcomeList addNewAnsweredQuestion(OdkTableReference reference, List<SurveyIndicatorDTO> indicators);
+    RowOutcomeList addNewAnsweredQuestion(OdkRowReferenceDTO reference, List<SurveyIndicatorDTO> indicators);
+
+    RowResource findIndicator(OdkRowReferenceDTO odkRowReferenceDTO);
+
+    RowResourceList findIndicatorsBy(OdkRowReferenceDTO reference, List<SurveyIndicatorDTO> indicators);
+
+    OdkRowReferenceDTO fetchOdkTableRerefence(SurveySocioEconomicDTO dto);
 }

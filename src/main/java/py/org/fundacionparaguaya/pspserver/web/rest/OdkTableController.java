@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * Created by rodrigovillalba on 9/1/17.
  */
 @RestController
-public class FormsController {
+public class OdkTableController {
 
 
     private final OdkClient odkClient;
@@ -34,12 +34,12 @@ public class FormsController {
     private final AuthenticationProvider authenticationProvider;
 
 
-    public FormsController(OdkClient odkClient, AuthenticationProvider authenticationProvider) {
+    public OdkTableController(OdkClient odkClient, AuthenticationProvider authenticationProvider) {
         this.odkClient = odkClient;
         this.authenticationProvider = authenticationProvider;
     }
 
-    @PostMapping("/forms/odktables/upload")
+    @PostMapping("/odktables/upload")
     public ResponseEntity<FormUploadResult> uploadSubmit(@RequestParam("zipFile") MultipartFile file) throws IOException {
 
         List<String> offices = odkClient.getOfficeList()
@@ -53,7 +53,7 @@ public class FormsController {
     }
 
 
-    @GetMapping("/forms/odktables/tableIds")
+    @GetMapping("/odktables/tableIds")
     public ResponseEntity<?> getTableIds() throws IOException {
 
         List<String> tableIds = odkClient.getTableIds();
@@ -62,7 +62,7 @@ public class FormsController {
     }
 
 
-    @GetMapping("/forms/odktables/{tableId}/questions/definition")
+    @GetMapping("/odktables/{tableId}/questions/definition")
     public ResponseEntity<?> getQuestions(@PathVariable("tableId") String tableId) throws IOException {
 
         Map<String, SurveyQuestion> questions = odkClient.getQuestionsDefinition(tableId);
@@ -71,7 +71,7 @@ public class FormsController {
     }
 
 
-    @PutMapping("/forms/odktables/{tableId}/questions/rows")
+    @PutMapping("/odktables/{tableId}/questions/rows")
     public ResponseEntity<?> putQuestionRows(@PathVariable("tableId") String tableId, @RequestBody List<DataKeyValue> values) throws URISyntaxException {
         PutRowsMethodObject methodObject = new PutRowsMethodObject(odkClient, tableId, values).invoke();
 
@@ -81,7 +81,9 @@ public class FormsController {
         return ResponseEntity.created(questionLocation).body(rowOutcomeList);
     }
 
-    @GetMapping("/forms/odktables/{tableId}/questions/rows")
+
+
+    @GetMapping("/odktables/{tableId}/questions/rows")
     public ResponseEntity<?> getQuestionRows(@PathVariable("tableId") String tableId) throws IOException {
 
         List<ArrayList<DataKeyValue>> questionsRows = odkClient.getQuestionsRows(tableId);

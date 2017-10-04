@@ -34,8 +34,8 @@ public class SurveySocioEconomicEntity implements Serializable {
     private Double salarioMensual;
 
     @OneToOne
-    @JoinColumn(name = "survey_indicator_id")
-    private SurveyIndicatorEntity surveyIndicator;
+    @JoinColumn(name = "odk_row_reference_id")
+    private OdkRowReferenceEntity surveyIndicator;
 
     public Long getEncuestaSemaforoId() {
         return encuestaSemaforoId;
@@ -78,11 +78,11 @@ public class SurveySocioEconomicEntity implements Serializable {
     }
 
 
-    public SurveyIndicatorEntity getSurveyIndicator() {
+    public OdkRowReferenceEntity getSurveyIndicator() {
         return surveyIndicator;
     }
 
-    public void setSurveyIndicator(SurveyIndicatorEntity surveyIndicator) {
+    public void setSurveyIndicator(OdkRowReferenceEntity surveyIndicator) {
         this.surveyIndicator = surveyIndicator;
     }
 }

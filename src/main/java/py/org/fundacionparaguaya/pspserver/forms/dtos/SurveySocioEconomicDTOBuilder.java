@@ -1,17 +1,16 @@
 package py.org.fundacionparaguaya.pspserver.forms.dtos;
 
-import py.org.fundacionparaguaya.pspserver.forms.entities.OdkTableReference;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SurveySocioEconomicDTOBuilder {
+    private Long surveyId;
     private String zona;
     private String acteconomicaPrimaria;
     private String actEconomicaSegundaria;
     private Double salarioMensual;
     private List<SurveyIndicatorDTO> indicators;
-    private OdkTableReference odkTableReference;
+    private OdkRowReferenceDTO odkRowReferenceDTO;
 
     public SurveySocioEconomicDTOBuilder zona(String zona) {
         this.zona = zona;
@@ -42,13 +41,18 @@ public class SurveySocioEconomicDTOBuilder {
         return this;
     }
 
-    public SurveySocioEconomicDTOBuilder odkTableReference(OdkTableReference odkTableReference) {
-        this.odkTableReference = odkTableReference;
+    public SurveySocioEconomicDTOBuilder odkTableReference(OdkRowReferenceDTO odkRowReferenceDTO) {
+        this.odkRowReferenceDTO = odkRowReferenceDTO;
+        return this;
+    }
+
+    public SurveySocioEconomicDTOBuilder surveyId(Long surveyId) {
+        this.surveyId = surveyId;
         return this;
     }
 
     public SurveySocioEconomicDTO build() {
-        return new SurveySocioEconomicDTO(zona, acteconomicaPrimaria, actEconomicaSegundaria, salarioMensual, odkTableReference, indicators);
+        return new SurveySocioEconomicDTO(zona, acteconomicaPrimaria, actEconomicaSegundaria, salarioMensual, odkRowReferenceDTO, indicators);
     }
 
 }

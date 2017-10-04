@@ -1,14 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.forms.dtos;
 
+import org.opendatakit.aggregate.odktables.rest.entity.DataKeyValue;
+import org.opendatakit.aggregate.odktables.rest.entity.Row;
+import org.opendatakit.aggregate.odktables.rest.entity.RowResource;
+
+import java.util.Comparator;
+
 /**
  * Created by rodrigovillalba on 9/14/17.
  */
 public class SurveyIndicatorDTO {
 
-    private final String name;
+    private String name;
 
-    private final String optionSelected;
+    private String optionSelected;
 
+
+    public SurveyIndicatorDTO() {}
 
     private SurveyIndicatorDTO(String name, String optionSelected) {
         this.name = name;
@@ -26,5 +34,5 @@ public class SurveyIndicatorDTO {
     public String getOptionSelected() {
         return optionSelected;
     }
-
+    
 }
