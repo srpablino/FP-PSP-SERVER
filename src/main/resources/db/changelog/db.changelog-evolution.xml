@@ -57,5 +57,12 @@
     <changeSet id="2017-09-26T12:00" author="nvaldez">
         <sqlFile path="sql/2017-09-26T12:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- 
+    Creates the OAuth tables
+     -->
+     <changeSet id="2017-10-05T11:49" author="mcespedes">
+        <sqlFile path="sql/2017-10-05T11:49.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
