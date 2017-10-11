@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.entities;
+package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

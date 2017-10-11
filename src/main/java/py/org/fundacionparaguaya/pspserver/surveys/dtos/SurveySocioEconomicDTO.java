@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.dtos;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;

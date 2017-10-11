@@ -43,7 +43,7 @@ public class OdkClient {
     public static String OFFICES_DELETE_ENDPOINT = "/offices/{officeId}";
 
 
-    public static String FORM_UPLOAD_ENDPOINT = "/forms/{appId}/{odkClientVersion}";
+    public static String FORM_UPLOAD_ENDPOINT = "/surveys/{appId}/{odkClientVersion}";
 
     public static String ROLES_GRANTED_ENDPOINT = "/roles/granted";
     public static String ROLES_LIST_ENDPOINT = "/roles/list";

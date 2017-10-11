@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.dtos;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 /**
  * Created by rodrigovillalba on 9/26/17.

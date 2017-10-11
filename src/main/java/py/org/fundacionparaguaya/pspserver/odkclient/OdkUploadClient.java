@@ -56,7 +56,7 @@ import java.util.regex.Pattern;
  */
 public class OdkUploadClient {
 
-    public static final String FORM_UPLOAD_ENDPOINT = "/forms/{appId}/{odkClientVersion}";
+    public static final String FORM_UPLOAD_ENDPOINT = "/surveys/{appId}/{odkClientVersion}";
 
     private static final ObjectMapper mapper = new ObjectMapper();
 

@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.services;
+package py.org.fundacionparaguaya.pspserver.surveys.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import py.org.fundacionparaguaya.pspserver.forms.dtos.*;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.odkclient.GeneralConsts;
 import py.org.fundacionparaguaya.pspserver.odkclient.OdkClient;
 

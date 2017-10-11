@@ -1,10 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.dtos;
-
-import org.opendatakit.aggregate.odktables.rest.entity.DataKeyValue;
-import org.opendatakit.aggregate.odktables.rest.entity.Row;
-import org.opendatakit.aggregate.odktables.rest.entity.RowResource;
-
-import java.util.Comparator;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 /**
  * Created by rodrigovillalba on 9/14/17.

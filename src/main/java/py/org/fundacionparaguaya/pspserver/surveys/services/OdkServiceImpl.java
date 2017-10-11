@@ -1,15 +1,18 @@
-package py.org.fundacionparaguaya.pspserver.forms.services;
+package py.org.fundacionparaguaya.pspserver.surveys.services;
 
 import org.opendatakit.aggregate.odktables.rest.entity.*;
 import org.springframework.stereotype.Service;
-import py.org.fundacionparaguaya.pspserver.forms.dtos.SurveyIndicatorDTO;
-import py.org.fundacionparaguaya.pspserver.forms.dtos.OdkRowReferenceDTO;
-import py.org.fundacionparaguaya.pspserver.forms.dtos.SurveySocioEconomicDTO;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyIndicatorDTO;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.OdkRowReferenceDTO;
 import py.org.fundacionparaguaya.pspserver.odkclient.OdkClient;
 import py.org.fundacionparaguaya.pspserver.odkclient.PutRowsMethodObject;
+import py.org.fundacionparaguaya.pspserver.odkclient.SurveyQuestion;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.OdkRowReferenceEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyIndicatorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -43,6 +46,7 @@ public class OdkServiceImpl implements OdkService {
         return rowOutcomeList;
     }
 
+
     public RowResourceList findIndicatorsBy(OdkRowReferenceDTO reference, List<SurveyIndicatorDTO> indicators) {
         checkNotNull(reference);
         checkNotNull(reference.getSchemaEtag());
@@ -64,17 +68,22 @@ public class OdkServiceImpl implements OdkService {
     }
 
     @Override
-    public OdkRowReferenceDTO fetchOdkTableRerefence(SurveySocioEconomicDTO dto) {
+    public OdkRowReferenceDTO fetchOdkTableRerefence(OdkRowReferenceDTO odkRowReferenceDTO) {
         String schemaETag = null;
-        if (dto.getOdkRowReferenceDTO().getSchemaEtag() == null) {
-            TableResource tableResource = odkClient.getTableResource(dto.getOdkRowReferenceDTO().getTableId());
+        if (odkRowReferenceDTO.getSchemaEtag() == null) {
+            TableResource tableResource = odkClient.getTableResource(odkRowReferenceDTO.getTableId());
             schemaETag = tableResource.getSchemaETag();
         } else {
-            schemaETag = dto.getOdkRowReferenceDTO().getSchemaEtag();
+            schemaETag = odkRowReferenceDTO.getSchemaEtag();
         }
-        OdkRowReferenceDTO odkReference = OdkRowReferenceDTO.of(dto.getOdkRowReferenceDTO().getTableId(), schemaETag);
+        OdkRowReferenceDTO odkReference = OdkRowReferenceDTO.of(odkRowReferenceDTO.getTableId(), schemaETag);
 
         return odkReference;
+    }
+
+    @Override
+    public Map<String, SurveyQuestion> getQuestionsDefinition(String tableId) {
+        return odkClient.getQuestionsDefinition(tableId);
     }
 
     public RowResource findIndicator(OdkRowReferenceDTO reference) {

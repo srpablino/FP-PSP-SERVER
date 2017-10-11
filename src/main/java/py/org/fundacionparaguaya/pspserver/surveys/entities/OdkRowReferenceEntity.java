@@ -1,6 +1,6 @@
-package py.org.fundacionparaguaya.pspserver.forms.entities;
+package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
-import py.org.fundacionparaguaya.pspserver.forms.dtos.OdkRowReferenceDTO;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.OdkRowReferenceDTO;
 
 import javax.persistence.*;
 

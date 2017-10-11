@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.forms.dtos;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import java.util.ArrayList;
 import java.util.List;

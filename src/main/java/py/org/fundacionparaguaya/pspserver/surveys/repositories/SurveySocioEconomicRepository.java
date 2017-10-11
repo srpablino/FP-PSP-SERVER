@@ -1,7 +1,7 @@
-package py.org.fundacionparaguaya.pspserver.forms.repositories;
+package py.org.fundacionparaguaya.pspserver.surveys.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import py.org.fundacionparaguaya.pspserver.forms.entities.SurveySocioEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveySocioEconomicEntity;
 
 import java.util.List;
 
