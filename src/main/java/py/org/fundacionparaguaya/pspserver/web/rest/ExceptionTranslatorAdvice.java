@@ -113,11 +113,7 @@ public class ExceptionTranslatorAdvice {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> processException(Exception ex) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("An unexpected error occurred: {}", ex.getMessage(), ex);
-        } else {
-            LOG.error("An unexpected error occurred: {}", ex.getMessage());
-        }
+        LOG.error("An unexpected error occurred: {}", ex.getMessage(), ex);
         BodyBuilder builder;
         ErrorDTO errorDto;
         ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);

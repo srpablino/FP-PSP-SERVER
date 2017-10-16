@@ -44,8 +44,6 @@ public class ApplicationEntity  {
 	private String information;
 	
 	private boolean isHub;
-	
-	private boolean isDirect;
 
 	public Long getApplicationId() {
 		return applicationId;
@@ -119,13 +117,6 @@ public class ApplicationEntity  {
 		this.isHub = isHub;
 	}
 
-	public boolean isDirect() {
-		return isDirect;
-	}
-
-	public void setDirect(boolean isDirect) {
-		this.isDirect = isDirect;
-	}
 
 	
 	@Override
@@ -155,7 +146,6 @@ public class ApplicationEntity  {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isDirect", isDirect)
 				.toString();
 	}
 }

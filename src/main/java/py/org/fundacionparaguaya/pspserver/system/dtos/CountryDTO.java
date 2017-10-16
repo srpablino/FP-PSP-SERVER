@@ -15,6 +15,9 @@ public class CountryDTO {
 		this.country = country;
 	}
 
+	public CountryDTO(String country) {
+		this.country = country;
+	}
 	public static class Builder{
 		private Long countryId;
 		private String country;
