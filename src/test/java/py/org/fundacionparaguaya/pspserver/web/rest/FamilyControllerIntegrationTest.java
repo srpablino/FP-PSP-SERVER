@@ -143,7 +143,7 @@ public class FamilyControllerIntegrationTest {
 	
 	private OrganizationDTO getOrganizationTest() {
 		OrganizationDTO dto = new OrganizationDTO();
-		dto.setOrganizationId(new Long(1));
+		dto.setId(new Long(1));
 		dto.setName("foo.ORGANIZATION");
 		//...
 		return dto;
