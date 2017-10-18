@@ -3,19 +3,23 @@ package py.org.fundacionparaguaya.pspserver.surveys.services;
 import org.opendatakit.aggregate.odktables.rest.entity.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.OdkRowReferenceEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveySocioEconomicEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyIndicatorRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveySocioEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.*;
 import py.org.fundacionparaguaya.pspserver.odkclient.SurveyQuestion;
 import py.org.fundacionparaguaya.pspserver.web.models.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -24,40 +28,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class SurveyServiceImpl implements SurveyService {
 
-    private final OdkService odkService;
+    private final SnapshotService snapshotService;
 
     private final SurveySocioEconomicRepository repository;
 
     private final SurveyIndicatorRepository indicatorRepository;
 
-    public SurveyServiceImpl(OdkService odkService, SurveySocioEconomicRepository repository, SurveyIndicatorRepository indicatorRepository) {
-        this.odkService = odkService;
+    private final SurveyDefinitionRepository definitionRepository;
+
+    public SurveyServiceImpl(SnapshotService snapshotService, SurveySocioEconomicRepository repository, SurveyIndicatorRepository indicatorRepository, SurveyDefinitionRepository definitionRepository) {
+        this.snapshotService = snapshotService;
         this.repository = repository;
         this.indicatorRepository = indicatorRepository;
+        this.definitionRepository = definitionRepository;
     }
 
+    @PostConstruct
+    public void initializeSurveys() {
 
-
-    @Override
-    public SurveySocioEconomicDTO addSurveySnapshot(NewSnapshot snapshot) {
-        checkNotNull(snapshot);
-        checkNotNull(snapshot.getIndicatorssSurveyData());
-
-        List<SurveyIndicatorDTO> list = snapshot.getIndicatorssSurveyData()
-                .entrySet()
-                .stream()
-                .map(e -> SurveyIndicatorDTO.of(e.getKey(), snapshot.getIndicatorssSurveyData().getAsString(e.getKey())))
-                .collect(Collectors.toList());
-
-
-        SurveySocioEconomicEntity entity = new SurveySocioEconomicEntity();
-
-        OdkRowReferenceEntity odkRowReferenceEntity = saveIndicatorToOdk(OdkRowReferenceDTO.of(snapshot.getTableId()), list);
-        entity.setSurveyIndicator(odkRowReferenceEntity);
-
-        SurveySocioEconomicEntity save = repository.save(entity);
-
-        return entityToDTO(save);
     }
 
     @Override
@@ -66,32 +54,26 @@ public class SurveyServiceImpl implements SurveyService {
         checkNotNull(dto.getOdkRowReferenceDTO());
 
 
-        SurveySocioEconomicEntity entity = new SurveySocioEconomicEntity();
+        SnapshotEconomicEntity entity = new SnapshotEconomicEntity();
         BeanUtils.copyProperties(dto, entity);
 
         saveIndicatorToOdk(dto.getOdkRowReferenceDTO(), dto.getIndicators());
 
         OdkRowReferenceEntity odkRowReferenceEntity = saveIndicatorToOdk(dto.getOdkRowReferenceDTO(), dto.getIndicators());
-        entity.setSurveyIndicator(odkRowReferenceEntity);
 
-        SurveySocioEconomicEntity save = repository.save(entity);
+        SnapshotEconomicEntity save = repository.save(entity);
 
         return entityToDTO(save);
     }
 
-    private SurveySocioEconomicDTO entityToDTO(SurveySocioEconomicEntity save) {
+    private SurveySocioEconomicDTO entityToDTO(SnapshotEconomicEntity save) {
         return SurveySocioEconomicDTO.builder()
-                .surveyId(save.getEncuestaSemaforoId())
-                .odkTableReference(OdkRowReferenceDTO.of(save.getSurveyIndicator()))
-                .acteconomicaPrimaria(save.getActeconomicaPrimaria())
-                .actEconomicaSegundaria(save.getActEconocmicaSecundaria())
-                .salarioMensual(save.getSalarioMensual())
-                .zona(save.getZona())
+                .surveyId(save.getId())
                 .build();
     }
 
     private OdkRowReferenceEntity saveIndicatorToOdk(OdkRowReferenceDTO odkRowReferenceDTO, List<SurveyIndicatorDTO> indicators) {
-        RowOutcomeList rowOutcomeList = odkService.addNewAnsweredQuestion(odkRowReferenceDTO, indicators);
+        RowOutcomeList rowOutcomeList = snapshotService.addNewAnsweredQuestion(odkRowReferenceDTO, indicators);
 
 
         return saveOdkRowReferenceEntity(rowOutcomeList, odkRowReferenceDTO);
@@ -105,7 +87,7 @@ public class SurveyServiceImpl implements SurveyService {
                 .findFirst()
                 .get();
 
-        OdkRowReferenceDTO odkReference = odkService.fetchOdkTableRerefence(odkRowReferenceDTO);
+        OdkRowReferenceDTO odkReference = snapshotService.fetchOdkTableRerefence(odkRowReferenceDTO);
 
         OdkRowReferenceEntity indicator = OdkRowReferenceEntity.of(odkReference, first.getRowId());
         return indicatorRepository.save(indicator);
@@ -134,37 +116,37 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public void addSurveyDefinition(NewSurveyDefinition surveyDefinition) {
+    public SurveyDefinition addSurveyDefinition(NewSurveyDefinition surveyDefinition) {
 
+        SurveyEntity entity = this.definitionRepository.save(
+                SurveyEntity.of(
+                        new SurveyDefinition().surveySchema(surveyDefinition.getSurveySchema()).surveyUISchema(surveyDefinition.getSurveyUISchema())
+                )
+        );
+
+        return new SurveyDefinition().id(entity.getId())
+                .surveySchema(entity.getSurveyDefinition().getSurveySchema())
+                .surveyUISchema(entity.getSurveyDefinition().getSurveyUISchema());
     }
+
     @Override
-    public SurveyDefinition getSurveyDefinition(Integer surveyId, String tableId) {
-        Map<String, SurveyQuestion> questions = odkService.getQuestionsDefinition(tableId   );
+    public SurveyDefinition getSurveyDefinition(Long surveyId) {
+        checkArgument(surveyId > 0, "Argument was %s but expected nonnegative", surveyId);
 
-        Map<String, Property> schemaProperties = getPropertiesMap(questions, surveyQuestion -> {
-            return new Property()
-                    .title(PropertyTitle.of(surveyQuestion.getDisplayText()))
-                    .format(Property.FormatEnum.fromOdkType(surveyQuestion.getType()))
-                    .type(Property.TypeEnum.fromOdkType(surveyQuestion.getType()))
-                    .enumValues(Property.TypeEnum.SELECT_TYPES.contains(surveyQuestion.getType())? Property.getDefaultEnumValues(): null);
-        });
+        return Optional.ofNullable(definitionRepository.findOne(surveyId))
+                .map(entity -> new SurveyDefinition()
+                        .id(entity.getId())
+                        .surveySchema(entity.getSurveyDefinition().getSurveySchema())
+                        .surveyUiSchema(entity.getSurveyDefinition().getSurveyUISchema()))
+                .orElseThrow(() -> new UnknownResourceException("Survey definition does not exist"));
 
-        Map<String, Property> uiSchemaPropertyList = getPropertiesMap(questions, surveyQuestion -> {
-            return new Property()
-                    .title(PropertyTitle.of(surveyQuestion.getDisplayText()))
-                    .type(Property.TypeEnum.fromOdkType(surveyQuestion.getType()));
-        });
-
-        return new SurveyDefinition()
-                .surveySchema(new SurveySchema().properties(schemaProperties))
-                .surveyUiSchema(new SurveyUiSchema().properties(uiSchemaPropertyList));
     }
 
     private Map<String, Property> getPropertiesMap(Map<String, SurveyQuestion> questions, Function<SurveyQuestion, Property> propertyMapperFunction) {
         return questions.entrySet()
                 .stream()
                 .collect(Collectors.toMap(
-                        e-> e.getKey(),
+                        e -> e.getKey(),
                         e -> propertyMapperFunction.apply(e.getValue())
                 ));
     }
@@ -177,24 +159,24 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     private SurveySocioEconomicAnswerDTO mapToSurveyAnswer(SurveySocioEconomicDTO survey) {
-        RowResource rowResource = odkService.findIndicator(survey.getOdkRowReferenceDTO());
+        RowResource rowResource = snapshotService.findIndicator(survey.getOdkRowReferenceDTO());
         return SurveySocioEconomicAnswerDTO.of(rowResource, survey);
     }
 
     private boolean hasIndicator(List<SurveyIndicatorDTO> indicators, RowResource rowResource) {
         return indicators.stream()
                 .anyMatch(indicator -> {
-                   DataKeyValue dataKeyValue = new DataKeyValue(indicator.getName(), indicator.getOptionSelected());
-                   return rowResource.getValues().contains(dataKeyValue);
+                    DataKeyValue dataKeyValue = new DataKeyValue(indicator.getName(), indicator.getOptionSelected());
+                    return rowResource.getValues().contains(dataKeyValue);
                 });
     }
 
     private List<SurveySocioEconomicDTO> findBy(SurveySocioEconomicQueryDTO socioEconomicsFilter) {
-        List<SurveySocioEconomicEntity> entities = null;
+        List<SnapshotEconomicEntity> entities = null;
         if (socioEconomicsFilter == null) {
             entities = repository.findAll();
         } else {
-            entities = repository.findBySalarioMensual(socioEconomicsFilter.getSalarioMensual());
+            entities = null;
         }
         return entities.stream()
                 .map(this::entityToDTO)

@@ -3,9 +3,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.services;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyQueryDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveySocioEconomicAnswerDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveySocioEconomicDTO;
-import py.org.fundacionparaguaya.pspserver.web.models.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.web.models.NewSurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.web.models.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.web.models.*;
 
 import java.util.List;
 
@@ -18,9 +16,7 @@ public interface SurveyService {
 
     List<SurveySocioEconomicAnswerDTO> find(SurveyQueryDTO queryDTO);
 
-    void addSurveyDefinition(NewSurveyDefinition surveyDefinition);
+    SurveyDefinition addSurveyDefinition(NewSurveyDefinition surveyDefinition);
 
-    SurveySocioEconomicDTO addSurveySnapshot(NewSnapshot snapshot);
-
-    SurveyDefinition getSurveyDefinition(Integer surveyId, String tableId);
+    SurveyDefinition getSurveyDefinition(Long surveyId);
 }

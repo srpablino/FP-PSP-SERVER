@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.*;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.PropertyTitle;
 
 /**
  * Holds info representing the definition of the field

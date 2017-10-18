@@ -15,9 +15,11 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import com.google.common.collect.ForwardingMap;
+import com.google.gson.JsonObject;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +27,11 @@ import java.util.Map;
  * The UI SCHEMA definition of the survey. Holds info clients would use to render the survey
  */
 @ApiModel(description = "The UI SCHEMA definition of the survey. Holds info clients would use to render the survey")
-public class SurveyUiSchema extends ForwardingMap<String, Property> {
+public class SurveyUISchema extends ForwardingMap<String, Property> {
 
 
     @JsonProperty("properties")
-    private Map<String, Property> properties = null;
+    private Map<String, Property> properties = new HashMap<>();
 
     @JsonProperty("ui:order")
     private List<String> uiOrder = null;
@@ -42,7 +44,7 @@ public class SurveyUiSchema extends ForwardingMap<String, Property> {
     private List<String> groupIndicators = null;
 
 
-    public SurveyUiSchema properties(Map<String, Property> properties) {
+    public SurveyUISchema properties(Map<String, Property> properties) {
         this.properties = properties;
         return this;
     }
@@ -85,7 +87,7 @@ public class SurveyUiSchema extends ForwardingMap<String, Property> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SurveyUiSchema {\n");
+        sb.append("class SurveyUISchema {\n");
         sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
         sb.append("    groupSocioEconomics: ").append(toIndentedString(groupSocioEconomics)).append("\n");
         sb.append("    groupIndicators: ").append(toIndentedString(groupIndicators)).append("\n");
@@ -109,7 +111,7 @@ public class SurveyUiSchema extends ForwardingMap<String, Property> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SurveyUiSchema that = (SurveyUiSchema) o;
+        SurveyUISchema that = (SurveyUISchema) o;
 
         return Objects.equal(this.properties, that.properties) &&
                 Objects.equal(this.uiOrder, that.uiOrder) &&
@@ -121,5 +123,7 @@ public class SurveyUiSchema extends ForwardingMap<String, Property> {
     public int hashCode() {
         return Objects.hashCode(properties, uiOrder, groupSocioEconomics, groupIndicators);
     }
+
+
 }
 

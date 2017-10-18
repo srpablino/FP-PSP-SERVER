@@ -15,18 +15,24 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * SurveyDefinition
  */
-public class SurveyDefinition   {
+@Access(AccessType.FIELD)
+public class SurveyDefinition implements StoreableDefinition  {
+
+    private Long id;
+
     @JsonProperty("survey_schema")
     private SurveySchema surveySchema = null;
 
     @JsonProperty("survey_ui_schema")
-    private SurveyUiSchema surveyUiSchema = null;
+    private SurveyUISchema surveyUISchema = null;
 
     @JsonProperty("created_at")
     private String createdAt = null;
@@ -36,6 +42,8 @@ public class SurveyDefinition   {
 
     @JsonProperty("user_created")
     private Integer userCreated = null;
+
+
 
     public SurveyDefinition surveySchema(SurveySchema surveySchema) {
         this.surveySchema = surveySchema;
@@ -57,24 +65,24 @@ public class SurveyDefinition   {
         this.surveySchema = surveySchema;
     }
 
-    public SurveyDefinition surveyUiSchema(SurveyUiSchema surveyUiSchema) {
-        this.surveyUiSchema = surveyUiSchema;
+    public SurveyDefinition surveyUiSchema(SurveyUISchema surveyUISchema) {
+        this.surveyUISchema = surveyUISchema;
         return this;
     }
 
     /**
-     * Get surveyUiSchema
-     * @return surveyUiSchema
+     * Get surveyUISchema
+     * @return surveyUISchema
      **/
     @JsonProperty("survey_ui_schema")
     @ApiModelProperty(required = true, value = "")
     @NotNull
-    public SurveyUiSchema getSurveyUiSchema() {
-        return surveyUiSchema;
+    public SurveyUISchema getSurveyUISchema() {
+        return surveyUISchema;
     }
 
-    public void setSurveyUiSchema(SurveyUiSchema surveyUiSchema) {
-        this.surveyUiSchema = surveyUiSchema;
+    public void setSurveyUISchema(SurveyUISchema surveyUISchema) {
+        this.surveyUISchema = surveyUISchema;
     }
 
     public SurveyDefinition createdAt(String createdAt) {
@@ -98,6 +106,12 @@ public class SurveyDefinition   {
 
     public SurveyDefinition lastModifiedAt(String lastModifiedAt) {
         this.lastModifiedAt = lastModifiedAt;
+        return this;
+    }
+
+
+    public SurveyDefinition id(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -145,7 +159,7 @@ public class SurveyDefinition   {
         }
         SurveyDefinition surveyDefinition = (SurveyDefinition) o;
         return Objects.equals(this.surveySchema, surveyDefinition.surveySchema) &&
-                Objects.equals(this.surveyUiSchema, surveyDefinition.surveyUiSchema) &&
+                Objects.equals(this.surveyUISchema, surveyDefinition.surveyUISchema) &&
                 Objects.equals(this.createdAt, surveyDefinition.createdAt) &&
                 Objects.equals(this.lastModifiedAt, surveyDefinition.lastModifiedAt) &&
                 Objects.equals(this.userCreated, surveyDefinition.userCreated);
@@ -153,7 +167,7 @@ public class SurveyDefinition   {
 
     @Override
     public int hashCode() {
-        return Objects.hash(surveySchema, surveyUiSchema, createdAt, lastModifiedAt, userCreated);
+        return Objects.hash(surveySchema, surveyUISchema, createdAt, lastModifiedAt, userCreated);
     }
 
 
@@ -163,7 +177,7 @@ public class SurveyDefinition   {
         sb.append("class SurveyDefinition {\n");
 
         sb.append("    surveySchema: ").append(toIndentedString(surveySchema)).append("\n");
-        sb.append("    surveyUiSchema: ").append(toIndentedString(surveyUiSchema)).append("\n");
+        sb.append("    surveyUISchema: ").append(toIndentedString(surveyUISchema)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
         sb.append("    userCreated: ").append(toIndentedString(userCreated)).append("\n");
@@ -181,6 +195,20 @@ public class SurveyDefinition   {
         }
         return o.toString().replace("\n", "\n    ");
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public SurveyDefinition surveyUISchema(SurveyUISchema surveyUISchema) {
+        this.surveyUISchema = surveyUISchema;
+        return this;
+    }
+
 }
 
 

@@ -1,13 +1,10 @@
 package py.org.fundacionparaguaya.pspserver.surveys.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveySocioEconomicEntity;
-
-import java.util.List;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
  * Created by rodrigovillalba on 9/15/17.
  */
-public interface SurveySocioEconomicRepository extends JpaRepository<SurveySocioEconomicEntity, Long> {
-    List<SurveySocioEconomicEntity> findBySalarioMensual(Double salarioMensual);
+public interface SurveySocioEconomicRepository extends JpaRepository<SnapshotEconomicEntity, Long> {
 }

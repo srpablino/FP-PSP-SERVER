@@ -1,0 +1,10 @@
+{
+  "salary": {
+    "title": {"es" : "Ingrese su salario mensual"},
+    "type": "integer"
+  },
+  "firstEcoActivity": {
+    "title": {"es": "Ingrese su actividad económica primaria"},
+    "type": "string"
+  }
+}

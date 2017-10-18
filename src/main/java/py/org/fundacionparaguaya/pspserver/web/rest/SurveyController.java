@@ -18,25 +18,22 @@ import java.net.URISyntaxException;
  * Created by rodrigovillalba on 9/25/17.
  */
 @RestController
-@RequestMapping(value = "/api/v1/survey")
+@RequestMapping(value = "/api/v1/surveys")
 @io.swagger.annotations.Api(description = "the survey API")
 public class SurveyController {
 
 
-    private final OdkClient odkClient;
-
     private final SurveyService surveyService;
 
-    public SurveyController(OdkClient odkClient, SurveyService surveyService) {
-        this.odkClient = odkClient;
+    public SurveyController(SurveyService surveyService) {
         this.surveyService = surveyService;
     }
 
     @PostMapping
     public ResponseEntity addSurveyDefinition(@RequestBody NewSurveyDefinition surveyDefinition)
             throws NotFoundException, URISyntaxException {
-        surveyService.addSurveyDefinition(surveyDefinition);
-        URI surveyLocation = new URI("/survey/definition" + 123);
+        SurveyDefinition definition = surveyService.addSurveyDefinition(surveyDefinition);
+        URI surveyLocation = new URI("/surveys/" + definition.getId());
         return ResponseEntity.created(surveyLocation).build();
     }
 
@@ -46,10 +43,9 @@ public class SurveyController {
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 200, message = "The requested survey definition", response = SurveyDefinition.class)})
     public ResponseEntity<?> getSurveyDefinition(
-            @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Integer surveyId,
-            @RequestParam("table_id") String tableId)
+            @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
             throws NotFoundException {
-        SurveyDefinition definition = surveyService.getSurveyDefinition(surveyId, tableId);
+        SurveyDefinition definition = surveyService.getSurveyDefinition(surveyId);
         return ResponseEntity.ok(definition);
     }
 

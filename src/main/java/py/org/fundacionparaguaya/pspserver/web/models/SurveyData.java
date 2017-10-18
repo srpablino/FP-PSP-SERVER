@@ -12,6 +12,8 @@ public class SurveyData extends ForwardingMap<String, Object> {
 
     private Map<String, Object> dataMap = new HashMap<>();
 
+    private Long id;
+
     @Override
     protected Map<String, Object> delegate() {
         return dataMap;
@@ -23,5 +25,9 @@ public class SurveyData extends ForwardingMap<String, Object> {
             return String.valueOf((String) obj);
         }
         return null;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

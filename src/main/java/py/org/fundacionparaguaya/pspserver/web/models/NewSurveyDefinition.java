@@ -23,12 +23,13 @@ import java.util.Objects;
  * NewSurveyDefinition
  */
 
-public class NewSurveyDefinition   {
+public class NewSurveyDefinition  implements StoreableDefinition {
+
     @JsonProperty("survey_schema")
-    private SurveySchema surveySchema = null;
+    private SurveySchema surveySchema = new SurveySchema();
 
     @JsonProperty("survey_ui_schema")
-    private Object surveyUiSchema = null;
+    private SurveyUISchema surveyUISchema = new SurveyUISchema();
 
     public NewSurveyDefinition surveySchema(SurveySchema surveySchema) {
         this.surveySchema = surveySchema;
@@ -50,8 +51,8 @@ public class NewSurveyDefinition   {
         this.surveySchema = surveySchema;
     }
 
-    public NewSurveyDefinition surveyUiSchema(Object surveyUiSchema) {
-        this.surveyUiSchema = surveyUiSchema;
+    public NewSurveyDefinition surveyUiSchema(SurveyUISchema surveyUiSchema) {
+        this.surveyUISchema = surveyUiSchema;
         return this;
     }
 
@@ -62,12 +63,13 @@ public class NewSurveyDefinition   {
     @JsonProperty("survey_ui_schema")
     @ApiModelProperty(required = true, value = "The UI SCHEMA definition of the survey, to be used on render")
     @NotNull
-    public Object getSurveyUiSchema() {
-        return surveyUiSchema;
+    @Override
+    public SurveyUISchema getSurveyUISchema() {
+        return surveyUISchema;
     }
 
-    public void setSurveyUiSchema(Object surveyUiSchema) {
-        this.surveyUiSchema = surveyUiSchema;
+    public void setSurveyUISchema(SurveyUISchema surveyUISchema) {
+        this.surveyUISchema = surveyUISchema;
     }
 
 
@@ -81,12 +83,12 @@ public class NewSurveyDefinition   {
         }
         NewSurveyDefinition newSurveyDefinition = (NewSurveyDefinition) o;
         return Objects.equals(this.surveySchema, newSurveyDefinition.surveySchema) &&
-                Objects.equals(this.surveyUiSchema, newSurveyDefinition.surveyUiSchema);
+                Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(surveySchema, surveyUiSchema);
+        return Objects.hash(surveySchema, surveyUISchema);
     }
 
 
@@ -96,7 +98,7 @@ public class NewSurveyDefinition   {
         sb.append("class NewSurveyDefinition {\n");
 
         sb.append("    surveySchema: ").append(toIndentedString(surveySchema)).append("\n");
-        sb.append("    surveyUiSchema: ").append(toIndentedString(surveyUiSchema)).append("\n");
+        sb.append("    surveyUiSchema: ").append(toIndentedString(surveyUISchema)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -111,5 +113,6 @@ public class NewSurveyDefinition   {
         }
         return o.toString().replace("\n", "\n    ");
     }
+
 }
 

@@ -20,7 +20,6 @@ import py.org.fundacionparaguaya.pspserver.odkclient.OdkClient;
 import py.org.fundacionparaguaya.pspserver.odkclient.OdkClientFactory;
 import py.org.fundacionparaguaya.pspserver.odkclient.OdkClientUtils;
 
-@Configuration
 public class WebClientConfiguration {
 
     private static Log logger = LogFactory.getLog(WebClientConfiguration.class);

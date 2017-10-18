@@ -1,0 +1,6 @@
+{
+  "secondEcoActivity": {
+    "title": {"es": "Ingrese su actividad económica secundaria"},
+    "type": "string"
+  }
+}

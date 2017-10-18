@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "The MODEL SCHEMA definition of the survey")
 public class SurveySchema   {
+
     @JsonProperty("title")
     private String title = null;
 
@@ -38,7 +41,7 @@ public class SurveySchema   {
     @JsonProperty("properties")
     private Map<String, Property> properties = null;
 
-    @JsonProperty("required")
+    @JsonProperty("type")
     private String type = Property.TypeEnum.OBJECT.toString();
 
     public SurveySchema title(String title) {
@@ -175,5 +178,7 @@ public class SurveySchema   {
         }
         return o.toString().replace("\n", "\n    ");
     }
+
+
 }
 

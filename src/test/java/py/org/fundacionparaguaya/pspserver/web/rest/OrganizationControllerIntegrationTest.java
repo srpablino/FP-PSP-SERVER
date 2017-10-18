@@ -81,7 +81,7 @@ public class OrganizationControllerIntegrationTest {
     @Test
     public void requestingPostOrganizationShouldUpdateOrganization() throws Exception {
     	OrganizationDTO newDto = addNewOrganization();
-        Long organizationId = newDto.getOrganizationId();
+        Long organizationId = newDto.getId();
 
         OrganizationDTO updateDto = OrganizationDTO.builder()
         		.name("foo.organization")

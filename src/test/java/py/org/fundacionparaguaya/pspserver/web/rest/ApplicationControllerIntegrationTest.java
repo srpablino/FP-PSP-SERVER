@@ -70,7 +70,7 @@ public class ApplicationControllerIntegrationTest {
                 .city(getCityTest())
                 .information("foo.information")
                 .isHub(true)
-                .isDirect(true)
+                .isOrganization(true)
                 .build();
         String json = TestHelper.mapToJson(dto);
         mockMvc.perform(post("/api/v1/applications").content(json).contentType(MediaType.APPLICATION_JSON))
@@ -93,7 +93,7 @@ public class ApplicationControllerIntegrationTest {
                 .city(getCityTest())
                 .information("foo.information")
                 .isHub(true)
-                .isDirect(true)
+                .isOrganization(true)
                 .build();
 
         String json = TestHelper.mapToJson(updateDto);
@@ -114,7 +114,7 @@ public class ApplicationControllerIntegrationTest {
                 .city(getCityTest())
                 .information("foo.information")
                 .isHub(true)
-                .isDirect(true)
+                .isOrganization(true)
                 .build();
         return applicationService.addApplication(dto);
     }

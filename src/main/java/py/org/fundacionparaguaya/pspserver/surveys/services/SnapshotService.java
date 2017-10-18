@@ -7,6 +7,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyIndicatorDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.OdkRowReferenceDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveySocioEconomicDTO;
 import py.org.fundacionparaguaya.pspserver.odkclient.SurveyQuestion;
+import py.org.fundacionparaguaya.pspserver.web.models.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.web.models.Snapshot;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,7 @@ import java.util.Map;
 /**
  * Created by rodrigovillalba on 9/14/17.
  */
-public interface OdkService {
+public interface SnapshotService {
 
     RowOutcomeList addNewAnsweredQuestion(OdkRowReferenceDTO reference, List<SurveyIndicatorDTO> indicators);
 
@@ -26,4 +28,7 @@ public interface OdkService {
 
     Map<String, SurveyQuestion> getQuestionsDefinition(String tableId);
 
+    Snapshot addSurveySnapshot(NewSnapshot snapshot);
+
+    List<Snapshot> find(Long surveyId, Long familiyId);
 }
