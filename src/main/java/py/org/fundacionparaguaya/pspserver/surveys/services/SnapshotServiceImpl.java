@@ -7,7 +7,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyIndicatorDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.OdkRowReferenceDTO;
 import py.org.fundacionparaguaya.pspserver.odkclient.SurveyQuestion;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.FamilyIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
@@ -101,7 +101,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         checkNotNull(snapshot);
         checkSchemaCompliance(snapshot);
 
-        SnapshotIndicatorEntity indicatorEntity = new SnapshotIndicatorEntity()
+        FamilyIndicatorEntity indicatorEntity = new FamilyIndicatorEntity()
                 .additionalProperties(snapshot.getIndicatorssSurveyData());
         snapshotIndicatorRepo.save(indicatorEntity);
 
@@ -114,7 +114,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         return new Snapshot().snapshotEconomicId(snapshotEconomicEntity.getId())
                 .surveyId(snapshotEconomicEntity.getSurveyDefinition().getId())
                 .socioEconomicsSurveyData(snapshotEconomicEntity.getAdditionalProperties())
-                .indicatorsSurveyData(snapshotEconomicEntity.getSurveyIndicator().getAdditionalProperties());
+                .indicatorsSurveyData(snapshotEconomicEntity.getFamilyIndicator().getAdditionalProperties());
     }
 
     @Override
@@ -124,7 +124,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                 .map(e ->
                         new Snapshot()
                                 .surveyId(e.getSurveyDefinition().getId())
-                                .indicatorsSurveyData(e.getSurveyIndicator().getAdditionalProperties())
+                                .indicatorsSurveyData(e.getFamilyIndicator().getAdditionalProperties())
                                 .socioEconomicsSurveyData(e.getAdditionalProperties())
                 )
         .collect(Collectors.toList());

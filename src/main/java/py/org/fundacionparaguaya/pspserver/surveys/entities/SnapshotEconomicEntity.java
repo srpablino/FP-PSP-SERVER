@@ -1,6 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
-import com.google.common.collect.Lists;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -26,20 +24,6 @@ public class SnapshotEconomicEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "economics_mandatory_properties",
-            schema = "data_collect"
-    )
-    private List<SnapshotPropertyEntity> mandataroyProperties = Lists.newLinkedList();
-
-    @ElementCollection
-    @CollectionTable(
-            name = "economics_optional_properties",
-            schema = "data_collect"
-    )
-    private List<SnapshotPropertyEntity> optionalProperties = Lists.newLinkedList();
-
 
     @Column(name = "additional_properties")
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
@@ -50,7 +34,7 @@ public class SnapshotEconomicEntity implements Serializable {
     private SurveyEntity surveyDefinition;
 
     @OneToOne
-    private SnapshotIndicatorEntity surveyIndicator;
+    private FamilyIndicatorEntity familyIndicator;
 
     public Long getId() {
         return id;
@@ -60,20 +44,13 @@ public class SnapshotEconomicEntity implements Serializable {
         this.id = id;
     }
 
-    public Properties getMandataroyProperties() {
-        return Properties.of(mandataroyProperties);
-    }
-
-    public Properties getOptionalProperties() {
-        return Properties.of(optionalProperties);
-    }
 
     public SurveyData getAdditionalProperties() {
         return additionalProperties;
     }
 
-    public SnapshotIndicatorEntity getSurveyIndicator() {
-        return surveyIndicator;
+    public FamilyIndicatorEntity getFamilyIndicator() {
+        return familyIndicator;
     }
 
     public void setAdditionalProperties(SurveyData additionalProperties) {
@@ -91,8 +68,8 @@ public class SnapshotEconomicEntity implements Serializable {
         return this;
     }
 
-    public SnapshotEconomicEntity surveyIndicator(SnapshotIndicatorEntity indicatorEntity) {
-        this.surveyIndicator = indicatorEntity;
+    public SnapshotEconomicEntity surveyIndicator(FamilyIndicatorEntity indicatorEntity) {
+        this.familyIndicator = indicatorEntity;
         return this;
     }
 

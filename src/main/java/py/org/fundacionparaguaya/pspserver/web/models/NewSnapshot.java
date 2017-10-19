@@ -13,9 +13,7 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.OdkRowReferenceEntity;
 
-import java.util.Objects;
 
 /**
  * NewSnapshot

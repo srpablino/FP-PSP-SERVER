@@ -7,21 +7,21 @@ import java.util.List;
 /**
  * Created by rodrigovillalba on 10/16/17.
  */
-public class Properties extends ForwardingList<SnapshotPropertyEntity> {
+public class Properties extends ForwardingList<PropertyAttributeEntity> {
 
-    private final List<SnapshotPropertyEntity> delegate;
+    private final List<PropertyAttributeEntity> delegate;
 
 
-    private Properties(List<SnapshotPropertyEntity> delegate) {
+    private Properties(List<PropertyAttributeEntity> delegate) {
         this.delegate = delegate;
     }
 
-    public static Properties of(List<SnapshotPropertyEntity> delegate) {
+    public static Properties of(List<PropertyAttributeEntity> delegate) {
         return new Properties(delegate);
     }
 
     @Override
-    protected List<SnapshotPropertyEntity> delegate() {
+    protected List<PropertyAttributeEntity> delegate() {
         return delegate;
     }
 

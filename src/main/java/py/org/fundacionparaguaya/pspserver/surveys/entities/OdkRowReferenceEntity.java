@@ -9,8 +9,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Created by rodrigovillalba on 9/14/17.
  */
-@Entity
-@Table(schema = "data_collect", name = "odk_row_references")
+//@Entity
+//@Table(schema = "data_collect", name = "odk_row_references")
 public class OdkRowReferenceEntity {
 
     @Id

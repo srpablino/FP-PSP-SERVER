@@ -2,15 +2,9 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.google.common.collect.ForwardingMap;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Embeddable;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by rodrigovillalba on 10/9/17.
@@ -20,10 +14,10 @@ import java.util.Map;
 public class PropertyTitle implements Serializable {
 
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Lang lang;
 
-    private String value;
+    private String title;
 
     public Lang getLang() {
         return lang;
@@ -33,27 +27,27 @@ public class PropertyTitle implements Serializable {
         this.lang = lang;
     }
 
-    public String getValue() {
-        return value;
+    public String getTitle() {
+        return title;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 
-    public PropertyTitle(String value) {
-        this.value = value;
+    public PropertyTitle(String title) {
+        this.title = title;
         this.lang = Lang.DEFAULT;
     }
 
 
     public PropertyTitle() {}
 
-    public PropertyTitle(Lang lang, String value) {
+    public PropertyTitle(Lang lang, String title) {
         this.lang = lang;
 
-        this.value = value;
+        this.title = title;
     }
 
     public static PropertyTitle of(String value) {
@@ -93,7 +87,7 @@ public class PropertyTitle implements Serializable {
         sb.append("class PropertyTitle {\n");
 
         sb.append("    lang: ").append(toIndentedString(lang)).append("\n");
-        sb.append("    value: ").append(toIndentedString(value)).append("\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
         sb.append("}");
         return sb.toString();
     }

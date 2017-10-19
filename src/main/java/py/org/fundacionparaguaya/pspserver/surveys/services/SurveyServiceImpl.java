@@ -5,7 +5,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.OdkRowReferenceEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.*;
@@ -32,14 +31,12 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveySocioEconomicRepository repository;
 
-    private final SurveyIndicatorRepository indicatorRepository;
 
     private final SurveyDefinitionRepository definitionRepository;
 
-    public SurveyServiceImpl(SnapshotService snapshotService, SurveySocioEconomicRepository repository, SurveyIndicatorRepository indicatorRepository, SurveyDefinitionRepository definitionRepository) {
+    public SurveyServiceImpl(SnapshotService snapshotService, SurveySocioEconomicRepository repository, SurveyDefinitionRepository definitionRepository) {
         this.snapshotService = snapshotService;
         this.repository = repository;
-        this.indicatorRepository = indicatorRepository;
         this.definitionRepository = definitionRepository;
     }
 
@@ -57,10 +54,6 @@ public class SurveyServiceImpl implements SurveyService {
         SnapshotEconomicEntity entity = new SnapshotEconomicEntity();
         BeanUtils.copyProperties(dto, entity);
 
-        saveIndicatorToOdk(dto.getOdkRowReferenceDTO(), dto.getIndicators());
-
-        OdkRowReferenceEntity odkRowReferenceEntity = saveIndicatorToOdk(dto.getOdkRowReferenceDTO(), dto.getIndicators());
-
         SnapshotEconomicEntity save = repository.save(entity);
 
         return entityToDTO(save);
@@ -70,27 +63,6 @@ public class SurveyServiceImpl implements SurveyService {
         return SurveySocioEconomicDTO.builder()
                 .surveyId(save.getId())
                 .build();
-    }
-
-    private OdkRowReferenceEntity saveIndicatorToOdk(OdkRowReferenceDTO odkRowReferenceDTO, List<SurveyIndicatorDTO> indicators) {
-        RowOutcomeList rowOutcomeList = snapshotService.addNewAnsweredQuestion(odkRowReferenceDTO, indicators);
-
-
-        return saveOdkRowReferenceEntity(rowOutcomeList, odkRowReferenceDTO);
-
-    }
-
-
-    private OdkRowReferenceEntity saveOdkRowReferenceEntity(RowOutcomeList rowOutcomeList, OdkRowReferenceDTO odkRowReferenceDTO) {
-        RowOutcome first = rowOutcomeList.getRows()
-                .stream()
-                .findFirst()
-                .get();
-
-        OdkRowReferenceDTO odkReference = snapshotService.fetchOdkTableRerefence(odkRowReferenceDTO);
-
-        OdkRowReferenceEntity indicator = OdkRowReferenceEntity.of(odkReference, first.getRowId());
-        return indicatorRepository.save(indicator);
     }
 
 
