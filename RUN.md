@@ -58,7 +58,7 @@ mvn clean install
 Start the server:
 
 ```shell
-java -jar target/*.jar
+java -jar target/*.war --spring.profiles.active=dev
 ```
 
 And that is it ;), your server will be launched by default at http://localhost:8080.
