@@ -68,3 +68,6 @@ And that is it ;), your server will be launched by default at http://localhost:8
 - Do you want to make changes to the database using Liquibase?  [Read the Liquibase instructions.](LIQUIBASE.md)
 
 - Do you want to provide custom configuration on applicaiton startup? [Read the CUSTOM_CONFIG instructions](CUSTOM_CONFIG.md)
+
+- Do you want to edit and run this project in an IDE?  [Read the IDE instructions.](IDE.md)
+
