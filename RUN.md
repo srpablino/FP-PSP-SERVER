@@ -69,5 +69,7 @@ And that is it ;), your server will be launched by default at http://localhost:8
 
 - Do you want to provide custom configuration on applicaiton startup? [Read the CUSTOM_CONFIG instructions](CUSTOM_CONFIG.md)
 
-- Do you want to edit and run this project in an IDE?  [Read the IDE instructions.](IDE.md)
+- Do you want to edit and run this project in an IDE?  [Read the IDE instructions.](IDE.md)	
+
+- Do you want to use Oauth2 Authentication in this project? [Read the OAUTH instructions](OAUTH.md)
 
