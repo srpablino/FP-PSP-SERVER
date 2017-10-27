@@ -40,7 +40,7 @@ public class OrganizationController {
 	@PostMapping()
 	public ResponseEntity<OrganizationDTO> addOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
 		OrganizationDTO result = organizationService.addOrganization(organizationDTO);
-		return ResponseEntity.created(new URI("/api/v1/organizations/" + result.getOrganizationId()))
+		return ResponseEntity.created(new URI("/api/v1/organizations/" + result.getId()))
 				.body(result);
 	}
 	

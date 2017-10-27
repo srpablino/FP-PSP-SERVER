@@ -38,10 +38,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 		return Optional.ofNullable(organizationRepository.findOne(organizationId))
                 .map(organization -> {
-                    BeanUtils.copyProperties(organizationDTO, organization);
-                    LOG.debug("Changed Information for Organization: {}", organization);
-                    return organization;
-                })
+                	organization.setName(organizationDTO.getName());
+                    organization.setDescription(organizationDTO.getDescription());
+					LOG.debug("Changed Information for Organization: {}", organization);
+					return organizationRepository.save(organization);
+			    })
                 .map(organizationMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
 	}

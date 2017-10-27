@@ -8,7 +8,7 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
 public class OrganizationDTO {
 
-	private Long organizationId;
+	private Long id;
 
 	@NotNull
 	private String name;
@@ -31,7 +31,7 @@ public class OrganizationDTO {
 
 	private OrganizationDTO(Long organizationId, String name, Integer code, String description, boolean isActive,
 			CountryDTO country, String information, ApplicationDTO application) {
-		this.organizationId = organizationId;
+		this.id = organizationId;
 		this.name = name;
 		this.code = code;
 		this.description = description;
@@ -42,7 +42,7 @@ public class OrganizationDTO {
 	}
 
 	public static class Builder {
-		private Long organizationId;
+		private Long id;
 		private String name;
 		private Integer code;
 		private String description;
@@ -51,8 +51,8 @@ public class OrganizationDTO {
 		private String information;
 		private ApplicationDTO application;
 		
-		public Builder organizationId(Long organizationId) {
-			this.organizationId = organizationId;
+		public Builder id(Long organizationId) {
+			this.id = organizationId;
 			return this;
 		}
 		
@@ -92,7 +92,7 @@ public class OrganizationDTO {
 		}
 		
 		public OrganizationDTO build() {
-			return new OrganizationDTO(organizationId, name, code, description, isActive, country, information, application);
+			return new OrganizationDTO(id, name, code, description, isActive, country, information, application);
 		}
 	}
 	
@@ -100,13 +100,13 @@ public class OrganizationDTO {
 		return new Builder();
 	}
 
-	public Long getOrganizationId() {
-		return organizationId;
+	public Long getId() {
+		return id;
 	}
 
 
-	public void setOrganizationId(Long organizationId) {
-		this.organizationId = organizationId;
+	public void setId(Long organizationId) {
+		this.id = organizationId;
 	}
 
 
@@ -182,7 +182,7 @@ public class OrganizationDTO {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("organizationId", organizationId)
+				.add("id", id)
 				.add("name", name)
 				.add("code", code)
 				.add("description", description)

@@ -17,34 +17,34 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
 @Table(name = "application", schema = "ps_network")
-public class ApplicationEntity  {
+public class ApplicationEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ps_network.application_application_id_seq")
-    @SequenceGenerator(name="ps_network.application_application_id_seq", sequenceName="ps_network.application_application_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ps_network.application_application_id_seq")
+	@SequenceGenerator(name = "ps_network.application_application_id_seq", sequenceName = "ps_network.application_application_id_seq", allocationSize = 1)
 	@Column(name = "application_id")
 	private Long applicationId;
-	
+
 	private String name;
-	
+
 	private String code;
-	
+
 	private String description;
-	
+
 	private boolean isActive;
-	
+
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
 	private CountryEntity country;
-	
+
 	@ManyToOne(targetEntity = CityEntity.class)
 	@JoinColumn(name = "city")
 	private CityEntity city;
-	
+
 	private String information;
-	
+
 	private boolean isHub;
-	
+
 	private boolean isOrganization;
 
 	public Long getApplicationId() {
@@ -127,7 +127,6 @@ public class ApplicationEntity  {
 		this.isOrganization = isOrganization;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -137,25 +136,17 @@ public class ApplicationEntity  {
 		ApplicationEntity toCompare = (ApplicationEntity) obj;
 		return applicationId.equals(toCompare.applicationId);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return applicationId == null ? 0 : applicationId.hashCode();
 	}
-	
+
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("applicationId", applicationId)
-				.add("name", name)
-				.add("code", code)
-				.add("description", description)
-				.add("isActive", isActive)
-				.add("country", country.toString())
-				.add("city", city.toString())
-				.add("information", information)
-				.add("isHub", isHub)
-				.add("isOrganization", isOrganization)
-				.toString();
+		return MoreObjects.toStringHelper(this).add("applicationId", applicationId).add("name", name).add("code", code)
+				.add("description", description).add("isActive", isActive).add("country", country.toString())
+				.add("city", city.toString()).add("information", information).add("isHub", isHub)
+				.add("isOrganization", isOrganization).toString();
 	}
 }
