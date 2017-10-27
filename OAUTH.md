@@ -1,15 +1,19 @@
-#About OAuth2
+# About OAuth2
 
 The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
 
-#Observation
+# Configuration
 
 The Oauth2 security is disabled by default in development enviroment,
-this configuration is in the COMMON SPRING BOOT PROPERTIES file.
+this configuration is in the `application-dev.properties` file and you can enable oauth by removing the property:
 
-#Usage
+```shell
+ security.ignored=/**
+```
 
-###Get access token with client and user credentials
+# Usage
+
+### Get access token with client and user credentials
 
 Client id : barClientIdPassword
 
@@ -20,10 +24,10 @@ User name : admin
 User password : password
 
 ```
-curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=password&grant_type=password'
+curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=admin&grant_type=password'
 ```
 
-###Result
+### Result
 
 ```
 {
@@ -46,14 +50,14 @@ curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?u
 }
 ```
 
-###Access secure resource with token
+### Access secure resource with token
 
 ```
 curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/people
 
 ```
 
-###Result
+### Result
 
 ```
 [{
