@@ -64,5 +64,12 @@
      <changeSet id="2017-10-05T11:49" author="mcespedes">
         <sqlFile path="sql/2017-10-05T11:49.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+     <!-- 
+     Insert user and client credentials for oauth2 authentication
+     -->
+     <changeSet id="2017-10-26T22:00" author="mcespedes">
+        <sqlFile path="sql/2017-10-26T22:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
