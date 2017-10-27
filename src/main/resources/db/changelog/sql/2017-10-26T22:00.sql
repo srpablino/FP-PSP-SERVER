@@ -1,9 +1,5 @@
 -- This script insert user and client credentials for oauth2 authentication
 
---user table
-insert into security.user (username, pass, active)
-values ('admin', 'password', true);
-
 --user_x_role table
 insert into security.user_x_role (user_id, role) 
 select user_id, 'ADMIN' as role from security.user where username = 'admin';
