@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 /*
  * FP-PSP Server
  * A sample API to manage surveys
@@ -42,7 +42,6 @@ public class SurveyDefinition implements StoreableDefinition  {
 
     @JsonProperty("user_created")
     private Integer userCreated = null;
-
 
 
     public SurveyDefinition surveySchema(SurveySchema surveySchema) {

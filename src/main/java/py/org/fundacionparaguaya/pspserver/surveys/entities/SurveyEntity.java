@@ -3,11 +3,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Parameter;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
-import py.org.fundacionparaguaya.pspserver.web.models.*;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,7 +28,7 @@ public class SurveyEntity implements Serializable {
 
     @Column(name = "survey_definition")
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
-            @Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.web.models.SurveyDefinition")})
+            @Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition")})
     private SurveyDefinition surveyDefinition;
 
 

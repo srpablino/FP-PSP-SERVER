@@ -9,5 +9,5 @@ import java.util.Optional;
  * Created by rodrigovillalba on 10/20/17.
  */
 public interface SnapshotPropertyAttributeRepository extends JpaRepository<PropertyAttributeEntity, Long>{
-    
+
 }

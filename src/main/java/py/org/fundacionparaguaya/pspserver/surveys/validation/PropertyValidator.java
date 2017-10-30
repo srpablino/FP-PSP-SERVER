@@ -1,6 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.validation;
 
-import py.org.fundacionparaguaya.pspserver.web.models.Property;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.Property;
 
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResult.invalid;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResult.valid;

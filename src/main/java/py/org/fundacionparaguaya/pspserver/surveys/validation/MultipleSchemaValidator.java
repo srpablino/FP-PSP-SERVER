@@ -1,6 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.validation;
 
-import py.org.fundacionparaguaya.pspserver.web.models.SurveySchema;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveySchema;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

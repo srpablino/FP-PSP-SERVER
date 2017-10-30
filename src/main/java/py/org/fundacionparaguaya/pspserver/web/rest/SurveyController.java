@@ -6,9 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
-import py.org.fundacionparaguaya.pspserver.odkclient.OdkClient;
-import py.org.fundacionparaguaya.pspserver.web.models.NewSurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.web.models.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 
 import javax.websocket.server.PathParam;
 import java.net.URI;

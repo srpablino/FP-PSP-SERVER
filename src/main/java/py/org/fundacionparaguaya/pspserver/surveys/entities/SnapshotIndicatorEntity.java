@@ -3,12 +3,11 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
-import py.org.fundacionparaguaya.pspserver.web.models.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.List;
 
 /**
  * Created by rodrigovillalba on 10/17/17.
@@ -91,7 +90,7 @@ public class SnapshotIndicatorEntity implements StoreableSnapshot {
 
     @Column(name = "additional_properties")
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
-            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.web.models.SurveyData")})
+            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData")})
     private SurveyData additionalProperties;
 
     public Long getId() {

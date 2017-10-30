@@ -5,11 +5,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
-import py.org.fundacionparaguaya.pspserver.web.models.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.web.models.Snapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 
 import java.net.URI;
 import java.net.URISyntaxException;

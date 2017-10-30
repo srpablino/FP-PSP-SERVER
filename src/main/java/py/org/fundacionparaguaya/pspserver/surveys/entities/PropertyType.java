@@ -2,10 +2,6 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import py.org.fundacionparaguaya.pspserver.web.models.Property;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by rodrigovillalba on 10/16/17.

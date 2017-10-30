@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.google.common.collect.ForwardingMap;
 
@@ -10,9 +10,18 @@ import java.util.Map;
  */
 public class SurveyData extends ForwardingMap<String, Object> {
 
-    private Map<String, Object> dataMap = new HashMap<>();
+    private Map<String, Object> dataMap;
 
     private Long id;
+
+    public SurveyData() {
+        this.dataMap = new HashMap<>();
+    }
+
+    public SurveyData(Map<String, Object> collect) {
+        this.dataMap = collect;
+
+    }
 
     @Override
     protected Map<String, Object> delegate() {

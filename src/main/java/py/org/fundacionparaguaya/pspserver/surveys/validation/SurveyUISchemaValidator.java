@@ -2,7 +2,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.validation;
 
 import py.org.fundacionparaguaya.pspserver.surveys.entities.PropertyAttributeEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightGroup;
-import py.org.fundacionparaguaya.pspserver.web.models.SurveyUISchema;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyUISchema;
 
 /**
  * Created by rodrigovillalba on 10/26/17.

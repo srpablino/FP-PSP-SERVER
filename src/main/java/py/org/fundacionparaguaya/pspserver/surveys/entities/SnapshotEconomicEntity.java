@@ -3,11 +3,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.Type;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
-import py.org.fundacionparaguaya.pspserver.web.models.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.stream.Stream;
 
 /**
  * Created by rodrigovillalba on 10/19/17.
@@ -86,7 +85,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Column(name = "additional_properties")
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
-            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.web.models.SurveyData")})
+            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData")})
     private SurveyData additionalProperties;
 
     @Column(name = "created_at")

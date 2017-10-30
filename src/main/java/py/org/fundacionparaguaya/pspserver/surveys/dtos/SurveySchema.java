@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 /*
  * FP-PSP Server
@@ -14,14 +14,10 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.*;
 
 /**
  * The MODEL SCHEMA definition of the survey

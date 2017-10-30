@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,19 +11,19 @@ public class Snapshot {
     @JsonProperty("survey_id")
     private Long surveyId = null;
 
-    @JsonProperty("socio_econocmics_survey_data")
-    private SurveyData socioEconomicsSurveyData = null;
+    @JsonProperty("economic_survey_data")
+    private SurveyData economicSurveyData = null;
 
     @JsonProperty("indicators_survey_data")
-    private SurveyData indicatorssSurveyData = null;
+    private SurveyData indicatorSurveyData = null;
 
-    public Snapshot socioEconomicsSurveyData(SurveyData surveyData) {
-        this.socioEconomicsSurveyData = surveyData;
+    public Snapshot economicSurveyData(SurveyData surveyData) {
+        this.economicSurveyData = surveyData;
         return this;
     }
 
-    public Snapshot indicatorsSurveyData(SurveyData surveyData) {
-        this.indicatorssSurveyData = surveyData;
+    public Snapshot indicatorSurveyData(SurveyData surveyData) {
+        this.indicatorSurveyData = surveyData;
         return this;
     }
 
@@ -33,12 +33,12 @@ public class Snapshot {
      * @return surveyData
      **/
     @ApiModelProperty(value = "Key/value pairs representing the filled out 'Socio Economics' survey")
-    public SurveyData getSocioEconomicsSurveyData() {
-        return socioEconomicsSurveyData;
+    public SurveyData getEconomicSurveyData() {
+        return economicSurveyData;
     }
 
-    public void setSocioEconomicsSurveyData(SurveyData surveyData) {
-        this.socioEconomicsSurveyData = surveyData;
+    public void setEconomicSurveyData(SurveyData surveyData) {
+        this.economicSurveyData = surveyData;
     }
 
     public Long getSurveyId() {
@@ -54,12 +54,12 @@ public class Snapshot {
      * @return surveyData
      **/
     @ApiModelProperty(value = "Key/value pairs representing the filled out 'Indicators' survey")
-    public SurveyData getIndicatorssSurveyData() {
-        return indicatorssSurveyData;
+    public SurveyData getIndicatorSurveyData() {
+        return indicatorSurveyData;
     }
 
-    public void setIndicatorssSurveyData(SurveyData indicatorssSurveyData) {
-        this.indicatorssSurveyData = indicatorssSurveyData;
+    public void setIndicatorSurveyData(SurveyData indicatorSurveyData) {
+        this.indicatorSurveyData = indicatorSurveyData;
     }
 
 
@@ -68,8 +68,8 @@ public class Snapshot {
         StringBuilder sb = new StringBuilder();
         sb.append("class Snapshot {\n");
         sb.append("    surveyId: ").append(toIndentedString(surveyId)).append("\n");
-        sb.append("    socioEconomicsSurveyData: ").append(toIndentedString(socioEconomicsSurveyData)).append("\n");
-        sb.append("    indicatorssSurveyData: ").append(toIndentedString(indicatorssSurveyData)).append("\n");
+        sb.append("    economicSurveyData: ").append(toIndentedString(economicSurveyData)).append("\n");
+        sb.append("    indicatorSurveyData: ").append(toIndentedString(indicatorSurveyData)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -94,13 +94,13 @@ public class Snapshot {
         Snapshot that = (Snapshot) o;
 
         return com.google.common.base.Objects.equal(this.surveyId, that.surveyId) &&
-                com.google.common.base.Objects.equal(this.socioEconomicsSurveyData, that.socioEconomicsSurveyData) &&
-                com.google.common.base.Objects.equal(this.indicatorssSurveyData, that.indicatorssSurveyData);
+                com.google.common.base.Objects.equal(this.economicSurveyData, that.economicSurveyData) &&
+                com.google.common.base.Objects.equal(this.indicatorSurveyData, that.indicatorSurveyData);
     }
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(surveyId, socioEconomicsSurveyData, indicatorssSurveyData);
+        return com.google.common.base.Objects.hashCode(surveyId, economicSurveyData, indicatorSurveyData);
     }
 
     public Snapshot snapshotEconomicId(Long id) {

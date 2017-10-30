@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -41,9 +42,9 @@ public class UserServiceImpl implements UserService {
                 .ifPresent((user) -> {
                     throw new CustomParameterizedException(
                             "User already exists.",
-                            ImmutableMap.<String, String>builder().
+							new ImmutableMultimap.Builder<String, String>().
                                     put("username", user.getUsername()).
-                                    build()
+                                    build().asMap()
                     );
                 });
         UserEntity user = new UserEntity();

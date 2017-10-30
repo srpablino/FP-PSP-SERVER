@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 /*
  * FP-PSP Server

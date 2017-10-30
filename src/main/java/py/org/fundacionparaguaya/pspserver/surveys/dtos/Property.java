@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 /*
  * FP-PSP Server
@@ -15,6 +15,7 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.*;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.PropertyTitle;
 
 /**
  * Holds info representing the definition of the field
@@ -32,29 +32,50 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.PropertyTitle;
 public class Property   {
 
 
+    public boolean valueIsOfValidType(Object value) {
+        return this.getType().apply(value);
+    }
+
     /**
      * The type of this field
      */
-    public enum TypeEnum {
-        STRING("string"),
-
-        NUMBER("number"),
-
-        BOOLEAN("boolean"),
-
-        OBJECT("object"),
-
-        INTEGER("integer");
+    public enum TypeEnum implements Function<Object, Boolean> {
+        STRING("string") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof  String;
+            }
+        },
+        NUMBER("number") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof Float || value instanceof Double;
+            }
+        },
+        BOOLEAN("boolean") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof Boolean;
+            }
+        },
+        OBJECT("object") {
+            @Override
+            public Boolean apply(Object value) {
+                return true;
+            }
+        },
+        INTEGER("integer") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof  Integer;
+            }
+        };
 
         private String value;
 
         TypeEnum(String value) {
             this.value = value;
         }
-
-        public static List<String> STRING_TYPES = Arrays.asList("text", "video", "image");
-
-        public static List<String> SELECT_TYPES = Arrays.asList("select_one_dropdown", "select_one_slider");
 
         @Override
         @JsonValue
@@ -73,17 +94,6 @@ public class Property   {
             return null;
         }
 
-        public static TypeEnum fromOdkType(String type) {
-            TypeEnum typeEnum = TypeEnum.fromValue(type);
-            if (typeEnum != null) {
-                return typeEnum;
-            }
-            if (STRING_TYPES.contains(type) || SELECT_TYPES.contains(type)) {
-               return TypeEnum.STRING;
-            } else {
-               return TypeEnum.OBJECT;
-            }
-        }
     }
 
     /**
@@ -196,7 +206,6 @@ public class Property   {
     public void setTitle(PropertyTitle title) {
         this.title = title;
     }
-
 
     @Override
     public boolean equals(java.lang.Object o) {

@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.web.models;
+package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 /*
  * FP-PSP Server
  * A sample API to manage surveys
@@ -14,8 +14,6 @@ package py.org.fundacionparaguaya.pspserver.web.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
-import com.google.common.collect.ForwardingMap;
-import com.google.gson.JsonObject;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,8 +25,11 @@ import java.util.Map;
  * The UI SCHEMA definition of the survey. Holds info clients would use to render the survey
  */
 @ApiModel(description = "The UI SCHEMA definition of the survey. Holds info clients would use to render the survey")
-public class SurveyUISchema extends ForwardingMap<String, Property> {
+public class SurveyUISchema {
 
+
+    public static final String UI_GROUP_ECONOMICS = "ui:group:economics";
+    public static final String UI_GROUP_INDICTATORS = "ui:group:indicators";
 
     @JsonProperty("properties")
     private Map<String, Property> properties = new HashMap<>();
@@ -37,12 +38,14 @@ public class SurveyUISchema extends ForwardingMap<String, Property> {
     private List<String> uiOrder = null;
 
 
-    @JsonProperty("ui:group:socioeconomics")
-    private List<String> groupSocioEconomics = null;
+    @JsonProperty("ui:group:economics")
+    private List<String> groupEconomics = null;
 
     @JsonProperty("ui:group:indicators")
     private List<String> groupIndicators = null;
 
+
+    public SurveyUISchema() {}
 
     public SurveyUISchema properties(Map<String, Property> properties) {
         this.properties = properties;
@@ -59,19 +62,15 @@ public class SurveyUISchema extends ForwardingMap<String, Property> {
         this.uiOrder = uiOrder;
     }
 
-    @Override
-    protected Map<String, Property> delegate() {
-        return this.properties;
-    }
 
 
     @ApiModelProperty("Specifies which fields should be grouped as socio-economics in the UI")
-    public List<String> getGroupSocioEconomics() {
-        return groupSocioEconomics;
+    public List<String> getGroupEconomics() {
+        return groupEconomics;
     }
 
-    public void setGroupSocioEconomics(List<String> groupSocioEconomics) {
-        this.groupSocioEconomics = groupSocioEconomics;
+    public void setGroupEconomics(List<String> groupEconomics) {
+        this.groupEconomics = groupEconomics;
     }
 
     @ApiModelProperty("Specifies which fields should be grouped as indicators in the UI")
@@ -89,7 +88,7 @@ public class SurveyUISchema extends ForwardingMap<String, Property> {
         StringBuilder sb = new StringBuilder();
         sb.append("class SurveyUISchema {\n");
         sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
-        sb.append("    groupSocioEconomics: ").append(toIndentedString(groupSocioEconomics)).append("\n");
+        sb.append("    groupEconomics: ").append(toIndentedString(groupEconomics)).append("\n");
         sb.append("    groupIndicators: ").append(toIndentedString(groupIndicators)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -115,13 +114,13 @@ public class SurveyUISchema extends ForwardingMap<String, Property> {
 
         return Objects.equal(this.properties, that.properties) &&
                 Objects.equal(this.uiOrder, that.uiOrder) &&
-                Objects.equal(this.groupSocioEconomics, that.groupSocioEconomics) &&
+                Objects.equal(this.groupEconomics, that.groupEconomics) &&
                 Objects.equal(this.groupIndicators, that.groupIndicators);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(properties, uiOrder, groupSocioEconomics, groupIndicators);
+        return Objects.hashCode(properties, uiOrder, groupEconomics, groupIndicators);
     }
 
 
