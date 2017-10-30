@@ -21,7 +21,7 @@ git clone https://github.com/FundacionParaguaya/FP-PSP-SERVER.git
 Run with psql the script:
 
 ```shell
-psql -U YOUR_USER_HERE -f src/main/resources/create_database.sql
+psql -U YOUR_USER_HERE -f src/main/resources/db/create_database.sql
 ```
 
 Yo can also copy and paste the following snippet to your favorite PSQL client:

@@ -66,4 +66,18 @@
         <sqlFile path="sql/2017-09-25T11:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--
+     Creates surveys tables
+    -->
+    <changeSet id="2017-10-26T11:00" author="rvillalba">
+        <sqlFile path="sql/2017-10-26T11:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!--
+     Drops no longer used surveys tables
+    -->
+    <changeSet id="2017-10-26T11:15" author="rvillalba">
+        <sqlFile path="sql/2017-10-26T11:15.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
