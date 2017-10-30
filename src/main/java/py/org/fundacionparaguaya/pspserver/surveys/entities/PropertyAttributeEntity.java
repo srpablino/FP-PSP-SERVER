@@ -1,68 +1,78 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 
-import com.google.common.collect.ForwardingMap;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by rodrigovillalba on 10/16/17.
  */
 @Entity
-@Table(name = "properties_attributes", schema = "data_collect")
+@Table(name = "snapshots_properties_attributes", schema = "data_collect")
 public class PropertyAttributeEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "property_system_name")
+    private String propertySystemName;
 
-    @Column(name = "property_column_name")
-    private String propertyColumnName;
+    @Column(name = "property_schema_name")
+    private String propertySchemaName;
+
 
     @Column(name = "stoplight_type")
     @Enumerated(EnumType.STRING)
-    private StoptLightType stoptLightType;
+    private StopLightType stoptLightType;
 
     @Embedded
     @Column(name = "property_title")
-    private PropertyTitle propertyTitle;
+    private EmbeddablePropertyTitle embeddablePropertyTitle;
+
+    @Column(name = "stoplight_group")
+    @Enumerated(EnumType.STRING)
+    private StopLightGroup stopLightGroup;
 
     public PropertyAttributeEntity() {
     }
 
-    public String getPropertyColumnName() {
-        return propertyColumnName;
+    public String getPropertySystemName() {
+        return propertySystemName;
     }
 
-    public void setPropertyColumnName(String propertyColumnName) {
-        this.propertyColumnName = propertyColumnName;
+    public void setPropertySystemName(String propertySystemName) {
+        this.propertySystemName = propertySystemName;
     }
 
-    public StoptLightType getStoptLightType() {
+    public StopLightType getStoptLightType() {
         return stoptLightType;
     }
 
-    public void setStoptLightType(StoptLightType stoptLightType) {
+    public void setStoptLightType(StopLightType stoptLightType) {
         this.stoptLightType = stoptLightType;
     }
 
-    public PropertyTitle getPropertyTitle() {
-        return propertyTitle;
+    public EmbeddablePropertyTitle getEmbeddablePropertyTitle() {
+        return embeddablePropertyTitle;
     }
 
-    public void setPropertyTitle(PropertyTitle propertyTitle) {
-        this.propertyTitle = propertyTitle;
+    public void setEmbeddablePropertyTitle(EmbeddablePropertyTitle embeddablePropertyTitle) {
+        this.embeddablePropertyTitle = embeddablePropertyTitle;
     }
 
-    public Long getId() {
-        return id;
+    public String getPropertySchemaName() {
+        return propertySchemaName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPropertySchemaName(String propertySchemaName) {
+        this.propertySchemaName = propertySchemaName;
     }
+
+    public StopLightGroup getStopLightGroup() {
+        return stopLightGroup;
+    }
+
+    public void setStopLightGroup(StopLightGroup stopLightGroup) {
+        this.stopLightGroup = stopLightGroup;
+    }
+
+   
 }

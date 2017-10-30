@@ -7,6 +7,7 @@ import py.org.fundacionparaguaya.pspserver.web.models.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -34,8 +35,12 @@ public class SurveyEntity implements Serializable {
 
     public SurveyEntity(){}
 
-    private SurveyEntity(SurveyDefinition definition) {
+    public SurveyEntity(SurveyDefinition definition) {
         this.surveyDefinition = definition;
+    }
+
+    public SurveyEntity(Long surveyId) {
+        this.id = surveyId;
     }
 
 
