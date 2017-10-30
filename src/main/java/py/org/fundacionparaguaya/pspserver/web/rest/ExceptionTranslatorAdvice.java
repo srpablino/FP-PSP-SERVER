@@ -53,6 +53,10 @@ public class ExceptionTranslatorAdvice {
     public ErrorDTO processControllerValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         List<FieldError> fieldErrors = result.getFieldErrors();
+        return getErrorDTO(fieldErrors);
+    }
+
+    private ErrorDTO getErrorDTO(List<FieldError> fieldErrors) {
         ErrorDTO dto = ErrorDTO.fromCode(ErrorCodes.ERR_VALIDATION);
         for (FieldError fieldError : fieldErrors) {
             dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
@@ -82,7 +86,7 @@ public class ExceptionTranslatorAdvice {
     @ExceptionHandler(CustomParameterizedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ParameterizedErrorDTO processParameterizedValidationError(CustomParameterizedException ex) {
+    public ErrorDTO processParameterizedValidationError(CustomParameterizedException ex) {
         return ex.getErrorDTO();
     }
 

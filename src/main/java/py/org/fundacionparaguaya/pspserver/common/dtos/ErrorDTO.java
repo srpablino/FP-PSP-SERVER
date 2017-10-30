@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -46,11 +48,18 @@ public class ErrorDTO implements Serializable {
         this.fieldErrors = fieldErrors;
     }
 
+    public void add(String objectName, String field, Collection<String> messages) {
+        if (fieldErrors == null) {
+            fieldErrors = new ArrayList<>();
+        }
+        fieldErrors.add(new FieldErrorDTO(objectName, field, messages));
+    }
+
     public void add(String objectName, String field, String message) {
         if (fieldErrors == null) {
             fieldErrors = new ArrayList<>();
         }
-        fieldErrors.add(new FieldErrorDTO(objectName, field, message));
+        fieldErrors.add(new FieldErrorDTO(objectName, field, Arrays.asList(message)));
     }
 
     public String getMessage() {

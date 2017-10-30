@@ -1,7 +1,12 @@
 package py.org.fundacionparaguaya.pspserver.common.dtos;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FieldErrorDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -10,12 +15,12 @@ public class FieldErrorDTO implements Serializable {
 
     private final String field;
 
-    private final String message;
+    private final Collection<String> messages;
 
-    public FieldErrorDTO(String dto, String field, String message) {
+    public FieldErrorDTO(String dto, String field, Collection<String> messages) {
         this.objectName = dto;
         this.field = field;
-        this.message = message;
+        this.messages = messages;
     }
 
     public String getObjectName() {
@@ -26,8 +31,8 @@ public class FieldErrorDTO implements Serializable {
         return field;
     }
 
-    public String getMessage() {
-        return message;
+    public Collection<String> getMessages() {
+        return messages;
     }
 
 }
