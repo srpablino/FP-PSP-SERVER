@@ -1,6 +1,0 @@
-{
-  "waterUsage": {
-    "title": {"es": "Cuenta con agua potable en su hogar?"},
-    "type": "string"
-  }
-}

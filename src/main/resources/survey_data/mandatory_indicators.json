@@ -1,6 +1,0 @@
-{
-  "bathroomUsage": {
-    "title": {"es": "Cuenta con baño en su hogar?"},
-    "type": "string"
-  }
-}
