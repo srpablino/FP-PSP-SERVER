@@ -97,34 +97,16 @@
 			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.Benetech</groupId>
-			<artifactId>odk-tables-api-hamster</artifactId>
-			<version>1.2-SNAPSHOT</version>
-			<exclusions>
-				<!-- Spring boot includes jcl-over-slf4j (conflicts) by default -->
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-jcl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.github.benetech</groupId>
-			<artifactId>odk-hamster-digest-auth-client</artifactId>
-			<version>1.0.2-RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
