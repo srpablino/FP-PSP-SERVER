@@ -28,6 +28,10 @@ public class SurveyDefinition implements StoreableDefinition  {
 
     private Long id;
 
+    private String title;
+
+    private String description;
+
     @JsonProperty("survey_schema")
     private SurveySchema surveySchema = null;
 
@@ -208,6 +212,31 @@ public class SurveyDefinition implements StoreableDefinition  {
         return this;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SurveyDefinition title(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public SurveyDefinition description(String description) {
+        this.description = description;
+        return this;
+    }
 }
 
 

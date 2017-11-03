@@ -25,11 +25,18 @@ import java.util.Objects;
 
 public class NewSurveyDefinition  implements StoreableDefinition {
 
+    private String title;
+
+    private String description;
+
     @JsonProperty("survey_schema")
     private SurveySchema surveySchema = new SurveySchema();
 
     @JsonProperty("survey_ui_schema")
     private SurveyUISchema surveyUISchema = new SurveyUISchema();
+
+    public NewSurveyDefinition() {
+    }
 
     public NewSurveyDefinition surveySchema(SurveySchema surveySchema) {
         this.surveySchema = surveySchema;
@@ -114,5 +121,20 @@ public class NewSurveyDefinition  implements StoreableDefinition {
         return o.toString().replace("\n", "\n    ");
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
 

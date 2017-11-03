@@ -6,15 +6,18 @@ import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceExce
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightType;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.PropertyAttributeSupport;
+import py.org.fundacionparaguaya.pspserver.surveys.mapper.SurveyMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.*;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
@@ -28,17 +31,20 @@ import static py.org.fundacionparaguaya.pspserver.surveys.validation.SurveyUISch
 @Service
 public class SurveyServiceImpl implements SurveyService {
 
-    private final SnapshotEconomicRepository repository;
+    private final SnapshotEconomicRepository economicRepository;
 
-    private final SurveyRepository definitionRepository;
+    private final SurveyRepository repo;
 
     private final PropertyAttributeSupport propertyAttributeSupport;
 
-    public SurveyServiceImpl(SnapshotEconomicRepository repository,
-                             SurveyRepository definitionRepository, PropertyAttributeSupport propertyAttributeSupport) {
-        this.repository = repository;
-        this.definitionRepository = definitionRepository;
+    private final SurveyMapper mapper;
+
+    public SurveyServiceImpl(SnapshotEconomicRepository economicRepository,
+                             SurveyRepository repo, PropertyAttributeSupport propertyAttributeSupport, SurveyMapper mapper) {
+        this.economicRepository = economicRepository;
+        this.repo = repo;
         this.propertyAttributeSupport = propertyAttributeSupport;
+        this.mapper = mapper;
     }
 
     @Override
@@ -49,11 +55,15 @@ public class SurveyServiceImpl implements SurveyService {
             throw new CustomParameterizedException("Invalid Survey Schema", results.asMap());
         }
 
-        SurveyEntity entity = this.definitionRepository
-                .save(SurveyEntity.of(new SurveyDefinition().surveySchema(surveyDefinition.getSurveySchema())
+        SurveyEntity entity = this.repo
+                .save(SurveyEntity.of(surveyDefinition.getTitle(), surveyDefinition.getDescription(), new SurveyDefinition()
+                        .surveySchema(surveyDefinition.getSurveySchema())
                         .surveyUISchema(surveyDefinition.getSurveyUISchema())));
 
-        return new SurveyDefinition().id(entity.getId()).surveySchema(entity.getSurveyDefinition().getSurveySchema())
+        return new SurveyDefinition().id(entity.getId())
+                .title(entity.getTitle())
+                .description(entity.getDescription())
+                .surveySchema(entity.getSurveyDefinition().getSurveySchema())
                 .surveyUISchema(entity.getSurveyDefinition().getSurveyUISchema());
     }
 
@@ -79,10 +89,14 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public SurveyDefinition getSurveyDefinition(Long surveyId) {
+        checkNotNull(surveyId);
         checkArgument(surveyId > 0, "Argument was %s but expected nonnegative", surveyId);
 
-        return Optional.ofNullable(definitionRepository.findOne(surveyId))
-                .map(entity -> new SurveyDefinition().id(entity.getId())
+        return Optional.ofNullable(repo.findOne(surveyId))
+                .map(entity -> new SurveyDefinition()
+                        .id(entity.getId())
+                        .description(entity.getDescription())
+                        .title(entity.getTitle())
                         .surveySchema(entity.getSurveyDefinition().getSurveySchema())
                         .surveyUiSchema(entity.getSurveyDefinition().getSurveyUISchema()))
                 .orElseThrow(() -> new UnknownResourceException("Survey definition does not exist"));
@@ -115,6 +129,15 @@ public class SurveyServiceImpl implements SurveyService {
         return results;
     }
 
+    @Override
+    public List<SurveyDefinition> getAll() {
+        return mapper.entityListToDtoList(repo.findAll());
+    }
+
+    @Override
+    public void deleteSurvey(Long surveyId) {
+        repo.delete(surveyId);
+    }
 
 
 }

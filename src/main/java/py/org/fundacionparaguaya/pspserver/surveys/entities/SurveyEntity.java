@@ -34,9 +34,12 @@ public class SurveyEntity implements Serializable {
 
     public SurveyEntity(){}
 
-    public SurveyEntity(SurveyDefinition definition) {
+    private SurveyEntity(String title, String description, SurveyDefinition definition){
+        this.title = title;
+        this.description = description;
         this.surveyDefinition = definition;
     }
+
 
     public SurveyEntity(Long surveyId) {
         this.id = surveyId;
@@ -56,8 +59,24 @@ public class SurveyEntity implements Serializable {
         this.surveyDefinition = surveyDefinition;
     }
 
-    public static SurveyEntity of(SurveyDefinition definition) {
+    public static SurveyEntity of(String title, String description, SurveyDefinition definition) {
         checkNotNull(definition);
-        return new SurveyEntity(definition);
+        return new SurveyEntity(title, description, definition);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

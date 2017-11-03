@@ -1,8 +1,8 @@
 {
   "economic_survey_data": {
     "currency": "guaranies",
-    "activityMain": "goofing around",
-    "activitySecondary": "goofing around too",
+    "activityMain": "worker",
+    "activitySecondary": "mechanic",
     "householdMonthlyIncome": 1000000,
     "salaryIncome": 1000000,
     "benefitIncome": 1000000,
@@ -14,11 +14,11 @@
     "educationClientLevel": "bachiller humanístico",
     "educationPersonMostStudied": "universitario",
     "educationLevelAttained": "ingeniero",
-    "housingSituation": "normal",
+    "housingSituation": "precaria",
     "otherUsefulInfo": "no hay otra información de utilidad",
-    "areaOfResidence": "Villa Aurelia",
+    "areaOfResidence": "RURAL",
     "employmentStatusPrimary": "Developer",
-    "employmentStatusSecondary": "Nerd"
+    "employmentStatusSecondary": "mechanic"
   },
   "indicator_survey_data": {
     "income": "normal income",

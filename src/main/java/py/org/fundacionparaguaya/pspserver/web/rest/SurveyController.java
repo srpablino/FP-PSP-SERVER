@@ -12,6 +12,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by rodrigovillalba on 9/25/17.
@@ -28,12 +29,18 @@ public class SurveyController {
         this.surveyService = surveyService;
     }
 
+    @GetMapping
+    public ResponseEntity getDefinitions() {
+        List<SurveyDefinition> list =  surveyService.getAll();
+        return ResponseEntity.ok(list);
+    }
+
     @PostMapping
     public ResponseEntity addSurveyDefinition(@RequestBody NewSurveyDefinition surveyDefinition)
             throws NotFoundException, URISyntaxException {
         SurveyDefinition definition = surveyService.addSurveyDefinition(surveyDefinition);
         URI surveyLocation = new URI("/surveys/" + definition.getId());
-        return ResponseEntity.created(surveyLocation).build();
+        return ResponseEntity.created(surveyLocation).body(definition);
     }
 
 
@@ -47,5 +54,14 @@ public class SurveyController {
         SurveyDefinition definition = surveyService.getSurveyDefinition(surveyId);
         return ResponseEntity.ok(definition);
     }
+
+    @DeleteMapping(value = "/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> deleteSurvey(
+            @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
+            throws NotFoundException {
+        surveyService.deleteSurvey(surveyId);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

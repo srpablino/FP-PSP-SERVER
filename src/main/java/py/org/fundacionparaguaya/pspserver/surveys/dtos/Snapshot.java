@@ -17,6 +17,9 @@ public class Snapshot {
     @JsonProperty("indicators_survey_data")
     private SurveyData indicatorSurveyData = null;
 
+    @JsonProperty("created_at")
+    private String createdAt;
+
     public Snapshot economicSurveyData(SurveyData surveyData) {
         this.economicSurveyData = surveyData;
         return this;
@@ -111,5 +114,18 @@ public class Snapshot {
     public Snapshot surveyId(Long surveyId) {
         this.surveyId = surveyId;
         return this;
+    }
+
+    public Snapshot createdAt(String createdAtAsISOString) {
+        this.createdAt = createdAtAsISOString;
+        return this;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -27,11 +27,6 @@
 	</properties>
 
 	<repositories>
-		<!-- We're using jitpack to download odk-tables-api-hamster -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
 		<!-- main repository -->
 		<repository>
 			<id>central</id>

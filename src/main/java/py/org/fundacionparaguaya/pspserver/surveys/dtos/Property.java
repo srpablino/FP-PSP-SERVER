@@ -36,6 +36,14 @@ public class Property   {
         return this.getType().apply(value);
     }
 
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(Object defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
     /**
      * The type of this field
      */
@@ -146,6 +154,8 @@ public class Property   {
     @JsonProperty("title")
     private PropertyTitle title = null;
 
+    @JsonProperty("default")
+    private Object defaultValue;
 
     @JsonProperty("format")
     private FormatEnum format = null;

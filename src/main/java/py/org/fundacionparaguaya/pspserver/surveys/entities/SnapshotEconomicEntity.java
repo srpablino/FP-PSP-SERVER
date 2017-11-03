@@ -6,7 +6,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUse
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by rodrigovillalba on 10/19/17.
@@ -89,7 +90,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     private SurveyData additionalProperties;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;
@@ -278,11 +280,11 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.additionalProperties = additionalProperties;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -314,5 +316,18 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
                     }
                 });
         return this;
+    }
+
+    @PrePersist
+    public void preSave() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @Transient
+    public String getCreatedAtAsISOString() {
+        if (this.createdAt != null) {
+            return createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        }
+        return null;
     }
 }
