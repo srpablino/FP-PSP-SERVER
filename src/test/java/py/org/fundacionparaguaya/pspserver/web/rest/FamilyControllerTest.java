@@ -2,6 +2,9 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.isIn;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -16,7 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -40,112 +45,61 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PspServerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-public class FamilyControllerIntegrationTest {
+@WebMvcTest(FamilyController.class)
+public class FamilyControllerTest {
 
 	@Autowired
 	private FamilyController controller;
 
-	@Autowired
-	private ExceptionTranslatorAdvice exceptionTranslator;
-
-	@Autowired
+	@MockBean
 	FamilyService familyService;
 
+	@Autowired
 	private MockMvc mockMvc;
+	private FamilyDTO mockFamily;
 
 	@Before
 	public void setup() {
-		mockMvc = MockMvcBuilders
-				.standaloneSetup(controller)
-				.setControllerAdvice(exceptionTranslator)
+		mockFamily = FamilyDTO.builder()
+				.name("foo.family")
+				.country(getCountryTest())
+				.city(getCityTest())
+				.locationType("foo.locationType")
+				.locationPositionGps("foo.locationPositionGps")
+				.person(getPersonTest())
+				.application(getApplcationTest())
+				.organization(getOrganizationTest())
 				.build();
 	}
 	
 	@Test
 	public void requestingPutFamilyShouldAddNewFamily() throws Exception {
-		FamilyDTO dto = FamilyDTO.builder()
-				.name("foo.family")
-				.country(getCountryTest())
-				.city(getCityTest())
-				.locationType("foo.locationType")
-				.locationPositionGps("foo.locationPositionGps")
-				.person(getPersonTest())
-				.application(getApplcationTest())
-				.organization(getOrganizationTest())
-				.build();
-		String json = TestHelper.mapToJson(dto);
+		when(familyService.addFamily(anyObject())).thenReturn(mockFamily);
+
+		String json = TestHelper.mapToJson(mockFamily);
 		mockMvc.perform(post("/api/v1/families").content(json).contentType(MediaType.APPLICATION_JSON))
 		.andDo(print())
 		.andExpect(status().isCreated())
-		.andExpect(jsonPath("$.name", is(dto.getName())));
+		.andExpect(jsonPath("$.name", is(mockFamily.getName())));
 	}
 	
 	@Test
     public void requestingPostFamilyShouldUpdateFamily() throws Exception {
-        FamilyDTO newDto = addNewFamily();
-        Long familyId = newDto.getFamilyId();
+        Long familyId = 9999L;
+        when(familyService.updateFamily(eq(familyId), anyObject())).thenReturn(mockFamily);
 
-        FamilyDTO updateDto = FamilyDTO.builder()
-        		.name("foo.family")
-				.country(getCountryTest())
-				.city(getCityTest())
-				.locationType("foo.locationType")
-				.locationPositionGps("foo.locationPositionGps")
-				.person(getPersonTest())
-				.application(getApplcationTest())
-				.organization(getOrganizationTest())
-                .build();
-
-        String json = TestHelper.mapToJson(updateDto);
+        String json = TestHelper.mapToJson(mockFamily);
         mockMvc.perform(put("/api/v1/families/{familyId}", familyId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(updateDto.getName())));
+                .andExpect(jsonPath("$.name", is(mockFamily.getName())));
 
-    }
-	
-	private FamilyDTO addNewFamily() {
-		FamilyDTO dto = FamilyDTO.builder()
-				.name("foo.family")
-				.country(getCountryTest())
-				.city(getCityTest())
-				.locationType("foo.locationType")
-				.locationPositionGps("foo.locationPositionGps")
-				.person(getPersonTest())
-				.application(getApplcationTest())
-				.organization(getOrganizationTest())
-                .build();
-        return familyService.addFamily(dto);
-    }
-	
-	@Test
-    public void requestingPostFamilyShouldFailIfNotValidArgument() throws Exception {
-        List<String> properties = Arrays.asList("name");
-        mockMvc.perform(post("/api/v1/families").content("{}").contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.fieldErrors.[0].objectName", is("familyDTO")))
-                .andExpect(jsonPath("$.fieldErrors.[0].field", isIn(properties)))
-                .andExpect(jsonPath("$.fieldErrors.[0].message").value("NotNull"));
-    }
-	
-	@Test
-    public void requestingGetFamilyShouldFailIfFamilyIsInvalid() throws Exception {
-        mockMvc.perform(get("/api/v1/families/{familyId}", -999999))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.description").value("Argument was -999999 but expected nonnegative"));
     }
 	
 	private OrganizationDTO getOrganizationTest() {
 		OrganizationDTO dto = new OrganizationDTO();
 		dto.setId(new Long(1));
 		dto.setName("foo.ORGANIZATION");
-		//...
 		return dto;
 	}
 
@@ -162,7 +116,6 @@ public class FamilyControllerIntegrationTest {
 		dto.setPersonId(new Long(1));
 		dto.setName("foo.NAME");
 		dto.setLastname("foo.LASTNAME");
-		//...
 		return dto;
 	}
 

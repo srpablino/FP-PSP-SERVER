@@ -1,7 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -9,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.lang.reflect.Executable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,15 +21,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.context.WebApplicationContext;
 import py.org.fundacionparaguaya.pspserver.PspServerApplication;
 import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
+import py.org.fundacionparaguaya.pspserver.common.dtos.ErrorDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
@@ -37,31 +49,26 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PspServerApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-public class ApplicationControllerIntegrationTest {
+@WebMvcTest(ApplicationController.class)
+public class ApplicationControllerTest {
+
 
 	@Autowired
     private ApplicationController controller;
 
     @Autowired
-    private ExceptionTranslatorAdvice exceptionTranslator;
+    private MockMvc mockMvc;
 
-    @Autowired
+
+    @MockBean
     private ApplicationService applicationService;
 
-    private MockMvc mockMvc;
-	
+    private ApplicationDTO mockApplication;
+
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(exceptionTranslator)
-                .build();
-    }
-    
-    @Test
-    public void requestingPutApplicationShouldAddNewApplication() throws Exception {
-    	ApplicationDTO dto = ApplicationDTO.builder()
+
+        mockApplication = ApplicationDTO.builder()
                 .name("foo.name")
                 .code("foo.code")
                 .description("foo.description")
@@ -72,74 +79,36 @@ public class ApplicationControllerIntegrationTest {
                 .isHub(true)
                 .isOrganization(true)
                 .build();
-        String json = TestHelper.mapToJson(dto);
+
+    }
+    
+    @Test
+    public void requestingPutApplicationShouldAddNewApplication() throws Exception {
+
+        when(applicationService.addApplication(anyObject())).thenReturn(mockApplication);
+
+    	String json = TestHelper.mapToJson(mockApplication);
+
         mockMvc.perform(post("/api/v1/applications").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is(dto.getName())));
+                .andExpect(jsonPath("$.name", is(mockApplication.getName())));
     }
     
     @Test
     public void requestingPostApplicationShouldUpdateApplication() throws Exception {
-    	ApplicationDTO newDto = addNewApplication();
-        Long applicationId = newDto.getApplicationId();
+    	Long applicationId = 9999L;
 
-        ApplicationDTO updateDto = ApplicationDTO.builder()
-        		.name("foo.application")
-                .code("foo.code")
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .city(getCityTest())
-                .information("foo.information")
-                .isHub(true)
-                .isOrganization(true)
-                .build();
+        when(applicationService.updateApplication(eq(applicationId), anyObject())).thenReturn(mockApplication);
 
-        String json = TestHelper.mapToJson(updateDto);
+        String json = TestHelper.mapToJson(mockApplication);
         mockMvc.perform(put("/api/v1/applications/{applicationId}", applicationId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(updateDto.getName())));
+                .andExpect(jsonPath("$.name", is(mockApplication.getName())));
 
     }
-    
-    private ApplicationDTO addNewApplication() {
-    	ApplicationDTO dto = ApplicationDTO.builder()
-                .name("foo.application")
-                .code("foo.code")
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .city(getCityTest())
-                .information("foo.information")
-                .isHub(true)
-                .isOrganization(true)
-                .build();
-        return applicationService.addApplication(dto);
-    }
-    
-    @Test
-    public void requestingPostApplicationShouldFailIfNotValidArgument() throws Exception {
-        List<String> properties = Arrays.asList("name");
-        mockMvc.perform(post("/api/v1/applications").content("{}").contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.fieldErrors.[0].objectName", is("applicationDTO")))
-                .andExpect(jsonPath("$.fieldErrors.[0].field", isIn(properties)))
-                .andExpect(jsonPath("$.fieldErrors.[0].message").value("NotNull"));
-    }
-    
-    
-    @Test
-    public void requestingGetApplicationShouldFailIfApplicationIsInvalid() throws Exception {
-        mockMvc.perform(get("/api/v1/applications/{applicationId}", -999999))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.description").value("Argument was -999999 but expected nonnegative"));
-    }
+
 
     
     private CountryDTO getCountryTest() {

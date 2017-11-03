@@ -2,6 +2,9 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -16,7 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,31 +43,23 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PspServerApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-public class OrganizationControllerIntegrationTest {
+@WebMvcTest(OrganizationController.class)
+public class OrganizationControllerITest {
 
 	@Autowired
     private OrganizationController controller;
 
-    @Autowired
-    private ExceptionTranslatorAdvice exceptionTranslator;
-
-    @Autowired
+	@MockBean
     private OrganizationService organizationService;
 
-    private MockMvc mockMvc;
-    
+    @Autowired
+	private MockMvc mockMvc;
+
+    private OrganizationDTO mockOrganization;
+
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(exceptionTranslator)
-                .build();
-    }
-    
-    @Test
-    public void requestingPutOrganizationShouldAddNewOrganization() throws Exception {
-    	OrganizationDTO dto = OrganizationDTO.builder()
+        mockOrganization = OrganizationDTO.builder()
                 .name("foo.name")
                 .code(new Integer(1))
                 .description("foo.description")
@@ -71,71 +68,33 @@ public class OrganizationControllerIntegrationTest {
                 .application(getApplicationTest())
                 .information("foo.information")
                 .build();
-        String json = TestHelper.mapToJson(dto);
+    }
+    
+    @Test
+    public void requestingPutOrganizationShouldAddNewOrganization() throws Exception {
+    	when(organizationService.addOrganization(anyObject())).thenReturn(mockOrganization);
+
+        String json = TestHelper.mapToJson(mockOrganization);
         mockMvc.perform(post("/api/v1/organizations").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is(dto.getName())));
+                .andExpect(jsonPath("$.name", is(mockOrganization.getName())));
     }
     
     @Test
     public void requestingPostOrganizationShouldUpdateOrganization() throws Exception {
-    	OrganizationDTO newDto = addNewOrganization();
-        Long organizationId = newDto.getId();
+        Long organizationId = 9999L;
+        when(organizationService.updateOrganization(eq(organizationId), anyObject())).thenReturn(mockOrganization);
 
-        OrganizationDTO updateDto = OrganizationDTO.builder()
-        		.name("foo.organization")
-                .code(new Integer(1))
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .application(getApplicationTest())
-                .information("foo.information")
-                .build();
 
-        String json = TestHelper.mapToJson(updateDto);
+        String json = TestHelper.mapToJson(mockOrganization);
         mockMvc.perform(put("/api/v1/organizations/{organizationId}", organizationId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(updateDto.getName())));
+                .andExpect(jsonPath("$.name", is(mockOrganization.getName())));
 
     }
-    
-    private OrganizationDTO addNewOrganization() {
-    	OrganizationDTO dto = OrganizationDTO.builder()
-    			.name("foo.organization")
-                .code(new Integer(1))
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .application(getApplicationTest())
-                .information("foo.information")
-                .build();
-        return organizationService.addOrganization(dto);
-    }
-    
-    @Test
-    public void requestingPostOrganizationShouldFailIfNotValidArgument() throws Exception {
-        List<String> properties = Arrays.asList("name");
-        mockMvc.perform(post("/api/v1/organizations").content("{}").contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.fieldErrors.[0].objectName", is("organizationDTO")))
-                .andExpect(jsonPath("$.fieldErrors.[0].field", isIn(properties)))
-                .andExpect(jsonPath("$.fieldErrors.[0].message").value("NotNull"));
-    }
-    
-    
-    @Test
-    public void requestingGetOrganizationShouldFailIfOrganizationIsInvalid() throws Exception {
-        mockMvc.perform(get("/api/v1/organizations/{organizationId}", -999999))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.description").value("Argument was -999999 but expected nonnegative"));
-    }
-    
+
     private CountryDTO getCountryTest() {
 		CountryDTO dto = new CountryDTO();
 		dto.setCountryId(new Long(1));
