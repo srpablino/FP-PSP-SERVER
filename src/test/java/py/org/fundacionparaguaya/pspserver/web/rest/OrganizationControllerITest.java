@@ -23,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -44,68 +45,60 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrganizationController.class)
+@ActiveProfiles("test")
 public class OrganizationControllerITest {
 
-	@Autowired
+    @Autowired
     private OrganizationController controller;
 
-	@MockBean
+    @MockBean
     private OrganizationService organizationService;
 
     @Autowired
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     private OrganizationDTO mockOrganization;
 
     @Before
     public void setup() {
-        mockOrganization = OrganizationDTO.builder()
-                .name("foo.name")
-                .code(new Integer(1))
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .application(getApplicationTest())
-                .information("foo.information")
-                .build();
+        mockOrganization = OrganizationDTO.builder().name("foo.name").code(new Integer(1))
+                .description("foo.description").isActive(true).country(getCountryTest())
+                .application(getApplicationTest()).information("foo.information").build();
     }
-    
+
     @Test
     public void requestingPutOrganizationShouldAddNewOrganization() throws Exception {
-    	when(organizationService.addOrganization(anyObject())).thenReturn(mockOrganization);
+        when(organizationService.addOrganization(anyObject())).thenReturn(mockOrganization);
 
         String json = TestHelper.mapToJson(mockOrganization);
         mockMvc.perform(post("/api/v1/organizations").content(json).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated())
+                .andDo(print()).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is(mockOrganization.getName())));
     }
-    
+
     @Test
     public void requestingPostOrganizationShouldUpdateOrganization() throws Exception {
         Long organizationId = 9999L;
         when(organizationService.updateOrganization(eq(organizationId), anyObject())).thenReturn(mockOrganization);
 
-
         String json = TestHelper.mapToJson(mockOrganization);
-        mockMvc.perform(put("/api/v1/organizations/{organizationId}", organizationId).content(json).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
+        mockMvc.perform(put("/api/v1/organizations/{organizationId}", organizationId).content(json)
+                .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(mockOrganization.getName())));
 
     }
 
     private CountryDTO getCountryTest() {
-		CountryDTO dto = new CountryDTO();
-		dto.setCountryId(new Long(1));
-		dto.setCountry("foo.COUNTRY");
-		return dto;
-	}
-    
+        CountryDTO dto = new CountryDTO();
+        dto.setCountryId(new Long(1));
+        dto.setCountry("foo.COUNTRY");
+        return dto;
+    }
+
     private ApplicationDTO getApplicationTest() {
-    	ApplicationDTO dto = new ApplicationDTO();
-		dto.setApplicationId(new Long(1));
-		dto.setDescription("foo.APPLICATION");
-		return dto;
-	}
+        ApplicationDTO dto = new ApplicationDTO();
+        dto.setApplicationId(new Long(1));
+        dto.setDescription("foo.APPLICATION");
+        return dto;
+    }
 }

@@ -21,11 +21,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +40,8 @@ import org.springframework.web.context.WebApplicationContext;
 import py.org.fundacionparaguaya.pspserver.PspServerApplication;
 import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
 import py.org.fundacionparaguaya.pspserver.common.dtos.ErrorDTO;
+import py.org.fundacionparaguaya.pspserver.config.OAuth2ResourceServerConfig;
+import py.org.fundacionparaguaya.pspserver.config.WebSecurityConfig;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
@@ -49,16 +54,15 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
  *
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(ApplicationController.class)
+@WebMvcTest(value = ApplicationController.class)
+@ActiveProfiles("test")
 public class ApplicationControllerTest {
 
-
-	@Autowired
+    @Autowired
     private ApplicationController controller;
 
     @Autowired
     private MockMvc mockMvc;
-
 
     @MockBean
     private ApplicationService applicationService;
@@ -68,61 +72,49 @@ public class ApplicationControllerTest {
     @Before
     public void setup() {
 
-        mockApplication = ApplicationDTO.builder()
-                .name("foo.name")
-                .code("foo.code")
-                .description("foo.description")
-                .isActive(true)
-                .country(getCountryTest())
-                .city(getCityTest())
-                .information("foo.information")
-                .isHub(true)
-                .isOrganization(true)
-                .build();
+        mockApplication = ApplicationDTO.builder().name("foo.name").code("foo.code").description("foo.description")
+                .isActive(true).country(getCountryTest()).city(getCityTest()).information("foo.information").isHub(true)
+                .isOrganization(true).build();
 
     }
-    
+
     @Test
     public void requestingPutApplicationShouldAddNewApplication() throws Exception {
 
         when(applicationService.addApplication(anyObject())).thenReturn(mockApplication);
 
-    	String json = TestHelper.mapToJson(mockApplication);
+        String json = TestHelper.mapToJson(mockApplication);
 
         mockMvc.perform(post("/api/v1/applications").content(json).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isCreated())
+                .andDo(print()).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is(mockApplication.getName())));
     }
-    
+
     @Test
     public void requestingPostApplicationShouldUpdateApplication() throws Exception {
-    	Long applicationId = 9999L;
+        Long applicationId = 9999L;
 
         when(applicationService.updateApplication(eq(applicationId), anyObject())).thenReturn(mockApplication);
 
         String json = TestHelper.mapToJson(mockApplication);
-        mockMvc.perform(put("/api/v1/applications/{applicationId}", applicationId).content(json).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
+        mockMvc.perform(put("/api/v1/applications/{applicationId}", applicationId).content(json)
+                .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(mockApplication.getName())));
 
     }
 
-
-    
     private CountryDTO getCountryTest() {
-		CountryDTO dto = new CountryDTO();
-		dto.setCountryId(new Long(1));
-		dto.setCountry("foo.COUNTRY");
-		return dto;
-	}
-    
+        CountryDTO dto = new CountryDTO();
+        dto.setCountryId(new Long(1));
+        dto.setCountry("foo.COUNTRY");
+        return dto;
+    }
+
     private CityDTO getCityTest() {
-		CityDTO dto = new CityDTO();
-		dto.setCityId(new Long(1));
-		dto.setCity("foo.CITY");
-		return dto;
-	}
-    
+        CityDTO dto = new CityDTO();
+        dto.setCityId(new Long(1));
+        dto.setCity("foo.CITY");
+        return dto;
+    }
+
 }
