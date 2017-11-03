@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.common.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * View Model for transferring error message with a list of field errors.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
