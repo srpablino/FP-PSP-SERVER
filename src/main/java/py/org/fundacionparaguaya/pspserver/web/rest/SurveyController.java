@@ -1,6 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ExampleProperty;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/api/v1/surveys")
-@io.swagger.annotations.Api(description = "the survey API")
+@io.swagger.annotations.Api(description = "The surveys resource returns surveys for various inputs")
 public class SurveyController {
 
 
@@ -30,12 +33,20 @@ public class SurveyController {
     }
 
     @GetMapping
+    @io.swagger.annotations.ApiOperation(value = "Retrieve all surveys", notes = "A `GET` request with no parameters will return a list of potential surveys", response = List.class, tags = {})
+    @io.swagger.annotations.ApiResponses(value = {
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = SurveyDefinition.class, responseContainer = "List")
+    })
     public ResponseEntity getDefinitions() {
         List<SurveyDefinition> list =  surveyService.getAll();
         return ResponseEntity.ok(list);
     }
 
     @PostMapping
+    @io.swagger.annotations.ApiOperation(value = "Create Survey Definition", notes = "Creates a new survey definition", response = SurveyDefinition.class, tags = {})
+    @io.swagger.annotations.ApiResponses(value = {
+            @io.swagger.annotations.ApiResponse(code = 201, message = "The created survey definition", response = SurveyDefinition.class)
+    })
     public ResponseEntity addSurveyDefinition(@RequestBody NewSurveyDefinition surveyDefinition)
             throws NotFoundException, URISyntaxException {
         SurveyDefinition definition = surveyService.addSurveyDefinition(surveyDefinition);
@@ -47,7 +58,8 @@ public class SurveyController {
     @GetMapping(value = "/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(value = "Get Survey Definition", notes = "Retrives the survey definition", response = SurveyDefinition.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "The requested survey definition", response = SurveyDefinition.class)})
+            @io.swagger.annotations.ApiResponse(code = 200, message = "The requested survey definition", response = SurveyDefinition.class)
+    })
     public ResponseEntity<?> getSurveyDefinition(
             @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
             throws NotFoundException {

@@ -14,7 +14,7 @@ public class Snapshot {
     @JsonProperty("economic_survey_data")
     private SurveyData economicSurveyData = null;
 
-    @JsonProperty("indicators_survey_data")
+    @JsonProperty("indicator_survey_data")
     private SurveyData indicatorSurveyData = null;
 
     @JsonProperty("created_at")
@@ -44,6 +44,11 @@ public class Snapshot {
         this.economicSurveyData = surveyData;
     }
 
+    /**
+     * The survey's id that this snapshot belongs to.
+     * @return the survey id number respresentation
+     */
+    @ApiModelProperty(value = "The survey's id that this snapshot belongs to.")
     public Long getSurveyId() {
         return surveyId;
     }
@@ -65,6 +70,18 @@ public class Snapshot {
         this.indicatorSurveyData = indicatorSurveyData;
     }
 
+    /**
+     * [ISO 8601](https://es.wikipedia.org/wiki/ISO_8601) formatted creation date
+     * @return
+     */
+    @ApiModelProperty(value = " [ISO 8601](https://es.wikipedia.org/wiki/ISO_8601) formatted creation date")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
     @Override
     public String toString() {
@@ -121,11 +138,5 @@ public class Snapshot {
         return this;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 }

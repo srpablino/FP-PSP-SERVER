@@ -48,7 +48,7 @@ public class NewSurveyDefinition  implements StoreableDefinition {
      * @return surveySchema
      **/
     @JsonProperty("survey_schema")
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true, value = "The schema of this survey. For each key/value pair, defines the type and other attributes")
     @NotNull
     public SurveySchema getSurveySchema() {
         return surveySchema;
@@ -68,7 +68,7 @@ public class NewSurveyDefinition  implements StoreableDefinition {
      * @return surveyUiSchema
      **/
     @JsonProperty("survey_ui_schema")
-    @ApiModelProperty(required = true, value = "The UI SCHEMA definition of the survey, to be used on render")
+    @ApiModelProperty(required = true, value = "The UI schema of this survey. Similar to survey_schema, this property describes the attributes of this survey that should be taken into consideration when rendering this survey.")
     @NotNull
     @Override
     public SurveyUISchema getSurveyUISchema() {
