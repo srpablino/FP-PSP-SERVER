@@ -2,6 +2,9 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -16,8 +19,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -40,31 +46,24 @@ import py.org.fundacionparaguaya.pspserver.util.TestHelper;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PspServerApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-public class PersonControllerIntegrationTest {
+@WebMvcTest(PersonController.class)
+@ActiveProfiles("test")
+public class PersonControllerTest {
 
 	@Autowired
     private PersonController controller;
 
-    @Autowired
-    private ExceptionTranslatorAdvice exceptionTranslator;
-
-    @Autowired
+    @MockBean
     private PersonService personService;
 
+    @Autowired
     private MockMvc mockMvc;
-    
+
+    private PersonDTO mockPerson;
+
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(exceptionTranslator)
-                .build();
-    }
-    
-    @Test
-    public void requestingPutPersonShouldAddNewPerson() throws Exception {
-    	PersonDTO dto = PersonDTO.builder()
+        mockPerson = PersonDTO.builder()
                 .name("foo.name")
                 .lastname("foo.lastname")
                 .identificationType("foo.identificationType")
@@ -77,78 +76,30 @@ public class PersonControllerIntegrationTest {
                 .city(getCityTest())
                 .family(getFamilynTest())
                 .build();
+    }
+    
+    @Test
+    public void requestingPutPersonShouldAddNewPerson() throws Exception {
+    	when(personService.addPerson(anyObject())).thenReturn(mockPerson);
 
-        String json = TestHelper.mapToJson(dto);
+        String json = TestHelper.mapToJson(mockPerson);
         mockMvc.perform(post("/api/v1/people").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is(dto.getName())));
+                .andExpect(jsonPath("$.name", is(mockPerson.getName())));
     }
     
     @Test
     public void requestingPostPersonShouldUpdatePerson() throws Exception {
-    	PersonDTO newDto = addNewPerson();
-        Long personId = newDto.getPersonId();
+    	Long personId = 999L;
+        when(personService.updatePerson(eq(personId), anyObject())).thenReturn(mockPerson);
 
-        PersonDTO updateDto = PersonDTO.builder()
-        		 .name("foo.person")
-                 .lastname("foo.lastname")
-                 .identificationType("foo.identificationType")
-                 .identificationNumber("foo.identificationNumber")
-                 .personRole("foo.personRole")
-                 .gender(Gender.M)
-                 .activityPrimary("foo.activityPrimary")
-                 .activitySecundary("foo.activitySecundary")
-                 .country(getCountryTest())
-                 .city(getCityTest())
-                 .family(getFamilynTest())
-                 .build();
-
-        String json = TestHelper.mapToJson(updateDto);
+        String json = TestHelper.mapToJson(mockPerson);
         mockMvc.perform(put("/api/v1/people/{personId}", personId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(updateDto.getName())));
+                .andExpect(jsonPath("$.name", is(mockPerson.getName())));
 
-    }
-    
-    private PersonDTO addNewPerson() {
-    	PersonDTO dto = PersonDTO.builder()
-    			 .name("foo.person")
-                 .lastname("foo.lastname")
-                 .identificationType("foo.identificationType")
-                 .identificationNumber("foo.identificationNumber")
-                 .personRole("foo.personRole")
-                 .gender(Gender.M)
-                 .activityPrimary("foo.activityPrimary")
-                 .activitySecundary("foo.activitySecundary")
-                 .country(getCountryTest())
-                 .city(getCityTest())
-                 .family(getFamilynTest())
-                 .build();
-        return personService.addPerson(dto);
-    }
-    
-    @Test
-    public void requestingPostPersonShouldFailIfNotValidArgument() throws Exception {
-        List<String> properties = Arrays.asList("name");
-        mockMvc.perform(post("/api/v1/people").content("{}").contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.fieldErrors.[0].objectName", is("personDTO")))
-                .andExpect(jsonPath("$.fieldErrors.[0].field", isIn(properties)))
-                .andExpect(jsonPath("$.fieldErrors.[0].message").value("NotNull"));
-    }
-    
-    
-    @Test
-    public void requestingGetPersonShouldFailIfPersonIsInvalid() throws Exception {
-        mockMvc.perform(get("/api/v1/people/{personId}", -999999))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is(ErrorCodes.ERR_VALIDATION)))
-                .andExpect(jsonPath("$.description").value("Argument was -999999 but expected nonnegative"));
     }
     
     private CountryDTO getCountryTest() {

@@ -11,11 +11,15 @@ public class ParameterizedErrorDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String message;
+
+    private final String description;
+
     private final Map<String, String> paramMap;
 
-    public ParameterizedErrorDTO(String message, Map<String, String> paramMap) {
+    public ParameterizedErrorDTO(String message, String description, Map<String, String> paramMap) {
         this.message = message;
         this.paramMap = paramMap;
+        this.description = description;
     }
 
     public String getMessage() {
@@ -26,4 +30,7 @@ public class ParameterizedErrorDTO implements Serializable {
         return paramMap;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }

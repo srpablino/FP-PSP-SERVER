@@ -4,12 +4,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.isIn;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -36,68 +42,54 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by rodrigovillalba on 8/27/17.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PspServerApplication.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
-public class UserControllerIntegrationTest {
+@WebMvcTest(UserController.class)
+@ActiveProfiles("test")
+public class UserControllerTest {
 
     @Autowired
     private UserController controller;
 
-    @Autowired
-    private ExceptionTranslatorAdvice exceptionTranslator;
-
-    @Autowired
+    @MockBean
     private UserService userService;
 
+    @Autowired
     private MockMvc mockMvc;
+
+    private UserDTO mockUser;
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(exceptionTranslator)
+        mockUser = UserDTO.builder()
+                .username("foo.user")
+                .pass("123")
                 .build();
     }
 
     @Test
     public void requestingPutUserShouldAddNewUser() throws Exception {
-        UserDTO dto = UserDTO.builder()
-                .username("foo.user")
-                .pass("123")
-                .build();
-        String json = TestHelper.mapToJson(dto);
+        when(userService.addUser(anyObject())).thenReturn(mockUser);
+
+        String json = TestHelper.mapToJson(mockUser);
         mockMvc.perform(post("/api/v1/users").content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.username", is(dto.getUsername())));
+                .andExpect(jsonPath("$.username", is(mockUser.getUsername())));
     }
 
     @Test
     public void requestingPostUserShouldUpdateUser() throws Exception {
-        UserDTO newDto = addNewUser();
-        Long userId = newDto.getUserId();
+        Long userId = 999L;
+        when(userService.updateUser(eq(userId), anyObject())).thenReturn(mockUser);
 
-        UserDTO updateDto = UserDTO.builder()
-                .username("bar.user")
-                .pass("123")
-                .build();
-
-        String json = TestHelper.mapToJson(updateDto);
+        String json = TestHelper.mapToJson(mockUser);
         mockMvc.perform(put("/api/v1/users/{userId}", userId).content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", is(updateDto.getUsername())));
+                .andExpect(jsonPath("$.username", is(mockUser.getUsername())));
 
     }
 
-    private UserDTO addNewUser() {
-        UserDTO dto = UserDTO.builder()
-                .username("foo.user")
-                .pass("123")
-                .build();
-        return userService.addUser(dto);
-    }
 
-    @Test
     public void requestingPostUserShouldFailIfNotValidArgument() throws Exception {
         List<String> properties = Arrays.asList("username", "pass");
         mockMvc.perform(post("/api/v1/users").content("{}").contentType(MediaType.APPLICATION_JSON))
@@ -113,7 +105,6 @@ public class UserControllerIntegrationTest {
     }
 
 
-    @Test
     public void requestingPostUserShouldFailIfUserAlreadyExists() throws Exception {
         UserDTO dto = UserDTO.builder()
                 .username("admin")
@@ -130,7 +121,6 @@ public class UserControllerIntegrationTest {
 
 
 
-    @Test
     public void requestingGetUserShouldFailIfUserIsInvalid() throws Exception {
         mockMvc.perform(get("/api/v1/users/{userId}", -999999))
                 .andDo(print())

@@ -11,7 +11,7 @@ into 6 different dimensions of poverty.
 
 # Get Started
 
-* [Run the Server.](RUN.md)
+* [Run the Server.](docs/RUN.md)
 
 # Poverty Stoplight Platform
 The PSP (Poverty Stoplight Platform) is a set of components that assist 
