@@ -34,7 +34,7 @@ CREATE database "fp_psp_db";
 SELECT datname FROM pg_database WHERE datistemplate = false;
 ```
 
-This will generate the initial database, and from this point any DB related changes will be through [Liquibase](Liquibase.md).
+This will generate the initial database, and from this point any DB related changes will be through [Liquibase](LIQUIBASE.md).
 
 Liquibase runs automatically during server startup and update the DB (if 
 needed).
