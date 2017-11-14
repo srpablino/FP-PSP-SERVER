@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
+import java.util.ArrayList;
+
 /*
  * FP-PSP Server
  * A sample API to manage surveys
@@ -14,6 +16,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.*;
 
@@ -76,6 +79,12 @@ public class Property   {
             @Override
             public Boolean apply(Object value) {
                 return value instanceof  Integer;
+            }
+        },
+        ARRAY("array") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof ArrayList<?>;
             }
         };
 
@@ -165,6 +174,9 @@ public class Property   {
 
     @JsonProperty("enumNames")
     private List<Object> enumNames = null;
+    
+    @JsonProperty("items")
+    private Items items = null;
 
     public Property type(TypeEnum type) {
         this.type = type;
@@ -183,6 +195,11 @@ public class Property   {
 
     public static List<Object> getDefaultEnumValues() {
         return Arrays.asList("red", "blue", "green");
+    }
+    
+    public Property itemsValue(Items items) {
+        this.items = items;
+        return this;
     }
     /**
      * The type of this field
@@ -256,6 +273,16 @@ public class Property   {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+    
+    public class Items {
+        @JsonProperty("type")
+        private TypeEnum type = null;
+        
+        @JsonProperty("enum")
+        private List<Object> enumValues = null;
+        
+        
     }
 }
 
