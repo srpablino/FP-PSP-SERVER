@@ -1,5 +1,10 @@
 {
   "properties": {},
+  "ui:custom:fields" : {
+	"drinkingWaterAccess" : {
+        "ui:field": "gallery"
+      }
+   },
   "ui:group:economics": [
     "currency",
     "areaOfResidence",

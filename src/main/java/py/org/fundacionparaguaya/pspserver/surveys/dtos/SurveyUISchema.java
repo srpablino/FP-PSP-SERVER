@@ -44,7 +44,7 @@ public class SurveyUISchema {
     @JsonProperty("ui:group:indicators")
     private List<String> groupIndicators = null;
 
-    @JsonProperty("ui:fields")
+    @JsonProperty("ui:custom:fields")
     private Map<String, Object> customFields = null;
 
     public SurveyUISchema() {}

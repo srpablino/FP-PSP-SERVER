@@ -134,7 +134,7 @@
         "type": "string",
         "title": "Cuenta con acceso a agua potable?",
         "default": "red"
-      },
+      }
 
     }
 }

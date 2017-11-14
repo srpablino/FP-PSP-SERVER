@@ -46,6 +46,7 @@
     "autonomyDecisions"
   ],
   "properties": {
+  
     "currency": {
       "type": "string",
       "title": {
@@ -193,12 +194,27 @@
       },
       "default": "red"
     },
+    
     "drinkingWaterAccess": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con acceso a agua potable?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-1.jpg", 
+          "description":"El agua que bebe la familia no es potable o tienen que caminar más de 100 metros desde su casa para obtenerla.",
+          "value":"red"},
+          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-2.jpg", 
+          "description":"La familia tiene acceso al agua potable , pero (a) no es constante, no tienene agira la mayor parte del día, o (b) no tienen grifo de agua, o (c) el agua potable se encuentra en al menos 100 metros duera de la parcela familiar.", 
+          "value":"yellow"},
+          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-3.jpg", 
+          "description":"La familia tiene n acceso constante durante la mayor parte del día (agua potable dentro de la parcela familiar). Hay grifo con agua corriente",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true
     },
     "nearbyHealthPost": {
       "type": "string",
