@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.*;
 
@@ -24,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.Gson;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -233,6 +234,11 @@ public class Property   {
     public void setTitle(PropertyTitle title) {
         this.title = title;
     }
+    
+    @JsonProperty("items")
+    public Items getItems() {
+        return items;
+    }
 
     @Override
     public boolean equals(java.lang.Object o) {
@@ -282,7 +288,35 @@ public class Property   {
         @JsonProperty("enum")
         private List<Object> enumValues = null;
         
+        public TypeEnum getType() {
+            return this.type;
+        }
         
+        public List<Object> getEnumValues(){
+            return this.enumValues;
+        }
+        
+        /**
+         * Valid if enumValues contains "value"
+         * @param value
+         * @return true(contains), false(not contain or is not a json)
+         */
+        public boolean validateContent(Object value) {
+           if(TypeEnum.OBJECT.equals(this.type)) {
+               for(Object o : this.enumValues) {
+                   Gson gson = new Gson();
+                   String json = gson.toJson(o);
+                   if(json.toLowerCase().contains(value.toString().toLowerCase())) {
+                       return true;
+                   }
+               }
+           } else {
+               if(this.enumValues.contains(value)) {
+                   return true;
+               }
+           }
+           return false;
+        }
     }
 }
 
