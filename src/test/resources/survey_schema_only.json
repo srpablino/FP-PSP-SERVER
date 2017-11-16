@@ -181,18 +181,52 @@
       "default": "ninguna"
     },
     "income": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Esto representa su ingreso?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/1-1.jpg", 
+          "description":"El ingreso familiar está por debajo de la línea extrema de pobreza.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/1-2.jpg", 
+          "description":"El ingreso familiar está por debajo de la línea general de pobreza y por encima de la línea de pobreza extrema.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/1-3.jpg", 
+          "description":"El ingreso familiar está por encima de la línea de la pobreza.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/1-1.jpg", 
+          "description":"El ingreso familiar está por debajo de la línea extrema de pobreza.",
+          "value":"red"}]
     },
     "documentation": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con documentación"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/6-1.jpg", 
+          "description":"Al menos un miembro de la familia que es mayor de edad no cuenta con documentación.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/6-2.jpg", 
+          "description":"Todos los miembros de la familia tiene documentación válida, aunque de uno o más ha vencido.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/6-3.jpg", 
+          "description":"Todos los miembros de la familia tienen documentación válida.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/6-1.jpg", 
+          "description":"Al menos un miembro de la familia que es mayor de edad no cuenta con documentación.",
+          "value":"red"}]
     },
     
     "drinkingWaterAccess": {
@@ -203,165 +237,524 @@
       "items": {
         "type": "object",
         "enum": [
-          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-1.jpg", 
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/7-1.jpg", 
           "description":"El agua que bebe la familia no es potable o tienen que caminar más de 100 metros desde su casa para obtenerla.",
           "value":"red"},
-          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-2.jpg", 
-          "description":"La familia tiene acceso al agua potable , pero (a) no es constante, no tienene agira la mayor parte del día, o (b) no tienen grifo de agua, o (c) el agua potable se encuentra en al menos 100 metros duera de la parcela familiar.", 
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/7-2.jpg", 
+          "description":"La familia tiene acceso al agua potable , pero (a) no es constante, no tienen agua la mayor parte del día, o (b) no tienen grifo de agua, o (c) el agua potable se encuentra en al menos 100 metros fuera de la parcela familiar.", 
           "value":"yellow"},
-          {"url":"https://survey.povertystoplight.org/semaforo/public/opcion/image/7-3.jpg", 
-          "description":"La familia tiene n acceso constante durante la mayor parte del día (agua potable dentro de la parcela familiar). Hay grifo con agua corriente",
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/7-3.jpg", 
+          "description":"La familia tiene acceso constante durante la mayor parte del día (agua potable dentro de la parcela familiar). Hay grifo con agua corriente",
           "value":"green"}
         ]
       },
-      "uniqueItems": true
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/7-1.jpg", 
+          "description":"El agua que bebe la familia no es potable o tienen que caminar más de 100 metros desde su casa para obtenerla.",
+          "value":"red"}]
     },
     "nearbyHealthPost": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con un puesto de salud cercano?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/8-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/8-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/8-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/8-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "alimentation": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Puede alimentarse todos los días?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/9-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/9-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/9-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/9-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "garbageDisposal": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con posibilidad de deshacerse de la basura?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/13-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/13-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/13-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/13-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "safeHouse": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con una casa segura?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/16-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/16-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/16-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/16-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "safeBathroom": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con baño seguro?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/17-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/17-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/17-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/17-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "electricityAccess": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con acceso a electricidad?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/18-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/18-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/18-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/18-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "refrigerator": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con una heladera?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/19-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/19-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/19-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/19-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "separateBed": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con una cama separada?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "separateBedrooms": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con cuartos separados?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/20-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "properKitchen": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con una cocina propia?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/21-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/21-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/21-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/21-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "phone": {
-      "type": "string",
+      "type": "array",
       "title": {
-        "es": "Ingrese su número de teléfono"
+        "es": "Cuenta con teléfono?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/25-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/25-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/25-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/25-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "security": {
-      "type": "string",
+      "type": "array",
       "title": {
-        "es": "Cuenta con una casa segura?"
+        "es": "Cuenta con seguridad?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/26-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/26-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/26-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/26-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "readAndWrite": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Puede leer y escribir?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/28-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/28-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/28-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/28-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "middleEducation": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Tuvo acceso a educación media?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/29-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/29-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/29-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/29-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "socialCapital": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Cuenta con capital social?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/31-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/31-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/31-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/31-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "informationAccess": {
-      "type": "string",
+      "type": "array",
       "title": {
-        "es": "Ingrese información de acceso"
+        "es": "Ingrese acceso a la información"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/34-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/34-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/34-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/34-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "influenceInPublicSector": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Tiene influencia en el sector público?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/32-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/32-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/32-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/32-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "awarenessOfNeeds": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Tiene consciencia de sus necesidades?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/43-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/43-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/43-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/43-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "selfEsteem": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Nivel de autoestima?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/47-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/47-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/47-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/47-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "autonomyDecisions": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Puede tomar decisiones de forma autónoma?"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     },
     "terereConsumption": {
-      "type": "string",
+      "type": "array",
       "title": {
         "es": "Que tanto consume terere"
       },
-      "default": "red"
+      "items": {
+        "type": "object",
+        "enum": [
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-2.jpg", 
+          "description":"Imagen 2.", 
+          "value":"yellow"},
+          {"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-3.jpg", 
+          "description":"Imagen 3.",
+          "value":"green"}
+        ]
+      },
+      "uniqueItems": true,
+      "default": [{"url":"https://s3-sa-east-1.amazonaws.com/psp-images/50-1.jpg", 
+          "description":"Imagen 1.",
+          "value":"red"}]
     }
   }
 }

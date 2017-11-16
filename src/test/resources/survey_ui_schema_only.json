@@ -1,7 +1,76 @@
 {
   "properties": {},
   "ui:custom:fields" : {
-	"drinkingWaterAccess" : {
+     "income" : {
+        "ui:field": "gallery"
+      },
+      "documentation" : {
+        "ui:field": "gallery"
+      },
+      "drinkingWaterAccess" : {
+        "ui:field": "gallery"
+      },
+      "nearbyHealthPost" : {
+        "ui:field": "gallery"
+      },
+      "alimentation" : {
+        "ui:field": "gallery"
+      },
+      "garbageDisposal" : {
+        "ui:field": "gallery"
+      },
+      "safeHouse" : {
+        "ui:field": "gallery"
+      },
+      "safeBathroom" : {
+        "ui:field": "gallery"
+      },
+      "electricityAccess" : {
+        "ui:field": "gallery"
+      },
+      "refrigerator" : {
+        "ui:field": "gallery"
+      },
+      "separateBed" : {
+        "ui:field": "gallery"
+      },
+      "separateBedrooms" : {
+        "ui:field": "gallery"
+      },
+      "properKitchen" : {
+        "ui:field": "gallery"
+      },
+      "phone" : {
+        "ui:field": "gallery"
+      },
+      "security" : {
+        "ui:field": "gallery"
+      },
+      "readAndWrite" : {
+        "ui:field": "gallery"
+      },
+      "middleEducation" : {
+        "ui:field": "gallery"
+      },
+      "socialCapital" : {
+        "ui:field": "gallery"
+      },
+      "informationAccess" : {
+        "ui:field": "gallery"
+      },
+      "influenceInPublicSector" : {
+        "ui:field": "gallery"
+      },
+      "awarenessOfNeeds" : {
+        "ui:field": "gallery"
+      },
+      "selfEsteem" : {
+        "ui:field": "gallery"
+      },
+      "autonomyDecisions" : {
+        "ui:field": "gallery"
+      },
+      "terereConsumption" : {
         "ui:field": "gallery"
       }
    },
