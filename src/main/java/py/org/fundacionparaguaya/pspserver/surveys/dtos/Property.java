@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.*;
 
@@ -23,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.google.gson.Gson;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -299,14 +299,15 @@ public class Property   {
         /**
          * Valid if enumValues contains "value"
          * @param value
-         * @return true(contains), false(not contain or is not a json)
+         * @return true(contains), false(not contain)
          */
         public boolean validateContent(Object value) {
-           if(TypeEnum.OBJECT.equals(this.type)) {
+           //Case: the enumValues are json or map, the value is in the property "value"
+           if(TypeEnum.OBJECT.equals(this.type) && this.enumValues!=null 
+                   && !this.enumValues.isEmpty() && this.enumValues.get(0) instanceof Map) {
                for(Object o : this.enumValues) {
-                   Gson gson = new Gson();
-                   String json = gson.toJson(o);
-                   if(json.toLowerCase().contains(value.toString().toLowerCase())) {
+                   Map<?, ?> json = (Map<?, ?>) o;
+                   if(json.get("value").equals(value)) {
                        return true;
                    }
                }
