@@ -94,4 +94,18 @@
         <sqlFile path="sql/2017-10-26T11:15.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--
+     Renames organizations table
+    -->
+    <changeSet id="2017-11-09T14:00" author="rvillalba">
+        <sqlFile path="sql/2017-11-09T14:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+    <changeSet id="2017-11-16T14:00" author="rvillalba">
+        <sqlFile path="sql/2017-11-16T14:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+
 </databaseChangeLog>

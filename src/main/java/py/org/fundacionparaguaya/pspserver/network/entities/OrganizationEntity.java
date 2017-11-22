@@ -15,14 +15,13 @@ import javax.persistence.Table;
 import com.google.common.base.MoreObjects;
 
 @Entity
-@Table(name = "organization", schema = "ps_network")
+@Table(name = "organizations", schema = "ps_network")
 public class OrganizationEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ps_network.organization_organization_id_seq")
-	@SequenceGenerator(name = "ps_network.organization_organization_id_seq", sequenceName = "ps_network.organization_organization_id_seq", allocationSize = 1)
-	@Column(name = "organization_id")
-	private Long organizationId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
 	private String name;
 
@@ -42,12 +41,12 @@ public class OrganizationEntity {
 	@JoinColumn(name = "application_id")
 	private ApplicationEntity application;
 
-	public Long getOrganizationId() {
-		return organizationId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOrganizationId(Long organizationId) {
-		this.organizationId = organizationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -111,21 +110,21 @@ public class OrganizationEntity {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (organizationId == null || obj == null || getClass() != obj.getClass())
+		if (id == null || obj == null || getClass() != obj.getClass())
 			return false;
 		OrganizationEntity toCompare = (OrganizationEntity) obj;
-		return organizationId.equals(toCompare.organizationId);
+		return id.equals(toCompare.id);
 	}
 	
 	@Override
 	public int hashCode() {
-		return organizationId == null ? 0 : organizationId.hashCode();
+		return id == null ? 0 : id.hashCode();
 	}
 	
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("organizationId", organizationId)
+				.add("id", id)
 				.add("name", name)
 				.add("code", code)
 				.add("description", description)

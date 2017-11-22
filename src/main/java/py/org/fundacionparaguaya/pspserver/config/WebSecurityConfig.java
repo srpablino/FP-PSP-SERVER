@@ -1,75 +1,50 @@
 package py.org.fundacionparaguaya.pspserver.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import py.org.fundacionparaguaya.pspserver.common.dtos.ErrorDTO;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-import java.io.PrintWriter;
 
 @Configuration
+@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+
+// Overrides default Security Filter when no serverContext is set.
+// Without this annotation Spring Security will not match the 'antMatcher',
+// unless a serverContext is configured.
+// See: https://stackoverflow.com/questions/42822875/springboot-1-5-x-security-oauth2
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	DataSource dataSource;
-	
-    @Autowired
-    public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
-     	 auth.jdbcAuthentication().dataSource(dataSource)
-    	  .usersByUsernameQuery(
-    	   "select username, pass as password, active as enabled from security.user where username=?")
-    	  .authoritiesByUsernameQuery(
-    	   "select b.username, a.role from security.user_x_role a join security.user b on b.user_id = a.user_id where b.username = ?");
+    /**
+     * Constructor disables the default security settings
+     */
+    public WebSecurityConfig() {
+        super(true);
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/login");
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.antMatcher("/api/v1/**").authorizeRequests()
+                .anyRequest().authenticated();
+    }
+
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**").permitAll()
-                .antMatchers("/swagger/**", "/swagger.json").permitAll()
-                .antMatchers("/oauth/token/revokeById/**").permitAll()
-		        .antMatchers("/tokens/**").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and().exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint())
-                .and().csrf().disable();
-    }
-
-    /**
-     * Maneja los errores de autenticación.
-     * <p>
-     * Y retorna un json con información del error, con
-     * estados 401.
-     *
-     * @return
-     */
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return (request, response, authException) -> {
-            ErrorDTO errorDTO = ErrorDTO.fromCode("forbidden", authException.getMessage());
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            response.setHeader("Content-type", "application/json");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            PrintWriter out = response.getWriter();
-            mapper.writeValue(out, errorDTO);
-        };
-
     }
 
 }

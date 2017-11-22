@@ -24,7 +24,7 @@ User name : admin
 User password : password
 
 ```
-curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=admin&grant_type=password'
+curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=password&grant_type=password'
 ```
 
 ### Result
@@ -35,25 +35,14 @@ curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?u
 	"token_type": "bearer",
 	"refresh_token": "0457e7ab-261b-4e9e-9773-981b180bf3ad",
 	"expires_in": 35999,
-	"scope": "bar read write",
-	"user": {
-		"password": null,
-		"username": "admin",
-		"authorities": [{
-			"authority": "USER"
-		}],
-		"accountNonExpired": true,
-		"accountNonLocked": true,
-		"credentialsNonExpired": true,
-		"enabled": true
-	}
+	"scope": "read write"
 }
 ```
 
 ### Access secure resource with token
 
 ```
-curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/people
+curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/users
 
 ```
 
@@ -61,24 +50,9 @@ curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/p
 
 ```
 [{
-	"personId": 1,
-	"name": "Jhon",
-	"lastname": "Cena",
-	"identificationType": "CI",
-	"identificationNumber": "1223334444",
-	"personRole": "ADMIN",
-	"gender": "M",
-	"activityPrimary": "Actor",
-	"activitySecundary": "Ex-Bodybuilder",
-	"phoneNumber": "+19999949888",
-	"country": {
-		"countryId": 1,
-		"country": "United States"
-	},
-	"city": {
-		"cityId": 1,
-		"city": "West Newbury, Massachusetts"
-	},
-	"family": null
+	"userId":1,
+	"username":"admin",
+	"pass":"$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
+	"active":true
 }]
 ```
