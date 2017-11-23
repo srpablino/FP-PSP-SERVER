@@ -92,6 +92,9 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     @Column(name = "created_at")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
+    
+    @Column(name = "family_ubication")
+    private String familyUbication;
 
     public Long getId() {
         return id;
@@ -286,6 +289,14 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    public String getFamilyUbication() {
+        return familyUbication;
+    }
+
+    public void setFamilyUbication(String familyUbication) {
+        this.familyUbication = familyUbication;
     }
 
     public SnapshotEconomicEntity surveyDefinition(SurveyEntity definitionEntity) {

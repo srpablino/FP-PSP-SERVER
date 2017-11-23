@@ -17,6 +17,7 @@ es;Nivel de educación del entrevistado;educationClientLevel;educationClientLeve
 es;Nivel de educación de la persona con más estudios en la familia;educationPersonMostStudied;educationPersonMostStudied;ECONOMIC;MANDATORY
 es;Nivel de educación alcanzado;educationLevelAttained;educationLevelAttained;ECONOMIC;MANDATORY
 es;Situación de la casa;housingSituation;housingSituation;ECONOMIC;MANDATORY
+es;Seleccione la ubicación geográfica de la familia;familyUbication;familyUbication;ECONOMIC;MANDATORY
 es;Usted cuenta con acceso a agua potable?;drinkingWaterAccess;drinkingWaterAccess;INDICATOR;MANDATORY
 es;Usted cuenta con algún puesto de salud cercano?;nearbyHealthPost;nearbyHealthPost;INDICATOR;MANDATORY
 es;Esto representa su ingreso?;income;income;INDICATOR;MANDATORY

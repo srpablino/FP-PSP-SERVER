@@ -93,6 +93,14 @@
     <changeSet id="2017-10-26T11:15" author="rvillalba">
         <sqlFile path="sql/2017-10-26T11:15.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!--  
+     Creates columns in snapshots_economics for store family ubication
+    -->
+    <changeSet id="2017-11-23T10:20" author="mgonzalez">
+        <sqlFile path="sql/2017-11-23T10:20.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
 
     <!--
      Renames organizations table
