@@ -72,10 +72,13 @@
       },
       "terereConsumption" : {
         "ui:field": "gallery"
+      },
+      "familyUbication": {
+      	"ui:field": "gmap"
       }
    },
   "ui:order": [
-  	"currency",
+    "currency",
     "areaOfResidence",
     "employmentStatusPrimary",
     "activityMain",
@@ -94,6 +97,7 @@
     "educationLevelAttained",
     "housingSituation",
     "otherUsefulInfo",
+    "familyUbication",
     "income",
     "documentation",
     "drinkingWaterAccess",
@@ -138,9 +142,10 @@
     "educationPersonMostStudied",
     "educationLevelAttained",
     "housingSituation",
-    "otherUsefulInfo"
+    "otherUsefulInfo",
+    "familyUbication"
   ],
-  "ui:group:indicators": [
+  "ui:group:indicators": [	
     "income",
     "documentation",
     "drinkingWaterAccess",

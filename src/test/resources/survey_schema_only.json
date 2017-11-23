@@ -3,6 +3,7 @@
   "description": "A simple stoplight survey example with default values.",
   "type": "object",
   "required": [
+    "familyUbication",
     "currency",
     "areaOfResidence",
     "employmentStatusPrimary",
@@ -401,6 +402,13 @@
         "es": "Otra información relevante"
       },
       "default": "ninguna"
+    },
+    "familyUbication": {
+    	"type": "string",
+    	"title": {
+    		"es": "Seleccione la ubicación geográfica de la familia"
+    	},
+        "default":"-25.2968485,-57.6331085" 
     },
     "income": {
       "type": "array",
@@ -979,4 +987,5 @@
           "value":"RED"}]
     }
   }
+  
 }
