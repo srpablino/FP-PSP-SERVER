@@ -9,6 +9,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,5 +52,18 @@ public class SnapshotController {
         return ResponseEntity.created(surveyLocation).body(data);
     }
 
+    
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/indicators")
+    @io.swagger.annotations.ApiOperation(value = "Retrieves all snapshots indicators for a  survery", notes = "A `GET` request with a survey parameter will return a list of snapshots indicators for the that survey.", response = List.class, tags = {})
+    @io.swagger.annotations.ApiResponses(value = {
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = Snapshot.class, responseContainer="List")
+    })
+    public ResponseEntity getSnapshotsIndicatorFamily(@RequestParam("survey_id") Long surveyId,
+                                       @RequestParam(value = "family_id", required = false) Long familiyId) {
+        
+        List<SnapshotIndicators> snapshots = snapshotService.getSnapshotIndicators(surveyId, familiyId);
+        return ResponseEntity.ok(snapshots);
+    }
+    
 
 }
