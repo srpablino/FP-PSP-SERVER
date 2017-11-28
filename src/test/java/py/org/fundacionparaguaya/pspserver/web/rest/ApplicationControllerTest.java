@@ -83,14 +83,14 @@ public class ApplicationControllerTest {
 
     private CountryDTO getCountryTest() {
         CountryDTO dto = new CountryDTO();
-        dto.setCountryId(new Long(1));
+        dto.setId(new Long(1));
         dto.setCountry("foo.COUNTRY");
         return dto;
     }
 
     private CityDTO getCityTest() {
         CityDTO dto = new CityDTO();
-        dto.setCityId(new Long(1));
+        dto.setId(new Long(1));
         dto.setCity("foo.CITY");
         return dto;
     }

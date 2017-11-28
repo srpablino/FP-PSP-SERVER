@@ -1,6 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.config;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,16 +14,12 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
@@ -50,8 +45,6 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer configurer) throws Exception {
         configurer.authenticationManager(authenticationManager);
@@ -71,21 +64,18 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
 
     @Bean
     @Primary
-    public DefaultTokenServices defaultTokenServices(){
+    public DefaultTokenServices defaultTokenServices() {
         final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setTokenEnhancer(tokenEnhancer());
         defaultTokenServices.setSupportRefreshToken(true);
         return defaultTokenServices;
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients)
-      throws Exception {
-        clients
-		.jdbc(dataSource);
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.jdbc(dataSource);
     }
-
-
 
     // JDBC token store configuration
     @Bean
@@ -93,4 +83,8 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         return new JdbcTokenStore(dataSource);
     }
 
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return new CustomTokenEnhancer();
+    }
 }

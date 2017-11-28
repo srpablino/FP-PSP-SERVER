@@ -1,11 +1,16 @@
 # About OAuth2
 
-The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf.
+The OAuth 2.0 authorization framework enables a third-party application to
+obtain limited access to an HTTP service, either on behalf of a resource owner
+by orchestrating an approval interaction between the resource owner and the HTTP
+service, or by allowing the third-party application to obtain access on its own
+behalf.
 
 # Configuration
 
-The Oauth2 security is disabled by default in development enviroment,
-this configuration is in the `application-dev.properties` file and you can enable oauth by removing the property:
+The Oauth2 security is disabled by default in development enviroment, this
+configuration is in the `application-dev.properties` file and you can enable
+oauth by removing the property:
 
 ```shell
  security.ignored=/**
@@ -43,7 +48,6 @@ curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?u
 
 ```
 curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/users
-
 ```
 
 ### Result
@@ -56,3 +60,15 @@ curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/u
 	"active":true
 }]
 ```
+
+# Default roles and users
+
+These are default users with their roles provided by the application.
+
+| Username  | Role           | Privileges |                                                          
+| --------- | -------------- | ---------- |
+| admin | ROLE_ROOT | Can do everything |
+| hub_admin| ROLE_HUB_ADMIN | Can manage everything related to a HUB application |
+| app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or parter |
+| user | ROLE_USER | Can see information about his/her organization: famliies, indicators |
+| | ROLE_SURVEY_USER | Can fill surveys and visualize its state |

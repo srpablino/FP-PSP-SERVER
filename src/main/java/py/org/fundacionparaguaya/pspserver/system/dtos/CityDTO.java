@@ -2,16 +2,18 @@ package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 import com.google.common.base.MoreObjects;
 
-public class CityDTO {
+import java.io.Serializable;
 
-	private Long cityId;
+public class CityDTO implements Serializable {
+
+	private Long id;
 	
 	private String city;
 	
 	public CityDTO(){}
 	
-	private CityDTO(Long cityId, String city) {
-		this.cityId = cityId;
+	private CityDTO(Long id, String city) {
+		this.id = id;
 		this.city = city; 
 	}
 	
@@ -36,12 +38,12 @@ public class CityDTO {
 		return new Builder();
 	}
 
-	public Long getCityId() {
-		return cityId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCityId(Long cityId) {
-		this.cityId = cityId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCity() {
@@ -55,7 +57,7 @@ public class CityDTO {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("cityId", cityId)
+				.add("id", id)
 				.add("city", city)
 				.toString();
 	}

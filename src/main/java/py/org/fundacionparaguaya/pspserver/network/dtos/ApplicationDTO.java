@@ -7,9 +7,11 @@ import com.google.common.base.MoreObjects;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
-public class ApplicationDTO {
+import java.io.Serializable;
 
-	private Long applicationId;
+public class ApplicationDTO implements Serializable {
+
+	private Long id;
 	
 	@NotNull
 	private String name;
@@ -34,9 +36,9 @@ public class ApplicationDTO {
 	public ApplicationDTO() {}
 	
 
-	private ApplicationDTO(Long applicationId, String name, String code, String description, boolean isActive,
-			CountryDTO country, CityDTO city, String information, boolean isHub, boolean isOrganization) {
-		this.applicationId = applicationId;
+	private ApplicationDTO(Long id, String name, String code, String description, boolean isActive,
+						   CountryDTO country, CityDTO city, String information, boolean isHub, boolean isOrganization) {
+		this.id = id;
 		this.name = name;
 		this.code = code;
 		this.description = description;
@@ -120,12 +122,12 @@ public class ApplicationDTO {
 		return new Builder();
 	}
 	
-	public Long getApplicationId() {
-		return applicationId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setApplicationId(Long applicationId) {
-		this.applicationId = applicationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -203,7 +205,7 @@ public class ApplicationDTO {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("applicationId", applicationId)
+				.add("id", id)
 				.add("name", name)
 				.add("code", code)
 				.add("description", description)
@@ -212,7 +214,7 @@ public class ApplicationDTO {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isOrganization", isOrganization)
+				.add("isPartner", isOrganization)
 				.toString();
 	}
 

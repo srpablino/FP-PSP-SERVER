@@ -7,27 +7,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "country", schema = "system")
+@Table(name = "countries", schema = "system")
 public class CountryEntity extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="system.country_country_id_seq")
-    @SequenceGenerator(name="system.country_country_id_seq", sequenceName="system.country_country_id_seq", allocationSize=1)
-	@Column(name = "country_id")
-	private Long countryId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+	private Long id;
 	
 	private String country;
 
-	public Long getCountryId() {
-		return countryId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCountryId(Long countryId) {
-		this.countryId = countryId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCountry() {
@@ -40,22 +38,22 @@ public class CountryEntity extends BaseEntity {
 	
 	@Override
 	public String toString() {
-		return "Country [countryId=" + countryId + ", country=" + country + "]";
+		return "Country [id=" + id + ", country=" + country + "]";
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (countryId == null || obj == null || getClass() != obj.getClass())
+		if (id == null || obj == null || getClass() != obj.getClass())
 			return false;
 		CountryEntity toCompare = (CountryEntity) obj;
-		return countryId.equals(toCompare.countryId);
+		return id.equals(toCompare.id);
 	}
 	
 	@Override
 	public int hashCode() {
-		return countryId == null ? 0 : countryId.hashCode();
+		return id == null ? 0 : id.hashCode();
 	}
 	
 }

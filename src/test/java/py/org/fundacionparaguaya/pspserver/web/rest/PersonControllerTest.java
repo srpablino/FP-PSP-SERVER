@@ -12,25 +12,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 
-import py.org.fundacionparaguaya.pspserver.PspServerApplication;
-import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.PersonDTO;
@@ -104,7 +96,7 @@ public class PersonControllerTest {
     
     private CountryDTO getCountryTest() {
 		CountryDTO dto = new CountryDTO();
-		dto.setCountryId(new Long(1));
+		dto.setId(new Long(1));
 		dto.setCountry("foo.COUNTRY");
 		return dto;
 	}
@@ -118,7 +110,7 @@ public class PersonControllerTest {
     
     private CityDTO getCityTest() {
 		CityDTO dto = new CityDTO();
-		dto.setCityId(new Long(1));
+		dto.setId(new Long(1));
 		dto.setCity("foo.CITY");
 		return dto;
 	}

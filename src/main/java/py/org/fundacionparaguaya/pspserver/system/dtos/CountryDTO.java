@@ -2,16 +2,18 @@ package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 import com.google.common.base.MoreObjects;
 
-public class CountryDTO {
+import java.io.Serializable;
 
-	private Long countryId;
+public class CountryDTO implements Serializable {
+
+	private Long id;
 	
 	private String country;
 	
 	public CountryDTO(){}
 	
-	private CountryDTO(Long countryId, String country) {
-		this.countryId = countryId;
+	private CountryDTO(Long id, String country) {
+		this.id = id;
 		this.country = country;
 	}
 
@@ -40,12 +42,12 @@ public class CountryDTO {
 		return new Builder();
 	}
 
-	public Long getCountryId() {
-		return countryId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCountryId(Long countryId) {
-		this.countryId = countryId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCountry() {
@@ -59,7 +61,7 @@ public class CountryDTO {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("countryId", countryId)
+				.add("id", id)
 				.add("country", country)
 				.toString();
 	}

@@ -2,8 +2,9 @@ package py.org.fundacionparaguaya.pspserver.security.dtos;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,21 +16,28 @@ public class UserDetailsDTO implements UserDetails {
     private final String password;
     private final  String username;
     private final boolean enabled;
+    private final List<GrantedAuthority> grantedAuthorities;
+    private final OrganizationDTO organization;
+    private final ApplicationDTO application;
 
-    private UserDetailsDTO(String username, String password, boolean enabled) {
+
+    UserDetailsDTO(String username, String password, boolean enabled, List<GrantedAuthority> grantedAuthorities, OrganizationDTO organization, ApplicationDTO application) {
         this.password = password;
         this.username = username;
         this.enabled = enabled;
+        this.grantedAuthorities = grantedAuthorities;
+        this.organization = organization;
+        this.application = application;
     }
 
-    public static UserDetailsDTO of(String username, String password, boolean enabled) {
-        return new UserDetailsDTO(username, password, enabled);
+    public static UserDetailsDTOBuilder builder() {
+        return new UserDetailsDTOBuilder();
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        return authorities;
+        return this.grantedAuthorities;
     }
 
     @Override
@@ -62,5 +70,14 @@ public class UserDetailsDTO implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+
+    public OrganizationDTO getOrganization() {
+        return organization;
+    }
+
+    public ApplicationDTO getApplication() {
+        return application;
     }
 }

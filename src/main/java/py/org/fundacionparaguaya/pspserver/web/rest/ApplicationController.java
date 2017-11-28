@@ -27,7 +27,7 @@ public class ApplicationController {
 	@PostMapping()
 	public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO) throws URISyntaxException {
 		ApplicationDTO result = applicationService.addApplication(applicationDTO);
-		return ResponseEntity.created(new URI("/api/v1/applications/" + result.getApplicationId()))
+		return ResponseEntity.created(new URI("/api/v1/applications/" + result.getId()))
 				.body(result);
 	}
 	

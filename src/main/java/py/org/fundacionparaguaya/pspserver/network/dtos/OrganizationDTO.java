@@ -6,14 +6,16 @@ import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
-public class OrganizationDTO {
+import java.io.Serializable;
+
+public class OrganizationDTO implements Serializable {
 
 	private Long id;
 
 	@NotNull
 	private String name;
 
-	private Integer code;
+	private String code;
 
 	private String description;
 
@@ -29,7 +31,7 @@ public class OrganizationDTO {
 	public OrganizationDTO() {}
 	
 
-	private OrganizationDTO(Long organizationId, String name, Integer code, String description, boolean isActive,
+	private OrganizationDTO(Long organizationId, String name, String code, String description, boolean isActive,
 			CountryDTO country, String information, ApplicationDTO application) {
 		this.id = organizationId;
 		this.name = name;
@@ -44,7 +46,7 @@ public class OrganizationDTO {
 	public static class Builder {
 		private Long id;
 		private String name;
-		private Integer code;
+		private String code;
 		private String description;
 		private boolean isActive;
 		private CountryDTO country;
@@ -61,7 +63,7 @@ public class OrganizationDTO {
 			return this;
 		}
 		
-		public Builder code(Integer code) {
+		public Builder code(String code) {
 			this.code = code;
 			return this;
 		}
@@ -120,12 +122,12 @@ public class OrganizationDTO {
 	}
 
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

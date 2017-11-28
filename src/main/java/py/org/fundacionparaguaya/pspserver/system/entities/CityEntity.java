@@ -7,27 +7,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "city", schema = "system")
+@Table(name = "cities", schema = "system")
 public class CityEntity extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="system.city_city_id_seq")
-    @SequenceGenerator(name="system.city_city_id_seq", sequenceName="system.city_city_id_seq", allocationSize=1)
-	@Column(name = "city_id")
-	private Long cityId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+	private Long id;
 	
 	private String city;
 	
-	public Long getCityId() {
-		return cityId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCityId(Long cityId) {
-		this.cityId = cityId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCity() {
@@ -40,22 +38,22 @@ public class CityEntity extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "City [cityId=" + cityId + ", city=" + city + "]";
+		return "City [id=" + id + ", city=" + city + "]";
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (cityId == null || obj == null || getClass() != obj.getClass())
+		if (id == null || obj == null || getClass() != obj.getClass())
 			return false;
 		CityEntity toCompare = (CityEntity) obj;
-		return cityId.equals(toCompare.cityId);
+		return id.equals(toCompare.id);
 	}
 	
 	@Override
 	public int hashCode() {
-		return cityId == null ? 0 : cityId.hashCode();
+		return id == null ? 0 : id.hashCode();
 	}
 
 }

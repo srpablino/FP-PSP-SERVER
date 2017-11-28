@@ -25,7 +25,7 @@ public class OrganizationEntity {
 
 	private String name;
 
-	private Integer code;
+	private String code;
 
 	private String description;
 
@@ -57,11 +57,11 @@ public class OrganizationEntity {
 		this.name = name;
 	}
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

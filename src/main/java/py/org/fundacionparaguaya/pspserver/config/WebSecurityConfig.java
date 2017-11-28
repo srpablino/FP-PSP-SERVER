@@ -9,11 +9,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 
 @Configuration
-@EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 
 // Overrides default Security Filter when no serverContext is set.
@@ -37,8 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/api/v1/**").authorizeRequests()
-                .anyRequest().authenticated();
+       // http.authorizeRequests();
+                //.antMatchers("/api/v1/users").hasRole("ADMIN");
+                //.anyRequest().authenticated();
     }
 
     @Bean

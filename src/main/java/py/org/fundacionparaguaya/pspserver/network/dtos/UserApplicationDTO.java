@@ -6,7 +6,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 
 public class UserApplicationDTO {
 
-	private Long userApplicationId;
+	private Long id;
 
 	private UserDTO user;
 
@@ -17,8 +17,8 @@ public class UserApplicationDTO {
 	public UserApplicationDTO() {}
 	
 
-	private UserApplicationDTO(Long userApplicationId, UserDTO user, ApplicationDTO application,OrganizationDTO organization) {
-		this.userApplicationId = userApplicationId;
+	private UserApplicationDTO(Long id, UserDTO user, ApplicationDTO application, OrganizationDTO organization) {
+		this.id = id;
 		this.user = user;
 		this.application = application;
 		this.organization = organization;
@@ -56,12 +56,12 @@ public class UserApplicationDTO {
 	}
 
 
-	public Long getUserApplicationId() {
-		return userApplicationId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserApplicationId(Long userApplicationId) {
-		this.userApplicationId = userApplicationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public UserDTO getUser() {
@@ -91,7 +91,7 @@ public class UserApplicationDTO {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("userApplicationId", userApplicationId)
+				.add("id", id)
 				.add("user", user)
 				.add("application", application)
 				.add("organization", organization)

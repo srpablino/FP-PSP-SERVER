@@ -36,7 +36,7 @@ public class CityController {
 	@PostMapping()
 	public ResponseEntity<CityDTO> addCity(@Valid @RequestBody CityDTO cityDTO) throws URISyntaxException {
 		CityDTO result = cityService.addCity(cityDTO);
-		return ResponseEntity.created(new URI("/api/v1/cities/" + result.getCityId()))
+		return ResponseEntity.created(new URI("/api/v1/cities/" + result.getId()))
 				.body(result);
 	}
 	

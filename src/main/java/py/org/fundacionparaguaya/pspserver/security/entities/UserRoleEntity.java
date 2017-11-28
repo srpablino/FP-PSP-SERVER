@@ -28,7 +28,7 @@ public class UserRoleEntity extends BaseEntity {
 
 	@ManyToOne(targetEntity = UserEntity.class)
 	@JoinColumn(name = "user_id")
-	private UserEntity userEntity;
+	private UserEntity user;
 
 	@Column(name = "role")
 	@NotNull
@@ -44,11 +44,11 @@ public class UserRoleEntity extends BaseEntity {
 	}
 
 	public UserEntity getUser() {
-		return userEntity;
+		return user;
 	}
 
 	public void setUser(UserEntity user) {
-		this.userEntity = user;
+		this.user = user;
 	}
 
 	public Role getRole() {
@@ -61,7 +61,7 @@ public class UserRoleEntity extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "UserRoleEntity [userRoleId=" + userRoleId + ", userEntity=" + userEntity + ", role=" + role + "]";
+		return "UserRoleEntity [userRoleId=" + userRoleId + ", user=" + user + ", role=" + role + "]";
 	}
 	
 	@Override

@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
@@ -16,14 +15,13 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
-@Table(name = "application", schema = "ps_network")
+@Table(name = "applications", schema = "ps_network")
 public class ApplicationEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ps_network.application_application_id_seq")
-	@SequenceGenerator(name = "ps_network.application_application_id_seq", sequenceName = "ps_network.application_application_id_seq", allocationSize = 1)
-	@Column(name = "application_id")
-	private Long applicationId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
 	private String name;
 
@@ -45,14 +43,14 @@ public class ApplicationEntity {
 
 	private boolean isHub;
 
-	private boolean isOrganization;
+	private boolean isPartner;
 
-	public Long getApplicationId() {
-		return applicationId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setApplicationId(Long applicationId) {
-		this.applicationId = applicationId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -119,34 +117,41 @@ public class ApplicationEntity {
 		this.isHub = isHub;
 	}
 
-	public boolean isOrganization() {
-		return isOrganization;
+	public boolean isPartner() {
+		return isPartner;
 	}
 
 	public void setDirect(boolean isOrganization) {
-		this.isOrganization = isOrganization;
+		this.isPartner = isOrganization;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (applicationId == null || obj == null || getClass() != obj.getClass())
+		if (id == null || obj == null || getClass() != obj.getClass())
 			return false;
 		ApplicationEntity toCompare = (ApplicationEntity) obj;
-		return applicationId.equals(toCompare.applicationId);
+		return id.equals(toCompare.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return applicationId == null ? 0 : applicationId.hashCode();
+		return id == null ? 0 : id.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this).add("applicationId", applicationId).add("name", name).add("code", code)
-				.add("description", description).add("isActive", isActive).add("country", country.toString())
-				.add("city", city.toString()).add("information", information).add("isHub", isHub)
-				.add("isOrganization", isOrganization).toString();
+		return MoreObjects.toStringHelper(this)
+				.add("id", id)
+				.add("name", name)
+				.add("code", code)
+				.add("description", description)
+				.add("isActive", isActive)
+				.add("country", country.toString())
+				.add("city", city.toString())
+				.add("information", information)
+				.add("isHub", isHub)
+				.add("isPartner", isPartner).toString();
 	}
 }
