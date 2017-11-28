@@ -6,14 +6,13 @@ import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user", schema = "security")
+@Table(name = "users", schema = "security")
 public class UserEntity extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="security.user_user_id_seq")
-    @SequenceGenerator(name="security.user_user_id_seq", sequenceName="security.user_user_id_seq", allocationSize=1)
-	@Column(name = "user_id")
-	private Long userId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+	private Long id;
 	
 	private String username;
 	
@@ -21,12 +20,12 @@ public class UserEntity extends BaseEntity {
 	
 	private boolean active;
 
-	public Long getUserId() {
-		return userId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 
@@ -61,21 +60,21 @@ public class UserEntity extends BaseEntity {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (userId == null || obj == null || getClass() != obj.getClass())
+		if (id == null || obj == null || getClass() != obj.getClass())
 			return false;
 		UserEntity toCompare = (UserEntity) obj;
-		return userId.equals(toCompare.userId);
+		return id.equals(toCompare.id);
 	}
 	
 	@Override
 	public int hashCode() {
-		return userId == null ? 0 : userId.hashCode();
+		return id == null ? 0 : id.hashCode();
 	}
 
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
-				.add("userId", userId)
+				.add("id", id)
 				.add("username", username)
 				.add("pass", pass)
 				.add("active", active)

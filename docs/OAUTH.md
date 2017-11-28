@@ -54,7 +54,7 @@ curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/u
 
 ```
 [{
-	"userId":1,
+	"id":1,
 	"username":"admin",
 	"pass":"$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
 	"active":true
