@@ -40,6 +40,14 @@ public class SnapshotServiceImpl implements SnapshotService {
     private final SnapshotIndicatorMapper indicatorMapper;
     
     private final FamilyRepository familyRepository;
+    
+    private static final String FAMILY_NAME = "name";
+    
+    private static final String FAMILY_REFERENCE = "personReference";
+    
+    private static final String INDICATOR_NAME = "name";
+    
+    private static final String INDICATOR_VALUE = "value";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
@@ -110,8 +118,8 @@ public class SnapshotServiceImpl implements SnapshotService {
                    order.forEach( indicator -> { 
                        if(indicators.containsKey(indicator)) {
                            SurveyData sd = new SurveyData();
-                           sd.put("name", indicator);
-                           sd.put("value", indicators.get(indicator));
+                           sd.put(INDICATOR_NAME, indicator);
+                           sd.put(INDICATOR_VALUE, indicators.get(indicator));
                            indicatorsToRet.add(sd);
                        }         
                    });
@@ -124,10 +132,9 @@ public class SnapshotServiceImpl implements SnapshotService {
            if(familiyId!=null) {
                FamilyEntity family = familyRepository.getOne(familiyId);
                if(family!=null) {
-                   familyData.put("name", family.getName()!=null? family.getName():"");
-                   familyData.put("personReference", (family.getPerson().getName()!=null? family.getPerson().getName(): "")
+                   familyData.put(FAMILY_NAME, family.getName()!=null? family.getName():"");
+                   familyData.put(FAMILY_REFERENCE, (family.getPerson().getName()!=null? family.getPerson().getName(): "")
                            +(family.getPerson().getLastname()!=null?" "+family.getPerson().getLastname():""));
-                   familyData.put("country", family.getCountry()!=null?family.getCountry():"");
                }
            }
            snapshotIndicators.setFamilyData(familyData);
