@@ -114,6 +114,29 @@
         <sqlFile path="sql/2017-11-16T14:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Renames countries, cites and add defaults -->
+    <changeSet id="2017-11-27T13:00" author="rvillalba">
+        <sqlFile path="sql/2017-11-27T13:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
+    <!-- Renames applications. Adds defaults applications, organizations -->
+    <changeSet id="2017-11-27T13:30" author="rvillalba">
+        <sqlFile path="sql/2017-11-27T13:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Renames users. Adds defaults users and roles -->
+    <changeSet id="2017-11-27T14:00" author="rvillalba">
+        <sqlFile path="sql/2017-11-27T14:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Updates oauth tables -->
+    <changeSet id="2017-11-27T14:30" author="rvillalba">
+        <sqlFile path="sql/2017-11-27T14:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Rename user_x_application and inserts default relations -->
+    <changeSet id="2017-11-27T15:00" author="rvillalba">
+        <sqlFile path="sql/2017-11-27T15:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

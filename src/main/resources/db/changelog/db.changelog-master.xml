@@ -5,7 +5,7 @@
 
     <include file="db.changelog-evolution.xml" relativeToChangelogFile="true"/>
 
-    <changeSet author="rvillalba" id="2017-10-26T11.39" runOnChange="true" context="seed">
+    <changeSet author="rvillalba" id="2017-10-26T11.39" runOnChange="true">
         <loadUpdateData
                 encoding="UTF-8"
                 file="db/seed_data/snapshots_properties_attributes.csv"
