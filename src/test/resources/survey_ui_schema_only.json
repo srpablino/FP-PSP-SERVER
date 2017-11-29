@@ -1,5 +1,6 @@
 {
   "properties": {},
+
   "ui:custom:fields" : {
      "income" : {
         "ui:field": "gallery"
@@ -77,6 +78,7 @@
       	"ui:field": "gmap"
       }
    },
+
   "ui:order": [
     "currency",
     "areaOfResidence",
@@ -123,6 +125,7 @@
     "autonomyDecisions",
     "terereConsumption"
   ],
+
   "ui:group:economics": [
     "currency",
     "areaOfResidence",
@@ -145,6 +148,7 @@
     "otherUsefulInfo",
     "familyUbication"
   ],
+
   "ui:group:indicators": [	
     "income",
     "documentation",
