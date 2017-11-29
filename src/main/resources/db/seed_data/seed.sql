@@ -55,6 +55,9 @@ INSERT INTO data_collect.snapshots_properties_attributes(
 INSERT INTO data_collect.snapshots_properties_attributes(
 	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
 	VALUES ('housingSituation', 'housingSituation', 'MANDATORY', 'es', 'Situación de la casa', 'ECONOMIC');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('familyUbication', 'familyUbication', 'MANDATORY', 'es', 'Seleccione la ubicación geográfica de la familia', 'ECONOMIC');
 
 
 -- indicator required and recommended survey properties

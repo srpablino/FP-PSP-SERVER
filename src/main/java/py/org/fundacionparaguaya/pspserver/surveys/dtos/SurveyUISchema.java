@@ -44,6 +44,8 @@ public class SurveyUISchema {
     @JsonProperty("ui:group:indicators")
     private List<String> groupIndicators = null;
 
+    @JsonProperty("ui:custom:fields")
+    private Map<String, Object> customFields = null;
 
     public SurveyUISchema() {}
 
@@ -82,6 +84,15 @@ public class SurveyUISchema {
         this.groupIndicators = groupIndicators;
     }
 
+    @ApiModelProperty("Specifies which fields were custom")
+    public Map<String, Object> getCustomFields() {
+        return this.customFields;
+    }
+
+    public void setCustomFields(Map<String, Object> customFields) {
+        this.customFields = customFields;
+    }
+    
 
     @Override
     public String toString() {
@@ -90,6 +101,7 @@ public class SurveyUISchema {
         sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
         sb.append("    groupEconomics: ").append(toIndentedString(groupEconomics)).append("\n");
         sb.append("    groupIndicators: ").append(toIndentedString(groupIndicators)).append("\n");
+        sb.append("    customfields: ").append(toIndentedString(customFields)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -115,12 +127,13 @@ public class SurveyUISchema {
         return Objects.equal(this.properties, that.properties) &&
                 Objects.equal(this.uiOrder, that.uiOrder) &&
                 Objects.equal(this.groupEconomics, that.groupEconomics) &&
-                Objects.equal(this.groupIndicators, that.groupIndicators);
+                Objects.equal(this.groupIndicators, that.groupIndicators) && 
+                Objects.equal(this.customFields, that.customFields);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(properties, uiOrder, groupEconomics, groupIndicators);
+        return Objects.hashCode(properties, uiOrder, groupEconomics, groupIndicators, customFields);
     }
 
 

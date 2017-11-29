@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
+import java.util.ArrayList;
+
 /*
  * FP-PSP Server
  * A sample API to manage surveys
@@ -14,6 +16,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.*;
 
@@ -21,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -76,6 +80,12 @@ public class Property   {
             @Override
             public Boolean apply(Object value) {
                 return value instanceof  Integer;
+            }
+        },
+        ARRAY("array") {
+            @Override
+            public Boolean apply(Object value) {
+                return value instanceof ArrayList<?>;
             }
         };
 
@@ -165,6 +175,9 @@ public class Property   {
 
     @JsonProperty("enumNames")
     private List<Object> enumNames = null;
+    
+    @JsonProperty("items")
+    private Items items = null;
 
     public Property type(TypeEnum type) {
         this.type = type;
@@ -183,6 +196,11 @@ public class Property   {
 
     public static List<Object> getDefaultEnumValues() {
         return Arrays.asList("red", "blue", "green");
+    }
+    
+    public Property itemsValue(Items items) {
+        this.items = items;
+        return this;
     }
     /**
      * The type of this field
@@ -215,6 +233,11 @@ public class Property   {
 
     public void setTitle(PropertyTitle title) {
         this.title = title;
+    }
+    
+    @JsonProperty("items")
+    public Items getItems() {
+        return items;
     }
 
     @Override
@@ -256,6 +279,45 @@ public class Property   {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
+    }
+    
+    public class Items {
+        @JsonProperty("type")
+        private TypeEnum type = null;
+        
+        @JsonProperty("enum")
+        private List<Object> enumValues = null;
+        
+        public TypeEnum getType() {
+            return this.type;
+        }
+        
+        public List<Object> getEnumValues(){
+            return this.enumValues;
+        }
+        
+        /**
+         * Valid if enumValues contains "value"
+         * @param value
+         * @return true(contains), false(not contain)
+         */
+        public boolean validateContent(Object value) {
+           //Case: the enumValues are json or map, the value is in the property "value"
+           if(TypeEnum.OBJECT.equals(this.type) && this.enumValues!=null 
+                   && !this.enumValues.isEmpty() && this.enumValues.get(0) instanceof Map) {
+               for(Object o : this.enumValues) {
+                   Map<?, ?> json = (Map<?, ?>) o;
+                   if(json.get("value").equals(value)) {
+                       return true;
+                   }
+               }
+           } else {
+               if(this.enumValues.contains(value)) {
+                   return true;
+               }
+           }
+           return false;
+        }
     }
 }
 
