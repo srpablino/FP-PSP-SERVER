@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
@@ -41,13 +42,15 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final FamilyRepository familyRepository;
     
-    private static final String FAMILY_NAME = "name";
+    private static final String FAMILY_NAME = "Name";
     
-    private static final String FAMILY_REFERENCE = "personReference";
+    private static final String FAMILY_REFERENCE = "Person Reference";
     
     private static final String INDICATOR_NAME = "name";
     
     private static final String INDICATOR_VALUE = "value";
+    
+    private static final String FORMAT_DATE = "";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
@@ -106,7 +109,6 @@ public class SnapshotServiceImpl implements SnapshotService {
        List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream().filter(field -> indicatorGroup.contains(field))
                .collect(Collectors.toList());
        
-       
        for(SnapshotEconomicEntity s : originalSnapshots) {
            SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
@@ -118,8 +120,22 @@ public class SnapshotServiceImpl implements SnapshotService {
                    order.forEach( indicator -> { 
                        if(indicators.containsKey(indicator)) {
                            SurveyData sd = new SurveyData();
-                           sd.put(INDICATOR_NAME, indicator);
+                           sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
                            sd.put(INDICATOR_VALUE, indicators.get(indicator));
+                           
+                           switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
+                            case "RED":
+                                snapshotIndicators.setCountRedIndicators(snapshotIndicators.getCountRedIndicators()+1);
+                                break;
+                            case "YELLOW":
+                                snapshotIndicators.setCountYellowIndicators(snapshotIndicators.getCountYellowIndicators()+1);
+                                break;
+                            case "GREEN":
+                                snapshotIndicators.setCountGreenIndicators(snapshotIndicators.getCountGreenIndicators()+1);
+                                break;
+                            default:
+                                break;
+                            }
                            indicatorsToRet.add(sd);
                        }         
                    });
@@ -141,6 +157,10 @@ public class SnapshotServiceImpl implements SnapshotService {
            toRet.add(snapshotIndicators);
        }
        return toRet;
+    }
+    
+    private String getNameFromCamelCase(String name) {
+        return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
 
 }
