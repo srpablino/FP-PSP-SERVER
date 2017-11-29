@@ -16,6 +16,16 @@ public class SnapshotIndicators {
 
     @JsonProperty("created_at")
     private String createdAt;
+    
+    @JsonProperty("count_red_indicators")
+    private Integer countRedIndicators = 0;
+    
+    @JsonProperty("count_yellow_indicators")
+    private Integer countYellowIndicators = 0;
+    
+    @JsonProperty("count_green_indicators")
+    private Integer countGreenIndicators = 0;
+    
  
     public SnapshotIndicators familyData(SurveyData surveyData) {
         this.familyData = surveyData;
@@ -32,7 +42,22 @@ public class SnapshotIndicators {
         return this;
     }
     
-    @ApiModelProperty(value = "Key/value pairs representing the filled out 'Socio Economics' survey")
+    public SnapshotIndicators countRedIndicators(Integer countRedIndicators) {
+        this.countRedIndicators = countRedIndicators;
+        return this;
+    }
+    
+    public SnapshotIndicators countYellowIndicators(Integer countYellowIndicators) {
+        this.countYellowIndicators = countYellowIndicators;
+        return this;
+    }
+    
+    public SnapshotIndicators countGreenIndicators(Integer countGreenIndicators) {
+        this.countGreenIndicators = countGreenIndicators;
+        return this;
+    }
+    
+    @ApiModelProperty(value = "Key/value pairs representing the family data")
     public SurveyData getfamilyData() {
         return familyData;
     }
@@ -41,7 +66,7 @@ public class SnapshotIndicators {
         this.familyData = surveyData;
     }
     
-    @ApiModelProperty(value = "Key/value pairs representing the filled out 'Socio Economics' survey")
+    @ApiModelProperty(value = "List of Key/value pairs representing the filled out 'Indicators' survey")
     public List<SurveyData> getIndicatorsSurveyData() {
         return indicatorsSurveyData;
     }
@@ -59,12 +84,42 @@ public class SnapshotIndicators {
         this.createdAt = createdAt;
     }
     
+    @ApiModelProperty(value = "Number of indicators with red value")
+    public Integer getCountRedIndicators() {
+        return countRedIndicators;
+    }
+
+    public void setCountRedIndicators(Integer countRedIndicators) {
+        this.countRedIndicators = countRedIndicators;
+    }
+    
+    @ApiModelProperty(value = "Number of indicators with yellow value")
+    public Integer getCountYellowIndicators() {
+        return countYellowIndicators;
+    }
+
+    public void setCountYellowIndicators(Integer countYellowIndicators) {
+        this.countYellowIndicators = countYellowIndicators;
+    }
+    
+    @ApiModelProperty(value = "Number of indicators with green value")
+    public Integer getCountGreenIndicators() {
+        return countGreenIndicators;
+    }
+
+    public void setCountGreenIndicators(Integer countGreenIndicators) {
+        this.countGreenIndicators = countGreenIndicators;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Snapshot Indicators {\n");
         sb.append("    familyData: ").append(toIndentedString(familyData)).append("\n");
         sb.append("    indicatorsSurveyData: ").append(toIndentedString(indicatorsSurveyData)).append("\n");
+        sb.append("    countRedIndicators:   ").append(toIndentedString(countRedIndicators)).append("\n");
+        sb.append("    countYellowIndicators:   ").append(toIndentedString(countYellowIndicators)).append("\n");
+        sb.append("    countGreenIndicators:   ").append(toIndentedString(countGreenIndicators)).append("\n");
         sb.append("}");
         return sb.toString();
     }
