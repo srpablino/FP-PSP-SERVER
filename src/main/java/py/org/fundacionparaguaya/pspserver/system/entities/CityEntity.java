@@ -1,5 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.system.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 import javax.persistence.Column;
@@ -14,8 +17,18 @@ import javax.persistence.Table;
 public class CityEntity extends BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+	@GenericGenerator(
+			name = "citiesSequenceGenerator",
+			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+			parameters = {
+					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "system"),
+					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "cities_id_seq"),
+					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+			}
+	)
+	@GeneratedValue(generator = "citiesSequenceGenerator")
+	@Column(name = "id")
 	private Long id;
 	
 	private String city;

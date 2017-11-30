@@ -2,6 +2,8 @@ package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
@@ -19,7 +21,17 @@ public class SnapshotIndicatorEntity implements StoreableSnapshot {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "snapshotsIndicatorsSequenceGenerator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "data_collect"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "snapshots_indicators_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+            }
+    )
+    @GeneratedValue(generator = "snapshotsIndicatorsSequenceGenerator")
     @Column(name = "id")
     private Long id;
 

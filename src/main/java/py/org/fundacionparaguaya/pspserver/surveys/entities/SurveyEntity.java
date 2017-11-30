@@ -1,7 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 
@@ -19,7 +21,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SurveyEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "surveysSequenceGenerator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "data_collect"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "surveys_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+            }
+    )
+    @GeneratedValue(generator = "surveysSequenceGenerator")
     private Long id;
 
     private String title;

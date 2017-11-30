@@ -29,7 +29,7 @@ User name : admin
 User password : password
 
 ```
-curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=password&grant_type=password'
+curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=[your_password]&grant_type=password'
 ```
 
 ### Result
@@ -56,7 +56,6 @@ curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/u
 [{
 	"id":1,
 	"username":"admin",
-	"pass":"$2a$10$D4OLKI6yy68crm.3imC9X.P2xqKHs5TloWUcr6z5XdOqnTrAK84ri",
 	"active":true
 }]
 ```

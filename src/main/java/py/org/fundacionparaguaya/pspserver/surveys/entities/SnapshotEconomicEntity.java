@@ -1,9 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.surveys.entities;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,7 +19,12 @@ import java.time.format.DateTimeFormatter;
 public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "snapshotsEconomicsSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SCHEMA, value = "data_collect"),
+            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "snapshots_economics_id_seq"),
+            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+            @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(generator = "snapshotsEconomicsSequenceGenerator")
     @Column(name = "id")
     private Long id;
 
@@ -42,7 +49,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     @Column(name = "activity_main")
     private String activityMain;
 
-    @Column(name ="employment_status_secondary")
+    @Column(name = "employment_status_secondary")
     private String employmentStatusSecondary;
 
     @Column(name = "activity_secondary")
@@ -86,13 +93,13 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Column(name = "additional_properties")
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
-            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData")})
+            @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData") })
     private SurveyData additionalProperties;
 
     @Column(name = "created_at")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
-    
+
     @Column(name = "family_ubication")
     private String familyUbication;
 
@@ -112,7 +119,6 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.familyId = familyId;
     }
 
-
     public SurveyEntity getSurveyDefinition() {
         return surveyDefinition;
     }
@@ -128,7 +134,6 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     public void setSnapshotIndicator(SnapshotIndicatorEntity snapshotIndicator) {
         this.snapshotIndicator = snapshotIndicator;
     }
-
 
     public String getCurrency() {
         return currency;
@@ -290,7 +295,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+
     public String getFamilyUbication() {
         return familyUbication;
     }
@@ -317,15 +322,14 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public SnapshotEconomicEntity staticProperties(SurveyData economicSurveyData) {
 
-        economicSurveyData.entrySet()
-                .stream()
-                .forEach((entry) -> {
-                    try {
-                        PropertyUtils.setProperty(this, entry.getKey(), entry.getValue());
-                    } catch (Exception e) {
-                        throw new RuntimeException("Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
-                    }
-                });
+        economicSurveyData.entrySet().stream().forEach((entry) -> {
+            try {
+                PropertyUtils.setProperty(this, entry.getKey(), entry.getValue());
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
+            }
+        });
         return this;
     }
 

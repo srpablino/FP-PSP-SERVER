@@ -1,17 +1,33 @@
 package py.org.fundacionparaguaya.pspserver.security.entities;
 
 import com.google.common.base.MoreObjects;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "users", schema = "security")
 public class UserEntity extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+	@GenericGenerator(
+			name = "usersSequenceGenerator",
+			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+			parameters = {
+					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "security"),
+					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "users_id_seq"),
+					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+			}
+	)
+	@GeneratedValue(generator = "usersSequenceGenerator")
+	@Column(name = "id")
 	private Long id;
 	
 	private String username;

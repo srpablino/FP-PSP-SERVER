@@ -1,9 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.network.entities;
 
+import org.hibernate.annotations.*;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Parameter;
+import javax.persistence.Table;
 import java.util.Optional;
 
 @Entity
@@ -11,7 +16,17 @@ import java.util.Optional;
 public class UserApplicationEntity extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(
+			name = "usersApplicationsSequenceGenerator",
+			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+			parameters = {
+					@org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_network"),
+					@org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "users_applications_id_seq"),
+					@org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+			}
+	)
+	@GeneratedValue(generator = "usersApplicationsSequenceGenerator")
 	@Column(name = "id")
 	private Long id;
 

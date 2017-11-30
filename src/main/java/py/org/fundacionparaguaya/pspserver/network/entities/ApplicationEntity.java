@@ -11,6 +11,9 @@ import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
@@ -19,7 +22,17 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 public class ApplicationEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(
+			name = "applicationsSequenceGenerator",
+			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+			parameters = {
+					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_network"),
+					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "applications_id_seq"),
+					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+			}
+	)
+	@GeneratedValue(generator = "applicationsSequenceGenerator")
 	@Column(name = "id")
 	private Long id;
 

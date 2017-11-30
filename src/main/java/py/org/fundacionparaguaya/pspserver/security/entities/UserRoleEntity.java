@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 
@@ -20,7 +23,17 @@ import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 public class UserRoleEntity extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(
+			name = "usersRolesSequenceGenerator",
+			strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+			parameters = {
+					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "security"),
+					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "users_roles_id_seq"),
+					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+			}
+	)
+	@GeneratedValue(generator = "usersRolesSequenceGenerator")
 	private Long id;
 
 	@ManyToOne(targetEntity = UserEntity.class)
