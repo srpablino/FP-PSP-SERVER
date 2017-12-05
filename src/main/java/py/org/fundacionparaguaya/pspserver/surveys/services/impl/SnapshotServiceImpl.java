@@ -49,8 +49,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     private static final String INDICATOR_NAME = "name";
     
     private static final String INDICATOR_VALUE = "value";
-    
-    private static final String FORMAT_DATE = "";
+
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
