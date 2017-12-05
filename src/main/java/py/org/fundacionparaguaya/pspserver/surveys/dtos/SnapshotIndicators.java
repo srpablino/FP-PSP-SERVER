@@ -26,7 +26,10 @@ public class SnapshotIndicators {
     @JsonProperty("count_green_indicators")
     private Integer countGreenIndicators = 0;
     
+    @JsonProperty("snapshot_indicator_id")
+    private Long snapshotIndicatorId;
  
+
     public SnapshotIndicators familyData(SurveyData surveyData) {
         this.familyData = surveyData;
         return this;
@@ -111,6 +114,16 @@ public class SnapshotIndicators {
         this.countGreenIndicators = countGreenIndicators;
     }
     
+    @ApiModelProperty(value = "Snapshot Indicator Id")
+    public Long getSnapshotIndicatorId() {
+        return snapshotIndicatorId;
+    }
+
+    public void setSnapshotIndicatorId(Long snapshotIndicatorId) {
+        this.snapshotIndicatorId = snapshotIndicatorId;
+    }
+
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -133,7 +146,20 @@ public class SnapshotIndicators {
     
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(familyData, indicatorsSurveyData);
+        return com.google.common.base.Objects.hashCode(familyData, indicatorsSurveyData, countGreenIndicators, countYellowIndicators, countRedIndicators);
     }
     
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SnapshotIndicators that = (SnapshotIndicators) o;
+
+        return com.google.common.base.Objects.equal(this.familyData, that.familyData) &&
+                com.google.common.base.Objects.equal(this.indicatorsSurveyData, that.indicatorsSurveyData) &&
+                com.google.common.base.Objects.equal(this.countRedIndicators, that.countRedIndicators) &&
+                com.google.common.base.Objects.equal(this.countYellowIndicators, that.countYellowIndicators) &&
+                com.google.common.base.Objects.equal(this.countGreenIndicators, that.countGreenIndicators);
+    }
 }
