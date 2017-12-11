@@ -2,6 +2,9 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
@@ -34,13 +38,13 @@ public class SnapshotIndicatorPriorityController {
         this.snapshotPriorityService = snapshotPriorityService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path = "/{snapshotIndicatorId}")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(value = "Retrieves all priorities for a snapshot indicators", notes = "A `GET` request with a snapshot indicators parameter will return a list of priorities for the that snapshot.", response = IndicatorsPriority.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = IndicatorsPriority.class, responseContainer = "List") })
-    public ResponseEntity getSnapshotIndicatorPriorityList(
-            @PathVariable("snapshotIndicatorId") Long snapshotIndicatorId) {
-        IndicatorsPriority snapshotsPriority = snapshotPriorityService
+    public ResponseEntity getSnapshotIndicatorPriorityList( @RequestParam("snapshotIndicatorId")
+            Long snapshotIndicatorId) {
+        List<SnapshotIndicatorPriority> snapshotsPriority = snapshotPriorityService
                 .getSnapshotIndicatorPriorityList(snapshotIndicatorId);
         return ResponseEntity.ok(snapshotsPriority);
     }
@@ -77,7 +81,7 @@ public class SnapshotIndicatorPriorityController {
             @ApiParam(value = "The snapshot indicator priority", required = true) @RequestBody SnapshotIndicatorPriority priority)
             throws NotFoundException, URISyntaxException {
         SnapshotIndicatorPriority data = snapshotPriorityService.addSnapshotIndicatorPriority(priority);
-        URI surveyLocation = new URI("/snapshots/priority/" + data.getSnapshotIndicatorPriorityId());
+        URI surveyLocation = new URI("/snapshots/priority/" + data.getId());
         return ResponseEntity.created(surveyLocation).body(data);
     }
 
@@ -89,7 +93,7 @@ public class SnapshotIndicatorPriorityController {
             @ApiParam(value = "The snapshot indicator priority", required = true) @RequestBody SnapshotIndicatorPriority priority)
             throws NotFoundException, URISyntaxException {
         SnapshotIndicatorPriority data = snapshotPriorityService.updateSnapshotIndicatorPriority(priority);
-        URI surveyLocation = new URI("/snapshots/priority/" + data.getSnapshotIndicatorPriorityId());
+        URI surveyLocation = new URI("/snapshots/priority/" + data.getId());
         return ResponseEntity.created(surveyLocation).body(data);
     }
 

@@ -4,9 +4,13 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
+
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +37,7 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
             @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
             @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(generator = "snapshotIndicatorPrioritiesSequenceGenerator")
-    @Column(name = "snapshot_indicator_priority_id")
+    @Column(name = "snapshot_indicator_priorities_id")
     private Long id;
 
     @Column(name = "indicator")
@@ -46,8 +50,8 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
     private String action;
     
     @Column(name = "estimatedDate")
-    @Convert(converter = LocalDateTimeConverter.class)
-    private LocalDateTime estimatedDate;
+    @Convert(converter = LocalDateConverter.class)
+    private LocalDate estimatedDate;
 
     @ManyToOne(targetEntity = SnapshotIndicatorEntity.class)
     @JoinColumn(name = "snapshot_indicator")
@@ -85,11 +89,11 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
         this.action = action;
     }
     
-    public LocalDateTime getEstimatedDate() {
+    public LocalDate getEstimatedDate() {
         return estimatedDate;
     }
 
-    public void setEstimatedDate(LocalDateTime estimatedDate) {
+    public void setEstimatedDate(LocalDate estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
 
@@ -116,7 +120,7 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
     @Transient
     public String getEstimatedDateAsISOString() {
         if (this.estimatedDate != null) {
-            return estimatedDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            return estimatedDate.toString();
         }
         return null;
     }
@@ -124,8 +128,8 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
     @Transient
     public SnapshotIndicatorPriorityEntity setEstimatedDateAsISOString(String date) {
         if (date != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-           this.setEstimatedDate( LocalDateTime.parse(date, formatter));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+           this.setEstimatedDate(LocalDate.parse(date, formatter));
         }
        return this;
     }

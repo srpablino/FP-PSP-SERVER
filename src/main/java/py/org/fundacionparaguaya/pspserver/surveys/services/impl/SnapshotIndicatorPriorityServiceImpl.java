@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -20,6 +19,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorPrior
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
+
 /**
  * 
  * @author mgonzalez
@@ -45,15 +45,14 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
     }
 
     @Override
-    public IndicatorsPriority getSnapshotIndicatorPriorityList(Long snapshotIndicatorId) {
+    public List<SnapshotIndicatorPriority> getSnapshotIndicatorPriorityList(Long snapshotIndicatorId) {
         checkArgument(snapshotIndicatorId > 0, "Argument was %s but expected nonnegative", snapshotIndicatorId);
 
         List<SnapshotIndicatorPriorityEntity> priorities = snapshotPriorityRepository
                 .findBySnapshotIndicatorId(snapshotIndicatorId);
 
-        IndicatorsPriority toRet = new IndicatorsPriority();
-        toRet.setPriorities(snapshotPriorityMapper.entityListToDtoList(priorities));
-        toRet.setSnapshotIndicatorId(snapshotIndicatorId);
+        List<SnapshotIndicatorPriority> toRet = new ArrayList<>();
+        toRet = snapshotPriorityMapper.entityListToDtoList(priorities);
 
         return toRet;
     }
@@ -96,7 +95,7 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
         for (SnapshotIndicatorPriority s : priorities.getPriorities()) {
             Optional<SnapshotIndicatorPriorityEntity> entity = snapshotPriorityRepository
                     .findBySnapshotIndicatorIdAndId(priorities.getSnapshotIndicatorId(),
-                            s.getSnapshotIndicatorPriorityId());
+                            s.getId());
 
             if (entity.isPresent()) {
                 entity.get().setAction(s.getAction());
@@ -106,7 +105,7 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
                 indicartorsPriority.add(snapshotPriorityMapper.entityToDto(entity.get()));
             } else {
                 throw new UnknownResourceException("Snapshot indicator priority with id "
-                        + s.getSnapshotIndicatorPriorityId() + " does not exist");
+                        + s.getId() + " does not exist");
             }
 
             toRet.setPriorities(indicartorsPriority);
@@ -119,10 +118,10 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
     @Override
     public SnapshotIndicatorPriority updateSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
-        checkArgument(priority.getSnapshotIndicatorPriorityId() > 0, "Argument was %s but expected nonnegative",
-                priority.getSnapshotIndicatorPriorityId());
+        checkArgument(priority.getId() > 0, "Argument was %s but expected nonnegative",
+                priority.getId());
 
-        return Optional.ofNullable(snapshotPriorityRepository.findOne(priority.getSnapshotIndicatorPriorityId()))
+        return Optional.ofNullable(snapshotPriorityRepository.findOne(priority.getId()))
                 .map(p -> {
                     p.setAction(priority.getAction());
                     p.setReason(priority.getReason());
@@ -135,8 +134,18 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
     @Override
     public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
+
+        checkArgument(priority != null, "Argument was %s but expected not null", priority);
+        checkArgument(priority.getSnapshotIndicatorId() > 0, "Argument was %s but expected nonnegative",
+                priority.getSnapshotIndicatorId());
+
         SnapshotIndicatorPriorityEntity entity = new SnapshotIndicatorPriorityEntity();
-        BeanUtils.copyProperties(priority, entity);
+        entity.setReason(priority.getReason());
+        entity.setAction(priority.getAction());
+        entity.setIndicator(priority.getIndicator());
+        entity.setEstimatedDateAsISOString(priority.getEstimatedDate());
+        entity.setSnapshotIndicator(snapshotIndicatorRepository.getOne(priority.getSnapshotIndicatorId()));
+
         SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
         return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
     }

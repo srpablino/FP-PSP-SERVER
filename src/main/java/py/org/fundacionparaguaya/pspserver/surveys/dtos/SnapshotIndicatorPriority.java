@@ -12,7 +12,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class SnapshotIndicatorPriority {
 
     @JsonProperty("snapshot_indicator_priority_id")
-    private Long snapshotIndicatorPriorityId;
+    private Long id;
+
+    @JsonProperty("snapshot_indicator_id")
+    private Long snapshotIndicatorId;
 
     @JsonProperty("indicator")
     private String indicator;
@@ -27,12 +30,21 @@ public class SnapshotIndicatorPriority {
     private String estimatedDate;
 
     @ApiModelProperty(value = "Snapshot Indicator Priority's id")
-    public Long getSnapshotIndicatorPriorityId() {
-        return snapshotIndicatorPriorityId;
+    public Long getId() {
+        return id;
     }
 
-    public void setSnapshotIndicatorPriorityId(Long snapshotIndicatorPriorityId) {
-        this.snapshotIndicatorPriorityId = snapshotIndicatorPriorityId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @ApiModelProperty(value = "Snapshot Indicator's id")
+    public Long getSnapshotIndicatorId() {
+        return snapshotIndicatorId;
+    }
+
+    public void setSnapshotIndicatorId(Long snapshotIndicatorId) {
+        this.snapshotIndicatorId = snapshotIndicatorId;
     }
 
     @ApiModelProperty(value = "The indicator that was prioritized")
@@ -71,8 +83,13 @@ public class SnapshotIndicatorPriority {
         this.estimatedDate = estimatedDate;
     }
 
-    public SnapshotIndicatorPriority snapshotIndicatorPriorityId(Long snapshotIndicatorPriorityId) {
-        this.snapshotIndicatorPriorityId = snapshotIndicatorPriorityId;
+    public SnapshotIndicatorPriority id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public SnapshotIndicatorPriority snapshotIndicatorId(Long snapshotIndicatorId) {
+        this.snapshotIndicatorId = snapshotIndicatorId;
         return this;
     }
 
@@ -100,8 +117,9 @@ public class SnapshotIndicatorPriority {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Indicator Priority {\n");
-        sb.append("    snapshotIndicatorPriorityId: ").append(toIndentedString(snapshotIndicatorPriorityId))
+        sb.append("    snapshotIndicatorPriorityId: ").append(toIndentedString(id))
                 .append("\n");
+        sb.append("    snapshotIndicatorId: ").append(toIndentedString(snapshotIndicatorId)).append("\n");
         sb.append("    indicator: ").append(toIndentedString(indicator)).append("\n");
         sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
         sb.append("    action: ").append(toIndentedString(action)).append("\n");
@@ -126,7 +144,8 @@ public class SnapshotIndicatorPriority {
 
         SnapshotIndicatorPriority that = (SnapshotIndicatorPriority) o;
 
-        return com.google.common.base.Objects.equal(this.snapshotIndicatorPriorityId, that.snapshotIndicatorPriorityId)
+        return com.google.common.base.Objects.equal(this.id, that.id)
+                && com.google.common.base.Objects.equal(this.snapshotIndicatorId, that.snapshotIndicatorId)
                 && com.google.common.base.Objects.equal(this.indicator, that.indicator)
                 && com.google.common.base.Objects.equal(this.reason, that.reason)
                 && com.google.common.base.Objects.equal(this.action, that.action)
@@ -135,7 +154,7 @@ public class SnapshotIndicatorPriority {
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(snapshotIndicatorPriorityId, indicator, reason, action,
-                estimatedDate);
+        return com.google.common.base.Objects.hashCode(id, snapshotIndicatorId, indicator,
+                reason, action, estimatedDate);
     }
 }
