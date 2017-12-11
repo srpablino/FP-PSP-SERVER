@@ -13,6 +13,9 @@ public class SnapshotIndicators {
 
     @JsonProperty("indicators_survey_data")
     private List<SurveyData> indicatorsSurveyData = null;
+    
+    @JsonProperty("indicators_priorities")
+    private List<SnapshotIndicatorPriority> indicatorsPriorities = null;
 
     @JsonProperty("created_at")
     private String createdAt;
@@ -37,6 +40,11 @@ public class SnapshotIndicators {
 
     public SnapshotIndicators indicatorSurveyData(List<SurveyData> indicatorsSurveyData) {
         this.indicatorsSurveyData = indicatorsSurveyData;
+        return this;
+    }
+    
+    public SnapshotIndicators indicatorsPriorities(List<SnapshotIndicatorPriority> indicatorsPriorities) {
+        this.indicatorsPriorities = indicatorsPriorities;
         return this;
     }
     
@@ -76,6 +84,15 @@ public class SnapshotIndicators {
 
     public void setIndicatorsSurveyData(List<SurveyData> indicatorsSurveyData) {
         this.indicatorsSurveyData = indicatorsSurveyData;
+    }
+    
+    @ApiModelProperty(value = "List of Key/value pairs representing the filled out 'Priority' of indicators")
+    public List<SnapshotIndicatorPriority> getIndicatorsPriorities() {
+        return indicatorsPriorities;
+    }
+
+    public void setIndicatorsPriorities(List<SnapshotIndicatorPriority> indicatorsPriorities) {
+        this.indicatorsPriorities = indicatorsPriorities;
     }
     
     @ApiModelProperty(value = " [ISO 8601](https://es.wikipedia.org/wiki/ISO_8601) formatted creation date")
@@ -130,6 +147,7 @@ public class SnapshotIndicators {
         sb.append("class Snapshot Indicators {\n");
         sb.append("    familyData: ").append(toIndentedString(familyData)).append("\n");
         sb.append("    indicatorsSurveyData: ").append(toIndentedString(indicatorsSurveyData)).append("\n");
+        sb.append("    indicatorsPriorities: ").append(toIndentedString(indicatorsPriorities)).append("\n");
         sb.append("    countRedIndicators:   ").append(toIndentedString(countRedIndicators)).append("\n");
         sb.append("    countYellowIndicators:   ").append(toIndentedString(countYellowIndicators)).append("\n");
         sb.append("    countGreenIndicators:   ").append(toIndentedString(countGreenIndicators)).append("\n");
@@ -146,7 +164,7 @@ public class SnapshotIndicators {
     
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(familyData, indicatorsSurveyData, countGreenIndicators, countYellowIndicators, countRedIndicators);
+        return com.google.common.base.Objects.hashCode(familyData, indicatorsSurveyData, indicatorsPriorities, countGreenIndicators, countYellowIndicators, countRedIndicators);
     }
     
     @Override
@@ -158,6 +176,7 @@ public class SnapshotIndicators {
 
         return com.google.common.base.Objects.equal(this.familyData, that.familyData) &&
                 com.google.common.base.Objects.equal(this.indicatorsSurveyData, that.indicatorsSurveyData) &&
+                com.google.common.base.Objects.equal(this.indicatorsPriorities, that.indicatorsPriorities) &&
                 com.google.common.base.Objects.equal(this.countRedIndicators, that.countRedIndicators) &&
                 com.google.common.base.Objects.equal(this.countYellowIndicators, that.countYellowIndicators) &&
                 com.google.common.base.Objects.equal(this.countGreenIndicators, that.countGreenIndicators);
