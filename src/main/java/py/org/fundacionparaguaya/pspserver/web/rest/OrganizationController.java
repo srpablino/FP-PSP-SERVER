@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
-import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 
 
 @RestController
@@ -57,14 +60,21 @@ public class OrganizationController {
 		OrganizationDTO dto = organizationService.getOrganizationById(organizationId);
 		return ResponseEntity.ok(dto);
 	}
-	
 
 	@GetMapping()
-	public ResponseEntity<List<OrganizationDTO>> getAllOrganizations() {
-		List<OrganizationDTO> organizations = organizationService.getAllOrganizations();
-		return ResponseEntity.ok(organizations);
+	public ResponseEntity<List<OrganizationDTO>> getAllOrganizations(
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+			@RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
+		
+		LOG.info("get all paginated organizations! Page: {}, PerPage: {}, SortBy: {}, Order: {}", page, perPage, sortBy, orderBy);
+		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+		Page<OrganizationDTO> pageProperties = organizationService.getAllOrganizations(pageRequest);
+		//PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+		
+		return ResponseEntity.ok(pageProperties.getContent());
 	}
-	
 	
 	@DeleteMapping("/{organizationId}")
 	public ResponseEntity<Void> deleteOrganization(@PathVariable("organizationId") Long organizationId) {

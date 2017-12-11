@@ -1,11 +1,15 @@
 package py.org.fundacionparaguaya.pspserver.network.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 
-import java.lang.Long;
+public interface OrganizationRepository extends PagingAndSortingRepository<OrganizationEntity, Long> {
 
-public interface OrganizationRepository extends JpaRepository<OrganizationEntity, Long> {
-
+	List<OrganizationEntity> findAll();
+	Page<OrganizationEntity> findAll(Pageable page);
 }
