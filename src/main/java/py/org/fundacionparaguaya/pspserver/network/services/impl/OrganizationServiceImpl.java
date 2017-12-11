@@ -8,6 +8,9 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -82,6 +85,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 	}
 
-	
+	@Override
+	public Page<OrganizationDTO> getAllOrganizations(PageRequest pageRequest) {		
+		Page<OrganizationEntity> pageResponse = organizationRepository.findAll(pageRequest);
+		
+		if (pageResponse != null) {
+			return pageResponse.map(new Converter<OrganizationEntity, OrganizationDTO>() {
+			    @Override
+				public OrganizationDTO convert(OrganizationEntity source) {
+			    	return organizationMapper.entityToDto(source);
+				}
+			});
+		}
+		
+		return null;
+	}
 
 }
