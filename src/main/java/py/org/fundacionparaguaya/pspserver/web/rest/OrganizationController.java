@@ -2,7 +2,6 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
@@ -62,18 +62,15 @@ public class OrganizationController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<OrganizationDTO>> getAllOrganizations(
+	public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
 			@RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
-		
-		LOG.info("get all paginated organizations! Page: {}, PerPage: {}, SortBy: {}, Order: {}", page, perPage, sortBy, orderBy);
 		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
 		Page<OrganizationDTO> pageProperties = organizationService.getAllOrganizations(pageRequest);
-		//PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
-		
-		return ResponseEntity.ok(pageProperties.getContent());
+		PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+		return ResponseEntity.ok(response);
 	}
 	
 	@DeleteMapping("/{organizationId}")
