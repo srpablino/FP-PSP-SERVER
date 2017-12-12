@@ -14,7 +14,3 @@ CREATE TABLE data_collect.snapshot_indicator_priorities (
         ON DELETE NO ACTION
 );
 
-CREATE SEQUENCE data_collect.snapshot_indicator_priorities_id_seq;
-ALTER TABLE data_collect.snapshot_indicator_priorities ALTER COLUMN snapshot_indicator_priorities_id SET NOT NULL;
-ALTER TABLE data_collect.snapshot_indicator_priorities ALTER COLUMN snapshot_indicator_priorities_id SET DEFAULT nextval('data_collect.snapshot_indicator_priorities_id_seq');
-ALTER SEQUENCE data_collect.snapshot_indicator_priorities_id_seq OWNED BY data_collect.snapshot_indicator_priorities.snapshot_indicator_priorities_id;
