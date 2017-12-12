@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import javax.websocket.server.PathParam;
 
@@ -77,7 +78,7 @@ public class SnapshotIndicatorPriorityController {
     @io.swagger.annotations.ApiOperation(value = "Create Snapshot Indicator Priority", notes = "A `POST` request will create new priority for a particular indicator of a snapshot indicator.", response = SnapshotIndicatorPriority.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 201, message = "The created snapshot indicator priority", response = SnapshotIndicatorPriority.class) })
-    public ResponseEntity addSnapshotIndicatorPriority(
+    public ResponseEntity<SnapshotIndicatorPriority> addSnapshotIndicatorPriority(
             @ApiParam(value = "The snapshot indicator priority", required = true) @RequestBody SnapshotIndicatorPriority priority)
             throws NotFoundException, URISyntaxException {
         SnapshotIndicatorPriority data = snapshotPriorityService.addSnapshotIndicatorPriority(priority);
@@ -98,10 +99,10 @@ public class SnapshotIndicatorPriorityController {
     }
 
     @DeleteMapping("/{snapshotIndicatorPriorityId}")
-    public ResponseEntity<Void> deleteSnapshotIndicatorPriority(
-            @PathVariable("snapshotIndicatorPriorityId") Long snapshotIndicatorPriorityId) {
+    public ResponseEntity<SnapshotIndicatorPriority> deleteSnapshotIndicatorPriority(
+    		@PathVariable("snapshotIndicatorPriorityId") Long snapshotIndicatorPriorityId) {
         snapshotPriorityService.deleteSnapshotIndicatorPriority(snapshotIndicatorPriorityId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new SnapshotIndicatorPriority());
     }
 
 }
