@@ -17,5 +17,7 @@ public interface SnapshotIndicatorPriorityRepository extends JpaRepository<Snaps
 
     Optional<SnapshotIndicatorPriorityEntity> findBySnapshotIndicatorIdAndId(Long snapshotIndicatorId,
             Long snapshotIndicatorPriorityId);
+    
+    Long countAllBySnapshotIndicatorId(Long snapshotIndicatorId);
 
 }

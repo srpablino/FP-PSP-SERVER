@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.IndicatorsPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -133,12 +134,16 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
     }
 
     @Override
-    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
+    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority){
 
         checkArgument(priority != null, "Argument was %s but expected not null", priority);
         checkArgument(priority.getSnapshotIndicatorId() > 0, "Argument was %s but expected nonnegative",
                 priority.getSnapshotIndicatorId());
 
+        if(snapshotPriorityRepository.countAllBySnapshotIndicatorId(priority.getSnapshotIndicatorId())>=5) {
+            throw new CustomParameterizedException("There are already five priorities");
+        }
+        
         SnapshotIndicatorPriorityEntity entity = new SnapshotIndicatorPriorityEntity();
         entity.setReason(priority.getReason());
         entity.setAction(priority.getAction());
