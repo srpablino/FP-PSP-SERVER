@@ -33,7 +33,7 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
     @Id
     @GenericGenerator(name = "snapshotIndicatorPrioritiesSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "data_collect"),
-            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "snapshot_indicator_priorities_id_seq"),
+            @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "snapshot_indicator_priorities_snapshot_indicator_priorities_seq"),
             @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
             @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(generator = "snapshotIndicatorPrioritiesSequenceGenerator")
