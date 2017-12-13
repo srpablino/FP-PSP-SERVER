@@ -138,5 +138,12 @@
     <changeSet id="2017-11-27T15:00" author="rvillalba">
         <sqlFile path="sql/2017-11-27T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+     <!--  
+     Creates snapshot_indicator_priority datatable
+    -->
+    <changeSet id="2017-12-01T11:20" author="mgonzalez">
+        <sqlFile path="sql/2017-12-01T11:20.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

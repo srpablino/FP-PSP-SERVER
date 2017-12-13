@@ -13,6 +13,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.*;
@@ -30,6 +31,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class SnapshotServiceImpl implements SnapshotService {
 
+    private final SnapshotIndicatorPriorityService priorityService;
+    
     private final SurveyRepository surveyRepository;
     
     private final SnapshotEconomicRepository economicRepository;
@@ -49,18 +52,18 @@ public class SnapshotServiceImpl implements SnapshotService {
     private static final String INDICATOR_NAME = "name";
     
     private static final String INDICATOR_VALUE = "value";
-    
-    private static final String FORMAT_DATE = "";
+
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            FamilyRepository familyRepository) {
+            FamilyRepository familyRepository, SnapshotIndicatorPriorityService priorityService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
         this.surveyRepository = surveyRepository;
         this.indicatorMapper = indicatorMapper;
         this.familyRepository = familyRepository;
+        this.priorityService = priorityService;
     }
 
     @Override
@@ -110,7 +113,12 @@ public class SnapshotServiceImpl implements SnapshotService {
                .collect(Collectors.toList());
        
        for(SnapshotEconomicEntity s : originalSnapshots) {
+           
            SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
+           
+           List<SnapshotIndicatorPriority> priorities = priorityService.getSnapshotIndicatorPriorityList(s.getSnapshotIndicator().getId());
+           snapshotIndicators.setIndicatorsPriorities(priorities);
+           
            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
            List<SurveyData> indicatorsToRet = new ArrayList<>();
            SurveyData familyData = new SurveyData();
@@ -144,6 +152,7 @@ public class SnapshotServiceImpl implements SnapshotService {
            
            snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
            snapshotIndicators.setCreatedAt(s.getCreatedAtAsISOString());
+           snapshotIndicators.setSnapshotIndicatorId(s.getSnapshotIndicator().getId());
            
            if(familiyId!=null) {
                FamilyEntity family = familyRepository.getOne(familiyId);
@@ -154,6 +163,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                }
            }
            snapshotIndicators.setFamilyData(familyData);
+           
            toRet.add(snapshotIndicators);
        }
        return toRet;
