@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.families.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +17,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
-
-
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
@@ -27,6 +27,14 @@ public class FamilyServiceImpl implements FamilyService {
 	private FamilyRepository familyRepository;
 	
 	private final FamilyMapper familyMapper;
+	
+	private static final String FAMILY_ID = "Id";
+	
+	private static final String FAMILY_NAME = "Name";
+	
+	private static final String FAMILY_COUNTRY = "Country";
+	
+	private static final String FAMILY_CITY = "City";
 	
 	public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper) {
 		this.familyRepository = familyRepository;
@@ -81,8 +89,33 @@ public class FamilyServiceImpl implements FamilyService {
                 });
 		
 	}
-	 
 
-	
-	
+	@Override
+	public List<SurveyData> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {		
+		
+		List<FamilyEntity> familyAll = familyRepository.findAll();
+		
+		SurveyData familyData = new SurveyData();
+		
+		List<SurveyData> familyRet = new ArrayList<SurveyData>();
+		
+		for (FamilyEntity familyEntity : familyAll) {
+			if (familyEntity.getOrganization().getId() == organizationId 
+					&& familyEntity.getCountry().getId() == countryId
+					&& familyEntity.getCity().getId() == cityId
+					&& familyEntity.getName().toLowerCase().contains(freeText.toLowerCase())) {
+				
+				familyData.put(FAMILY_ID, familyEntity.getFamilyId());
+				familyData.put(FAMILY_NAME, familyEntity.getName());
+				familyData.put(FAMILY_COUNTRY, familyEntity.getCountry().getCountry());
+				familyData.put(FAMILY_CITY, familyEntity.getCity().getCity());
+				familyRet.add(familyData);
+				
+			}
+		}
+		
+		return familyRet;
+		
+	}
+	 
 }

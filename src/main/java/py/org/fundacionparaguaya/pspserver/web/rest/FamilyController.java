@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 @RestController
 @RequestMapping(value = "/api/v1/families")
@@ -67,6 +69,16 @@ public class FamilyController {
 		LOG.debug("REST request to delete Family: {}", familyId);
 		familyService.deleteFamily(familyId);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/filter")
+	public ResponseEntity<List<SurveyData>> getFamiliesByFilter(
+			@RequestParam("organization_id") Long organizationId, 
+			@RequestParam("country_id") Long countryId,
+			@RequestParam("city_id") Long cityId,
+			@RequestParam("free_text") String freeText) {
+		List<SurveyData> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
+		return ResponseEntity.ok(families);
 	}
 
 }
