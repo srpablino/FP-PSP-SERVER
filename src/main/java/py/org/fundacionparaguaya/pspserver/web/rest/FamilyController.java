@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
 @RestController
 @RequestMapping(value = "/api/v1/families")
@@ -72,12 +72,12 @@ public class FamilyController {
 	}
 	
 	@GetMapping("/filter")
-	public ResponseEntity<List<SurveyData>> getFamiliesByFilter(
+	public ResponseEntity<Map<String, Object>> getFamiliesByFilter(
 			@RequestParam(value = "organization_id", required = true, defaultValue = "1") Long organizationId, 
 			@RequestParam(value = "country_id", required = true, defaultValue = "1") Long countryId,
 			@RequestParam(value = "city_id", required = true, defaultValue = "1") Long cityId,
-			@RequestParam(value = "free_text", required = false, defaultValue = "CE") String freeText) {
-		List<SurveyData> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
+			@RequestParam(value = "free_text", required = false) String freeText) {
+		Map<String, Object> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
 		return ResponseEntity.ok(families);
 	}
 

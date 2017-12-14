@@ -3,7 +3,9 @@ package py.org.fundacionparaguaya.pspserver.families.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -91,30 +93,29 @@ public class FamilyServiceImpl implements FamilyService {
 	}
 
 	@Override
-	public List<SurveyData> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {		
+	public Map<String, Object> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {		
 		
-		List<FamilyEntity> familyAll = familyRepository.findAll();
+		List<FamilyEntity> familyFiltered = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
 		
 		SurveyData familyData = new SurveyData();
 		
 		List<SurveyData> familyRet = new ArrayList<SurveyData>();
 		
-		for (FamilyEntity familyEntity : familyAll) {
-			if (familyEntity.getOrganization().getId() == organizationId 
-					&& familyEntity.getCountry().getId() == countryId
-					&& familyEntity.getCity().getId() == cityId
-					&& familyEntity.getName().toLowerCase().contains(freeText.toLowerCase())) {
-				
-				familyData.put(FAMILY_ID, familyEntity.getFamilyId());
-				familyData.put(FAMILY_NAME, familyEntity.getName());
-				familyData.put(FAMILY_COUNTRY, familyEntity.getCountry().getCountry());
-				familyData.put(FAMILY_CITY, familyEntity.getCity().getCity());
-				familyRet.add(familyData);
-				
-			}
+		Map<String, Object> mapRet = new HashMap<String, Object>();
+		
+		for (FamilyEntity familyEntity : familyFiltered) {
+			
+			familyData.put(FAMILY_ID, familyEntity.getFamilyId());
+			familyData.put(FAMILY_NAME, familyEntity.getName());
+			familyData.put(FAMILY_COUNTRY, familyEntity.getCountry().getCountry());
+			familyData.put(FAMILY_CITY, familyEntity.getCity().getCity());
+			familyRet.add(familyData);
+			
 		}
 		
-		return familyRet;
+		mapRet.put("list", familyRet);
+		
+		return mapRet;
 		
 	}
 	 
