@@ -7,6 +7,8 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -104,6 +106,9 @@ public class SnapshotIndicatorEntity implements StoreableSnapshot {
     @Type(type = "py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType", parameters = {
             @org.hibernate.annotations.Parameter(name = SecondJSONBUserType.CLASS, value = "py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData")})
     private SurveyData additionalProperties;
+    
+    @OneToMany(mappedBy="snapshotIndicator" )
+    private List<SnapshotIndicatorPriorityEntity> priorities;
 
     public Long getId() {
         return id;
@@ -308,6 +313,10 @@ public class SnapshotIndicatorEntity implements StoreableSnapshot {
 
     public void setAutonomyDecisions(String autonomyDecisions) {
         this.autonomyDecisions = autonomyDecisions;
+    }
+    
+    public List<SnapshotIndicatorPriorityEntity> getPriorities() {
+        return priorities;
     }
 
     public SnapshotIndicatorEntity additionalProperties(SurveyData indicatorssSurveyData) {
