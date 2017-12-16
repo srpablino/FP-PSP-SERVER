@@ -1,53 +1,50 @@
 package py.org.fundacionparaguaya.pspserver.common.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
- * View Model for transferring error message with a list of field errors.
+ * View Model for transferring developerMessage message with a list of field errors.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String message;
-    private final String description;
+    private Long errorId;
+
+    private String developerMessage;
+
+    private String message;
 
     private List<FieldErrorDTO> fieldErrors;
 
-    public static ErrorDTO fromStatus(ResponseStatus responseStatus, String message) {
-        return new ErrorDTO("error." + responseStatus.value().value(), message);
+
+    public static ErrorDTO of(String message, String developerMessage) {
+        return new ErrorDTO(ErrorIdGenerator.getNewId(), message, developerMessage);
     }
 
-    public static ErrorDTO fromCode(String code, String message) {
-        return new ErrorDTO(code, message);
+    public static ErrorDTO of(String message) {
+        return ErrorDTO.of(message, null);
     }
 
-
-    public static ErrorDTO fromCode(String errValidation) {
-        return new ErrorDTO(errValidation);
+    public static ErrorDTO of(List<FieldError> fieldErrors, String message, String developerMessage) {
+        ErrorDTO dto = ErrorDTO.of(message, developerMessage);
+        for (FieldError fieldError : fieldErrors) {
+            dto.add(fieldError.getObjectName(), fieldError.getField(), fieldError.getCode());
+        }
+        return dto;
     }
 
-    private ErrorDTO(String message) {
-        this(message, null);
-    }
-
-    private ErrorDTO(String message, String description) {
+    private ErrorDTO(Long errorId, String message, String developerMessage) {
+        this.errorId = errorId;
+        this.developerMessage = developerMessage;
         this.message = message;
-        this.description = description;
-    }
-
-    private ErrorDTO(String message, String description, List<FieldErrorDTO> fieldErrors) {
-        this.message = message;
-        this.description = description;
-        this.fieldErrors = fieldErrors;
     }
 
     public void add(String objectName, String field, Collection<String> messages) {
@@ -68,13 +65,47 @@ public class ErrorDTO implements Serializable {
         return message;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public List<FieldErrorDTO> getFieldErrors() {
         return fieldErrors;
     }
 
+    public String getDeveloperMessage() {
+        return developerMessage;
+    }
 
+    public Long getErrorId() {
+        return errorId;
+    }
+
+    public void addFieldErrors(List<FieldErrorDTO> fieldErrors) {
+        if (this.fieldErrors == null) {
+            this.fieldErrors = new ArrayList<>();
+        }
+        this.fieldErrors.addAll(fieldErrors);
+    }
+
+
+    public ErrorDTO formatWithCode() {
+        String formattedMessge = ErrorFormatter.formatErrorMessage(this.getMessage(), this.getErrorId());
+        return new ErrorDTO(this.getErrorId(), formattedMessge, this.getDeveloperMessage());
+    }
+
+
+
+    /**
+     * Created by rodrigovillalba on 12/12/17.
+     */
+    public static class ErrorIdGenerator {
+        /**
+         * Private constructor in order to prevent to instantiate this class.
+         */
+        private ErrorIdGenerator() {
+        }
+
+        public static long getNewId() {
+            return new Date().getTime();
+        }
+
+    }
 }
