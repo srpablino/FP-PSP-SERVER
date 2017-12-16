@@ -49,13 +49,13 @@ public class CustomParameterizedException extends RuntimeException {
     }
 
 
-    public ErrorDTO getErrorDTO() {
-        ErrorDTO errorDTO = ErrorDTO.fromCode(ErrorCodes.ERR_VALIDATION, message);
+    public List<FieldErrorDTO> getFieldErrors() {
+        List<FieldErrorDTO> fields = new ArrayList<>();
         if (paramMap != null) {
             this.paramMap.entrySet()
                     .stream()
-                    .forEach(entry -> errorDTO.add(null, entry.getKey(), entry.getValue()));
+                    .forEach(entry -> fields.add(new FieldErrorDTO(null, entry.getKey(), entry.getValue())));
         }
-        return errorDTO;
+        return fields;
     }
 }
