@@ -35,23 +35,22 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 public class SnapshotServiceImpl implements SnapshotService {
 
     private final SnapshotIndicatorPriorityService priorityService;
-    
+
     private final SurveyRepository surveyRepository;
-    
+
     private final SnapshotEconomicRepository economicRepository;
 
     private final SnapshotEconomicMapper economicMapper;
 
     private final SurveyService surveyService;
-    
+
     private final SnapshotIndicatorMapper indicatorMapper;
-    
+
     private static final String INDICATOR_NAME = "name";
-    
+
     private static final String INDICATOR_VALUE = "value";
 
-
-    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
+    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService) {
         this.economicRepository = economicRepository;
@@ -88,72 +87,71 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     @Override
     public List<Snapshot> find(Long surveyId, Long familiyId) {
-        return economicRepository.findBySurveyDefinitionId(surveyId)
-                .stream()
-                .map(economicMapper::entityToDto)
+        return economicRepository.findBySurveyDefinitionId(surveyId).stream().map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
     }
-    
+
     @Override
     public List<SnapshotIndicators> getSnapshotIndicators(Long surveyId, Long familiyId) {
-        
-       List<SnapshotIndicators> toRet = new ArrayList<>();
-       List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(surveyId)
-               .stream()
-               .collect(Collectors.toList());
-       
-       SurveyEntity survey = surveyRepository.getOne(surveyId);
-       List<String> indicatorGroup = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
-       
-       List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream().filter(field -> indicatorGroup.contains(field))
-               .collect(Collectors.toList());
-       
-       for(SnapshotEconomicEntity s : originalSnapshots) {
-           
-           SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
-           
-           List<SnapshotIndicatorPriority> priorities = priorityService.getSnapshotIndicatorPriorityList(s.getSnapshotIndicator().getId());
-           snapshotIndicators.setIndicatorsPriorities(priorities);
-           
-           SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
-           List<SurveyData> indicatorsToRet = new ArrayList<>();
-           if(indicatorGroup!=null && !indicatorGroup.isEmpty()) {
-               if(order!=null && !order.isEmpty()) {
-                     
-                   order.forEach( indicator -> { 
-                       if(indicators.containsKey(indicator)) {
-                           SurveyData sd = new SurveyData();
-                           sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
-                           sd.put(INDICATOR_VALUE, indicators.get(indicator));
-                           
-                           switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
-                            case "RED":
-                                snapshotIndicators.setCountRedIndicators(snapshotIndicators.getCountRedIndicators()+1);
-                                break;
-                            case "YELLOW":
-                                snapshotIndicators.setCountYellowIndicators(snapshotIndicators.getCountYellowIndicators()+1);
-                                break;
-                            case "GREEN":
-                                snapshotIndicators.setCountGreenIndicators(snapshotIndicators.getCountGreenIndicators()+1);
-                                break;
-                            default:
-                                break;
-                            }
-                           indicatorsToRet.add(sd);
-                       }         
-                   });
-               }
-           }
-           
-           snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
-           snapshotIndicators.setCreatedAt(s.getCreatedAtAsISOString());
-           snapshotIndicators.setSnapshotIndicatorId(s.getSnapshotIndicator().getId());
-           
-           toRet.add(snapshotIndicators);
-       }
-       return toRet;
+
+        List<SnapshotIndicators> toRet = new ArrayList<>();
+        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(surveyId).stream()
+                .collect(Collectors.toList());
+
+        SurveyEntity survey = surveyRepository.getOne(surveyId);
+        List<String> indicatorGroup = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
+
+        List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream()
+                .filter(field -> indicatorGroup.contains(field)).collect(Collectors.toList());
+
+        for (SnapshotEconomicEntity s : originalSnapshots) {
+
+            SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
+
+            List<SnapshotIndicatorPriority> priorities = priorityService
+                    .getSnapshotIndicatorPriorityList(s.getSnapshotIndicator().getId());
+            snapshotIndicators.setIndicatorsPriorities(priorities);
+
+            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
+            List<SurveyData> indicatorsToRet = new ArrayList<>();
+            if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
+
+                order.forEach(indicator -> {
+                    if (indicators.containsKey(indicator)) {
+                        SurveyData sd = new SurveyData();
+                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                        sd.put(INDICATOR_VALUE, indicators.get(indicator));
+
+                        switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
+                        case "RED":
+                            snapshotIndicators.setCountRedIndicators(snapshotIndicators.getCountRedIndicators() + 1);
+                            break;
+                        case "YELLOW":
+                            snapshotIndicators
+                                    .setCountYellowIndicators(snapshotIndicators.getCountYellowIndicators() + 1);
+                            break;
+                        case "GREEN":
+                            snapshotIndicators
+                                    .setCountGreenIndicators(snapshotIndicators.getCountGreenIndicators() + 1);
+                            break;
+                        default:
+                            break;
+                        }
+                        indicatorsToRet.add(sd);
+                    }
+                });
+
+            }
+
+            snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
+            snapshotIndicators.setCreatedAt(s.getCreatedAtAsISOString());
+            snapshotIndicators.setSnapshotIndicatorId(s.getSnapshotIndicator().getId());
+
+            toRet.add(snapshotIndicators);
+        }
+        return toRet;
     }
-    
+
     private String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
