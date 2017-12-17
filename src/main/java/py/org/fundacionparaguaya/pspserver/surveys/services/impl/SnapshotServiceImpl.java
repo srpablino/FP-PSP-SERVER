@@ -122,8 +122,10 @@ public class SnapshotServiceImpl implements SnapshotService {
            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
            List<SurveyData> indicatorsToRet = new ArrayList<>();
            SurveyData familyData = new SurveyData();
-           if(indicatorGroup!=null && !indicatorGroup.isEmpty()) {
-               if(order!=null && !order.isEmpty()) {
+           if (indicatorGroup!=null
+                   && !indicatorGroup.isEmpty()
+                   && order!=null
+                   && !order.isEmpty()) {
                      
                    order.forEach( indicator -> { 
                        if(indicators.containsKey(indicator)) {
@@ -147,7 +149,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                            indicatorsToRet.add(sd);
                        }         
                    });
-               }
+
            }
            
            snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
