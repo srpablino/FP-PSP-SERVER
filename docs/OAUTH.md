@@ -47,17 +47,24 @@ curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?u
 ### Access secure resource with token
 
 ```
-curl -i -H "Authorization: Bearer [access_token]" http://localhost:8080/api/v1/users
+curl -i -H "Authorization: Bearer $ACESS_TOKEN" http://localhost:8080/api/v1/users
 ```
 
 ### Result
 
 ```
 [{
-	"id":1,
 	"username":"admin",
 	"active":true
 }]
+```
+
+### Logout
+
+To logout of the application you simply need to revoke your access token by invoking:
+
+```
+curl -X GET -H "Authorization: Bearer $ACCESS_TOKEN" http://localhost:8080/oauth/revoke-token
 ```
 
 # Default roles and users

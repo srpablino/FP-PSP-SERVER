@@ -20,7 +20,8 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 // Organizations related resources
                 .antMatchers(HttpMethod.GET, ProtectedModule.ORGANIZATIONS.getUrls()).authenticated()
                 .antMatchers(ProtectedModule.ORGANIZATIONS.getUrls()).hasAnyRole(ProtectedModule.ORGANIZATIONS.getWriteRoles())
