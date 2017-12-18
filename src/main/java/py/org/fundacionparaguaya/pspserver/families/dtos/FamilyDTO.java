@@ -15,6 +15,9 @@ public class FamilyDTO {
 
 	@NotNull
 	private String name;
+	
+	@NotNull
+    private String code;
 
 	private CountryDTO country;
 
@@ -32,10 +35,11 @@ public class FamilyDTO {
 	
 	public FamilyDTO(){}
 
-	private FamilyDTO(Long familyId, String name, CountryDTO country, CityDTO city, String locationType,
+	private FamilyDTO(Long familyId, String name, String code, CountryDTO country, CityDTO city, String locationType,
 			String locationPositionGps, PersonDTO person, ApplicationDTO application, OrganizationDTO organization) {
 		this.familyId = familyId;
 		this.name = name;
+		this.code = code;
 		this.country = country;
 		this.city = city;
 		this.locationType = locationType;
@@ -48,6 +52,7 @@ public class FamilyDTO {
 	public static class Builder {
 		private Long familyId;
 		private String name;
+		private String code;
 		private CountryDTO country;
 		private CityDTO city;
 		private String locationType;
@@ -64,6 +69,10 @@ public class FamilyDTO {
 			this.name = name;
 			return this;
 		}
+		public Builder code(String code){
+            this.code = code;
+            return this;
+        }
 		public Builder country(CountryDTO country){
 			this.country = country;
 			return this;
@@ -93,7 +102,7 @@ public class FamilyDTO {
 			return this;
 		}
 		public FamilyDTO build(){
-			return new FamilyDTO(familyId, name, country, city, locationType, locationPositionGps, person, application, organization);
+			return new FamilyDTO(familyId, name, code, country, city, locationType, locationPositionGps, person, application, organization);
 		}
 	}
 	
@@ -117,6 +126,13 @@ public class FamilyDTO {
 		this.name = name;
 	}
 
+	public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 	public CountryDTO getCountry() {
 		return country;
 	}
@@ -178,6 +194,7 @@ public class FamilyDTO {
 		return MoreObjects.toStringHelper(this)
 				.add("familyId", familyId)
 				.add("name", name)
+				.add("code", code)
 				.add("country", country)
 				.add("city", city.toString())
 				.add("locationType", locationType)

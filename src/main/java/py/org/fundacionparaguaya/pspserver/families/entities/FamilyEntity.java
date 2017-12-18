@@ -6,6 +6,7 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public class FamilyEntity extends BaseEntity {
 	private Long familyId;
 
 	private String name;
+	
+	private String code;
 
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country")
@@ -42,7 +45,7 @@ public class FamilyEntity extends BaseEntity {
 
 	private String locationPositionGps;
 
-	@ManyToOne(targetEntity = PersonEntity.class)
+	@ManyToOne(targetEntity = PersonEntity.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "person_reference_id")
 	private PersonEntity person;
 
@@ -70,6 +73,14 @@ public class FamilyEntity extends BaseEntity {
 		this.name = name;
 	}
 
+	public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
 	public CountryEntity getCountry() {
 		return country;
 	}
@@ -147,6 +158,7 @@ public class FamilyEntity extends BaseEntity {
 		return MoreObjects.toStringHelper(this)
 				.add("familyId", familyId)
 				.add("name", name)
+				.add("code", code)
 				.add("country", country.toString())
 				.add("city", city.toString())
 				.add("locationType", locationType)
