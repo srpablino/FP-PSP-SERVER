@@ -16,7 +16,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
-import py.org.fundacionparaguaya.pspserver.families.services.impl.FamilyServiceImpl;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -56,6 +56,8 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final FamilyRepository familyRepository;
     
+    private final FamilyService familyService;
+    
     private static final String INDICATOR_NAME = "name";
     
     private static final String INDICATOR_VALUE = "value";
@@ -63,7 +65,8 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper, FamilyRepository familyRepository) {
+            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper, FamilyRepository familyRepository, 
+            FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -72,14 +75,13 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.priorityService = priorityService;
         this.personMapper = personMapper;
         this.familyRepository = familyRepository;
+        this.familyService = familyService;
     }
 
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
         checkNotNull(snapshot);
-        
-        System.out.println("snapshot "+snapshot);
         
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
@@ -92,8 +94,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         PersonEntity  personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
         
-        //TODO hacer el metodo que retorne el codigo dado los datos de la persona
-        String code = "sadasdasd";
+        String code = familyService.generateFamilyCode(personEntity);
         
         Optional<FamilyEntity> family = familyRepository.findByCode(code);
         
@@ -104,7 +105,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         	FamilyEntity newFamily = new FamilyEntity();
         	newFamily.setPerson(personEntity);
         	newFamily.setCode(code);
-        	
+        	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().get("familyUbication").toString());
         	newFamily = familyRepository.save(newFamily);
         	
         	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
@@ -192,5 +193,6 @@ public class SnapshotServiceImpl implements SnapshotService {
     private String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
+    
 
 }
