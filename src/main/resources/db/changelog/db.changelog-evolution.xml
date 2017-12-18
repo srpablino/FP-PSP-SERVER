@@ -145,5 +145,30 @@
     <changeSet id="2017-12-01T11:20" author="mgonzalez">
         <sqlFile path="sql/2017-12-01T11:20.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Add code columns in a family table -->
+    <changeSet id="2017-12-13T15:30" author="mgonzalez">
+        <sqlFile path="sql/2017-12-13T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <!-- Add relationship to family table -->
+    <changeSet id="2017-12-14T10:30" author="mgonzalez">
+        <sqlFile path="sql/2017-12-14T10:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <!-- Add code columns to countries table -->
+    <changeSet id="2017-12-14T15:30" author="mgonzalez">
+        <sqlFile path="sql/2017-12-14T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+     <!-- Add and rename columns of person table -->
+    <changeSet id="2017-12-14T16:00" author="mgonzalez">
+        <sqlFile path="sql/2017-12-14T16:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <!-- Insert countries in the countries table -->
+    <changeSet id="2017-12-17T19:00" author="mgonzalez">
+        <sqlFile path="sql/2017-12-17T19:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
