@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFileDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 
 @RestController
@@ -51,8 +52,8 @@ public class FamilyController {
 
 	
 	@GetMapping("/{familyId}")
-	public ResponseEntity<FamilyDTO> getFamilyById(@PathVariable("familyId") Long familyId) {
-		FamilyDTO dto = familyService.getFamilyById(familyId);
+	public ResponseEntity<FamilyFileDTO> getFamilyFileById(@PathVariable("familyId") Long familyId) {
+		FamilyFileDTO dto = familyService.getFamilyFileById(familyId);
 		return ResponseEntity.ok(dto);
 	}
 	
@@ -72,12 +73,12 @@ public class FamilyController {
 	}
 	
 	@GetMapping("/filter")
-	public ResponseEntity<Map<String, Object>> getFamiliesByFilter(
+	public ResponseEntity<List<FamilyDTO>> getFamiliesByFilter(
 			@RequestParam(value = "organization_id", required = true, defaultValue = "1") Long organizationId, 
 			@RequestParam(value = "country_id", required = true, defaultValue = "1") Long countryId,
 			@RequestParam(value = "city_id", required = true, defaultValue = "1") Long cityId,
 			@RequestParam(value = "free_text", required = false) String freeText) {
-		Map<String, Object> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
+		List<FamilyDTO> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
 		return ResponseEntity.ok(families);
 	}
 

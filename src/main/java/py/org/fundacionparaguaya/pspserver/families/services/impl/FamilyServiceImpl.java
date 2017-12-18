@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,34 +14,48 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonSerializer;
+
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFileDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
+import py.org.fundacionparaguaya.pspserver.system.mapper.CityMapper;
+import py.org.fundacionparaguaya.pspserver.system.mapper.CountryMapper;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
 	private Logger LOG = LoggerFactory.getLogger(FamilyServiceImpl.class);
 
-	private FamilyRepository familyRepository;
-	
 	private final FamilyMapper familyMapper;
 	
-	private static final String FAMILY_ID = "Id";
+	private final FamilyRepository familyRepository;
 	
-	private static final String FAMILY_NAME = "Name";
+	private final SnapshotService snapshotService;
 	
-	private static final String FAMILY_COUNTRY = "Country";
+	private final SurveyService surveyService;
 	
-	private static final String FAMILY_CITY = "City";
+	private final CountryMapper countryMapper;
 	
-	public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper) {
+	private final CityMapper cityMapper;
+	
+	public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
+			SnapshotService snapshotService, SurveyService surveyService, CountryMapper countryMapper,
+			CityMapper cityMapper) {
 		this.familyRepository = familyRepository;
 		this.familyMapper = familyMapper;
+		this.snapshotService = snapshotService;
+		this.surveyService = surveyService;
+		this.countryMapper = countryMapper;
+		this.cityMapper = cityMapper;
 	}
 
 	@Override
@@ -89,34 +104,49 @@ public class FamilyServiceImpl implements FamilyService {
                 	familyRepository.delete(family);
                     LOG.debug("Deleted Family: {}", family);
                 });
-		
 	}
 
 	@Override
-	public Map<String, Object> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {		
+	public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
 		
-		List<FamilyEntity> familyFiltered = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+		List<FamilyEntity> listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+
+		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
 		
-		SurveyData familyData = new SurveyData();
-		
-		List<SurveyData> familyRet = new ArrayList<SurveyData>();
-		
-		Map<String, Object> mapRet = new HashMap<String, Object>();
-		
-		for (FamilyEntity familyEntity : familyFiltered) {
+		for (FamilyEntity familyEntity : listFamilies) {
 			
-			familyData.put(FAMILY_ID, familyEntity.getFamilyId());
-			familyData.put(FAMILY_NAME, familyEntity.getName());
-			familyData.put(FAMILY_COUNTRY, familyEntity.getCountry().getCountry());
-			familyData.put(FAMILY_CITY, familyEntity.getCity().getCity());
-			familyRet.add(familyData);
+			FamilyDTO familyDTO = new FamilyDTO();
+			familyDTO.setFamilyId(familyEntity.getFamilyId());
+			familyDTO.setName(familyEntity.getName());
+			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
+			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
+			listDtoRet.add(familyDTO);
 			
 		}
 		
-		mapRet.put("list", familyRet);
-		
-		return mapRet;
-		
+		return listDtoRet;		
 	}
+
 	 
+	@Override
+	public FamilyFileDTO getFamilyFileById(Long familyId) {
+		checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
+		
+		FamilyFileDTO familyFile = new FamilyFileDTO();
+		
+		FamilyDTO family = Optional.ofNullable(familyRepository.findOne(familyId))
+				.map(familyMapper::entityToDto)
+				.orElseThrow(() -> new UnknownResourceException("Family does not exist"));
+		
+		BeanUtils.copyProperties(family, familyFile);
+		
+		//FIXME! there is not yet a relation between families and snapshots!
+		//so we will take one survey and ask for it's snapshots
+		SurveyDefinition survey = surveyService.getAll().get(0);
+		
+		//we take the first one snapshot
+        familyFile.setSnapshotIndicators(snapshotService.getSnapshotIndicators(survey.getId(), familyId).get(0));
+        return familyFile;
+	}
+	
 }

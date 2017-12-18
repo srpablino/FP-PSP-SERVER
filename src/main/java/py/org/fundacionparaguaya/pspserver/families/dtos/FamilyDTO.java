@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.families.dtos;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -9,6 +10,7 @@ import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FamilyDTO {
 
 	private Long familyId;
