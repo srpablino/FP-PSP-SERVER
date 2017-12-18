@@ -8,14 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 
 import com.google.common.base.MoreObjects;
@@ -30,10 +31,20 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 public class PersonEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1762584396723284335L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ps_families.person_person_id_seq")
-    @SequenceGenerator(name="ps_families.person_person_id_seq", sequenceName="ps_families.person_person_id_seq", allocationSize=1)
+    @GenericGenerator(
+            name = ""
+                    + "personSequenceGenerator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "person_person_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+            }
+    )
+    @GeneratedValue(generator = "personSequenceGenerator")
 	@Column(name = "person_id")
 	private Long personId;
 	

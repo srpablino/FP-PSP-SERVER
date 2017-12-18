@@ -17,16 +17,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 import com.google.common.base.MoreObjects;
 
 @Entity
 @Table(name = "family", schema = "ps_families")
 public class FamilyEntity extends BaseEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ps_families.family_family_id_seq")
-	@SequenceGenerator(name = "ps_families.family_family_id_seq", sequenceName = "ps_families.family_family_id_seq", allocationSize = 1)
-	@Column(name = "family_id")
+    
+    @Id
+    @GenericGenerator(
+            name = ""
+                    + "familySequenceGenerator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "family_family_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
+            }
+    )
+    @GeneratedValue(generator = "familySequenceGenerator")
+    @Column(name = "family_id")
 	private Long familyId;
 
 	private String name;
