@@ -107,7 +107,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         	newFamily.setPerson(personEntity);
         	newFamily.setCode(code);
         	newFamily.setName(personEntity.getFirstName().concat(SPACE).concat(personEntity.getLastName()));
-        	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().get("familyUbication").toString());
+        	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
         	newFamily = familyRepository.save(newFamily);
         	
         	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
