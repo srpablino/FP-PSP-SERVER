@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
+import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
+import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
+import py.org.fundacionparaguaya.pspserver.families.services.impl.FamilyServiceImpl;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -46,6 +52,10 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final SnapshotIndicatorMapper indicatorMapper;
     
+    private final PersonMapper personMapper;
+    
+    private final FamilyRepository familyRepository;
+    
     private static final String INDICATOR_NAME = "name";
     
     private static final String INDICATOR_VALUE = "value";
@@ -53,36 +63,61 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper, 
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService) {
+            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper, FamilyRepository familyRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
         this.surveyRepository = surveyRepository;
         this.indicatorMapper = indicatorMapper;
         this.priorityService = priorityService;
+        this.personMapper = personMapper;
+        this.familyRepository = familyRepository;
     }
 
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
         checkNotNull(snapshot);
-
+        
+        System.out.println("snapshot "+snapshot);
+        
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
             throw new CustomParameterizedException("Invalid Snapshot", results.asMap());
         }
-
+        
         SnapshotIndicatorEntity indicatorEntity = economicMapper.newSnapshotToIndicatorEntity(snapshot);
 
-        SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity);
+        SnapshotEconomicEntity snapshotEconomicEntity = null;
+
+        PersonEntity  personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
+        
+        //TODO hacer el metodo que retorne el codigo dado los datos de la persona
+        String code = "sadasdasd";
+        
+        Optional<FamilyEntity> family = familyRepository.findByCode(code);
+        
+        
+        if(family.isPresent()) {
+        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
+        } else {
+        	FamilyEntity newFamily = new FamilyEntity();
+        	newFamily.setPerson(personEntity);
+        	newFamily.setCode(code);
+        	
+        	newFamily = familyRepository.save(newFamily);
+        	
+        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
+        }
 
         return economicMapper.entityToDto(snapshotEconomicEntity);
     }
 
-    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator) {
+    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator, FamilyEntity family) {
 
         SnapshotEconomicEntity entity = economicMapper.newSnapshotToEconomicEntity(snapshot, indicator);
-
+        entity.setFamily(family);
+        
         return this.economicRepository.save(entity);
     }
 
