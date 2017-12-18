@@ -4,8 +4,6 @@ import java.util.List;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 
-
-
 public interface FamilyService {
 
 	FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO);
@@ -17,5 +15,7 @@ public interface FamilyService {
 	List<FamilyDTO> getAllFamilies();
 	
 	void deleteFamily(Long familyId);
+
+	List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText);
 	
 }
