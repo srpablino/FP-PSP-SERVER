@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
@@ -72,6 +74,16 @@ public class FamilyController {
 		LOG.debug("REST request to delete Family: {}", familyId);
 		familyService.deleteFamily(familyId);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/filter")
+	public ResponseEntity<List<FamilyDTO>> getFamiliesByFilter(
+			@RequestParam(value = "organization_id", required = true) Long organizationId, 
+			@RequestParam(value = "country_id", required = true) Long countryId,
+			@RequestParam(value = "city_id", required = true) Long cityId,
+			@RequestParam(value = "free_text", required = false) String freeText) {
+		List<FamilyDTO> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
+		return ResponseEntity.ok(families);
 	}
 
 }

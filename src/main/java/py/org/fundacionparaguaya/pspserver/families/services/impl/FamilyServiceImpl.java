@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.families.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,10 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.system.mapper.CityMapper;
+import py.org.fundacionparaguaya.pspserver.system.mapper.CountryMapper;
+
+
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
@@ -28,9 +33,15 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final FamilyRepository familyRepository;
 
-    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper) {
+    private final CountryMapper countryMapper;
+    
+    private final CityMapper cityMapper;
+    
+    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper, CountryMapper countryMapper, CityMapper cityMapper) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
+        this.countryMapper = countryMapper;
+        this.cityMapper = cityMapper;
     }
 
     @Override
@@ -89,4 +100,24 @@ public class FamilyServiceImpl implements FamilyService {
         return code;
     }
 
+  @Override
+	public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
+		
+		List<FamilyEntity> listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+
+		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
+		
+		for (FamilyEntity familyEntity : listFamilies) {
+			
+			FamilyDTO familyDTO = new FamilyDTO();
+			familyDTO.setFamilyId(familyEntity.getFamilyId());
+			familyDTO.setName(familyEntity.getName());
+			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
+			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
+			listDtoRet.add(familyDTO);
+			
+		}
+		
+		return listDtoRet;		
+	}
 }

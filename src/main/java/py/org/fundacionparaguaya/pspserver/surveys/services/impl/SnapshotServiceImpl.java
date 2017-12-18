@@ -61,6 +61,8 @@ public class SnapshotServiceImpl implements SnapshotService {
     private static final String INDICATOR_NAME = "name";
 
     private static final String INDICATOR_VALUE = "value";
+    
+    private static final String SPACE = " ";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
@@ -104,6 +106,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         	FamilyEntity newFamily = new FamilyEntity();
         	newFamily.setPerson(personEntity);
         	newFamily.setCode(code);
+        	newFamily.setName(personEntity.getFirstName().concat(SPACE).concat(personEntity.getLastName()));
         	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().get("familyUbication").toString());
         	newFamily = familyRepository.save(newFamily);
         	
