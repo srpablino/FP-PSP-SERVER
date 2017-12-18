@@ -17,6 +17,7 @@ import com.google.common.base.Objects;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import java.util.Map;
  * The UI SCHEMA definition of the survey. Holds info clients would use to render the survey
  */
 @ApiModel(description = "The UI SCHEMA definition of the survey. Holds info clients would use to render the survey")
-public class SurveyUISchema {
+public class SurveyUISchema implements Serializable {
 
 
     public static final String UI_GROUP_ECONOMICS = "ui:group:economics";

@@ -8,9 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class SnapshotIndicators {
     
-    @JsonProperty("family_data")
-    private SurveyData familyData = null;
-
     @JsonProperty("indicators_survey_data")
     private List<SurveyData> indicatorsSurveyData = null;
     
@@ -31,12 +28,6 @@ public class SnapshotIndicators {
     
     @JsonProperty("snapshot_indicator_id")
     private Long snapshotIndicatorId;
- 
-
-    public SnapshotIndicators familyData(SurveyData surveyData) {
-        this.familyData = surveyData;
-        return this;
-    }
 
     public SnapshotIndicators indicatorSurveyData(List<SurveyData> indicatorsSurveyData) {
         this.indicatorsSurveyData = indicatorsSurveyData;
@@ -66,15 +57,6 @@ public class SnapshotIndicators {
     public SnapshotIndicators countGreenIndicators(Integer countGreenIndicators) {
         this.countGreenIndicators = countGreenIndicators;
         return this;
-    }
-    
-    @ApiModelProperty(value = "Key/value pairs representing the family data")
-    public SurveyData getfamilyData() {
-        return familyData;
-    }
-
-    public void setFamilyData(SurveyData surveyData) {
-        this.familyData = surveyData;
     }
     
     @ApiModelProperty(value = "List of Key/value pairs representing the filled out 'Indicators' survey")
@@ -145,7 +127,6 @@ public class SnapshotIndicators {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class Snapshot Indicators {\n");
-        sb.append("    familyData: ").append(toIndentedString(familyData)).append("\n");
         sb.append("    indicatorsSurveyData: ").append(toIndentedString(indicatorsSurveyData)).append("\n");
         sb.append("    indicatorsPriorities: ").append(toIndentedString(indicatorsPriorities)).append("\n");
         sb.append("    countRedIndicators:   ").append(toIndentedString(countRedIndicators)).append("\n");
@@ -164,7 +145,7 @@ public class SnapshotIndicators {
     
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(familyData, indicatorsSurveyData, indicatorsPriorities, countGreenIndicators, countYellowIndicators, countRedIndicators);
+        return com.google.common.base.Objects.hashCode(indicatorsSurveyData, indicatorsPriorities, countGreenIndicators, countYellowIndicators, countRedIndicators);
     }
     
     @Override
@@ -174,8 +155,7 @@ public class SnapshotIndicators {
 
         SnapshotIndicators that = (SnapshotIndicators) o;
 
-        return com.google.common.base.Objects.equal(this.familyData, that.familyData) &&
-                com.google.common.base.Objects.equal(this.indicatorsSurveyData, that.indicatorsSurveyData) &&
+        return com.google.common.base.Objects.equal(this.indicatorsSurveyData, that.indicatorsSurveyData) &&
                 com.google.common.base.Objects.equal(this.indicatorsPriorities, that.indicatorsPriorities) &&
                 com.google.common.base.Objects.equal(this.countRedIndicators, that.countRedIndicators) &&
                 com.google.common.base.Objects.equal(this.countYellowIndicators, that.countYellowIndicators) &&
