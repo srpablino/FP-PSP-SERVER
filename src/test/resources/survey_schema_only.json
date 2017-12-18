@@ -3,7 +3,7 @@
   "description": "A simple stoplight survey example with default values.",
   "type": "object",
   "required": [
-  "identificationType",
+    "identificationType",
   	"identificationNumber",
   	"firstName",
   	"lastName",
@@ -111,6 +111,7 @@
         "es": "Ingrese su país de nacimiento"
       },
       "enum": [
+        "PY",
 		"AD",
 		"AE",
 		"AF",
@@ -352,7 +353,8 @@
 		"ZA"
 	  ],
       "enumNames": [
-		"Andorra",
+        "Paraguay",
+	    "Andorra",
 		"Emiratos Árabes Unidos",
 		"Afganistán",
 		"Antigua y Barbuda",
@@ -609,7 +611,8 @@
         "Femenino",
         "Masculino",
         "Otro"
-      ]
+      ],
+      "default": "F"
    },
    
    "phoneNumber": {
