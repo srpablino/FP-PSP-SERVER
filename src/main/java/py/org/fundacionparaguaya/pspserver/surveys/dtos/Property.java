@@ -1,6 +1,15 @@
 package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.function.Function;
 
 /*
  * FP-PSP Server
@@ -14,26 +23,12 @@ import java.util.ArrayList;
  * Do not edit the class manually.
  */
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.*;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * Holds info representing the definition of the field
  */
 @ApiModel(description = "Holds info representing the definition of the field")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Property   {
+public class Property  implements Serializable {
 
 	@JsonProperty("type")
     private TypeEnum type = null;
@@ -207,7 +202,7 @@ public class Property   {
             this.value = value;
         }
 
-        public static List<String> FILE_TYPES = Arrays.asList("video", "image");
+        public static final List<String> FILE_TYPES = Arrays.asList("video", "image");
 
         @Override
         @JsonValue
@@ -282,7 +277,7 @@ public class Property   {
         return o.toString().replace("\n", "\n    ");
     }
     
-    public class Items {
+    public class Items implements Serializable {
         @JsonProperty("type")
         private TypeEnum type = null;
         

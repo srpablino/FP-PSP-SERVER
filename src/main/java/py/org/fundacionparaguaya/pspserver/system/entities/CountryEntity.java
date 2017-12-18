@@ -5,13 +5,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 @Entity
 @Table(name = "countries", schema = "system")
 public class CountryEntity extends BaseEntity {
