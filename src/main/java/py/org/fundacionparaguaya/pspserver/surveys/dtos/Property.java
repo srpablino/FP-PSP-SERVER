@@ -30,6 +30,87 @@ import java.util.function.Function;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Property  implements Serializable {
 
+	@JsonProperty("type")
+    private TypeEnum type = null;
+
+    @JsonProperty("title")
+    private PropertyTitle title = null;
+
+    @JsonProperty("default")
+    private Object defaultValue;
+
+    @JsonProperty("format")
+    private FormatEnum format = null;
+
+    @JsonProperty("enum")
+    private List<Object> enumValues = null;
+
+    @JsonProperty("enumNames")
+    private List<Object> enumNames = null;
+    
+    @JsonProperty("items")
+    private Items items = null;
+
+    public Property type(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    public Property format(FormatEnum formatEnum) {
+        this.format = formatEnum;
+        return this;
+    }
+
+    public Property enumValues(List<Object> enumValues) {
+        this.enumValues = enumValues;
+        return this;
+    }
+
+    public static List<Object> getDefaultEnumValues() {
+        return Arrays.asList("red", "blue", "green");
+    }
+    
+    public Property itemsValue(Items items) {
+        this.items = items;
+        return this;
+    }
+    /**
+     * The type of this field
+     * @return type
+     **/
+    @JsonProperty("type")
+    @ApiModelProperty(value = "The type of this field")
+    public TypeEnum getType() {
+        return type;
+    }
+
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    public Property title(PropertyTitle title) {
+        this.title = title;
+        return this;
+    }
+
+    /**
+     * The title of this field
+     * @return title
+     **/
+    @JsonProperty("title")
+    @ApiModelProperty(value = "The title of this field")
+    public PropertyTitle getTitle() {
+        return title;
+    }
+
+    public void setTitle(PropertyTitle title) {
+        this.title = title;
+    }
+    
+    @JsonProperty("items")
+    public Items getItems() {
+        return items;
+    }
 
     public boolean valueIsOfValidType(Object value) {
         return this.getType().apply(value);
@@ -113,7 +194,7 @@ public class Property  implements Serializable {
      * The type of this field
      */
     public enum FormatEnum {
-        DATA_URL("data-url");
+        DATA_URL("data-url"), DATE("date");
 
         private String value;
 
@@ -153,87 +234,7 @@ public class Property  implements Serializable {
         }
     }
 
-    @JsonProperty("type")
-    private TypeEnum type = null;
-
-    @JsonProperty("title")
-    private PropertyTitle title = null;
-
-    @JsonProperty("default")
-    private Object defaultValue;
-
-    @JsonProperty("format")
-    private FormatEnum format = null;
-
-    @JsonProperty("enum")
-    private List<Object> enumValues = null;
-
-    @JsonProperty("enumNames")
-    private List<Object> enumNames = null;
     
-    @JsonProperty("items")
-    private Items items = null;
-
-    public Property type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    public Property format(FormatEnum formatEnum) {
-        this.format = formatEnum;
-        return this;
-    }
-
-    public Property enumValues(List<Object> enumValues) {
-        this.enumValues = enumValues;
-        return this;
-    }
-
-    public static List<Object> getDefaultEnumValues() {
-        return Arrays.asList("red", "blue", "green");
-    }
-    
-    public Property itemsValue(Items items) {
-        this.items = items;
-        return this;
-    }
-    /**
-     * The type of this field
-     * @return type
-     **/
-    @JsonProperty("type")
-    @ApiModelProperty(value = "The type of this field")
-    public TypeEnum getType() {
-        return type;
-    }
-
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public Property title(PropertyTitle title) {
-        this.title = title;
-        return this;
-    }
-
-    /**
-     * The title of this field
-     * @return title
-     **/
-    @JsonProperty("title")
-    @ApiModelProperty(value = "The title of this field")
-    public PropertyTitle getTitle() {
-        return title;
-    }
-
-    public void setTitle(PropertyTitle title) {
-        this.title = title;
-    }
-    
-    @JsonProperty("items")
-    public Items getItems() {
-        return items;
-    }
 
     @Override
     public boolean equals(java.lang.Object o) {

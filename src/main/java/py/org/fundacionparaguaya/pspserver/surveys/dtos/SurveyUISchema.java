@@ -38,6 +38,8 @@ public class SurveyUISchema implements Serializable {
     @JsonProperty("ui:order")
     private List<String> uiOrder = null;
 
+    @JsonProperty("ui:group:personal")
+    private List<String> groupPersonal = null;
 
     @JsonProperty("ui:group:economics")
     private List<String> groupEconomics = null;
@@ -65,7 +67,14 @@ public class SurveyUISchema implements Serializable {
         this.uiOrder = uiOrder;
     }
 
+    @ApiModelProperty("Specifies which fields should be grouped as personal-information in the UI")
+    public List<String> getGroupPersonal() {
+        return groupPersonal;
+    }
 
+    public void setGroupPersonal(List<String> groupPersonal) {
+        this.groupPersonal = groupPersonal;
+    }
 
     @ApiModelProperty("Specifies which fields should be grouped as socio-economics in the UI")
     public List<String> getGroupEconomics() {
@@ -100,6 +109,7 @@ public class SurveyUISchema implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class SurveyUISchema {\n");
         sb.append("    properties: ").append(toIndentedString(properties)).append("\n");
+        sb.append("    groupPersonal: ").append(toIndentedString(groupPersonal)).append("\n");
         sb.append("    groupEconomics: ").append(toIndentedString(groupEconomics)).append("\n");
         sb.append("    groupIndicators: ").append(toIndentedString(groupIndicators)).append("\n");
         sb.append("    customfields: ").append(toIndentedString(customFields)).append("\n");
@@ -127,6 +137,7 @@ public class SurveyUISchema implements Serializable {
 
         return Objects.equal(this.properties, that.properties) &&
                 Objects.equal(this.uiOrder, that.uiOrder) &&
+                Objects.equal(this.groupPersonal, that.groupPersonal) &&
                 Objects.equal(this.groupEconomics, that.groupEconomics) &&
                 Objects.equal(this.groupIndicators, that.groupIndicators) && 
                 Objects.equal(this.customFields, that.customFields);
@@ -134,7 +145,7 @@ public class SurveyUISchema implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(properties, uiOrder, groupEconomics, groupIndicators, customFields);
+        return Objects.hashCode(properties, uiOrder, groupPersonal, groupEconomics, groupIndicators, customFields);
     }
 
 
