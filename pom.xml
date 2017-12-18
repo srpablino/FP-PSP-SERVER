@@ -130,6 +130,9 @@
 	</dependencies>
 
 	<build>
+	
+	<pluginManagement>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -261,6 +264,9 @@
             
 
 		</plugins>
+		
+	</pluginManagement>
+		
 	</build>
 
 
