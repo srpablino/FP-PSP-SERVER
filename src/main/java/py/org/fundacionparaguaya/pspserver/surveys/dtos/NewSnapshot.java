@@ -30,6 +30,9 @@ public class NewSnapshot   {
 
     @JsonProperty("survey_id")
     private Long surveyId = null;
+    
+    @JsonProperty("personal_survey_data")
+    private SurveyData personalSurveyData = null;
 
     @JsonProperty("economic_survey_data")
     private SurveyData economicSurveyData = null;
@@ -37,6 +40,11 @@ public class NewSnapshot   {
     @JsonProperty("indicator_survey_data")
     private SurveyData indicatorSurveyData = null;
 
+    public NewSnapshot personalSurveyData(SurveyData surveyData) {
+        this.personalSurveyData = surveyData;
+        return this;
+    }
+    
     public NewSnapshot socioEconomicsSurveyData(SurveyData surveyData) {
         this.economicSurveyData = surveyData;
         return this;
@@ -47,7 +55,19 @@ public class NewSnapshot   {
         return this;
     }
 
+    /**
+     * Key/value pairs representing the filled out 'Socio Economics' survey
+     * @return surveyData
+     **/
+    @ApiModelProperty(value = "Key/value pairs representing the filled out 'Personal' survey")
+    public SurveyData getPersonalSurveyData() {
+        return personalSurveyData;
+    }
 
+    public void setPersonalSurveyData(SurveyData surveyData) {
+        this.personalSurveyData = surveyData;
+    }
+    
     /**
      * Key/value pairs representing the filled out 'Socio Economics' survey
      * @return surveyData
@@ -87,6 +107,7 @@ public class NewSnapshot   {
         StringBuilder sb = new StringBuilder();
         sb.append("class NewSnapshot {\n");
         sb.append("    surveyId: ").append(toIndentedString(surveyId)).append("\n");
+        sb.append("    personalSurveyData: ").append(toIndentedString(personalSurveyData)).append("\n");
         sb.append("    economicSurveyData: ").append(toIndentedString(economicSurveyData)).append("\n");
         sb.append("    indicatorSurveyData: ").append(toIndentedString(indicatorSurveyData)).append("\n");
         sb.append("}");
@@ -113,6 +134,7 @@ public class NewSnapshot   {
         NewSnapshot that = (NewSnapshot) o;
 
         return com.google.common.base.Objects.equal(this.surveyId, that.surveyId) &&
+        		com.google.common.base.Objects.equal(this.personalSurveyData, that.personalSurveyData) &&
                 com.google.common.base.Objects.equal(this.economicSurveyData, that.economicSurveyData) &&
                 com.google.common.base.Objects.equal(this.indicatorSurveyData, that.indicatorSurveyData);
     }
@@ -121,6 +143,20 @@ public class NewSnapshot   {
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(surveyId, economicSurveyData, indicatorSurveyData);
     }
+    
+    public SurveyData getMappedPersonalSurveyData(Predicate<String> nameFilter, Function<String, String> propertySchemaToSystem) {
+        Map<String, Object> collect = personalSurveyData.entrySet().stream()
+                .filter(entry -> nameFilter.test(entry.getKey()))
+                .collect(toMap(entry -> propertySchemaToSystem.apply(entry.getKey()), entry -> entry.getValue()));
+        return new SurveyData(collect);
+    }
+
+    public SurveyData getPersonalSurveyData(Predicate<String> nameFilter) {
+        Map<String, Object> collect = personalSurveyData.entrySet().stream()
+                .filter(entry -> nameFilter.test(entry.getKey()))
+                .collect(toMap(Entry::getKey, Entry::getValue));
+        return new SurveyData(collect);
+    }
 
     public SurveyData getMappedEconomicSurveyData(Predicate<String> nameFilter, Function<String, String> propertySchemaToSystem) {
         Map<String, Object> collect = economicSurveyData.entrySet().stream()
@@ -128,7 +164,6 @@ public class NewSnapshot   {
                 .collect(toMap(entry -> propertySchemaToSystem.apply(entry.getKey()), entry -> entry.getValue()));
         return new SurveyData(collect);
     }
-
 
     public SurveyData getEconomicSurveyData(Predicate<String> nameFilter) {
         Map<String, Object> collect = economicSurveyData.entrySet().stream()
@@ -153,6 +188,7 @@ public class NewSnapshot   {
 
     public SurveyData getAllSurveyData() {
         Map<String, Object> map = Maps.newHashMap();
+        map.putAll(personalSurveyData);
         map.putAll(indicatorSurveyData);
         map.putAll(economicSurveyData);
         return new SurveyData(map);
