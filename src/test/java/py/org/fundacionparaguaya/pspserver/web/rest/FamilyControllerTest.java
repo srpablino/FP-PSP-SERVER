@@ -60,6 +60,7 @@ public class FamilyControllerTest {
 	public void setup() {
 		mockFamily = FamilyDTO.builder()
 				.name("foo.family")
+				.code("foo.code")
 				.country(getCountryTest())
 				.city(getCityTest())
 				.locationType("foo.locationType")
@@ -112,8 +113,8 @@ public class FamilyControllerTest {
 	private PersonDTO getPersonTest() {
 		PersonDTO dto = new PersonDTO();
 		dto.setPersonId(new Long(1));
-		dto.setName("foo.NAME");
-		dto.setLastname("foo.LASTNAME");
+		dto.setFirstName("foo.FIRSTNAME");
+		dto.setLastName("foo.LASTNAME");
 		return dto;
 	}
 

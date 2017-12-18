@@ -80,6 +80,14 @@
    },
 
   "ui:order": [
+    "identificationType",
+  	"identificationNumber",
+  	"firstName",
+  	"lastName",
+  	"birthdate",
+  	"countryOfBirth",
+  	"gender",
+  	"phoneNumber",
     "currency",
     "areaOfResidence",
     "employmentStatusPrimary",
@@ -124,6 +132,17 @@
     "selfEsteem",
     "autonomyDecisions",
     "terereConsumption"
+  ],
+
+  "ui:group:personal": [
+  	"identificationType",
+  	"identificationNumber",
+  	"firstName",
+  	"lastName",
+  	"birthdate",
+  	"countryOfBirth",
+  	"gender",
+  	"phoneNumber"
   ],
 
   "ui:group:economics": [
