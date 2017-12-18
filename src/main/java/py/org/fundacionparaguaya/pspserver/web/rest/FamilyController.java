@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFileDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 
 @RestController
@@ -49,8 +50,8 @@ public class FamilyController {
 
 	
 	@GetMapping("/{familyId}")
-	public ResponseEntity<FamilyDTO> getFamilyById(@PathVariable("familyId") Long familyId) {
-		FamilyDTO dto = familyService.getFamilyById(familyId);
+	public ResponseEntity<FamilyFileDTO> getFamilyFileById(@PathVariable("familyId") Long familyId) {
+		FamilyFileDTO dto = familyService.getFamilyFileById(familyId);
 		return ResponseEntity.ok(dto);
 	}
 	
