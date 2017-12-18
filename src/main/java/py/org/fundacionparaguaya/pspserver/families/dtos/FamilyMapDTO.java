@@ -12,7 +12,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
  * @author bsandoval
  *
  */
-public class FamilyFileDTO extends FamilyDTO {
+public class FamilyMapDTO extends FamilyDTO {
 	
 	@JsonProperty("snapshot_indicators")
 	private SnapshotIndicators snapshotIndicators;

@@ -3,7 +3,6 @@ package py.org.fundacionparaguaya.pspserver.families.services;
 import java.util.List;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
-import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFileDTO;
 
 
 
@@ -18,7 +17,5 @@ public interface FamilyService {
 	List<FamilyDTO> getAllFamilies();
 	
 	void deleteFamily(Long familyId);
-
-	FamilyFileDTO getFamilyFileById(Long familyId);
 	
 }
