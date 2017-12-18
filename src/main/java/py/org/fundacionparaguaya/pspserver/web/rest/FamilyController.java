@@ -74,9 +74,9 @@ public class FamilyController {
 	
 	@GetMapping("/filter")
 	public ResponseEntity<List<FamilyDTO>> getFamiliesByFilter(
-			@RequestParam(value = "organization_id", required = true, defaultValue = "1") Long organizationId, 
-			@RequestParam(value = "country_id", required = true, defaultValue = "1") Long countryId,
-			@RequestParam(value = "city_id", required = true, defaultValue = "1") Long cityId,
+			@RequestParam(value = "organization_id", required = true) Long organizationId, 
+			@RequestParam(value = "country_id", required = true) Long countryId,
+			@RequestParam(value = "city_id", required = true) Long cityId,
 			@RequestParam(value = "free_text", required = false) String freeText) {
 		List<FamilyDTO> families = familyService.getFamiliesByFilter(organizationId, countryId, cityId, freeText);
 		return ResponseEntity.ok(families);
