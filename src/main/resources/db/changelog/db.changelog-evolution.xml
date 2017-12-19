@@ -170,10 +170,15 @@
     <changeSet id="2017-12-17T19:00" author="mgonzalez">
         <sqlFile path="sql/2017-12-17T19:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
+  
     <!-- Insert applications and organizations for testing -->
     <changeSet id="2017-12-19T10:00" author="nvaldez">
         <sqlFile path="sql/2017-12-19T10:00.sql" relativeToChangelogFile="true"/>
+    <!--
+        Adds survey user and organization for partner demo
+    -->
+    <changeSet id="2017-12-19T14:00" author="rvillalba">
+        <sqlFile path="sql/2017-12-19T14:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>
