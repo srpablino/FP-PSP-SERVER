@@ -21,7 +21,6 @@ import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepositor
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
-import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
