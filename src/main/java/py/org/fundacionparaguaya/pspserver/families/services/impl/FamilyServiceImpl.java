@@ -120,28 +120,31 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
-
-        List<FamilyEntity> listFamilies = familyRepository
-                .findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId,
-                        freeText);
-
-        List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
-
-        for (FamilyEntity familyEntity : listFamilies) {
-
-            FamilyDTO familyDTO = new FamilyDTO();
-            familyDTO.setFamilyId(familyEntity.getFamilyId());
-            familyDTO.setName(familyEntity.getName());
-            familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
-            familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
-            listDtoRet.add(familyDTO);
-
-        }
-
-        return listDtoRet;
-    }
-
+   public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
+		
+	  	List<FamilyEntity> listFamilies = new ArrayList<FamilyEntity>();
+	  	
+	  	if (organizationId != null && countryId != null && cityId != null) {
+	  		listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+		}else{
+			listFamilies = familyRepository.findByNameContainingIgnoreCase(freeText);
+		}
+	  	
+		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
+		
+		for (FamilyEntity familyEntity : listFamilies) {
+			
+			FamilyDTO familyDTO = new FamilyDTO();
+			familyDTO.setFamilyId(familyEntity.getFamilyId());
+			familyDTO.setName(familyEntity.getName());
+			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
+			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
+			listDtoRet.add(familyDTO);
+			
+		}
+		
+		return listDtoRet;
+	}
     @Override
     public FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {
         FamilyEntity newFamily = new FamilyEntity();
