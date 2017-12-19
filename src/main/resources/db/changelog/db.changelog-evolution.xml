@@ -146,4 +146,11 @@
         <sqlFile path="sql/2017-12-01T11:20.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--
+        Adds survey user and organization for partner demo
+    -->
+    <changeSet id="2017-12-19T14:00" author="rvillalba">
+        <sqlFile path="sql/2017-12-19T14:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
