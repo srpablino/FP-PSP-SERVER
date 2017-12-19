@@ -75,4 +75,4 @@ These are default users with their roles provided by the application.
 | hub_admin| ROLE_HUB_ADMIN | Can manage everything related to a HUB application |
 | app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or partner |
 | user | ROLE_USER | Can see information about his/her organization: famliies, indicators |
-| | ROLE_SURVEY_USER | Can fill surveys and visualize its state |
+| survey_user | ROLE_SURVEY_USER | Can fill surveys and visualize its state |
