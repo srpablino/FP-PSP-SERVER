@@ -51,7 +51,8 @@
     "influenceInPublicSector",
     "awarenessOfNeeds",
     "selfEsteem",
-    "autonomyDecisions"
+    "autonomyDecisions",
+    "terereConsumption"
   ],
   "properties": {
   
@@ -977,6 +978,37 @@
       },
       "default": "ninguna"
     },
+    
+    "familyCountry":{
+      "type": "string",
+      "title": {
+        "es": "País en el que reside la familia"
+      },
+      "enum": [
+        "Paraguay"
+      ],
+      "enumNames": [
+        "Paraguay"
+      ],
+      "default": "Paraguay"
+    
+    },
+    
+    "familyCity":{
+      "type": "string",
+      "title": {
+        "es": "Ciudad en el que reside la familia"
+      },
+      "enum": [
+        "Asunción"
+      ],
+      "enumNames": [
+        "Asunción"
+      ],
+      "default": "Asunción"
+    
+    },
+    
     "familyUbication": {
     	"type": "string",
     	"title": {

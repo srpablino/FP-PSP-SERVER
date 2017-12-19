@@ -51,17 +51,12 @@ public class PersonMapper implements BaseMapper<PersonEntity, PersonDTO> {
 	public PersonEntity snapshotPersonalToEntity(SurveyData snapshot) {
 
 		PersonEntity pe = modelMapper.map(snapshot, PersonEntity.class);
-		if (snapshot.get("birthdate") != null) {
-			pe.setBirthdate(LocalDate.parse(snapshot.get("birthdate").toString(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		if (snapshot.getAsString("birthdate") != null) {
+			pe.setBirthdate(LocalDate.parse(snapshot.getAsString("birthdate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		}
 		if(snapshot.get("countryOfBirth") != null) {
-			Optional<CountryEntity> country = countryRepository.findByAlfa2Code(snapshot.get("countryOfBirth").toString());
-			
-			if(country.isPresent()) {
-				pe.setCountryOfBirth(country.get());
-			} else {
-				pe.setCountryOfBirth(null);
-			}
+			Optional<CountryEntity> country = countryRepository.findByAlfa2Code(snapshot.getAsString("countryOfBirth"));
+			pe.setCountryOfBirth(country.orElse(null));
 		}
 		
 		return pe;
