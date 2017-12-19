@@ -174,11 +174,18 @@
     <!-- Insert applications and organizations for testing -->
     <changeSet id="2017-12-19T10:00" author="nvaldez">
         <sqlFile path="sql/2017-12-19T10:00.sql" relativeToChangelogFile="true"/>
+
     <!--
         Adds survey user and organization for partner demo
     -->
     <changeSet id="2017-12-19T14:00" author="rvillalba">
         <sqlFile path="sql/2017-12-19T14:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+     <!-- Add columns into snapshot_economic table-->
+    <changeSet id="2017-12-19T10:10" author="mgonzalez">
+        <sqlFile path="sql/2017-12-19T10:10.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
 </databaseChangeLog>

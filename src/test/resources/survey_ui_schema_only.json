@@ -107,6 +107,8 @@
     "educationLevelAttained",
     "housingSituation",
     "otherUsefulInfo",
+    "familyCountry",
+    "familyCity",
     "familyUbication",
     "income",
     "documentation",
@@ -165,6 +167,8 @@
     "educationLevelAttained",
     "housingSituation",
     "otherUsefulInfo",
+    "familyCountry",
+    "familyCity",
     "familyUbication"
   ],
 
