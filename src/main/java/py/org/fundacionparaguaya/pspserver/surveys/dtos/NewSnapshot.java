@@ -31,6 +31,9 @@ public class NewSnapshot   {
     @JsonProperty("survey_id")
     private Long surveyId = null;
     
+    @JsonProperty("organization_id")
+    private Long organizationId = null;
+    
     @JsonProperty("personal_survey_data")
     private SurveyData personalSurveyData = null;
 
@@ -88,6 +91,14 @@ public class NewSnapshot   {
     public void setSurveyId(Long surveyId) {
         this.surveyId = surveyId;
     }
+    
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
     /**
      * Key/value pairs representing the filled out 'Indicators' survey
@@ -107,6 +118,7 @@ public class NewSnapshot   {
         StringBuilder sb = new StringBuilder();
         sb.append("class NewSnapshot {\n");
         sb.append("    surveyId: ").append(toIndentedString(surveyId)).append("\n");
+        sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
         sb.append("    personalSurveyData: ").append(toIndentedString(personalSurveyData)).append("\n");
         sb.append("    economicSurveyData: ").append(toIndentedString(economicSurveyData)).append("\n");
         sb.append("    indicatorSurveyData: ").append(toIndentedString(indicatorSurveyData)).append("\n");
@@ -134,6 +146,7 @@ public class NewSnapshot   {
         NewSnapshot that = (NewSnapshot) o;
 
         return com.google.common.base.Objects.equal(this.surveyId, that.surveyId) &&
+                com.google.common.base.Objects.equal(this.organizationId, that.organizationId) &&
         		com.google.common.base.Objects.equal(this.personalSurveyData, that.personalSurveyData) &&
                 com.google.common.base.Objects.equal(this.economicSurveyData, that.economicSurveyData) &&
                 com.google.common.base.Objects.equal(this.indicatorSurveyData, that.indicatorSurveyData);

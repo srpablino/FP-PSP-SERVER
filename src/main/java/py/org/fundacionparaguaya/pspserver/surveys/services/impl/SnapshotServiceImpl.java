@@ -69,13 +69,11 @@ public class SnapshotServiceImpl implements SnapshotService {
     private static final String INDICATOR_NAME = "name";
 
     private static final String INDICATOR_VALUE = "value";
-    
-    private static final String SPACE = " ";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper, FamilyRepository familyRepository, 
-            FamilyService familyService) {
+            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
+            FamilyRepository familyRepository, FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -91,44 +89,38 @@ public class SnapshotServiceImpl implements SnapshotService {
     @Transactional
     public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
         checkNotNull(snapshot);
-        
+
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
             throw new CustomParameterizedException("Invalid Snapshot", results.asMap());
         }
-        
+
         SnapshotIndicatorEntity indicatorEntity = economicMapper.newSnapshotToIndicatorEntity(snapshot);
 
         SnapshotEconomicEntity snapshotEconomicEntity = null;
 
-        PersonEntity  personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
-        
+        PersonEntity personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
+
         String code = familyService.generateFamilyCode(personEntity);
-        
+
         Optional<FamilyEntity> family = familyRepository.findByCode(code);
-        
-        
-        if(family.isPresent()) {
-        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
+
+        if (family.isPresent()) {
+            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
         } else {
-        	FamilyEntity newFamily = new FamilyEntity();
-        	newFamily.setPerson(personEntity);
-        	newFamily.setCode(code);
-        	newFamily.setName(personEntity.getFirstName().concat(SPACE).concat(personEntity.getLastName()));
-        	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().get("familyUbication").toString());
-        	newFamily = familyRepository.save(newFamily);
-        	
-        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
+            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(snapshot, code, personEntity);
+            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
         }
 
         return economicMapper.entityToDto(snapshotEconomicEntity);
     }
 
-    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator, FamilyEntity family) {
+    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator,
+            FamilyEntity family) {
 
         SnapshotEconomicEntity entity = economicMapper.newSnapshotToEconomicEntity(snapshot, indicator);
         entity.setFamily(family);
-        
+
         return this.economicRepository.save(entity);
     }
 
@@ -139,68 +131,77 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<SnapshotIndicators> getSnapshotIndicators(Long surveyId, Long familiyId) {
+    public SnapshotIndicators getSnapshotIndicators(Long snapshotId) {
 
-        List<SnapshotIndicators> toRet = new ArrayList<>();
-        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(surveyId).stream()
-                .collect(Collectors.toList());
+        SnapshotIndicators toRet = new SnapshotIndicators();
 
-        SurveyEntity survey = surveyRepository.getOne(surveyId);
+        SnapshotEconomicEntity originalSnapshot = economicRepository.findOne(snapshotId);
+
+        SurveyEntity survey = surveyRepository.getOne(originalSnapshot.getSurveyDefinition().getId());
         List<String> indicatorGroup = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
 
         List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream()
                 .filter(field -> indicatorGroup.contains(field)).collect(Collectors.toList());
 
-        for (SnapshotEconomicEntity s : originalSnapshots) {
+        List<SnapshotIndicatorPriority> priorities = priorityService
+                .getSnapshotIndicatorPriorityList(originalSnapshot.getSnapshotIndicator().getId());
+        toRet.setIndicatorsPriorities(priorities);
 
-            SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
+        SurveyData indicators = indicatorMapper.entityToDto(originalSnapshot.getSnapshotIndicator());
+        List<SurveyData> indicatorsToRet = new ArrayList<>();
+        if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
 
-            List<SnapshotIndicatorPriority> priorities = priorityService
-                    .getSnapshotIndicatorPriorityList(s.getSnapshotIndicator().getId());
-            snapshotIndicators.setIndicatorsPriorities(priorities);
+            order.forEach(indicator -> {
+                if (indicators.containsKey(indicator)) {
+                    SurveyData sd = new SurveyData();
+                    sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    sd.put(INDICATOR_VALUE, indicators.get(indicator));
 
-            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
-            List<SurveyData> indicatorsToRet = new ArrayList<>();
-            if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
-
-                order.forEach(indicator -> {
-                    if (indicators.containsKey(indicator)) {
-                        SurveyData sd = new SurveyData();
-                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
-                        sd.put(INDICATOR_VALUE, indicators.get(indicator));
-
-                        switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
-                        case "RED":
-                            snapshotIndicators.setCountRedIndicators(snapshotIndicators.getCountRedIndicators() + 1);
-                            break;
-                        case "YELLOW":
-                            snapshotIndicators
-                                    .setCountYellowIndicators(snapshotIndicators.getCountYellowIndicators() + 1);
-                            break;
-                        case "GREEN":
-                            snapshotIndicators
-                                    .setCountGreenIndicators(snapshotIndicators.getCountGreenIndicators() + 1);
-                            break;
-                        default:
-                            break;
-                        }
-                        indicatorsToRet.add(sd);
+                    switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
+                    case "RED":
+                        toRet.setCountRedIndicators(toRet.getCountRedIndicators() + 1);
+                        break;
+                    case "YELLOW":
+                        toRet.setCountYellowIndicators(toRet.getCountYellowIndicators() + 1);
+                        break;
+                    case "GREEN":
+                        toRet.setCountGreenIndicators(toRet.getCountGreenIndicators() + 1);
+                        break;
+                    default:
+                        break;
                     }
-                });
+                    indicatorsToRet.add(sd);
+                }
+            });
 
-            }
+        }
 
-            snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
-            snapshotIndicators.setCreatedAt(s.getCreatedAtAsISOString());
-            snapshotIndicators.setSnapshotIndicatorId(s.getSnapshotIndicator().getId());
+        toRet.setIndicatorsSurveyData(indicatorsToRet);
+        toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
+        toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
+        toRet.setFamilyId(originalSnapshot.getFamily().getFamilyId());
+        toRet.setSnapshotEconomicId(originalSnapshot.getId());
+        
+        return toRet;
+    }
 
-            toRet.add(snapshotIndicators);
+    private String getNameFromCamelCase(String name) {
+        return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
+    }
+
+    @Override
+    public SnapshotIndicators getLastSnapshotIndicatorsByFamily(Long familyId) {
+        SnapshotIndicators toRet = new SnapshotIndicators();
+        Optional<SnapshotEconomicEntity> snapshot = economicRepository.findFirstByFamilyFamilyIdOrderByCreatedAtDesc(familyId);
+        
+        if(snapshot.isPresent()) {
+            toRet = getSnapshotIndicators(snapshot.get().getId());
         }
         return toRet;
     }
-    
+
     @Override
-    public List<SnapshotIndicators> getSnapshotIndicators(Long familiyId) {
+    public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familiyId) {
     	LOG.info("Find snapshots by family id: {}", familiyId);
         List<SnapshotIndicators> toRet = new ArrayList<>();
         List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familiyId).stream()
@@ -219,10 +220,6 @@ public class SnapshotServiceImpl implements SnapshotService {
             toRet.add(snapshotIndicators);
         }
         return toRet;
-    }
-
-    private String getNameFromCamelCase(String name) {
-        return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
     
     private SnapshotIndicators countSnapshotIndicators(SnapshotEconomicEntity snapshot) {

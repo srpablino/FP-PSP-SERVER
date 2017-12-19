@@ -31,10 +31,9 @@ public class SnapshotController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(value = "Retrieves all snapshots for a  survery", notes = "A `GET` request with a survey parameter will return a list of snapshots for the that survey.", response = List.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = Snapshot.class, responseContainer="List")
-    })
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = Snapshot.class, responseContainer = "List") })
     public ResponseEntity getSnapshots(@RequestParam("survey_id") Long surveyId,
-                                       @RequestParam(value = "family_id", required = false) Long familiyId) {
+            @RequestParam(value = "family_id", required = false) Long familiyId) {
         List<Snapshot> snapshots = snapshotService.find(surveyId, familiyId);
         return ResponseEntity.ok(snapshots);
     }
@@ -42,26 +41,23 @@ public class SnapshotController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(value = "Create Snapshot", notes = "A `POST` request will create new snapshot for a particular survey.", response = Snapshot.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 201, message = "The created snapshot", response = Snapshot.class)
-    })
-    public ResponseEntity addSnapshot(@ApiParam(value = "The snapshot" ,required=true) @RequestBody NewSnapshot snapshot)
+            @io.swagger.annotations.ApiResponse(code = 201, message = "The created snapshot", response = Snapshot.class) })
+    public ResponseEntity addSnapshot(
+            @ApiParam(value = "The snapshot", required = true) @RequestBody NewSnapshot snapshot)
             throws NotFoundException, URISyntaxException {
         Snapshot data = snapshotService.addSurveySnapshot(snapshot);
         URI surveyLocation = new URI("/snapshots/" + data.getSurveyId());
         return ResponseEntity.created(surveyLocation).body(data);
     }
 
-    
-    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/indicators")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path = "/indicators")
     @io.swagger.annotations.ApiOperation(value = "Retrieves all snapshots indicators for a  survery", notes = "A `GET` request with a survey parameter will return a list of snapshots indicators for the that survey.", response = List.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = Snapshot.class, responseContainer="List")
-    })
-    public ResponseEntity getSnapshotsIndicatorFamily(@RequestParam("survey_id") Long surveyId,
-                                       @RequestParam(value = "family_id", required = false) Long familiyId) {
-        
-        List<SnapshotIndicators> snapshots = snapshotService.getSnapshotIndicators(surveyId, familiyId);
-        return ResponseEntity.ok(snapshots);
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = SnapshotIndicators.class) })
+    public ResponseEntity getSnapshotIndicators(@RequestParam("snapshot_id") Long snapshotId) {
+
+        SnapshotIndicators snapshot = snapshotService.getSnapshotIndicators(snapshotId);
+        return ResponseEntity.ok(snapshot);
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/family")
@@ -71,7 +67,7 @@ public class SnapshotController {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of available snapshots", response = Snapshot.class, responseContainer="List")
     })
     public ResponseEntity<List<SnapshotIndicators>> getSnapshotsIndicatorsByFamily(@RequestParam(value = "family_id", required = false) Long familiyId) {
-        List<SnapshotIndicators> snapshots = snapshotService.getSnapshotIndicators(familiyId);
+        List<SnapshotIndicators> snapshots = snapshotService.getSnapshotIndicatorsByFamily(familiyId);
         return ResponseEntity.ok(snapshots);
     }
     

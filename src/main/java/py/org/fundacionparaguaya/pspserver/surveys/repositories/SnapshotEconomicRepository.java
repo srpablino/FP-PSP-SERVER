@@ -2,9 +2,9 @@ package py.org.fundacionparaguaya.pspserver.surveys.repositories;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
@@ -12,5 +12,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
  */
 public interface SnapshotEconomicRepository extends JpaRepository<SnapshotEconomicEntity, Long> {
     Collection<SnapshotEconomicEntity> findBySurveyDefinitionId(Long surveyId);
+    Optional<SnapshotEconomicEntity> findFirstByFamilyFamilyIdOrderByCreatedAtDesc(Long familyId);
     List<SnapshotEconomicEntity> findByFamilyFamilyId(Long familiyId);
 }

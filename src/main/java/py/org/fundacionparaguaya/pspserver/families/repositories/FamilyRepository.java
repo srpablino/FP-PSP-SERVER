@@ -19,4 +19,6 @@ public interface FamilyRepository extends JpaRepository<FamilyEntity, Long> {
 	List<FamilyEntity> findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase
 	(Long organizationId, Long countryId, Long cityId, String freeText);
 	
+	List<FamilyEntity> findByNameContainingIgnoreCase(String freeText);
+	
 }

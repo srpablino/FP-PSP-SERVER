@@ -10,13 +10,14 @@ import java.util.List;
  * Created by rodrigovillalba on 9/14/17.
  */
 public interface SnapshotService {
-
-
+	
     Snapshot addSurveySnapshot(NewSnapshot snapshot);
 
     List<Snapshot> find(Long surveyId, Long familiyId);
     
-    List<SnapshotIndicators> getSnapshotIndicators(Long surveyId, Long familiyId);
+    SnapshotIndicators getSnapshotIndicators(Long snapshotId);
 
-	List<SnapshotIndicators> getSnapshotIndicators(Long familiyId);
+	List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId);
+	
+	SnapshotIndicators getLastSnapshotIndicatorsByFamily(Long snapshotId);
 }
