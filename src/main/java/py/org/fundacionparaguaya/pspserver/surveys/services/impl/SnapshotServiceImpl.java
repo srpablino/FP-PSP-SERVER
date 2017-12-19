@@ -4,14 +4,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
@@ -25,6 +30,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
@@ -39,6 +45,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
  */
 @Service
 public class SnapshotServiceImpl implements SnapshotService {
+	
+	private Logger LOG = LoggerFactory.getLogger(SnapshotServiceImpl.class);
 
     private final SnapshotIndicatorPriorityService priorityService;
 
@@ -190,10 +198,66 @@ public class SnapshotServiceImpl implements SnapshotService {
         }
         return toRet;
     }
+    
+    @Override
+    public List<SnapshotIndicators> getSnapshotIndicators(Long familiyId) {
+    	LOG.info("Find snapshots by family id: {}", familiyId);
+        List<SnapshotIndicators> toRet = new ArrayList<>();
+        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familiyId).stream()
+                .collect(Collectors.toList());
+
+        LOG.info("originalSnapshots: {}", originalSnapshots.size());
+        for (SnapshotEconomicEntity os : originalSnapshots) {
+            SnapshotIndicators snapshotIndicators = countSnapshotIndicators(os);
+
+            List<SnapshotIndicatorPriority> priorities = priorityService
+                    .getSnapshotIndicatorPriorityList(os.getSnapshotIndicator().getId());
+            snapshotIndicators.setIndicatorsPriorities(priorities);
+            snapshotIndicators.setCreatedAt(os.getCreatedAtAsISOString());
+            snapshotIndicators.setSnapshotIndicatorId(os.getSnapshotIndicator().getId());
+
+            toRet.add(snapshotIndicators);
+        }
+        return toRet;
+    }
 
     private String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
     
+    private SnapshotIndicators countSnapshotIndicators(SnapshotEconomicEntity snapshot) {
+    	SnapshotIndicators indicators = new SnapshotIndicators();
+    	
+    	try {
+    		Map<String, String> beanProperties = BeanUtils.describe(snapshot.getSnapshotIndicator());
+    		
+    		beanProperties.forEach((k, v) -> {
+    			Optional.ofNullable(SurveyStoplightEnum.fromValue(v)).
+    				ifPresent(light -> {
+	    				switch (light) {
+			                case RED:
+			                	indicators.setCountRedIndicators(indicators.getCountRedIndicators() + 1);
+			                    break;
+			                case YELLOW:
+			                	indicators.setCountYellowIndicators(indicators.getCountYellowIndicators() + 1);
+			                    break;
+			                case GREEN:
+			                	indicators.setCountGreenIndicators(indicators.getCountGreenIndicators() + 1);
+			                    break;
+			                default:
+			                    break;
+		                }
+	    			}	
+    			);
+    		});
+    		
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			throw new UnknownResourceException("Could not get indicators of "
+					+ "the snapshot with id " + snapshot.getId());
+		}
+    	
+    	return indicators;
+    }
 
 }

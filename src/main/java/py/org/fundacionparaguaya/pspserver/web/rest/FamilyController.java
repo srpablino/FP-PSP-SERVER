@@ -3,7 +3,6 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -56,7 +55,7 @@ public class FamilyController {
 
 	
 	@GetMapping("/{familyId}")
-	public ResponseEntity<FamilyMapDTO> getFamilyFileById(@PathVariable("familyId") Long familyId) {
+	public ResponseEntity<FamilyMapDTO> getFamilyMapById(@PathVariable("familyId") Long familyId) {
 		FamilyMapDTO dto = familyMapService.getFamilyMapById(familyId);
 		return ResponseEntity.ok(dto);
 	}
