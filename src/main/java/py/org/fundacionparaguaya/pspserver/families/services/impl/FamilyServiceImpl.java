@@ -100,11 +100,17 @@ public class FamilyServiceImpl implements FamilyService {
         return code;
     }
 
-  @Override
+    @Override
 	public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
 		
-		List<FamilyEntity> listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
-
+	  	List<FamilyEntity> listFamilies = new ArrayList<FamilyEntity>();
+	  	
+	  	if (organizationId != null && countryId != null && cityId != null) {
+	  		listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+		}else{
+			listFamilies = familyRepository.findByNameContainingIgnoreCase(freeText);
+		}
+	  	
 		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
 		
 		for (FamilyEntity familyEntity : listFamilies) {
@@ -118,6 +124,6 @@ public class FamilyServiceImpl implements FamilyService {
 			
 		}
 		
-		return listDtoRet;		
+		return listDtoRet;
 	}
 }
