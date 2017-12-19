@@ -53,7 +53,7 @@ public class FamilyMapServiceImpl implements FamilyMapService {
 		SurveyDefinition survey = surveyService.getAll().get(0);
 		
 		//we take the first one snapshot
-        familyFile.setSnapshotIndicators(snapshotService.getSnapshotIndicators(survey.getId(), familyId).get(0));
+        familyFile.setSnapshotIndicators(snapshotService.getSnapshotIndicators(survey.getId(), familyId));
         return familyFile;
 	}
 	

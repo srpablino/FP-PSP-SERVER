@@ -55,13 +55,13 @@ public class SnapshotController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE, path="/indicators")
     @io.swagger.annotations.ApiOperation(value = "Retrieves all snapshots indicators for a  survery", notes = "A `GET` request with a survey parameter will return a list of snapshots indicators for the that survey.", response = List.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = Snapshot.class, responseContainer="List")
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = SnapshotIndicators.class)
     })
-    public ResponseEntity getSnapshotsIndicatorFamily(@RequestParam("survey_id") Long surveyId,
+    public ResponseEntity getSnapshotsIndicatorFamily(@RequestParam("snapshot_id") Long snapshotId,
                                        @RequestParam(value = "family_id", required = false) Long familiyId) {
         
-        List<SnapshotIndicators> snapshots = snapshotService.getSnapshotIndicators(surveyId, familiyId);
-        return ResponseEntity.ok(snapshots);
+        SnapshotIndicators snapshot = snapshotService.getSnapshotIndicators(snapshotId, familiyId);
+        return ResponseEntity.ok(snapshot);
     }
     
 

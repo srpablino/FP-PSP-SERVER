@@ -131,27 +131,28 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<SnapshotIndicators> getSnapshotIndicators(Long surveyId, Long familiyId) {
+    public SnapshotIndicators getSnapshotIndicators(Long snapshotId, Long familiyId) {
 
-        List<SnapshotIndicators> toRet = new ArrayList<>();
-        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(surveyId).stream()
-                .collect(Collectors.toList());
+        SnapshotIndicators toRet = new SnapshotIndicators();
+        /*List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(snapshotId).stream()
+                .collect(Collectors.toList());*/
+        SnapshotEconomicEntity originalSnapshot = economicRepository.findOne(snapshotId);
 
-        SurveyEntity survey = surveyRepository.getOne(surveyId);
+        SurveyEntity survey = surveyRepository.getOne(originalSnapshot.getSurveyDefinition().getId());
         List<String> indicatorGroup = survey.getSurveyDefinition().getSurveyUISchema().getGroupIndicators();
 
         List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream()
                 .filter(field -> indicatorGroup.contains(field)).collect(Collectors.toList());
 
-        for (SnapshotEconomicEntity s : originalSnapshots) {
+       // for (SnapshotEconomicEntity s : originalSnapshots) {
 
-            SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
+            //SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
 
             List<SnapshotIndicatorPriority> priorities = priorityService
-                    .getSnapshotIndicatorPriorityList(s.getSnapshotIndicator().getId());
-            snapshotIndicators.setIndicatorsPriorities(priorities);
+                    .getSnapshotIndicatorPriorityList(originalSnapshot.getSnapshotIndicator().getId());
+            toRet.setIndicatorsPriorities(priorities);
 
-            SurveyData indicators = indicatorMapper.entityToDto(s.getSnapshotIndicator());
+            SurveyData indicators = indicatorMapper.entityToDto(originalSnapshot.getSnapshotIndicator());
             List<SurveyData> indicatorsToRet = new ArrayList<>();
             if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
 
@@ -163,15 +164,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
                         switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
                         case "RED":
-                            snapshotIndicators.setCountRedIndicators(snapshotIndicators.getCountRedIndicators() + 1);
+                            toRet.setCountRedIndicators(toRet.getCountRedIndicators() + 1);
                             break;
                         case "YELLOW":
-                            snapshotIndicators
-                                    .setCountYellowIndicators(snapshotIndicators.getCountYellowIndicators() + 1);
+                            toRet
+                                    .setCountYellowIndicators(toRet.getCountYellowIndicators() + 1);
                             break;
                         case "GREEN":
-                            snapshotIndicators
-                                    .setCountGreenIndicators(snapshotIndicators.getCountGreenIndicators() + 1);
+                            toRet
+                                    .setCountGreenIndicators(toRet.getCountGreenIndicators() + 1);
                             break;
                         default:
                             break;
@@ -182,12 +183,12 @@ public class SnapshotServiceImpl implements SnapshotService {
 
             }
 
-            snapshotIndicators.setIndicatorsSurveyData(indicatorsToRet);
-            snapshotIndicators.setCreatedAt(s.getCreatedAtAsISOString());
-            snapshotIndicators.setSnapshotIndicatorId(s.getSnapshotIndicator().getId());
+            toRet.setIndicatorsSurveyData(indicatorsToRet);
+            toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
+            toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
 
-            toRet.add(snapshotIndicators);
-        }
+            //toRet.add(snapshotIndicators);
+        //}
         return toRet;
     }
 

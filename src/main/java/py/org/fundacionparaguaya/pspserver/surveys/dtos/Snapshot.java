@@ -11,6 +11,9 @@ public class Snapshot {
     @JsonProperty("survey_id")
     private Long surveyId = null;
 
+    @JsonProperty("snapshot_economic_id")
+    private Long snapshotEconomicId = null;
+    
     @JsonProperty("personal_survey_data")
     private SurveyData personalSurveyData = null;
     
@@ -76,6 +79,19 @@ public class Snapshot {
     public void setSurveyId(Long surveyId) {
         this.surveyId = surveyId;
     }
+    
+    /**
+     * The survey's id that this snapshot belongs to.
+     * @return the survey id number respresentation
+     */
+    @ApiModelProperty(value = "The id that this snapshot belongs to.")
+    public Long getSnapshotEconomicId() {
+        return snapshotEconomicId;
+    }
+
+    public void setSnapshotEconomicId(Long snapshotEconomicId) {
+        this.snapshotEconomicId = snapshotEconomicId;
+    }
 
     /**
      * Key/value pairs representing the filled out 'Indicators' survey
@@ -108,6 +124,7 @@ public class Snapshot {
         StringBuilder sb = new StringBuilder();
         sb.append("class Snapshot {\n");
         sb.append("    surveyId: ").append(toIndentedString(surveyId)).append("\n");
+        sb.append("    snapshotEconomicId: ").append(toIndentedString(snapshotEconomicId)).append("\n");
         sb.append("    personalSurveyData: ").append(toIndentedString(personalSurveyData)).append("\n");
         sb.append("    economicSurveyData: ").append(toIndentedString(economicSurveyData)).append("\n");
         sb.append("    indicatorSurveyData: ").append(toIndentedString(indicatorSurveyData)).append("\n");
@@ -135,6 +152,7 @@ public class Snapshot {
         Snapshot that = (Snapshot) o;
 
         return com.google.common.base.Objects.equal(this.surveyId, that.surveyId) &&
+        		com.google.common.base.Objects.equal(this.snapshotEconomicId, that.snapshotEconomicId) &&
         		com.google.common.base.Objects.equal(this.personalSurveyData, that.personalSurveyData) &&
                 com.google.common.base.Objects.equal(this.economicSurveyData, that.economicSurveyData) &&
                 com.google.common.base.Objects.equal(this.indicatorSurveyData, that.indicatorSurveyData);
@@ -142,11 +160,11 @@ public class Snapshot {
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(surveyId, personalSurveyData, economicSurveyData, indicatorSurveyData);
+        return com.google.common.base.Objects.hashCode(surveyId, snapshotEconomicId, personalSurveyData, economicSurveyData, indicatorSurveyData);
     }
 
     public Snapshot snapshotEconomicId(Long id) {
-        this.surveyId = id;
+        this.snapshotEconomicId = id;
         return this;
     }
 
