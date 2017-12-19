@@ -24,9 +24,7 @@ Client id : barClientIdPassword
 
 Client secret : secret
 
-User name : admin
-
-User password : password
+Username : admin
 
 ```
 curl -X POST -vu barClientIdPassword:secret 'http://localhost:8080/oauth/token?username=admin&password=[your_password]&grant_type=password'
@@ -75,6 +73,6 @@ These are default users with their roles provided by the application.
 | --------- | -------------- | ---------- |
 | admin | ROLE_ROOT | Can do everything |
 | hub_admin| ROLE_HUB_ADMIN | Can manage everything related to a HUB application |
-| app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or parter |
+| app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or partner |
 | user | ROLE_USER | Can see information about his/her organization: famliies, indicators |
 | | ROLE_SURVEY_USER | Can fill surveys and visualize its state |

@@ -13,6 +13,7 @@ import py.org.fundacionparaguaya.pspserver.common.constants.ProtectedModule;
  */
 @Configuration
 @EnableResourceServer
+
 public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String RESOURCE_ID = "resources";
