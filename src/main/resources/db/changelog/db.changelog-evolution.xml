@@ -170,5 +170,10 @@
     <changeSet id="2017-12-17T19:00" author="mgonzalez">
         <sqlFile path="sql/2017-12-17T19:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Add columns into snapshot_economic table-->
+    <changeSet id="2017-12-19T10:10" author="mgonzalez">
+        <sqlFile path="sql/2017-12-19T10:10.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

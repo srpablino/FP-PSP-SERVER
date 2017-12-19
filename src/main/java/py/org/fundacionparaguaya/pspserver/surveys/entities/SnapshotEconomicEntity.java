@@ -105,6 +105,12 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Column(name = "family_ubication")
     private String familyUbication;
+    
+    @Column(name = "family_country")
+    private String familyCountry;
+    
+    @Column(name = "family_city")
+    private String familyCity;
 
     public Long getId() {
         return id;
@@ -305,6 +311,22 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public void setFamilyUbication(String familyUbication) {
         this.familyUbication = familyUbication;
+    }
+    
+    public String getFamilyCountry() {
+        return familyCountry;
+    }
+
+    public void setFamilyCountry(String familyCountry) {
+        this.familyCountry = familyCountry;
+    }
+
+    public String getFamilyCity() {
+        return familyCity;
+    }
+
+    public void setFamilyCity(String familyCity) {
+        this.familyCity = familyCity;
     }
 
     public SnapshotEconomicEntity surveyDefinition(SurveyEntity definitionEntity) {
