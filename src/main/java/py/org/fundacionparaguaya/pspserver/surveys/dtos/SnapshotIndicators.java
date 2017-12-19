@@ -28,6 +28,12 @@ public class SnapshotIndicators {
     
     @JsonProperty("snapshot_indicator_id")
     private Long snapshotIndicatorId;
+    
+    @JsonProperty("family_id")
+    private Long familyId;
+    
+    @JsonProperty("snapshot_economic_id")
+    private Long snapshotEconomicId;
 
     public SnapshotIndicators indicatorSurveyData(List<SurveyData> indicatorsSurveyData) {
         this.indicatorsSurveyData = indicatorsSurveyData;
@@ -120,6 +126,24 @@ public class SnapshotIndicators {
 
     public void setSnapshotIndicatorId(Long snapshotIndicatorId) {
         this.snapshotIndicatorId = snapshotIndicatorId;
+    }
+    
+    @ApiModelProperty(value = "Family Id")
+    public Long getFamilyId() {
+        return familyId;
+    }
+
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
+    }
+    
+    @ApiModelProperty(value = "SnapshotEconomic Id")
+    public Long getSnapshotEconomicId() {
+        return snapshotEconomicId;
+    }
+
+    public void setSnapshotEconomicId(Long snapshotEconomicId) {
+        this.snapshotEconomicId = snapshotEconomicId;
     }
 
     

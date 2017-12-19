@@ -19,10 +19,16 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
+import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.mapper.CityMapper;
 import py.org.fundacionparaguaya.pspserver.system.mapper.CountryMapper;
-
-
+import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
+import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
@@ -34,14 +40,27 @@ public class FamilyServiceImpl implements FamilyService {
     private final FamilyRepository familyRepository;
 
     private final CountryMapper countryMapper;
-    
+
     private final CityMapper cityMapper;
-    
-    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper, CountryMapper countryMapper, CityMapper cityMapper) {
+
+    private final CountryRepository countryRepository;
+
+    private final CityRepository cityRepository;
+
+    private final OrganizationRepository organizationRepository;
+
+    private static final String SPACE = " ";
+
+    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper, CountryMapper countryMapper,
+            CityMapper cityMapper, CountryRepository countryRepository, CityRepository cityRepository,
+            OrganizationRepository organizationRepository) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryMapper = countryMapper;
         this.cityMapper = cityMapper;
+        this.countryRepository = countryRepository;
+        this.cityRepository = cityRepository;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
@@ -94,30 +113,58 @@ public class FamilyServiceImpl implements FamilyService {
         String birthdate = person.getBirthdate().format(formatter);
 
         String code = person.getCountryOfBirth().getAlfa2Code().concat(".")
-                .concat(person.getFirstName().substring(0, 1)).concat(person.getLastName().substring(0, 1))
-                .concat(".").concat(birthdate);
+                .concat(person.getFirstName().substring(0, 1)).concat(person.getLastName().substring(0, 1)).concat(".")
+                .concat(birthdate);
 
         return code;
     }
 
-  @Override
-	public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
-		
-		List<FamilyEntity> listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
+    @Override
+    public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
 
-		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
-		
-		for (FamilyEntity familyEntity : listFamilies) {
-			
-			FamilyDTO familyDTO = new FamilyDTO();
-			familyDTO.setFamilyId(familyEntity.getFamilyId());
-			familyDTO.setName(familyEntity.getName());
-			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
-			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
-			listDtoRet.add(familyDTO);
-			
-		}
-		
-		return listDtoRet;		
-	}
+        List<FamilyEntity> listFamilies = familyRepository
+                .findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId,
+                        freeText);
+
+        List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
+
+        for (FamilyEntity familyEntity : listFamilies) {
+
+            FamilyDTO familyDTO = new FamilyDTO();
+            familyDTO.setFamilyId(familyEntity.getFamilyId());
+            familyDTO.setName(familyEntity.getName());
+            familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
+            familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
+            listDtoRet.add(familyDTO);
+
+        }
+
+        return listDtoRet;
+    }
+
+    @Override
+    public FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {
+        FamilyEntity newFamily = new FamilyEntity();
+        newFamily.setPerson(person);
+        newFamily.setCode(code);
+        newFamily.setName(person.getFirstName().concat(SPACE).concat(person.getLastName()));
+        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
+
+        Optional<CountryEntity> country = countryRepository
+                .findByCountry(snapshot.getEconomicSurveyData().getAsString("familyCountry"));
+        newFamily.setCountry(country.orElse(null));
+
+        Optional<CityEntity> city = cityRepository
+                .findByCity(snapshot.getEconomicSurveyData().getAsString("familyCity"));
+        newFamily.setCity(city.orElse(null));
+        
+        if(snapshot.getOrganizationId()!=null) {
+            OrganizationEntity organization = organizationRepository.findOne(snapshot.getOrganizationId());
+            newFamily.setOrganization(organization);
+        }
+
+        newFamily = familyRepository.save(newFamily);
+
+        return newFamily;
+    }
 }

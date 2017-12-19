@@ -7,5 +7,6 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import java.util.Optional;
 
 public interface CountryRepository extends JpaRepository<CountryEntity, Long> {
-	Optional<CountryEntity> findByAlfa2Code(String alfa3code);
+	Optional<CountryEntity> findByAlfa2Code(String alfa2code);
+	Optional<CountryEntity> findByCountry(String country);
 }

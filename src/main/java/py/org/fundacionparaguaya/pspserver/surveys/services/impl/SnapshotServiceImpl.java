@@ -51,23 +51,23 @@ public class SnapshotServiceImpl implements SnapshotService {
     private final SurveyService surveyService;
 
     private final SnapshotIndicatorMapper indicatorMapper;
-    
+
     private final PersonMapper personMapper;
-    
+
     private final FamilyRepository familyRepository;
-    
+
     private final FamilyService familyService;
-    
+
     private static final String INDICATOR_NAME = "name";
 
     private static final String INDICATOR_VALUE = "value";
+
     
-    private static final String SPACE = " ";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper, FamilyRepository familyRepository, 
-            FamilyService familyService) {
+            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
+            FamilyRepository familyRepository, FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -83,44 +83,38 @@ public class SnapshotServiceImpl implements SnapshotService {
     @Transactional
     public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
         checkNotNull(snapshot);
-        
+
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
             throw new CustomParameterizedException("Invalid Snapshot", results.asMap());
         }
-        
+
         SnapshotIndicatorEntity indicatorEntity = economicMapper.newSnapshotToIndicatorEntity(snapshot);
 
         SnapshotEconomicEntity snapshotEconomicEntity = null;
 
-        PersonEntity  personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
-        
+        PersonEntity personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
+
         String code = familyService.generateFamilyCode(personEntity);
-        
+
         Optional<FamilyEntity> family = familyRepository.findByCode(code);
-        
-        
-        if(family.isPresent()) {
-        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
+
+        if (family.isPresent()) {
+            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
         } else {
-        	FamilyEntity newFamily = new FamilyEntity();
-        	newFamily.setPerson(personEntity);
-        	newFamily.setCode(code);
-        	newFamily.setName(personEntity.getFirstName().concat(SPACE).concat(personEntity.getLastName()));
-        	newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
-        	newFamily = familyRepository.save(newFamily);
-        	
-        	snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
+            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(snapshot, code, personEntity);
+            snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
         }
 
         return economicMapper.entityToDto(snapshotEconomicEntity);
     }
 
-    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator, FamilyEntity family) {
+    private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot, SnapshotIndicatorEntity indicator,
+            FamilyEntity family) {
 
         SnapshotEconomicEntity entity = economicMapper.newSnapshotToEconomicEntity(snapshot, indicator);
         entity.setFamily(family);
-        
+
         return this.economicRepository.save(entity);
     }
 
@@ -131,11 +125,10 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public SnapshotIndicators getSnapshotIndicators(Long snapshotId, Long familiyId) {
+    public SnapshotIndicators getSnapshotIndicators(Long snapshotId) {
 
         SnapshotIndicators toRet = new SnapshotIndicators();
-        /*List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findBySurveyDefinitionId(snapshotId).stream()
-                .collect(Collectors.toList());*/
+
         SnapshotEconomicEntity originalSnapshot = economicRepository.findOne(snapshotId);
 
         SurveyEntity survey = surveyRepository.getOne(originalSnapshot.getSurveyDefinition().getId());
@@ -144,57 +137,74 @@ public class SnapshotServiceImpl implements SnapshotService {
         List<String> order = survey.getSurveyDefinition().getSurveyUISchema().getUiOrder().stream()
                 .filter(field -> indicatorGroup.contains(field)).collect(Collectors.toList());
 
-       // for (SnapshotEconomicEntity s : originalSnapshots) {
+        List<SnapshotIndicatorPriority> priorities = priorityService
+                .getSnapshotIndicatorPriorityList(originalSnapshot.getSnapshotIndicator().getId());
+        toRet.setIndicatorsPriorities(priorities);
 
-            //SnapshotIndicators snapshotIndicators = new SnapshotIndicators();
+        SurveyData indicators = indicatorMapper.entityToDto(originalSnapshot.getSnapshotIndicator());
+        List<SurveyData> indicatorsToRet = new ArrayList<>();
+        if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
 
-            List<SnapshotIndicatorPriority> priorities = priorityService
-                    .getSnapshotIndicatorPriorityList(originalSnapshot.getSnapshotIndicator().getId());
-            toRet.setIndicatorsPriorities(priorities);
+            order.forEach(indicator -> {
+                if (indicators.containsKey(indicator)) {
+                    SurveyData sd = new SurveyData();
+                    sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    sd.put(INDICATOR_VALUE, indicators.get(indicator));
 
-            SurveyData indicators = indicatorMapper.entityToDto(originalSnapshot.getSnapshotIndicator());
-            List<SurveyData> indicatorsToRet = new ArrayList<>();
-            if (indicatorGroup != null && !indicatorGroup.isEmpty() && order != null && !order.isEmpty()) {
-
-                order.forEach(indicator -> {
-                    if (indicators.containsKey(indicator)) {
-                        SurveyData sd = new SurveyData();
-                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
-                        sd.put(INDICATOR_VALUE, indicators.get(indicator));
-
-                        switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
-                        case "RED":
-                            toRet.setCountRedIndicators(toRet.getCountRedIndicators() + 1);
-                            break;
-                        case "YELLOW":
-                            toRet
-                                    .setCountYellowIndicators(toRet.getCountYellowIndicators() + 1);
-                            break;
-                        case "GREEN":
-                            toRet
-                                    .setCountGreenIndicators(toRet.getCountGreenIndicators() + 1);
-                            break;
-                        default:
-                            break;
-                        }
-                        indicatorsToRet.add(sd);
+                    switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
+                    case "RED":
+                        toRet.setCountRedIndicators(toRet.getCountRedIndicators() + 1);
+                        break;
+                    case "YELLOW":
+                        toRet.setCountYellowIndicators(toRet.getCountYellowIndicators() + 1);
+                        break;
+                    case "GREEN":
+                        toRet.setCountGreenIndicators(toRet.getCountGreenIndicators() + 1);
+                        break;
+                    default:
+                        break;
                     }
-                });
+                    indicatorsToRet.add(sd);
+                }
+            });
 
-            }
+        }
 
-            toRet.setIndicatorsSurveyData(indicatorsToRet);
-            toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
-            toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
+        toRet.setIndicatorsSurveyData(indicatorsToRet);
+        toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
+        toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
+        toRet.setFamilyId(originalSnapshot.getFamily().getFamilyId());
+        toRet.setSnapshotEconomicId(originalSnapshot.getId());
 
-            //toRet.add(snapshotIndicators);
-        //}
+        // toRet.add(snapshotIndicators);
+        // }
         return toRet;
     }
 
     private String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
+
+    @Override
+    public SnapshotIndicators getSnapshotIndicartorsFamily(Long familyId) {
+        SnapshotIndicators toRet = new SnapshotIndicators();
+        Optional<SnapshotEconomicEntity> snapshot = economicRepository.findByFamilyFamilyId(familyId);
+        
+        if(snapshot.isPresent()) {
+            toRet = getSnapshotIndicators(snapshot.get().getId());
+        }
+        return toRet;
+    }
     
+    /*private FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {
+        FamilyEntity newFamily = new FamilyEntity();
+        newFamily.setPerson(person);
+        newFamily.setCode(code);
+        newFamily.setName(person.getFirstName().concat(SPACE).concat(person.getLastName()));
+        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
+        newFamily = familyRepository.save(newFamily);
+        
+        return newFamily;
+    }*/
 
 }
