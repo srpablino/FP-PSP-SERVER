@@ -161,12 +161,17 @@ public class SnapshotServiceImpl implements SnapshotService {
             });
 
         }
-
+        
         toRet.setIndicatorsSurveyData(indicatorsToRet);
         toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
         toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
-        toRet.setFamilyId(originalSnapshot.getFamily().getFamilyId());
         toRet.setSnapshotEconomicId(originalSnapshot.getId());
+        toRet.setSurveyId(originalSnapshot.getSurveyDefinition().getId());
+        
+        //set family for information purpose
+        Long familyId = originalSnapshot.getFamily().getFamilyId();
+        toRet.setFamilyId(familyId);
+        toRet.setFamily(familyService.getFamilyById(familyId));
         
         return toRet;
     }
@@ -194,7 +199,6 @@ public class SnapshotServiceImpl implements SnapshotService {
         
         for (SnapshotEconomicEntity os : originalSnapshots) {
             SnapshotIndicators snapshotIndicators = countSnapshotIndicators(os);
-
             List<SnapshotIndicatorPriority> priorities = priorityService
                     .getSnapshotIndicatorPriorityList(os.getSnapshotIndicator().getId());
             snapshotIndicators.setIndicatorsPriorities(priorities);
@@ -202,6 +206,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setSnapshotIndicatorId(os.getSnapshotIndicator().getId());
             snapshotIndicators.setFamilyId(os.getFamily().getFamilyId());
             snapshotIndicators.setSnapshotEconomicId(os.getId());
+            snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
             
             toRet.add(snapshotIndicators);
         }
