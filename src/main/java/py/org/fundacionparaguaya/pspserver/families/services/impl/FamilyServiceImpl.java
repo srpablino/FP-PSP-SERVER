@@ -136,6 +136,7 @@ public class FamilyServiceImpl implements FamilyService {
 			FamilyDTO familyDTO = new FamilyDTO();
 			familyDTO.setFamilyId(familyEntity.getFamilyId());
 			familyDTO.setName(familyEntity.getName());
+			familyDTO.setCode(familyEntity.getCode());
 			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
 			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
 			listDtoRet.add(familyDTO);
