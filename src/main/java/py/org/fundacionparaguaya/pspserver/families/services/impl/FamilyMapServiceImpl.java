@@ -13,9 +13,7 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyMapService;
-//import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
-//import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 
 @Service
 public class FamilyMapServiceImpl implements FamilyMapService {
@@ -26,14 +24,11 @@ public class FamilyMapServiceImpl implements FamilyMapService {
 	
 	private final SnapshotService snapshotService;
 	
-	//private final SurveyService surveyService;
-	
 	public FamilyMapServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
 			SnapshotService snapshotService) {
 		this.familyRepository = familyRepository;
 		this.familyMapper = familyMapper;
 		this.snapshotService = snapshotService;
-		//this.surveyService = surveyService;
 	}
 	 
 	@Override
@@ -48,12 +43,7 @@ public class FamilyMapServiceImpl implements FamilyMapService {
 		
 		BeanUtils.copyProperties(family, familyFile);
 		
-		//FIXME! there is not yet a relation between families and snapshots!
-		//so we will take one survey and ask for it's snapshots
-		//SurveyDefinition survey = surveyService.getAll().get(0);
-		
-		//we take the first one snapshot
-        familyFile.setSnapshotIndicators(snapshotService.getSnapshotIndicartorsFamily(familyId));
+        familyFile.setSnapshotIndicators(snapshotService.getLastSnapshotIndicatorsByFamily(familyId));
         return familyFile;
 	}
 	
