@@ -202,12 +202,10 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     @Override
     public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familiyId) {
-    	LOG.info("Find snapshots by family id: {}", familiyId);
         List<SnapshotIndicators> toRet = new ArrayList<>();
         List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familiyId).stream()
                 .collect(Collectors.toList());
-
-        LOG.info("originalSnapshots: {}", originalSnapshots.size());
+        
         for (SnapshotEconomicEntity os : originalSnapshots) {
             SnapshotIndicators snapshotIndicators = countSnapshotIndicators(os);
 
