@@ -187,9 +187,9 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familiyId) {
+    public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId) {
         List<SnapshotIndicators> toRet = new ArrayList<>();
-        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familiyId).stream()
+        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familyId).stream()
                 .collect(Collectors.toList());
         
         for (SnapshotEconomicEntity os : originalSnapshots) {
@@ -200,7 +200,9 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setIndicatorsPriorities(priorities);
             snapshotIndicators.setCreatedAt(os.getCreatedAtAsISOString());
             snapshotIndicators.setSnapshotIndicatorId(os.getSnapshotIndicator().getId());
-
+            snapshotIndicators.setFamilyId(os.getFamily().getFamilyId());
+            snapshotIndicators.setSnapshotEconomicId(os.getId());
+            
             toRet.add(snapshotIndicators);
         }
         return toRet;
