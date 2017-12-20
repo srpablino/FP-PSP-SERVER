@@ -161,7 +161,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             });
 
         }
-        
+
         toRet.setIndicatorsSurveyData(indicatorsToRet);
         toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
         toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
@@ -199,6 +199,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         
         for (SnapshotEconomicEntity os : originalSnapshots) {
             SnapshotIndicators snapshotIndicators = countSnapshotIndicators(os);
+
             List<SnapshotIndicatorPriority> priorities = priorityService
                     .getSnapshotIndicatorPriorityList(os.getSnapshotIndicator().getId());
             snapshotIndicators.setIndicatorsPriorities(priorities);
