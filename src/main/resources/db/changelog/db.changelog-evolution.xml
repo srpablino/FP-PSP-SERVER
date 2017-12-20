@@ -174,6 +174,7 @@
     <!-- Insert applications and organizations for testing -->
     <changeSet id="2017-12-19T10:00" author="nvaldez">
         <sqlFile path="sql/2017-12-19T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
     <!--
         Adds survey user and organization for partner demo
