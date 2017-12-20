@@ -4,6 +4,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUserType;
 
@@ -28,8 +30,9 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "family_id")
-    private Long familyId;
+    @ManyToOne(targetEntity = FamilyEntity.class)
+    @JoinColumn(name = "family_id")
+    private FamilyEntity family;
 
     @ManyToOne
     private SurveyEntity surveyDefinition;
@@ -102,6 +105,12 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     @Column(name = "family_ubication")
     private String familyUbication;
+    
+    @Column(name = "family_country")
+    private String familyCountry;
+    
+    @Column(name = "family_city")
+    private String familyCity;
 
     public Long getId() {
         return id;
@@ -111,12 +120,12 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.id = id;
     }
 
-    public Long getFamilyId() {
-        return familyId;
+    public FamilyEntity getFamily() {
+        return family;
     }
 
-    public void setFamilyId(Long familyId) {
-        this.familyId = familyId;
+    public void setFamily(FamilyEntity family) {
+        this.family = family;
     }
 
     public SurveyEntity getSurveyDefinition() {
@@ -302,6 +311,22 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public void setFamilyUbication(String familyUbication) {
         this.familyUbication = familyUbication;
+    }
+    
+    public String getFamilyCountry() {
+        return familyCountry;
+    }
+
+    public void setFamilyCountry(String familyCountry) {
+        this.familyCountry = familyCountry;
+    }
+
+    public String getFamilyCity() {
+        return familyCity;
+    }
+
+    public void setFamilyCity(String familyCity) {
+        this.familyCity = familyCity;
     }
 
     public SnapshotEconomicEntity surveyDefinition(SurveyEntity definitionEntity) {
