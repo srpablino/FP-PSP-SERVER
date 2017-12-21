@@ -129,20 +129,13 @@ public class FamilyServiceImpl implements FamilyService {
 			listFamilies = familyRepository.findByNameContainingIgnoreCase(freeText);
 		}
 	  	
-		List<FamilyDTO> listDtoRet = new ArrayList<FamilyDTO>();
+		List<FamilyDTO> response = new ArrayList<FamilyDTO>();
 		
 		for (FamilyEntity familyEntity : listFamilies) {
-			
-			FamilyDTO familyDTO = new FamilyDTO();
-			familyDTO.setFamilyId(familyEntity.getFamilyId());
-			familyDTO.setName(familyEntity.getName());
-			familyDTO.setCountry(countryMapper.entityToDto(familyEntity.getCountry()));
-			familyDTO.setCity(cityMapper.entityToDto(familyEntity.getCity()));
-			listDtoRet.add(familyDTO);
-			
+			response.add(familyMapper.entityToDto(familyEntity));
 		}
 		
-		return listDtoRet;
+		return response;
 	}
     @Override
     public FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {

@@ -132,8 +132,7 @@
     "influenceInPublicSector",
     "awarenessOfNeeds",
     "selfEsteem",
-    "autonomyDecisions",
-    "terereConsumption"
+    "autonomyDecisions"
   ],
 
   "ui:group:personal": [
@@ -195,7 +194,6 @@
     "influenceInPublicSector",
     "awarenessOfNeeds",
     "selfEsteem",
-    "autonomyDecisions",
-    "terereConsumption"
+    "autonomyDecisions"
   ]
 }

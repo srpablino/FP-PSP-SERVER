@@ -4,11 +4,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,20 +154,8 @@ public class SnapshotServiceImpl implements SnapshotService {
                     SurveyData sd = new SurveyData();
                     sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
-
-                    switch (sd.get(INDICATOR_VALUE).toString().toUpperCase()) {
-                    case "RED":
-                        toRet.setCountRedIndicators(toRet.getCountRedIndicators() + 1);
-                        break;
-                    case "YELLOW":
-                        toRet.setCountYellowIndicators(toRet.getCountYellowIndicators() + 1);
-                        break;
-                    case "GREEN":
-                        toRet.setCountGreenIndicators(toRet.getCountGreenIndicators() + 1);
-                        break;
-                    default:
-                        break;
-                    }
+                    
+                    countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
                 }
             });
@@ -179,8 +165,13 @@ public class SnapshotServiceImpl implements SnapshotService {
         toRet.setIndicatorsSurveyData(indicatorsToRet);
         toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
         toRet.setSnapshotIndicatorId(originalSnapshot.getSnapshotIndicator().getId());
-        toRet.setFamilyId(originalSnapshot.getFamily().getFamilyId());
         toRet.setSnapshotEconomicId(originalSnapshot.getId());
+        toRet.setSurveyId(originalSnapshot.getSurveyDefinition().getId());
+        
+        //set family for information purpose
+        Long familyId = originalSnapshot.getFamily().getFamilyId();
+        toRet.setFamilyId(familyId);
+        toRet.setFamily(familyService.getFamilyById(familyId));
         
         return toRet;
     }
@@ -201,9 +192,9 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familiyId) {
+    public List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId) {
         List<SnapshotIndicators> toRet = new ArrayList<>();
-        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familiyId).stream()
+        List<SnapshotEconomicEntity> originalSnapshots = economicRepository.findByFamilyFamilyId(familyId).stream()
                 .collect(Collectors.toList());
         
         for (SnapshotEconomicEntity os : originalSnapshots) {
@@ -214,7 +205,10 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setIndicatorsPriorities(priorities);
             snapshotIndicators.setCreatedAt(os.getCreatedAtAsISOString());
             snapshotIndicators.setSnapshotIndicatorId(os.getSnapshotIndicator().getId());
-
+            snapshotIndicators.setFamilyId(os.getFamily().getFamilyId());
+            snapshotIndicators.setSnapshotEconomicId(os.getId());
+            snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
+            
             toRet.add(snapshotIndicators);
         }
         return toRet;
@@ -224,26 +218,11 @@ public class SnapshotServiceImpl implements SnapshotService {
     	SnapshotIndicators indicators = new SnapshotIndicators();
     	
     	try {
-    		Map<String, String> beanProperties = BeanUtils.describe(snapshot.getSnapshotIndicator());
+    		//Map<String, String> beanProperties = BeanUtils.describe(snapshot.getSnapshotIndicator());
+    		SurveyData properties = indicatorMapper.entityToDto(snapshot.getSnapshotIndicator());
     		
-    		beanProperties.forEach((k, v) -> {
-    			Optional.ofNullable(SurveyStoplightEnum.fromValue(v)).
-    				ifPresent(light -> {
-	    				switch (light) {
-			                case RED:
-			                	indicators.setCountRedIndicators(indicators.getCountRedIndicators() + 1);
-			                    break;
-			                case YELLOW:
-			                	indicators.setCountYellowIndicators(indicators.getCountYellowIndicators() + 1);
-			                    break;
-			                case GREEN:
-			                	indicators.setCountGreenIndicators(indicators.getCountGreenIndicators() + 1);
-			                    break;
-			                default:
-			                    break;
-		                }
-	    			}	
-    			);
+    		properties.forEach((k, v) -> {
+    			countIndicators(indicators, v);
     		});
     		
 		} catch (Exception e) {
@@ -254,5 +233,25 @@ public class SnapshotServiceImpl implements SnapshotService {
     	
     	return indicators;
     }
+
+	private void countIndicators(SnapshotIndicators indicators, Object v) {
+		Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v))).
+			ifPresent(light -> {
+				switch (light) {
+		            case RED:
+		            	indicators.setCountRedIndicators(indicators.getCountRedIndicators() + 1);
+		                break;
+		            case YELLOW:
+		            	indicators.setCountYellowIndicators(indicators.getCountYellowIndicators() + 1);
+		                break;
+		            case GREEN:
+		            	indicators.setCountGreenIndicators(indicators.getCountGreenIndicators() + 1);
+		                break;
+		            default:
+		                break;
+		        }
+			}	
+		);
+	}
 
 }
