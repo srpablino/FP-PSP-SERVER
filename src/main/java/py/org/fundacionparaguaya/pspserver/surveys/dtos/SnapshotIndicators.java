@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 
 public class SnapshotIndicators {
     
@@ -34,6 +35,12 @@ public class SnapshotIndicators {
     
     @JsonProperty("snapshot_economic_id")
     private Long snapshotEconomicId;
+    
+    @JsonProperty("family")
+    private FamilyDTO family;
+    
+    @JsonProperty("survey_id")
+    private Long surveyId;
 
     public SnapshotIndicators indicatorSurveyData(List<SurveyData> indicatorsSurveyData) {
         this.indicatorsSurveyData = indicatorsSurveyData;
@@ -137,7 +144,7 @@ public class SnapshotIndicators {
         this.familyId = familyId;
     }
     
-    @ApiModelProperty(value = "SnapshotEconomic Id")
+    @ApiModelProperty(value = "Snapshot Economic Id")
     public Long getSnapshotEconomicId() {
         return snapshotEconomicId;
     }
@@ -145,8 +152,25 @@ public class SnapshotIndicators {
     public void setSnapshotEconomicId(Long snapshotEconomicId) {
         this.snapshotEconomicId = snapshotEconomicId;
     }
-
     
+    @ApiModelProperty(value = "Family")
+    public FamilyDTO getFamily() {
+		return family;
+	}
+    
+	public void setFamily(FamilyDTO family) {
+		this.family = family;
+	}
+	
+	@ApiModelProperty(value = "Survey Id")
+	public Long getSurveyId() {
+		return surveyId;
+	}
+
+	public void setSurveyId(Long surveyId) {
+		this.surveyId = surveyId;
+	}
+	
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
