@@ -5,6 +5,7 @@ import java.util.List;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 
 public interface FamilyService {
@@ -24,5 +25,8 @@ public interface FamilyService {
 	String generateFamilyCode(PersonEntity person);
 	
 	FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person);
+
+	List<FamilyDTO> listFamilies(Long organizationId, Long countryId, Long cityId, String name,
+			UserDetailsDTO userDetails);
 	
 }

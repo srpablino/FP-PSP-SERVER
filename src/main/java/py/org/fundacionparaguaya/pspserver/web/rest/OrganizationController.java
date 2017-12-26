@@ -10,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,10 +68,10 @@ public class OrganizationController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
 			@RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+			@AuthenticationPrincipal UserDetailsDTO details) {
 		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-		Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(pageRequest, ((UserDetailsDTO) authentication.getPrincipal()));
+		Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(pageRequest, details);
 		PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 		return ResponseEntity.ok(response);
 	}

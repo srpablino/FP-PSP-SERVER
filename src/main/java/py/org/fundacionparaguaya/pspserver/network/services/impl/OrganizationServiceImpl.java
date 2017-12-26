@@ -103,9 +103,14 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
-	public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails) {		
-		Page<OrganizationEntity> pageResponse = filterOrganizations(pageRequest, userDetails.getApplication(),
-				userDetails.getOrganization());
+	public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails) {
+		Long applicationId = Optional.ofNullable(userDetails.getApplication())
+				.orElse(new ApplicationDTO()).getId();
+		
+		Long organizationId = Optional.ofNullable(userDetails.getOrganization())
+				.orElse(new OrganizationDTO()).getId();
+		
+		Page<OrganizationEntity> pageResponse = filterOrganizations(pageRequest, applicationId, organizationId);
 		
 		if (pageResponse != null) {
 			return pageResponse.map(new Converter<OrganizationEntity, OrganizationDTO>() {
@@ -119,21 +124,22 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return null;
 	}
 	
-	private Page<OrganizationEntity> filterOrganizations(PageRequest pageRequest, ApplicationDTO application, OrganizationDTO organization) {
+	private Page<OrganizationEntity> filterOrganizations(PageRequest pageRequest, Long applicationId, Long organizationId) {
 		CriteriaBuilder qb = em.getCriteriaBuilder();
 		CriteriaQuery<OrganizationEntity> criteriaQuery = qb.createQuery(OrganizationEntity.class);
 		Root<OrganizationEntity> root = criteriaQuery.from(OrganizationEntity.class);
-		Join<OrganizationEntity, ApplicationEntity> joinApplication = root.join("application");
+		
 		List<Predicate> predicates = new ArrayList<>();
 		
-		if (application != null && application.getId() != null) {
+		if (applicationId != null) {
+			Join<OrganizationEntity, ApplicationEntity> joinApplication = root.join("application");
 			Expression<Long> byIdApplication = joinApplication.<Long> get("id");
-			predicates.add(qb.equal(byIdApplication, application.getId()));
+			predicates.add(qb.equal(byIdApplication, applicationId));
 		}
 		
-		if (organization != null && organization.getId() != null) {
+		if (organizationId != null) {
 			Expression<Long> byIdOrganization = root.<Long> get("id");
-			predicates.add(qb.equal(byIdOrganization, organization.getId()));
+			predicates.add(qb.equal(byIdOrganization, organizationId));
 		}
 		
 		//search only active organizations

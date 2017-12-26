@@ -7,6 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -19,13 +29,15 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
-import py.org.fundacionparaguaya.pspserver.system.mapper.CityMapper;
-import py.org.fundacionparaguaya.pspserver.system.mapper.CountryMapper;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 
@@ -38,28 +50,25 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final FamilyRepository familyRepository;
 
-    private final CountryMapper countryMapper;
-
-    private final CityMapper cityMapper;
-
     private final CountryRepository countryRepository;
 
     private final CityRepository cityRepository;
 
     private final OrganizationRepository organizationRepository;
+    
+    private final EntityManager em;
 
     private static final String SPACE = " ";
 
-    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper, CountryMapper countryMapper,
-            CityMapper cityMapper, CountryRepository countryRepository, CityRepository cityRepository,
-            OrganizationRepository organizationRepository) {
+    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
+    		CountryRepository countryRepository, CityRepository cityRepository,
+            OrganizationRepository organizationRepository, EntityManager em) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
-        this.countryMapper = countryMapper;
-        this.cityMapper = cityMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
+        this.em = em;
     }
 
     @Override
@@ -119,7 +128,7 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-   public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
+    public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
 		
 	  	List<FamilyEntity> listFamilies = new ArrayList<FamilyEntity>();
 	  	
@@ -128,15 +137,70 @@ public class FamilyServiceImpl implements FamilyService {
 		}else{
 			listFamilies = familyRepository.findByNameContainingIgnoreCase(freeText);
 		}
-	  	
-		List<FamilyDTO> response = new ArrayList<FamilyDTO>();
 		
-		for (FamilyEntity familyEntity : listFamilies) {
-			response.add(familyMapper.entityToDto(familyEntity));
+		return familyMapper.entityListToDtoList(listFamilies);
+	}
+    
+    @Override
+    public List<FamilyDTO> listFamilies(Long organizationId, Long countryId, Long cityId, String name, UserDetailsDTO userDetails) {
+		
+    	Long applicationId = Optional.ofNullable(userDetails.getApplication())
+				.orElse(new ApplicationDTO()).getId();
+		
+		Long organization = Optional.ofNullable(Optional.ofNullable(userDetails.getOrganization())
+				.orElse(new OrganizationDTO()).getId())
+				.orElse(organizationId);
+		
+		List<FamilyEntity> entityList = filterFamilies(applicationId, organization, countryId, cityId, name);
+		
+		return familyMapper.entityListToDtoList(entityList);
+	}
+    
+    private List<FamilyEntity> filterFamilies(Long applicationId, Long organizationId, Long countryId, Long cityId, String name) {
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<FamilyEntity> criteriaQuery = qb.createQuery(FamilyEntity.class);
+		Root<FamilyEntity> root = criteriaQuery.from(FamilyEntity.class);
+		
+		List<Predicate> predicates = new ArrayList<>();
+		
+		if (applicationId != null) {
+			Join<FamilyEntity, ApplicationEntity> joinApplication = root.join("application");
+			Expression<Long> byApplicationId = joinApplication.<Long> get("id");
+			predicates.add(qb.equal(byApplicationId, applicationId));
 		}
 		
-		return response;
+		if (organizationId != null) {
+			Join<FamilyEntity, OrganizationEntity> joinOrganization = root.join("organization");
+			Expression<Long> byOrganizationId = joinOrganization.<Long> get("id");
+			predicates.add(qb.equal(byOrganizationId, organizationId));
+		}
+		
+		if (countryId != null) {
+			Join<FamilyEntity, CountryEntity> joinCountry = root.join("country");
+			Expression<Long> byCountryId = joinCountry.<Long> get("id");
+			predicates.add(qb.equal(byCountryId, countryId));
+		}
+		
+		if (cityId != null) {
+			Join<FamilyEntity, CityEntity> joinCity = root.join("city");
+			Expression<Long> byCityId = joinCity.<Long> get("id");
+			predicates.add(qb.equal(byCityId, cityId));
+		}
+		
+		if(StringUtils.isNotEmpty(name)) {
+			String nameParamQuery = "%" + name.toLowerCase().replaceAll("\\s", "%") + "%";
+			Expression<String> likeName = qb.lower(root.<String> get("name"));
+			predicates.add(qb.like(likeName, nameParamQuery));
+		}
+		
+		criteriaQuery.where(qb.and(predicates.toArray(new Predicate[predicates.size()])));
+		criteriaQuery.orderBy(qb.asc(root.get("name")));
+		
+		TypedQuery<FamilyEntity> tq = em.createQuery(criteriaQuery);
+		
+		return tq.getResultList();
 	}
+    
     @Override
     public FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {
         FamilyEntity newFamily = new FamilyEntity();
@@ -156,6 +220,7 @@ public class FamilyServiceImpl implements FamilyService {
         if(snapshot.getOrganizationId()!=null) {
             OrganizationEntity organization = organizationRepository.findOne(snapshot.getOrganizationId());
             newFamily.setOrganization(organization);
+            newFamily.setApplication(organization.getApplication());
         }
 
         newFamily = familyRepository.save(newFamily);
