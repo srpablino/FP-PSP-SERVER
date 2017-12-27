@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyMapService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
@@ -81,9 +82,10 @@ public class FamilyController {
 			@RequestParam(value = "organization_id", required = false) Long organizationId,
 			@RequestParam(value = "country_id", required = false) Long countryId,
 			@RequestParam(value = "city_id", required = false) Long cityId,
-			@RequestParam(value = "free_text", required = false) String freeText,
+			@RequestParam(value = "free_text", required = false) String name,
 			@AuthenticationPrincipal UserDetailsDTO details) {
-		List<FamilyDTO> families = familyService.listFamilies(organizationId, countryId, cityId, freeText, details);
+		FamilyFilterDTO filter = new FamilyFilterDTO(organizationId, countryId, cityId, name);
+		List<FamilyDTO> families = familyService.listFamilies(filter, details);
 		return ResponseEntity.ok(families);
 	}
 
