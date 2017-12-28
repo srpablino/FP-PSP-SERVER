@@ -60,7 +60,7 @@
   "identificationType": {
   		"type": "string",
       "title": {
-        "en": "Document type"
+        "es": "Document type"
       },
       "enum": [
         "CI",
@@ -80,7 +80,7 @@
   	"identificationNumber": {
       "type": "string",
       "title": {
-        "en": "Enter your document number"
+        "es": "Enter your document number"
       },
       "default": ""
     },
@@ -88,7 +88,7 @@
     "firstName": {
       "type": "string",
       "title": {
-        "en": "Enter your name"
+        "es": "Enter your name"
       },
       "default": ""
     },
@@ -96,7 +96,7 @@
     "lastName": {
       "type": "string",
       "title": {
-        "en": "Enter your surname"
+        "es": "Enter your surname"
       },
       "default": ""
     },
@@ -105,14 +105,14 @@
       "type": "string",
       "format": "date",
       "title": {
-        "en": "Enter your date of birth"
+        "es": "Enter your date of birth"
       }
     },
     
     "countryOfBirth": {
     	  "type": "string",
         "title": {
-          "en": "Enter your country of birth"
+          "es": "Enter your country of birth"
         },
         "enum": [
           "PY",
@@ -357,246 +357,246 @@
   		"ZA"
   	  ],
         "enumNames": [
-          "Paraguay",
-  	    "Andorra",
-  		"Emiratos Árabes Unidos",
-  		"Afganistán",
-  		"Antigua y Barbuda",
-  		"Anguila",
-  		"Albania",
-  		"Armenia",
-  		"Antillas Neerlandesas",
-  		"Angola",
-  		"Antártida",
-  		"Argentina",
-  		"Samoa Americana",
-  		"Austria",
-  		"Australia",
-  		"Aruba",
-  		"Islas Áland",
-  		"Azerbaiyán",
-  		"Bosnia y Herzegovina",
-  		"Barbados",
-  		"Bangladesh",
-  		"Bélgica",
-  		"Burkina Faso",
-  		"Bulgaria",
-  		"Bahréin",
-  		"Burundi",
-  		"Benin",
-  		"San Bartolomé",
-  		"Bermudas",
-  		"Brunéi",
-  		"Bolivia",
-  		"Brasil",
-  		"Bahamas",
-  		"Bhután",
-  		"Isla Bouvet",
-  		"Botsuana",
-  		"Belarús",
-  		"Belice",
-  		"Canadá",
-  		"Islas Cocos",
-  		"República Centro-Africana",
-  		"Congo",
-  		"Suiza",
-  		"Costa de Marfil",
-  		"Islas Cook",
-  		"Chile",
-  		"Camerún",
-  		"China",
-  		"Colombia",
-  		"Costa Rica",
-  		"Cuba",
-  		"Cabo Verde",
-  		"Islas Christmas",
-  		"Chipre",
-  		"República Checa",
-  		"Alemania",
-  		"Yibuti",
-  		"Dinamarca",
-  		"Domínica",
-  		"República Dominicana",
-  		"Argel",
-  		"Ecuador",
-  		"Estonia",
-  		"Egipto",
-  		"Sahara Occidental",
-  		"Eritrea",
-  		"España",
-  		"Etiopía",
-  		"Finlandia",
-  		"Fiji",
-  		"Islas Malvinas",
-  		"Micronesia",
-  		"Islas Faroe",
-  		"Francia",
-  		"Gabón",
-  		"Reino Unido",
-  		"Granada",
-  		"Georgia",
-  		"Guayana Francesa",
-  		"Guernsey",
-  		"Ghana",
-  		"Gibraltar",
-  		"Groenlandia",
-  		"Gambia",
-  		"Guinea",
-  		"Guadalupe",
-  		"Guinea Ecuatorial",
-  		"Grecia",
-  		"Georgia del Sur e Islas Sandwich del Sur",
-  		"Guatemala",
-  		"Guam",
-  		"Guinea-Bissau",
-  		"Guayana",
-  		"Hong Kong",
-  		"Islas Heard y McDonald",
-  		"Honduras",
-  		"Croacia",
-  		"Haití",
-  		"Hungría",
-  		"Indonesia",
-  		"Irlanda",
-  		"Israel",
-  		"Isla de Man",
-  		"India",
-  		"Territorio Británico del Océano Índico",
-  		"Irak",
-  		"Irán",
-  		"Islandia",
-  		"Italia",
-  		"Jersey",
-  		"Jamaica",
-  		"Jordania",
-  		"Japón",
-  		"Kenia",
-  		"Kirguistán",
-  		"Camboya",
-  		"Kiribati",
-  		"Comoros",
-  		"San Cristóbal y Nieves",
-  		"Corea del Norte",
-  		"Corea del Sur",
-  		"Kuwait",
-  		"Islas Caimán",
-  		"Kazajstán",
-  		"Laos",
-  		"Líbano",
-  		"Santa Lucía",
-  		"Liechtenstein",
-  		"Sri Lanka",
-  		"Liberia",
-  		"Lesotho",
-  		"Lituania",
-  		"Luxemburgo",
-  		"Letonia",
-  		"Libia",
-  		"Marruecos",
-  		"Mónaco",
-  		"Moldova",
-  		"Montenegro",
-  		"Madagascar",
-  		"Islas Marshall",
-  		"Macedonia",
-  		"Mali",
-  		"Myanmar",
-  		"Mongolia",
-  		"Macao",
-  		"Martinica",
-  		"Mauritania",
-  		"Montserrat",
-  		"Malta",
-  		"Mauricio",
-  		"Maldivas",
-  		"Malawi",
-  		"México",
-  		"Malasia",
-  		"Mozambique",
-  		"Namibia",
-  		"Nueva Caledonia",
-  		"Níger",
-  		"Islas Norkfolk",
-  		"Nigeria",
-  		"Nicaragua",
-  		"Países Bajos",
-  		"Noruega",
-  		"Nepal",
-  		"Nauru",
-  		"Niue",
-  		"Nueva Zelanda",
-  		"Omán",
-  		"Panamá",
-  		"Perú",
-  		"Polinesia Francesa",
-  		"Papúa Nueva Guinea",
-  		"Filipinas",
-  		"Pakistán",
-  		"Polonia",
-  		"San Pedro y Miquelón",
-  		"Islas Pitcairn",
-  		"Puerto Rico",
-  		"Palestina",
-  		"Portugal",
-  		"Islas Palaos",
-  		"Qatar",
-  		"Reunión",
-  		"Rumanía",
-  		"Serbia y Montenegro",
-  		"Rusia",
-  		"Ruanda",
-  		"Arabia Saudita",
-  		"Islas Solomón",
-  		"Seychelles",
-  		"Sudán",
-  		"Suecia",
-  		"Singapur",
-  		"Santa Elena",
-  		"Eslovenia",
-  		"Islas Svalbard y Jan Mayen",
-  		"Eslovaquia",
-  		"Sierra Leona",
-  		"San Marino",
-  		"Senegal",
-  		"Somalia",
-  		"Surinam",
-  		"Santo Tomé y Príncipe",
-  		"El Salvador",
-  		"Siria",
-  		"Suazilandia",
-  		"Islas Turcas y Caicos",
-  		"Chad",
-  		"Territorios Australes Franceses",
-  		"Togo",
-  		"Tailandia",
-  		"Tanzania",
-  		"Tayikistán",
-  		"Tokelau",
-  		"Timor-Leste",
-  		"Turkmenistán",
-  		"Túnez",
-  		"Tonga",
-  		"Turquía",
-  		"Trinidad y Tobago",
-  		"Tuvalu",
-  		"Taiwán",
-  		"Ucrania",
-  		"Uganda",
-  		"Estados Unidos de América",
-  		"Uruguay",
-  		"Uzbekistán",
-  		"Ciudad del Vaticano",
-  		"San Vicente y las Granadinas",
-  		"Venezuela",
-  		"Islas Vírgenes Británicas",
-  		"Islas Vírgenes de los Estados Unidos de América",
-  		"Vietnam",
-  		"Vanuatu",
-  		"Wallis y Futuna",
-  		"Samoa",
-  		"Yemen",
-  		"Mayotte",
-  		"Sudáfrica"
+        "Paraguay",
+        "Andorra",
+        "United Arab Emirates",
+        "Afghanistan",
+        "Old and bearded",
+        "Eel",
+        "Albania",
+        "Armenia",
+        "Netherlands Antilles",
+        "Angola",
+        "Antarctica",
+        "Argentina",
+        "American Samoa",
+        "Austria",
+        "Australia",
+        "Aruba",
+        "Islas Áland",
+        "Azerbaijan",
+        "Bosnia and Herzegovina",
+        "Barbados",
+        "Bangladesh",
+        "Belgium",
+        "Burkina Faso",
+        "Bulgaria",
+        "Bahrain",
+        "Burundi",
+        "Benin",
+        "San Bartolome",
+        "Bermuda",
+        "Brunei",
+        "Bolivia",
+        "Brazil",
+        "Bahamas",
+        "Bhutan",
+        "Bouvet Island",
+        "Botswana",
+        "Belarus",
+        "Belize",
+        "Glen",
+        "Cocos Islands",
+        "Central African Republic",
+        "Congo",
+        "Switzerland",
+        "Ivory Coast",
+        "Cook Islands",
+        "Chile",
+        "Cameroon",
+        "China",
+        "Colombia",
+        "Costa Rica",
+        "Cuba",
+        "Cape Verde",
+        "Christmas Islands",
+        "Cyprus",
+        "Czech Republic",
+        "Germany",
+        "Djibouti",
+        "Denmark",
+        "Domínica",
+        "Dominican Republic",
+        "Algiers",
+        "Ecuador",
+        "Estonia",
+        "Egypt",
+        "Occidental Sahara",
+        "Eritrea",
+        "Spain",
+        "Ethiopia",
+        "Finland",
+        "Fiji",
+        "Falkland Islands",
+        "Micronesia",
+        "Faroe Islands",
+        "France",
+        "Gabon",
+        "United Kingdom",
+        "Pomegranate",
+        "Georgia",
+        "French Guiana",
+        "Guernsey",
+        "Ghana",
+        "Gibraltar",
+        "Greenland",
+        "Gambia",
+        "Guinea",
+        "Guadalupe",
+        "Equatorial Guinea",
+        "Greece",
+        "South Georgia and the South Sandwich Islands",
+        "Guatemala",
+        "Guam",
+        "Guinea-Bissau",
+        "Guiana",
+        "Hong Kong",
+        "Heard and McDonald Islands",
+        "Honduras",
+        "Croatia",
+        "Haiti",
+        "Hungary",
+        "Indonesia",
+        "Ireland",
+        "Israel",
+        "Isle of Man",
+        "India",
+        "British Indian Ocean Territory",
+        "Iraq",
+        "Iran",
+        "Iceland",
+        "Italy",
+        "Sweater",
+        "Jamaica",
+        "Jordan",
+        "Japan",
+        "Kenya",
+        "Kyrgyzstan",
+        "Cambodia",
+        "Kiribati",
+        "Comoros",
+        "Saint Kitts and Nevis",
+        "North Korea",
+        "South Korea",
+        "Kuwait",
+        "Cayman Islands",
+        "Kazakhstan",
+        "Laos",
+        "Lebanon",
+        "St. lucia",
+        "Liechtenstein",
+        "Sri Lanka",
+        "Liberia",
+        "Lesotho",
+        "Lithuania",
+        "Luxembourg",
+        "Latvia",
+        "Libya",
+        "Morocco",
+        "Monaco",
+        "Moldova",
+        "Montenegro",
+        "Madagascar",
+        "Marshall Islands",
+        "Macedonia",
+        "Mali",
+        "Myanmar",
+        "Mongolia",
+        "Macao",
+        "Martinique",
+        "Mauritania",
+        "Montserrat",
+        "Malt",
+        "Mauricio",
+        "Maldives",
+        "Malawi",
+        "Mexico",
+        "Malaysia",
+        "Mozambique",
+        "Namibia",
+        "New Caledonia",
+        "Niger",
+        "Norkfolk Islands",
+        "Nigeria",
+        "Nicaragua",
+        "Netherlands",
+        "Norway",
+        "Nepal",
+        "Nauru",
+        "Niue",
+        "New Zealand",
+        "Oman",
+        "Panama",
+        "Peru",
+        "French Polynesia",
+        "Papua New Guinea",
+        "Philippines",
+        "Pakistan",
+        "Poland",
+        "Saint Pierre and Miquelon",
+        "Pitcairn Islands",
+        "Puerto Rico",
+        "Palestine",
+        "Portugal",
+        "Palau Islands",
+        "Qatar",
+        "Meeting",
+        "Romania",
+        "Serbia and Montenegro",
+        "Russia",
+        "Rwanda",
+        "Saudi Arabia",
+        "Solomon Islands",
+        "Seychelles",
+        "Sudan",
+        "Sweden",
+        "Singapore",
+        "St. Helen",
+        "Slovenia",
+        "Svalbard and Jan Mayen Islands",
+        "Slovakia",
+        "Sierra Leone",
+        "San Marino",
+        "Senegal",
+        "Somalia",
+        "Surinam",
+        "Sao Tome and Principe",
+        "The Savior",
+        "Syria",
+        "Swaziland",
+        "Turks and Caicos Islands",
+        "Chad",
+        "French Southern Territories",
+        "Togo",
+        "Thailand",
+        "Tanzania",
+        "Tajikistan",
+        "Tokelau",
+        "Timor-Leste",
+        "Turkmenistan",
+        "Tunisia",
+        "Tonga",
+        "Turkey",
+        "Trinidad and Tobago",
+        "Tuvalu",
+        "Taiwan",
+        "Ukraine",
+        "Uganda",
+        "United States of America",
+        "Uruguay",
+        "Uzbekistan",
+        "Vatican CITY",
+        "St. Vincent and the Grenadines",
+        "Venezuela",
+        "British Virgin Islands",
+        "Virgin Islands of the United States of America",
+        "Vietnam",
+        "Vanuatu",
+        "Wallis and Futuna",
+        "Samoa",
+        "Yemen",
+        "Mayotte",
+        "South Africa"
   	  ],
         "default": "GB"
      },
@@ -604,7 +604,7 @@
   	"gender": {
   	  "type": "string",
       "title": {
-        "en": "Enter your gender"
+        "es": "Enter your gender"
       },
       "enum": [
         "F",
@@ -620,28 +620,28 @@
    "phoneNumber": {
       "type": "string",
       "title": {
-        "en": "Enter your phone number"
+        "es": "Enter your phone number"
       }
     },
   
     "currency": {
       "type": "string",
       "title": {
-        "en": "Currency in which he earns his money"
+        "es": "Currency in which he earns his money"
       },
       "default": "GBP/Pound Sterling "
     },
     "areaOfResidence": {
       "type": "string",
       "title": {
-        "en": "Type of residence area, usually the values are RURAL / URBAN"
+        "es": "Type of residence area, usually the values are RURAL / URBAN"
       },
       "enum": [
         "URBAN",
         "RURAL"
       ],
       "enumNames": [
-        "URBANA",
+        "URBAN",
         "RURAL"
       ],
       "default": "URBAN"
@@ -649,7 +649,7 @@
     "employmentStatusPrimary": {
       "type": "string",
       "title": {
-        "en": "Put in your primary employment"
+        "es": "Put in your primary employment"
       },
       "enum": [
         "SELF-EMPLOYED",
@@ -684,7 +684,7 @@
     "activityMain": {
       "type": "string",
       "title": {
-        "en": "Enter your main activity"
+        "es": "Enter your main activity"
       },
       "enum": [
         "AGRICULTURE",
@@ -737,7 +737,7 @@
     "employmentStatusSecondary": {
       "type": "string",
       "title": {
-        "en": "Job position in your secondary employment"
+        "es": "Job position in your secondary employment"
       },
       "enum": [
         "SELF-EMPLOYED",
@@ -772,7 +772,7 @@
     "activitySecondary": {
       "type": "string",
       "title": {
-        "en": "Enter your secondary activity"
+        "es": "Enter your secondary activity"
       },
       "enum": [
         "AGRICULTURE",
@@ -825,63 +825,63 @@
     "householdMonthlyIncome": {
       "type": "integer",
       "title": {
-        "en": "Enter your family monthly income"
+        "es": "Enter your family monthly income"
       },
       "default": 0
     },
     "salaryIncome": {
       "type": "integer",
       "title": {
-        "en": "Enter your monthly income by salary"
+        "es": "Enter your monthly income by salary"
       },
       "default": 0
     },
     "benefitIncome": {
       "type": "integer",
       "title": {
-        "en": "If you receive any type of benefit from the state or organization, enter the amount"
+        "es": "If you receive any type of benefit from the state or organization, enter the amount"
       },
       "default": 0
     },
     "pensionIncome": {
       "type": "integer",
       "title": {
-        "en": "If you receive pension income, enter the amount"
+        "es": "If you receive pension income, enter the amount"
       },
       "default": 0
     },
     "savingsIncome": {
       "type": "integer",
       "title": {
-        "en": "Enter the amount you have of savings"
+        "es": "Enter the amount you have of savings"
       },
       "default": 0
     },
     "otherIncome": {
       "type": "integer",
       "title": {
-        "en": "Enter other income that you have"
+        "es": "Enter other income that you have"
       },
       "default": 0
     },
     "householdMonthlyOutgoing": {
       "type": "integer",
       "title": {
-        "en": "Enter the monthly expenses you have in your family"
+        "es": "Enter the monthly expenses you have in your family"
       },
       "default": 0
     },
     "netSuplus": {
       "type": "integer",
       "title": {
-        "en": "Enter net deficit"
+        "es": "Enter net deficit"
       },
       "default": 0
     },
     "educationClientLevel": {
       "type": "string",
       "title": {
-        "en": "Level of education of the person interviewed or the head of the family"
+        "es": "Level of education of the person interviewed or the head of the family"
       },
       "enum": [
         "INCOMPLETE-PRIMARY",
@@ -904,7 +904,7 @@
     "educationPersonMostStudied": {
       "type": "string",
       "title": {
-        "en": "Level of education of the person with more studies in the family"
+        "es": "Level of education of the person with more studies in the family"
       },
       "enum": [
         "INCOMPLETE-PRIMARY",
@@ -927,7 +927,7 @@
     "educationLevelAttained": {
       "type": "string",
       "title": {
-        "en": "Level of education reached by the person with the most studies in the family"
+        "es": "Level of education reached by the person with the most studies in the family"
       },
       "enum": [
         "NONE",
@@ -954,7 +954,7 @@
     "housingSituation": {
       "type": "string",
       "title": {
-        "en": "Housing situation"
+        "es": "Housing situation"
       },
       "enum": [
         "OWN-TITTLE",
@@ -975,7 +975,7 @@
     "otherUsefulInfo": {
       "type": "string",
       "title": {
-        "en": "Other relevant information"
+        "es": "Other relevant information"
       },
       "default": "none"
     },
@@ -983,7 +983,7 @@
     "familyCountry":{
         "type": "string",
         "title": {
-          "en": "Country in which the family resides"
+          "es": "Country in which the family resides"
         },
         "enum": [
           "United Kingdom"
@@ -998,7 +998,7 @@
       "familyCity":{
           "type": "string",
           "title": {
-            "en": "City in which the family resides"
+            "es": "City in which the family resides"
           },
           "enum": [
             "Aberdeen",
@@ -1142,14 +1142,14 @@
     "familyUbication": {
     	"type": "string",
     	"title": {
-    		"en": "Select the geographic location of the family"
+    		"es": "Select the geographic location of the family"
     	},
         "default":"54.979645, -1.617649" 
     },
     "income": {
       "type": "array",
       "title": {
-        "en": "Income above the Poverty Line"
+        "es": "Income above the Poverty Line"
       },
       "items": {
         "type": "object",
@@ -1173,7 +1173,7 @@
     "documentation": {
       "type": "array",
       "title": {
-        "en": "Person Identification"
+        "es": "Person Identification"
       },
       "items": {
         "type": "object",
@@ -1199,7 +1199,7 @@
     "drinkingWaterAccess": {
       "type": "array",
       "title": {
-        "en": "Access to drinking water (Review)"
+        "es": "Access to drinking water (Review)"
       },
       "items": {
         "type": "object",
@@ -1224,7 +1224,7 @@
     "nearbyHealthPost": {
       "type": "array",
       "title": {
-        "en": "Access to Health Care"
+        "es": "Access to Health Care"
       },
       "items": {
         "type": "object",
@@ -1248,7 +1248,7 @@
     "alimentation": {
       "type": "array",
       "title": {
-        "en": "Eating a nutritious diet"
+        "es": "Eating a nutritious diet"
       },
       "items": {
         "type": "object",
@@ -1272,7 +1272,7 @@
     "garbageDisposal": {
       "type": "array",
       "title": {
-        "en": "Rubbish Disposal"
+        "es": "Rubbish Disposal"
       },
       "items": {
         "type": "object",
@@ -1296,7 +1296,7 @@
     "safeHouse": {
       "type": "array",
       "title": {
-    	"en": "Safe Home"
+    	"es": "Safe Home"
       },
       "items": {
         "type": "object",
@@ -1320,7 +1320,7 @@
     "safeBathroom": {
     	"type": "array",
         "title": {
-          "en": "Sanitation and Sewage"
+          "es": "Sanitation and Sewage"
         },
         "items": {
           "type": "object",
@@ -1345,7 +1345,7 @@
     "electricityAccess": {
       "type": "array",
       "title": {
-        "en": "Access to gas/electricity"
+        "es": "Access to gas/electricity"
       },
       "items": {
         "type": "object",
@@ -1369,7 +1369,7 @@
     "refrigerator": {
       "type": "array",
       "title": {
-        "en": "Household Appliances"
+        "es": "Household Appliances"
       },
       "items": {
         "type": "object",
@@ -1393,7 +1393,7 @@
     "separateBed": {
       "type": "array",
       "title": {
-        "en": "Separate Bedrooms"
+        "es": "Separate Bedrooms"
       },
       "items": {
         "type": "object",
@@ -1417,7 +1417,7 @@
     "separateBedrooms": {
     	"type": "array",
         "title": {
-          "en": "Separate Bedrooms (Duplicate)"
+          "es": "Separate Bedrooms (Duplicate)"
         },
         "items": {
           "type": "object",
@@ -1441,7 +1441,7 @@
     "properKitchen": {
       "type": "array",
       "title": {
-        "en": "Cooking Facilities"
+        "es": "Cooking Facilities"
       },
       "items": {
         "type": "object",
@@ -1466,7 +1466,7 @@
     "phone": {
       "type": "array",
       "title": {
-        "en": "Communication"
+        "es": "Communication"
       },
       "items": {
         "type": "object",
@@ -1491,7 +1491,7 @@
     "security": {
       "type": "array",
       "title": {
-        "en": "Security"
+        "es": "Security"
       },
       "items": {
         "type": "object",
@@ -1516,7 +1516,7 @@
     "readAndWrite": {
       "type": "array",
       "title": {
-        "en": "Literacy- Knows how to read and write in English"
+        "es": "Literacy- Knows how to read and write in English"
       },
       "items": {
         "type": "object",
@@ -1541,7 +1541,7 @@
     "middleEducation": {
       "type": "array",
       "title": {
-        "en": "Children enrolled and attend school"
+        "es": "Children enrolled and attend school"
       },
       "items": {
         "type": "object",
@@ -1566,7 +1566,7 @@
     "socialCapital": {
       "type": "array",
       "title": {
-        "en": "Part of group activities"
+        "es": "Part of group activities"
       },
       "items": {
         "type": "object",
@@ -1591,7 +1591,7 @@
     "informationAccess": {
       "type": "array",
       "title": {
-        "en": "Access to information"
+        "es": "Access to information"
       },
       "items": {
         "type": "object",
@@ -1616,7 +1616,7 @@
     "influenceInPublicSector": {
       "type": "array",
       "title": {
-        "en": "Influence on the public sector"
+        "es": "Influence on the public sector"
       },
       "items": {
         "type": "object",
@@ -1641,7 +1641,7 @@
     "awarenessOfNeeds": {
       "type": "array",
       "title": {
-        "en": "Awareness of needs: Life map"
+        "es": "Awareness of needs: Life map"
       },
       "items": {
         "type": "object",
@@ -1666,7 +1666,7 @@
     "selfEsteem": {
       "type": "array",
       "title": {
-        "en": "Self Confidence and self esteem"
+        "es": "Self Confidence and self esteem"
       },
       "items": {
         "type": "object",
@@ -1691,7 +1691,7 @@
     "autonomyDecisions": {
       "type": "array",
       "title": {
-        "en": "Autonomy to make decisions"
+        "es": "Autonomy to make decisions"
       },
       "items": {
         "type": "object",
