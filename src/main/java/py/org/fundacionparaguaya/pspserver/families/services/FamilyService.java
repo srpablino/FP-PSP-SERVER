@@ -28,5 +28,7 @@ public interface FamilyService {
 	FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person);
 
 	List<FamilyDTO> listFamilies(FamilyFilterDTO filter, UserDetailsDTO userDetails);
+
+    Long countFamiliesByDetails(UserDetailsDTO userDetails);
 	
 }
