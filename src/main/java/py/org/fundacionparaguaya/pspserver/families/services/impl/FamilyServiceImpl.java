@@ -132,16 +132,7 @@ public class FamilyServiceImpl implements FamilyService {
     
     @Override
     public List<FamilyDTO> listFamilies(FamilyFilterDTO filter, UserDetailsDTO userDetails) {
-		
-    	Long applicationId = Optional.ofNullable(userDetails.getApplication())
-				.orElse(new ApplicationDTO()).getId();
-		
-		Long organizationId = Optional.ofNullable(Optional.ofNullable(userDetails.getOrganization())
-				.orElse(new OrganizationDTO()).getId())
-				.orElse(filter.getOrganizationId());
-		
-		filter.setApplicationId(applicationId);
-		filter.setOrganizationId(organizationId);
+        loadFilterByDetails(filter, userDetails);
 		
 		List<FamilyEntity> entityList = familyRepository.findAll(where(byFilter(filter)));
 		
@@ -173,5 +164,28 @@ public class FamilyServiceImpl implements FamilyService {
         newFamily = familyRepository.save(newFamily);
 
         return newFamily;
+    }
+    
+    @Override
+    public Long countFamiliesByDetails(UserDetailsDTO userDetails) {
+        return familyRepository.count(byFilter(buildFilterByDetails(userDetails)));
+    }
+    
+    private FamilyFilterDTO buildFilterByDetails(UserDetailsDTO userDetails) {
+        FamilyFilterDTO filter = new FamilyFilterDTO();
+        loadFilterByDetails(filter, userDetails);
+        return filter;
+    }
+    
+    private void loadFilterByDetails(FamilyFilterDTO target, UserDetailsDTO userDetails) {
+        Long applicationId = Optional.ofNullable(userDetails.getApplication())
+                .orElse(new ApplicationDTO()).getId();
+        
+        Long organizationId = Optional.ofNullable(Optional.ofNullable(userDetails.getOrganization())
+                .orElse(new OrganizationDTO()).getId())
+                .orElse(target.getOrganizationId());
+        
+        target.setApplicationId(applicationId);
+        target.setOrganizationId(organizationId);
     }
 }
