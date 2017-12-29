@@ -16,7 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
@@ -30,13 +32,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	 private Logger LOG = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
-	 private OrganizationRepository organizationRepository;
+	 private final OrganizationRepository organizationRepository;
 	
 	 private final OrganizationMapper organizationMapper;
 	 
-	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper) {
+	 private final FamilyService familyService;
+	 
+	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper, FamilyService familyService) {
 		this.organizationRepository = organizationRepository;
 		this.organizationMapper = organizationMapper;
+		this.familyService = familyService;
 	}
 
 	@Override
@@ -110,6 +115,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 		}
 		
 		return null;
+	}
+	
+	@Override
+    public DashboardDTO getOrganizationDashboard(UserDetailsDTO details) {
+	    //later you can add as many attributes as you need
+	    return DashboardDTO.of(familyService.countFamiliesByDetails(details));
 	}
 
 }

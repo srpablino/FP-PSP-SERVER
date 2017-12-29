@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
@@ -41,14 +42,12 @@ public class OrganizationController {
 		this.organizationService = organizationService;
 	}
 	
-	
 	@PostMapping()
 	public ResponseEntity<OrganizationDTO> addOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
 		OrganizationDTO result = organizationService.addOrganization(organizationDTO);
 		return ResponseEntity.created(new URI("/api/v1/organizations/" + result.getId()))
 				.body(result);
 	}
-	
 	
 	@PutMapping("/{organizationId}")
 	public ResponseEntity<OrganizationDTO> updateOrganization(@PathVariable("organizationId") long organizationId, @RequestBody OrganizationDTO organizationDTO) {
@@ -82,5 +81,11 @@ public class OrganizationController {
 		organizationService.deleteOrganization(organizationId);
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("/dashboard")
+    public ResponseEntity<DashboardDTO> getApplicationDashboard(@AuthenticationPrincipal UserDetailsDTO details) {
+        DashboardDTO dto = organizationService.getOrganizationDashboard(details);
+        return ResponseEntity.ok(dto);
+    }
 
 }

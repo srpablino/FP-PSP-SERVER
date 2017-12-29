@@ -3,6 +3,8 @@ package py.org.fundacionparaguaya.pspserver.network.services;
 import java.util.List;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 
 
@@ -17,5 +19,7 @@ public interface ApplicationService {
 	List<ApplicationDTO> getAllApplications();
 	
 	void deleteApplication(Long applicationId);
+
+    DashboardDTO getApplicationDashboard(UserDetailsDTO details);
 	
 }
