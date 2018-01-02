@@ -171,6 +171,11 @@ public class FamilyServiceImpl implements FamilyService {
         return familyRepository.count(byFilter(buildFilterByDetails(userDetails)));
     }
     
+    @Override
+    public Long countFamiliesByFilter(FamilyFilterDTO filter) {
+        return familyRepository.count(byFilter(filter));
+    }
+    
     private FamilyFilterDTO buildFilterByDetails(UserDetailsDTO userDetails) {
         FamilyFilterDTO filter = new FamilyFilterDTO();
         loadFilterByDetails(filter, userDetails);

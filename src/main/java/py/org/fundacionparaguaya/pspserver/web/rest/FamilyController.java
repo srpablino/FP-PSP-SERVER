@@ -62,7 +62,6 @@ public class FamilyController {
 		FamilyMapDTO dto = familyMapService.getFamilyMapById(familyId);
 		return ResponseEntity.ok(dto);
 	}
-	
 
 	@GetMapping()
 	public ResponseEntity<List<FamilyDTO>> getAllFamilies() {

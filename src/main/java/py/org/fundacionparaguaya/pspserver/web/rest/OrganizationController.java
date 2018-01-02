@@ -41,14 +41,12 @@ public class OrganizationController {
 		this.organizationService = organizationService;
 	}
 	
-	
 	@PostMapping()
 	public ResponseEntity<OrganizationDTO> addOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) throws URISyntaxException {
 		OrganizationDTO result = organizationService.addOrganization(organizationDTO);
 		return ResponseEntity.created(new URI("/api/v1/organizations/" + result.getId()))
 				.body(result);
 	}
-	
 	
 	@PutMapping("/{organizationId}")
 	public ResponseEntity<OrganizationDTO> updateOrganization(@PathVariable("organizationId") long organizationId, @RequestBody OrganizationDTO organizationDTO) {
@@ -82,5 +80,12 @@ public class OrganizationController {
 		organizationService.deleteOrganization(organizationId);
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("/dashboard")
+    public ResponseEntity<OrganizationDTO> getApplicationDashboard(@RequestParam(value = "organizationId", required = false) Long organizationId, 
+            @AuthenticationPrincipal UserDetailsDTO details) {
+	    OrganizationDTO dto = organizationService.getOrganizationDashboard(organizationId, details);
+        return ResponseEntity.ok(dto);
+    }
 
 }

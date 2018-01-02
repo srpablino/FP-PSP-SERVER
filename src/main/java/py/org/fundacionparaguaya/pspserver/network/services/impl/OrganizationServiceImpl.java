@@ -16,7 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
@@ -30,13 +33,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	 private Logger LOG = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
-	 private OrganizationRepository organizationRepository;
+	 private final OrganizationRepository organizationRepository;
 	
 	 private final OrganizationMapper organizationMapper;
 	 
-	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper) {
+	 private final FamilyService familyService;
+	 
+	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper, FamilyService familyService) {
 		this.organizationRepository = organizationRepository;
 		this.organizationMapper = organizationMapper;
+		this.familyService = familyService;
 	}
 
 	@Override
@@ -110,6 +116,25 @@ public class OrganizationServiceImpl implements OrganizationService {
 		}
 		
 		return null;
+	}
+	
+	@Override
+    public OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details) {
+	    OrganizationDTO dto = new OrganizationDTO();
+        
+        if(details.getOrganization() != null && details.getOrganization().getId() != null) {
+            dto = getOrganizationById(details.getOrganization().getId());
+        }else if(organizationId != null){
+            dto = getOrganizationById(organizationId);
+        }
+        
+        Long applicationId = Optional.ofNullable(details.getApplication())
+                .orElse(new ApplicationDTO()).getId();
+	    
+	    FamilyFilterDTO filter = new FamilyFilterDTO(applicationId, dto.getId());	    
+	    dto.setDashboard(DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
+	    
+	    return dto;
 	}
 
 }
