@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.network.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -12,7 +13,7 @@ public interface OrganizationService{
 
 	OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO);
 
-	OrganizationDTO addOrganization(OrganizationDTO organizationDTO);
+	OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException;
 	
 	OrganizationDTO getOrganizationById(Long organizationId);
 	

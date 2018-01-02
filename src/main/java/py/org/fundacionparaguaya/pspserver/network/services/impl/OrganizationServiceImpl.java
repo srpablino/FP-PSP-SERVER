@@ -6,6 +6,7 @@ import static py.org.fundacionparaguaya.pspserver.network.specifications.Organiz
 
 import java.util.List;
 import java.util.Optional;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -22,6 +24,7 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
+import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 
@@ -33,7 +36,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 	 private OrganizationRepository organizationRepository;
 	
 	 private final OrganizationMapper organizationMapper;
-	 
+
+	@Autowired
+	private ImageUploadService imageUploadService;
+
 	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper) {
 		this.organizationRepository = organizationRepository;
 		this.organizationMapper = organizationMapper;
@@ -55,10 +61,24 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
-	public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) {
+	public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException {
+		// Save Organization entity
 		OrganizationEntity organization = new OrganizationEntity();
 		BeanUtils.copyProperties(organizationDTO, organization);
 		OrganizationEntity newOrganization= organizationRepository.save(organization);
+
+		// Upload image to AWS S3 service
+		String file = organizationDTO.getFile();
+		if (file != null) {
+			String logoURL = imageUploadService.uploadImage(file, newOrganization.getId());
+
+			if (logoURL != null) {
+				// Update Organization entity with image URL
+				newOrganization.setLogoUrl(logoURL);
+				organizationRepository.save(newOrganization);
+			}
+		}
+
 		return organizationMapper.entityToDto(newOrganization);
 	}
 

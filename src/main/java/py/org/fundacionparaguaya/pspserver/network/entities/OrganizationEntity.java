@@ -46,6 +46,8 @@ public class OrganizationEntity {
 	@JoinColumn(name = "application_id")
 	private ApplicationEntity application;
 
+	private String logoUrl;
+
 	public Long getId() {
 		return id;
 	}
@@ -110,7 +112,15 @@ public class OrganizationEntity {
 		this.application = application;
 	}
 
-	
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

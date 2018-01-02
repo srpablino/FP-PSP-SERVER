@@ -31,13 +31,17 @@ public class OrganizationDTO implements Serializable {
 	private String information;
 
 	private ApplicationDTO application;
-	
-	
+
+	private String logoUrl;
+
+	private String file;
+
+
 	public OrganizationDTO() {}
 	
 
 	private OrganizationDTO(Long organizationId, String name, String code, String description, boolean isActive,
-			CountryDTO country, String information, ApplicationDTO application) {
+			CountryDTO country, String information, ApplicationDTO application, String logoUrl, String file) {
 		this.id = organizationId;
 		this.name = name;
 		this.code = code;
@@ -46,6 +50,8 @@ public class OrganizationDTO implements Serializable {
 		this.country = country;
 		this.information = information;
 		this.application = application;
+		this.logoUrl = logoUrl;
+		this.file = file;
 	}
 
 	public static class Builder {
@@ -57,7 +63,9 @@ public class OrganizationDTO implements Serializable {
 		private CountryDTO country;
 		private String information;
 		private ApplicationDTO application;
-		
+		private String logoUrl;
+		private String file;
+
 		public Builder id(Long organizationId) {
 			this.id = organizationId;
 			return this;
@@ -97,9 +105,19 @@ public class OrganizationDTO implements Serializable {
 			this.application = application;
 			return this;
 		}
-		
+
+		public Builder logoUrl(String logoUrl) {
+			this.logoUrl = logoUrl;
+			return this;
+		}
+
+		public Builder file(String file) {
+			this.file = file;
+			return this;
+		}
+
 		public OrganizationDTO build() {
-			return new OrganizationDTO(id, name, code, description, isActive, country, information, application);
+			return new OrganizationDTO(id, name, code, description, isActive, country, information, application, logoUrl, file);
 		}
 	}
 	
@@ -185,7 +203,27 @@ public class OrganizationDTO implements Serializable {
 	public void setApplication(ApplicationDTO application) {
 		this.application = application;
 	}
-	
+
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+
+	public String getFile() {
+		return file;
+	}
+
+
+	public void setFile(String file) {
+		this.file = file;
+	}
+
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -197,6 +235,7 @@ public class OrganizationDTO implements Serializable {
 				.add("country", country.toString())
 				.add("information", information)
 				.add("application", application.toString())
+				.add("logoUrl", logoUrl)
 				.toString();
 	}
 
