@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
@@ -118,9 +119,22 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 	
 	@Override
-    public DashboardDTO getOrganizationDashboard(UserDetailsDTO details) {
-	    //later you can add as many attributes as you need
-	    return DashboardDTO.of(familyService.countFamiliesByDetails(details));
+    public OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details) {
+	    OrganizationDTO dto = new OrganizationDTO();
+        
+        if(details.getOrganization() != null && details.getOrganization().getId() != null) {
+            dto = getOrganizationById(details.getOrganization().getId());
+        }else if(organizationId != null){
+            dto = getOrganizationById(organizationId);
+        }
+        
+        Long applicationId = Optional.ofNullable(details.getApplication())
+                .orElse(new ApplicationDTO()).getId();
+	    
+	    FamilyFilterDTO filter = new FamilyFilterDTO(applicationId, dto.getId());	    
+	    dto.setDashboard(DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
+	    
+	    return dto;
 	}
 
 }

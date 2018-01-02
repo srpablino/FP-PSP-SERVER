@@ -3,6 +3,7 @@
  */
 package py.org.fundacionparaguaya.pspserver.network.dtos;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,7 +14,11 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
  * @author bsandoval
  *
  */
-public class DashboardDTO {
+public class DashboardDTO implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Long numberOfFamilies;
     private List<ActivityDTO> activityFeed;
     

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
-import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
@@ -83,8 +82,9 @@ public class OrganizationController {
 	}
 	
 	@GetMapping("/dashboard")
-    public ResponseEntity<DashboardDTO> getApplicationDashboard(@AuthenticationPrincipal UserDetailsDTO details) {
-        DashboardDTO dto = organizationService.getOrganizationDashboard(details);
+    public ResponseEntity<OrganizationDTO> getApplicationDashboard(@RequestParam(value = "organizationId", required = false) Long organizationId, 
+            @AuthenticationPrincipal UserDetailsDTO details) {
+	    OrganizationDTO dto = organizationService.getOrganizationDashboard(organizationId, details);
         return ResponseEntity.ok(dto);
     }
 

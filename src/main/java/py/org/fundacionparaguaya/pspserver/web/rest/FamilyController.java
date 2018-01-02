@@ -62,7 +62,6 @@ public class FamilyController {
 		FamilyMapDTO dto = familyMapService.getFamilyMapById(familyId);
 		return ResponseEntity.ok(dto);
 	}
-	
 
 	@GetMapping()
 	public ResponseEntity<List<FamilyDTO>> getAllFamilies() {
@@ -88,11 +87,5 @@ public class FamilyController {
 		List<FamilyDTO> families = familyService.listFamilies(filter, details);
 		return ResponseEntity.ok(families);
 	}
-	
-	@GetMapping("/counter")
-    public ResponseEntity<Long> getFamiliesByFilter(@AuthenticationPrincipal UserDetailsDTO details) {
-        Long count = familyService.countFamiliesByDetails(details);
-        return ResponseEntity.ok(count);
-    }
 
 }

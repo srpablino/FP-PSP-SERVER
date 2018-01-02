@@ -32,12 +32,13 @@ public class OrganizationDTO implements Serializable {
 
 	private ApplicationDTO application;
 	
+	private DashboardDTO dashboard;
 	
 	public OrganizationDTO() {}
 	
 
 	private OrganizationDTO(Long organizationId, String name, String code, String description, boolean isActive,
-			CountryDTO country, String information, ApplicationDTO application) {
+			CountryDTO country, String information, ApplicationDTO application, DashboardDTO dashboard) {
 		this.id = organizationId;
 		this.name = name;
 		this.code = code;
@@ -46,6 +47,7 @@ public class OrganizationDTO implements Serializable {
 		this.country = country;
 		this.information = information;
 		this.application = application;
+		this.dashboard = dashboard;
 	}
 
 	public static class Builder {
@@ -57,6 +59,7 @@ public class OrganizationDTO implements Serializable {
 		private CountryDTO country;
 		private String information;
 		private ApplicationDTO application;
+		private DashboardDTO dashboard;
 		
 		public Builder id(Long organizationId) {
 			this.id = organizationId;
@@ -98,8 +101,13 @@ public class OrganizationDTO implements Serializable {
 			return this;
 		}
 		
+		public Builder dashboard(DashboardDTO dashboard) {
+            this.dashboard = dashboard;
+            return this;
+        }
+		
 		public OrganizationDTO build() {
-			return new OrganizationDTO(id, name, code, description, isActive, country, information, application);
+			return new OrganizationDTO(id, name, code, description, isActive, country, information, application, dashboard);
 		}
 	}
 	
@@ -186,6 +194,14 @@ public class OrganizationDTO implements Serializable {
 		this.application = application;
 	}
 	
+	public DashboardDTO getDashboard() {
+        return dashboard;
+    }
+	
+    public void setDashboard(DashboardDTO dashboard) {
+        this.dashboard = dashboard;
+    }
+	
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -197,8 +213,8 @@ public class OrganizationDTO implements Serializable {
 				.add("country", country.toString())
 				.add("information", information)
 				.add("application", application.toString())
+				.add("dashboard", dashboard.toString())
 				.toString();
 	}
-
 	
 }
