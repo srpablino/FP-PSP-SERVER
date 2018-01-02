@@ -80,7 +80,7 @@
   	"identificationNumber": {
       "type": "string",
       "title": {
-        "es": "Enter your document number"
+        "es": "Please enter your selected document number"
       },
       "default": ""
     },
@@ -88,7 +88,7 @@
     "firstName": {
       "type": "string",
       "title": {
-        "es": "Enter your name"
+        "es": "Enter your first name"
       },
       "default": ""
     },
@@ -608,11 +608,13 @@
       },
       "enum": [
         "F",
-        "M"
+        "M",
+        "O"
       ],
       "enumNames": [
         "Female",
-        "Male"
+        "Male",
+        "Prefer not to disclose"
       ],
       "default": "F"
    },
@@ -620,21 +622,21 @@
    "phoneNumber": {
       "type": "string",
       "title": {
-        "es": "Enter your phone number"
+        "es": "Contact number or email address"
       }
     },
   
     "currency": {
       "type": "string",
       "title": {
-        "es": "Currency in which he earns his money"
+        "es": "Please enter the currency in which you earn your main income"
       },
       "default": "GBP/Pound Sterling "
     },
     "areaOfResidence": {
       "type": "string",
       "title": {
-        "es": "Type of residence area, usually the values are RURAL / URBAN"
+        "es": "Please enter the area you live in"
       },
       "enum": [
         "URBAN",
@@ -649,7 +651,7 @@
     "employmentStatusPrimary": {
       "type": "string",
       "title": {
-        "es": "Put in your primary employment"
+        "es": "Please enter your primary economic activity"
       },
       "enum": [
         "SELF-EMPLOYED",
@@ -660,31 +662,25 @@
         "WORK-BASED-TRAINING",
         "STUDENT",
         "VOLUNTEERING-INTERNSHIP",
-        "TRAVELLING",
-        "MEDICAL-TREATMENT",
-        "CUSTODIAL-SENTENCE",
         "OTHER-INACTIVE"
       ],
       "enumNames": [
         "Independent work",
-        "Does not have",
+        "Unemployed",
         "Full time employment",
         "Part time employment",
         "Occasional work",
         "Work Based Training",
         "Student",
         "Volunteering/Internship",
-        "Traveling",
-        "Medical treatment",
-        "Conditional freedom",
-        "Others"
+        "Other"
       ],
       "default": "SELF-EMPLOYED"
     },
     "activityMain": {
       "type": "string",
       "title": {
-        "es": "Enter your main activity"
+        "es": "Please enter your main type of economic activity"
       },
       "enum": [
         "AGRICULTURE",
@@ -737,7 +733,7 @@
     "employmentStatusSecondary": {
       "type": "string",
       "title": {
-        "es": "Job position in your secondary employment"
+        "es": "If you have one, please enter your secondary economic activity"
       },
       "enum": [
         "SELF-EMPLOYED",
@@ -748,31 +744,25 @@
         "WORK-BASED-TRAINING",
         "STUDENT",
         "VOLUNTEERING-INTERNSHIP",
-        "TRAVELLING",
-        "MEDICAL-TREATMENT",
-        "CUSTODIAL-SENTENCE",
         "OTHER-INACTIVE"
       ],
       "enumNames": [
     	"Independent work",
-    	"Does not have",
+    	"I do not have a secondary economic activity",
     	"Full-time employment",
     	"Timeshare employment",
     	"Occasional work",
     	"Work Based Training",
     	"Student",
     	"Volunteer / Internship",
-    	"Traveling",
-    	"Treating a doctor",
-    	"Conditional freedom",
-    	"Others"
+    	"Other"
       ],
       "default": "SELF-EMPLOYED"
     },
     "activitySecondary": {
       "type": "string",
       "title": {
-        "es": "Enter your secondary activity"
+        "es": "Please enter the type of your secondary economic activity"
       },
       "enum": [
         "AGRICULTURE",
@@ -825,81 +815,81 @@
     "householdMonthlyIncome": {
       "type": "integer",
       "title": {
-        "es": "Enter your family monthly income"
+        "es": "Please enter an estimate of your gross monthly household income"
       },
       "default": 0
     },
     "salaryIncome": {
       "type": "integer",
       "title": {
-        "es": "Enter your monthly income by salary"
+        "es": "How many people under 18 live in your household (Test)"
       },
       "default": 0
     },
     "benefitIncome": {
       "type": "integer",
       "title": {
-        "es": "If you receive any type of benefit from the state or organization, enter the amount"
+        "es": "Do you receive any state income (e.g. benefits, pension, allowances)? Please indicate the approximate monthly amount"
       },
       "default": 0
     },
     "pensionIncome": {
       "type": "integer",
       "title": {
-        "es": "If you receive pension income, enter the amount"
+        "es": "pensionIncome (Test)"
       },
       "default": 0
     },
     "savingsIncome": {
       "type": "integer",
       "title": {
-        "es": "Enter the amount you have of savings"
+        "es": "savingsIncome (Test)"
       },
       "default": 0
     },
     "otherIncome": {
       "type": "integer",
       "title": {
-        "es": "Enter other income that you have"
+        "es": "otherIncome (Test)"
       },
       "default": 0
     },
     "householdMonthlyOutgoing": {
       "type": "integer",
       "title": {
-        "es": "Enter the monthly expenses you have in your family"
+        "es": "householdMonthlyOutgoing (Test)"
       },
       "default": 0
     },
     "netSuplus": {
       "type": "integer",
       "title": {
-        "es": "Enter net deficit"
+        "es": "netSuplus (Test)"
       },
       "default": 0
     },
     "educationClientLevel": {
       "type": "string",
       "title": {
-        "es": "Level of education of the person interviewed or the head of the family"
+        "es": "Please enter your education level"
       },
       "enum": [
-        "INCOMPLETE-PRIMARY",
-        "COMPLETED-PRIMARY",
-        "INCOMPLETE-SECONDARY",
-        "COMPLETED-SECONDARY",
-        "INCOMPLETE-COLLEGE",
-        "COLLEGE-DEGREE"
+    	  "SCHOOL-INCOMPLETE", 
+    	  "SCHOOL-COMPLETE", 
+    	  "COLLEGE-INCOMPLETE", 
+    	  "COLLEGE-COMPLETE", 
+    	  "UNIVERSITY-INCOMPLETE", 
+    	  "UNIVERSITY-COMPLETE"
       ],
       "enumNames": [
-    	"Elementary incomplete",
-    	"Complete primary",
-    	"Incomplete secondary",
-    	"Completed secondary",
-    	"Incomplete university",
-    	"College degree"
+    	  "School incomplete", 
+    	  "School complete", 
+    	  "College incomplete", 
+    	  "College complete", 
+    	  "University incomplete", 
+    	  "University complete"
       ],
-      "default": "INCOMPLETE-PRIMARY"
+      "default": "SCHOOL-COMPLETE"
     },
     "educationPersonMostStudied": {
       "type": "string",
@@ -957,33 +947,53 @@
         "es": "Housing situation"
       },
       "enum": [
-        "OWN-TITTLE",
-        "OWN-NO-TITTLE",
-        "FAMILY-PROPERTY",
-        "RENTED",
-        "BORROWED"
+    	  "OWNER", 
+    	  "COUNCIL-HOUSING-ASSOCIATION", 
+    	  "PRIVATE-RENTAL", 
+    	  "LIVING-WITH-PARENTS", 
+    	  "LIVING-WITH-PARTNER", 
+    	  "IN-CARE", 
+    	  "OTHER"
       ],
       "enumNames": [
-    	 "Own with title",
-    	 "Own without title",
-    	 "In family property",
-    	 "Rented",
-    	 "Loaned"
+    	  "Owner", 
+    	  "Council/Housing Association", 
+    	  "Private rental", 
+    	  "Living with Parents", 
+    	  "Living with Partner", 
+    	  "In care", 
+    	  "Other"
       ],
-      "default": "OWN-TITTLE"
+      "default": "OWNER"
     },
     "otherUsefulInfo": {
-      "type": "string",
-      "title": {
-        "es": "Other relevant information"
-      },
-      "default": "none"
+    	"type": "string",
+        "title": {
+          "es": "Is there any member with disabilities in your household? Please indicate the disability type"
+        },
+        "enum": [
+        	"PHYSICAL", 
+        	"MENTAL", 
+        	"LEARNING", 
+        	"SENSORY",
+        	"OTHER",
+        	"NO-MEMBER-DISABILITIES"
+        ],
+        "enumNames": [
+        	"Physical", 
+        	"Mental", 
+        	"Learning", 
+        	"Sensory",
+        	"Other",
+        	"No member with disabilities"
+        ],
+        "default": "NO-MEMBER-DISABILITIES"
     },
     
     "familyCountry":{
         "type": "string",
         "title": {
-          "es": "Country in which the family resides"
+          "es": "familyCountry (Test)"
         },
         "enum": [
           "United Kingdom"
@@ -998,7 +1008,7 @@
       "familyCity":{
           "type": "string",
           "title": {
-            "es": "City in which the family resides"
+            "es": "familyCity (test)"
           },
           "enum": [
             "Aberdeen",
@@ -1136,13 +1146,13 @@
 		    "Worcester",
 		    "York"
 		          ],
-		          "default": "Newcastle upon Tyne"
+		     "default": "Newcastle upon Tyne"
         
     }, 
     "familyUbication": {
     	"type": "string",
     	"title": {
-    		"es": "Select the geographic location of the family"
+    		"es": "Please select the geographic location of your household"
     	},
         "default":"54.979645, -1.617649" 
     },
