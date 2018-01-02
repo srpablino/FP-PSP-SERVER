@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.config;
+package py.org.fundacionparaguaya.pspserver.config.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class LogRequestFilter extends OncePerRequestFilter implements Ordered {
 
             // body can only be read after the actual request handling was done!
             getBody(wrappedRequest, trace);
-            logTrace(wrappedRequest, trace);
+            logTrace(trace);
         }
     }
 
@@ -81,7 +82,7 @@ public class LogRequestFilter extends OncePerRequestFilter implements Ordered {
         }
     }
 
-    private void logTrace(HttpServletRequest request, Map<String, Object> trace) {
+    private void logTrace(Map<String, Object> trace) {
         Object method = trace.get("method");
         Object path = trace.get("path");
         Object statusCode = trace.get("statusCode");
@@ -90,7 +91,7 @@ public class LogRequestFilter extends OncePerRequestFilter implements Ordered {
         logger.info("Trace: {}", Arrays.toString(trace.entrySet().toArray()));
     }
 
-    
+
 
     protected Map<String, Object> getTrace(HttpServletRequest request, int status) {
         Throwable exception = (Throwable) request.getAttribute("javax.servlet.error.exception");
