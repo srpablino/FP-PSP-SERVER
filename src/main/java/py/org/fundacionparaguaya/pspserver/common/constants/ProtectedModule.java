@@ -63,10 +63,7 @@ public enum ProtectedModule implements ProtectableModule {
                 API_ROOT + "/surveys",
                 API_ROOT + "/surveys/*",
                 API_ROOT + "/snapshots",
-                API_ROOT + "/snapshots/*",
-                API_ROOT + "/families",
-                API_ROOT + "/families/*",
-                API_ROOT + "/families/counter"
+                API_ROOT + "/snapshots/*"
         };
 
         private String[] readRoles = {
