@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import py.org.fundacionparaguaya.pspserver.common.constants.ProtectedModule;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 
 /**
  * Created by rodrigovillalba on 11/23/17.
@@ -23,6 +24,7 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 
         http
                 .authorizeRequests()
+                .antMatchers("/management/*").hasRole(Role.ROLE_ROOT.getSecurityName())
                 // Organizations related resources
                 .antMatchers(HttpMethod.GET, ProtectedModule.ORGANIZATIONS.getUrls()).authenticated()
                 .antMatchers(ProtectedModule.ORGANIZATIONS.getUrls()).hasAnyRole(ProtectedModule.ORGANIZATIONS.getWriteRoles())

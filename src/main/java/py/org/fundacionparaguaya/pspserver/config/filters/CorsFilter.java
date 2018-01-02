@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.config;
+package py.org.fundacionparaguaya.pspserver.config.filters;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
