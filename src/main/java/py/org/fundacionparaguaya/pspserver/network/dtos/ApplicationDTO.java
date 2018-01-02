@@ -37,12 +37,13 @@ public class ApplicationDTO implements Serializable {
 	
 	private boolean isOrganization;
 	
+	private DashboardDTO dashboard;
 	
 	public ApplicationDTO() {}
 	
 
-	private ApplicationDTO(Long id, String name, String code, String description, boolean isActive,
-						   CountryDTO country, CityDTO city, String information, boolean isHub, boolean isOrganization) {
+	private ApplicationDTO(Long id, String name, String code, String description, boolean isActive, CountryDTO country, 
+	        CityDTO city, String information, boolean isHub, boolean isOrganization, DashboardDTO dashboard) {
 		this.id = id;
 		this.name = name;
 		this.code = code;
@@ -53,6 +54,7 @@ public class ApplicationDTO implements Serializable {
 		this.information = information;
 		this.isHub = isHub;
 		this.isOrganization = isOrganization;
+		this.dashboard = dashboard;
 	}
 
 	public static class Builder {
@@ -66,6 +68,7 @@ public class ApplicationDTO implements Serializable {
 		private String information;
 		private boolean isHub;
 		private boolean isOrganization;
+		private DashboardDTO dashboard;
 		
 		public Builder applicationId(Long applicationId) {
 			this.applicationId = applicationId;
@@ -117,8 +120,13 @@ public class ApplicationDTO implements Serializable {
 			return this;
 		}
 		
+		public Builder dashboard(DashboardDTO dashboard) {
+            this.dashboard = dashboard;
+            return this;
+        }
+		
 		public ApplicationDTO build() {
-			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub,  isOrganization);
+			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub,  isOrganization, dashboard);
 		}
 		
 	}
@@ -207,6 +215,15 @@ public class ApplicationDTO implements Serializable {
 		this.isOrganization = isOrganization;
 	}
 	
+	public DashboardDTO getDashboard() {
+        return dashboard;
+    }
+
+
+    public void setDashboard(DashboardDTO dashboard) {
+        this.dashboard = dashboard;
+    }
+	
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -220,6 +237,7 @@ public class ApplicationDTO implements Serializable {
 				.add("information", information)
 				.add("isHub", isHub)
 				.add("isPartner", isOrganization)
+				.add("dashboard", dashboard.toString())
 				.toString();
 	}
 
