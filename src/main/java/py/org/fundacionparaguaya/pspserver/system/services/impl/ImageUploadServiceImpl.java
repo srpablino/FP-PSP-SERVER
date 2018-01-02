@@ -9,6 +9,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
@@ -18,7 +22,28 @@ import java.io.IOException;
 import java.util.Base64;
 
 @Service
+@ConfigurationProperties
 public class ImageUploadServiceImpl implements ImageUploadService {
+
+    private Logger LOG = LoggerFactory.getLogger(ImageUploadServiceImpl.class);
+
+    @Value("${aws.accessKeyID}")
+    String accessKeyID;
+
+    @Value("${aws.secretAccessKey}")
+    String secretAccessKey;
+
+    @Value("${aws.strRegion}")
+    String strRegion;
+
+    @Value("${aws.bucketName}")
+    String bucketName;
+
+    @Value("${aws.folderPath}")
+    String folderPath;
+
+    @Value("${aws.fileNamePrefix}")
+    String fileNamePrefix;
 
     @Override
     public String uploadImage(String fileString, Long entityId) throws IOException {
@@ -47,19 +72,15 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 fos.close();
 
                 try {
-                    String accessKeyID = "AKIAJYKFUVT24UNWAF7Q";
-                    String secretAccessKey = "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";
                     BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
-                    Regions region = Regions.EU_WEST_2; //EU London region
+                    Regions region = Regions.valueOf(strRegion);
 
                     AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                             .withRegion(region)
                             .withCredentials(new AWSStaticCredentialsProvider(creds))
                             .build();
 
-                    String bucketName = "py.org.fundacionparaguaya.psp.images";
-                    String folderPath = "hubs/orgs/";
-                    String fileName = "logo-org-" + entityId + "." + format;
+                    String fileName = fileNamePrefix + entityId + "." + format;
                     String keyName = folderPath + fileName;
 
                     s3Client.putObject(new PutObjectRequest(bucketName, keyName, file)
@@ -68,9 +89,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                     url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
 
                 } catch (AmazonServiceException ase) {
-                    System.out.println("Error Message: " + ase.getMessage());
+                    LOG.error(ase.getMessage(), ase);
+                    throw new RuntimeException(ase);
                 } catch (AmazonClientException ace) {
-                    System.out.println("Error Message: " + ace.getMessage());
+                    LOG.error(ace.getMessage(), ace);
+                    throw new RuntimeException(ace);
                 }
             }
         }
