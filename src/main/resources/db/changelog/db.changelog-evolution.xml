@@ -198,4 +198,9 @@
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add column logo_url into organizations table-->
+    <changeSet id="2017-12-29T16:30" author="cbenitez">
+        <sqlFile path="sql/2017-12-29T16:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
