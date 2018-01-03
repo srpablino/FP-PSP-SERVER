@@ -11,9 +11,9 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
 import java.io.File;
@@ -22,28 +22,16 @@ import java.io.IOException;
 import java.util.Base64;
 
 @Service
-@ConfigurationProperties
 public class ImageUploadServiceImpl implements ImageUploadService {
 
     private Logger LOG = LoggerFactory.getLogger(ImageUploadServiceImpl.class);
 
-    @Value("${aws.accessKeyID}")
-    String accessKeyID;
-
-    @Value("${aws.secretAccessKey}")
-    String secretAccessKey;
-
-    @Value("${aws.strRegion}")
-    String strRegion;
-
-    @Value("${aws.bucketName}")
-    String bucketName;
-
-    @Value("${aws.folderPath}")
-    String folderPath;
-
-    @Value("${aws.fileNamePrefix}")
-    String fileNamePrefix;
+    ApplicationProperties applicationProperties;
+    
+    @Autowired
+    public ImageUploadServiceImpl(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
 
     @Override
     public String uploadImage(String fileString, Long entityId) throws IOException {
@@ -72,7 +60,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 fos.close();
 
                 try {
+                    String accessKeyID = applicationProperties.getAccessKeyID();
+                    String secretAccessKey = applicationProperties.getSecretAccessKey();
                     BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
+                    String strRegion = applicationProperties.getStrRegion();
                     Regions region = Regions.valueOf(strRegion);
 
                     AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -80,6 +71,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                             .withCredentials(new AWSStaticCredentialsProvider(creds))
                             .build();
 
+                    String bucketName = applicationProperties.getBucketName();
+                    String fileNamePrefix = applicationProperties.getFileNamePrefix();
+                    String folderPath = applicationProperties.getFolderPath();
                     String fileName = fileNamePrefix + entityId + "." + format;
                     String keyName = folderPath + fileName;
 
