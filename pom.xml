@@ -223,7 +223,7 @@
 							<printFailingErrors>true</printFailingErrors>
                             <!-- optional, for customization -->
                             <rulesets>
-                                <ruleset>pmd.xml</ruleset>
+                                <ruleset>ruleset.xml</ruleset>
                             </rulesets>
                             
                         </configuration>
