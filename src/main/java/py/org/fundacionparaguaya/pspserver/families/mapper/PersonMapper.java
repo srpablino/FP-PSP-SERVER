@@ -2,18 +2,12 @@ package py.org.fundacionparaguaya.pspserver.families.mapper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//import org.modelmapper.Condition;
-//import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-//import org.modelmapper.PropertyMap;
-//import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
@@ -22,7 +16,6 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.PersonDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-//mport py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.PropertyAttributeSupport;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
@@ -39,7 +32,8 @@ public class PersonMapper implements BaseMapper<PersonEntity, PersonDTO> {
 
     private final PropertyAttributeSupport propertyAttributeSupport;
 
-    public PersonMapper(ModelMapper modelMapper, PropertyAttributeSupport propertyAttributeSupport, CountryRepository countryRepository) {
+    public PersonMapper(ModelMapper modelMapper, PropertyAttributeSupport propertyAttributeSupport,
+            CountryRepository countryRepository) {
         this.modelMapper = modelMapper;
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.countryRepository = countryRepository;
@@ -65,14 +59,16 @@ public class PersonMapper implements BaseMapper<PersonEntity, PersonDTO> {
 
         SurveyData personalInformation = snapshot.getMappedPersonalSurveyData(propertyAttributeSupport.staticPersonal(),
                 propertyAttributeSupport::propertySchemaToSystemName);
-        if(personalInformation.get("birthdate")!=null) {
-            personalInformation.put("birthdate",LocalDate.parse(personalInformation.getAsString("birthdate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        if (personalInformation.get("birthdate") != null) {
+            personalInformation.put("birthdate", LocalDate.parse(personalInformation.getAsString("birthdate"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
-        if(personalInformation.get("gender")!=null) {
+        if (personalInformation.get("gender") != null) {
             personalInformation.put("gender", Gender.valueOf(personalInformation.getAsString("gender")));
         }
-        if(personalInformation.get("countryOfBirth")!=null) {
-            Optional<CountryEntity> country = countryRepository.findByAlfa2Code(personalInformation.getAsString("countryOfBirth"));
+        if (personalInformation.get("countryOfBirth") != null) {
+            Optional<CountryEntity> country = countryRepository
+                    .findByAlfa2Code(personalInformation.getAsString("countryOfBirth"));
             personalInformation.put("countryOfBirth", country.orElse(null));
         }
 

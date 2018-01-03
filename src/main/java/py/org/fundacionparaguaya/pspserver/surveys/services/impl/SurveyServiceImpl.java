@@ -1,7 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-
-//import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -35,14 +33,14 @@ import static py.org.fundacionparaguaya.pspserver.surveys.validation.SurveyUISch
 @Service
 public class SurveyServiceImpl implements SurveyService {
 
-
     private final SurveyRepository repo;
 
     private final PropertyAttributeSupport propertyAttributeSupport;
 
     private final SurveyMapper mapper;
 
-    public SurveyServiceImpl(SurveyRepository repo, PropertyAttributeSupport propertyAttributeSupport, SurveyMapper mapper) {
+    public SurveyServiceImpl(SurveyRepository repo, PropertyAttributeSupport propertyAttributeSupport,
+            SurveyMapper mapper) {
         this.repo = repo;
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.mapper = mapper;
@@ -57,13 +55,11 @@ public class SurveyServiceImpl implements SurveyService {
         }
 
         SurveyEntity entity = this.repo
-                .save(SurveyEntity.of(surveyDefinition.getTitle(), surveyDefinition.getDescription(), new SurveyDefinition()
-                        .surveySchema(surveyDefinition.getSurveySchema())
-                        .surveyUISchema(surveyDefinition.getSurveyUISchema())));
+                .save(SurveyEntity.of(surveyDefinition.getTitle(), surveyDefinition.getDescription(),
+                        new SurveyDefinition().surveySchema(surveyDefinition.getSurveySchema())
+                                .surveyUISchema(surveyDefinition.getSurveyUISchema())));
 
-        return new SurveyDefinition().id(entity.getId())
-                .title(entity.getTitle())
-                .description(entity.getDescription())
+        return new SurveyDefinition().id(entity.getId()).title(entity.getTitle()).description(entity.getDescription())
                 .surveySchema(entity.getSurveyDefinition().getSurveySchema())
                 .surveyUISchema(entity.getSurveyDefinition().getSurveyUISchema());
     }
@@ -73,17 +69,14 @@ public class SurveyServiceImpl implements SurveyService {
         MultipleSchemaValidator schemaValidator = all(presentInSchema(), markedAsRequired());
 
         propertyAttributeSupport.getPropertyAttributes().stream()
-                .filter(attr -> attr.getStoptLightType() == StopLightType.MANDATORY)
-                .forEach(attr -> {
-                    results.addAll(
-                            schemaValidator.apply(surveyDefinition.getSurveySchema(), attr.getPropertySchemaName(), null)
-                    );
+                .filter(attr -> attr.getStoptLightType() == StopLightType.MANDATORY).forEach(attr -> {
+                    results.addAll(schemaValidator.apply(surveyDefinition.getSurveySchema(),
+                            attr.getPropertySchemaName(), null));
                 });
 
-        propertyAttributeSupport.getPropertyAttributes().stream()
-                .forEach(attr -> {
-                    results.add(presentInGroup().apply(surveyDefinition.getSurveyUISchema(), attr));
-                });
+        propertyAttributeSupport.getPropertyAttributes().stream().forEach(attr -> {
+            results.add(presentInGroup().apply(surveyDefinition.getSurveyUISchema(), attr));
+        });
 
         return results;
     }
@@ -94,11 +87,8 @@ public class SurveyServiceImpl implements SurveyService {
         checkArgument(surveyId > 0, "Argument was %s but expected nonnegative", surveyId);
 
         return Optional.ofNullable(repo.findOne(surveyId))
-                .map(entity -> new SurveyDefinition()
-                        .id(entity.getId())
-                        .description(entity.getDescription())
-                        .title(entity.getTitle())
-                        .surveySchema(entity.getSurveyDefinition().getSurveySchema())
+                .map(entity -> new SurveyDefinition().id(entity.getId()).description(entity.getDescription())
+                        .title(entity.getTitle()).surveySchema(entity.getSurveyDefinition().getSurveySchema())
                         .surveyUiSchema(entity.getSurveyDefinition().getSurveyUISchema()))
                 .orElseThrow(() -> new UnknownResourceException("Survey definition does not exist"));
 
@@ -110,22 +100,17 @@ public class SurveyServiceImpl implements SurveyService {
         SurveySchema schema = surveyDefinition.getSurveySchema();
         ValidationResults results = ValidationSupport.validResults();
 
-        schema.getProperties().entrySet().stream()
-                .forEach(propertyEntry -> {
-                    Property property = propertyEntry.getValue();
-                    Object propertyValue = snapshot.getAllSurveyData().get(propertyEntry.getKey());
-                    results.add(
-                            propertyValue != null?
-                                    validType().apply(property, propertyEntry.getKey(), propertyValue):
-                                    ValidationResult.valid()
-                    );
-                    results.add(requiredValue().apply(schema, propertyEntry.getKey(), propertyValue));
-                });
+        schema.getProperties().entrySet().stream().forEach(propertyEntry -> {
+            Property property = propertyEntry.getValue();
+            Object propertyValue = snapshot.getAllSurveyData().get(propertyEntry.getKey());
+            results.add(propertyValue != null ? validType().apply(property, propertyEntry.getKey(), propertyValue)
+                    : ValidationResult.valid());
+            results.add(requiredValue().apply(schema, propertyEntry.getKey(), propertyValue));
+        });
 
-        snapshot.getAllSurveyData().entrySet().stream()
-                .forEach(surveyData -> {
-                    results.add(presentInSchema().apply(schema, surveyData.getKey(), surveyData.getValue()));
-                });
+        snapshot.getAllSurveyData().entrySet().stream().forEach(surveyData -> {
+            results.add(presentInSchema().apply(schema, surveyData.getKey(), surveyData.getValue()));
+        });
 
         return results;
     }
@@ -138,11 +123,11 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public void deleteSurvey(Long surveyId) {
         try {
-            
-          Optional.ofNullable(repo.findOne(surveyId)).ifPresent(survey -> {
-             repo.delete(survey);
-          });
-        
+
+            Optional.ofNullable(repo.findOne(surveyId)).ifPresent(survey -> {
+                repo.delete(survey);
+            });
+
         } catch (Exception e) {
             throw new CustomParameterizedException("The survey can not be deleted!");
         }

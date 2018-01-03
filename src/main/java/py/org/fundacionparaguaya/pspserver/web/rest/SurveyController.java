@@ -2,13 +2,11 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import io.swagger.annotations.ApiParam;
 
-//import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
-//import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 
@@ -17,7 +15,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-
 /**
  * Created by rodrigovillalba on 9/25/17.
  */
@@ -25,7 +22,6 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/surveys")
 @io.swagger.annotations.Api(description = "The surveys resource returns surveys for various inputs")
 public class SurveyController {
-
 
     private final SurveyService surveyService;
 
@@ -36,18 +32,16 @@ public class SurveyController {
     @GetMapping
     @io.swagger.annotations.ApiOperation(value = "Retrieve all surveys", notes = "A `GET` request with no parameters will return a list of potential surveys", response = List.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = SurveyDefinition.class, responseContainer = "List")
-    })
+            @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = SurveyDefinition.class, responseContainer = "List") })
     public ResponseEntity getDefinitions() {
-        List<SurveyDefinition> list =  surveyService.getAll();
+        List<SurveyDefinition> list = surveyService.getAll();
         return ResponseEntity.ok(list);
     }
 
     @PostMapping
     @io.swagger.annotations.ApiOperation(value = "Create Survey Definition", notes = "Creates a new survey definition", response = SurveyDefinition.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 201, message = "The created survey definition", response = SurveyDefinition.class)
-    })
+            @io.swagger.annotations.ApiResponse(code = 201, message = "The created survey definition", response = SurveyDefinition.class) })
     public ResponseEntity addSurveyDefinition(@RequestBody NewSurveyDefinition surveyDefinition)
             throws NotFoundException, URISyntaxException {
         SurveyDefinition definition = surveyService.addSurveyDefinition(surveyDefinition);
@@ -55,12 +49,10 @@ public class SurveyController {
         return ResponseEntity.created(surveyLocation).body(definition);
     }
 
-
     @GetMapping(value = "/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(value = "Get Survey Definition", notes = "Retrives the survey definition", response = SurveyDefinition.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
-            @io.swagger.annotations.ApiResponse(code = 200, message = "The requested survey definition", response = SurveyDefinition.class)
-    })
+            @io.swagger.annotations.ApiResponse(code = 200, message = "The requested survey definition", response = SurveyDefinition.class) })
     public ResponseEntity<?> getSurveyDefinition(
             @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
             throws NotFoundException {
@@ -72,10 +64,9 @@ public class SurveyController {
     public ResponseEntity<?> deleteSurvey(
             @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
             throws NotFoundException {
-       
-       surveyService.deleteSurvey(surveyId);
-       return ResponseEntity.noContent().build();
-    }
 
+        surveyService.deleteSurvey(surveyId);
+        return ResponseEntity.noContent().build();
+    }
 
 }
