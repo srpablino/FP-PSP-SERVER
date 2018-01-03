@@ -42,4 +42,14 @@ es;Ingrese información de acceso;informationAccess;informationAccess;INDICATOR;
 es;Tiene influencia en el sector público?;influenceInPublicSector;influenceInPublicSector;INDICATOR;MANDATORY
 es;Tiene consciencia de sus necesidades?;awarenessOfNeeds;awarenessOfNeeds;INDICATOR;MANDATORY
 es;Nivel de autoestima?;selfEsteem;selfEsteem;INDICATOR;MANDATORY
-es;Puede tomar decisiones de forma autónoma?;autonomyDecisions;autonomyDecisions;INDICATOR;MANDATORY
+es;Puede tomar decisiones de forma autónoma?;autonomyDecisions;autonomyDecisions;PERSONAL;MANDATORY
+es;Cuál es su nombre?;firstName;firstName;PERSONAL;MANDATORY
+es;Cuál es su apellido?;lastName;lastName;PERSONAL;MANDATORY
+es;Tipo de documento;identificationType;identificationType;PERSONAL;RECOMMENDED
+es;Número de documento;identificationNumber;identificationNumber;PERSONAL;RECOMMENDED
+es;Fecha de nacimiento;birthdate;birthdate;PERSONAL;MANDATORY
+es;País de nacimiento;countryOfBirth;countryOfBirth;PERSONAL;MANDATORY
+es;Género;gender;gender;PERSONAL;RECOMMENDED
+es;Número de teléfono;phoneNumber;phoneNumber;PERSONAL;RECOMMENDED
+
+
