@@ -20,8 +20,14 @@ public class FamilyFilterDTO {
 	public FamilyFilterDTO() {
 	    super();
 	}
-
-    public FamilyFilterDTO(Long organizationId, Long countryId, Long cityId, String name) {
+	
+	public FamilyFilterDTO(Long applicationId, Long organizationId) {
+        super();
+        this.applicationId = applicationId;
+        this.organizationId = organizationId;
+    }
+	
+	public FamilyFilterDTO(Long organizationId, Long countryId, Long cityId, String name) {
         super();
         this.organizationId = organizationId;
         this.countryId = countryId;

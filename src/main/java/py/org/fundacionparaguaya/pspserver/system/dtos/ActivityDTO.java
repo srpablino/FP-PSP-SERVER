@@ -1,9 +1,15 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
+import java.io.Serializable;
+
 import com.google.common.base.MoreObjects;
 
-public class ActivityDTO {
+public class ActivityDTO implements Serializable {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private Long activityId;
     private Long userId;
     private String activityType;

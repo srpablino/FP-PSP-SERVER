@@ -31,6 +31,8 @@ public class OrganizationDTO implements Serializable {
 	private String information;
 
 	private ApplicationDTO application;
+	
+	private DashboardDTO dashboard;
 
 	private String logoUrl;
 
@@ -41,7 +43,7 @@ public class OrganizationDTO implements Serializable {
 	
 
 	private OrganizationDTO(Long organizationId, String name, String code, String description, boolean isActive,
-			CountryDTO country, String information, ApplicationDTO application, String logoUrl, String file) {
+			CountryDTO country, String information, ApplicationDTO application, DashboardDTO dashboard, String logoUrl, String file) {
 		this.id = organizationId;
 		this.name = name;
 		this.code = code;
@@ -50,6 +52,7 @@ public class OrganizationDTO implements Serializable {
 		this.country = country;
 		this.information = information;
 		this.application = application;
+		this.dashboard = dashboard;
 		this.logoUrl = logoUrl;
 		this.file = file;
 	}
@@ -63,6 +66,7 @@ public class OrganizationDTO implements Serializable {
 		private CountryDTO country;
 		private String information;
 		private ApplicationDTO application;
+		private DashboardDTO dashboard;
 		private String logoUrl;
 		private String file;
 
@@ -106,6 +110,11 @@ public class OrganizationDTO implements Serializable {
 			return this;
 		}
 
+		public Builder dashboard(DashboardDTO dashboard) {
+            this.dashboard = dashboard;
+            return this;
+        }
+
 		public Builder logoUrl(String logoUrl) {
 			this.logoUrl = logoUrl;
 			return this;
@@ -117,7 +126,7 @@ public class OrganizationDTO implements Serializable {
 		}
 
 		public OrganizationDTO build() {
-			return new OrganizationDTO(id, name, code, description, isActive, country, information, application, logoUrl, file);
+			return new OrganizationDTO(id, name, code, description, isActive, country, information, application, dashboard, logoUrl, file);
 		}
 	}
 	
@@ -204,6 +213,14 @@ public class OrganizationDTO implements Serializable {
 		this.application = application;
 	}
 
+	public DashboardDTO getDashboard() {
+        return dashboard;
+    }
+
+    public void setDashboard(DashboardDTO dashboard) {
+        this.dashboard = dashboard;
+    }
+
 
 	public String getLogoUrl() {
 		return logoUrl;
@@ -235,9 +252,9 @@ public class OrganizationDTO implements Serializable {
 				.add("country", country.toString())
 				.add("information", information)
 				.add("application", application.toString())
+				.add("dashboard", dashboard.toString())
 				.add("logoUrl", logoUrl)
 				.toString();
 	}
-
 	
 }

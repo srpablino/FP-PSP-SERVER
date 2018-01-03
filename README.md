@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/FundacionParaguaya/FP-PSP-SERVER.svg?branch=develop)](https://travis-ci.org/FundacionParaguaya/FP-PSP-SERVER)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9cc3f693601442c89ba35f9c92268c6e)](https://www.codacy.com/app/alefq/FP-PSP-SERVER?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FundacionParaguaya/FP-PSP-SERVER&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5ca4e577064b42d7b172677bd65e7124)](https://www.codacy.com/app/FundacionParaguaya/FP-PSP-SERVER?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FundacionParaguaya/FP-PSP-SERVER&amp;utm_campaign=Badge_Grade)
 
 
 # Poverty Stoplight

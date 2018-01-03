@@ -11,11 +11,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 
 
@@ -24,14 +29,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	private Logger LOG = LoggerFactory.getLogger(ApplicationServiceImpl.class);
 
-	private ApplicationRepository applicationRepository;
+	private final ApplicationRepository applicationRepository;
 	
 	private final ApplicationMapper applicationMapper;
-
+	
+	private final FamilyService familyService;
 	 
-	public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper) {
+	public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, FamilyService familyService) {
 		this.applicationRepository = applicationRepository;
 		this.applicationMapper = applicationMapper;
+		this.familyService = familyService;
 	}
 	
 
@@ -85,7 +92,25 @@ public class ApplicationServiceImpl implements ApplicationService {
                 	applicationRepository.delete(application);
                     LOG.debug("Deleted Application: {}", application);
                 });
-	} 
-	 
+	}
+	
+	@Override
+    public ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details) {
+	    ApplicationDTO dto = new ApplicationDTO();
+	    
+	    if(details.getApplication() != null && details.getApplication().getId() != null) {
+	        dto = getApplicationById(details.getApplication().getId());
+	    }else if(applicationId != null){
+	        dto = getApplicationById(applicationId);
+	    }
+        
+        Long organizationId = Optional.ofNullable(details.getOrganization())
+                .orElse(new OrganizationDTO()).getId();
+        
+        FamilyFilterDTO filter = new FamilyFilterDTO(dto.getId(), organizationId);
+        dto.setDashboard(DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
+        
+        return dto;
+	}
 
 }

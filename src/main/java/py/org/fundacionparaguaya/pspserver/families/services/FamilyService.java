@@ -30,5 +30,7 @@ public interface FamilyService {
 	List<FamilyDTO> listFamilies(FamilyFilterDTO filter, UserDetailsDTO userDetails);
 
     Long countFamiliesByDetails(UserDetailsDTO userDetails);
+
+    Long countFamiliesByFilter(FamilyFilterDTO filter);
 	
 }

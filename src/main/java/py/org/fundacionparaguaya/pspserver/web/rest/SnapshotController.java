@@ -1,6 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/snapshots")
 @io.swagger.annotations.Api(description = "The snapshots resource returns snapshots for various inputs. Snapshots are instances of a filled out survey.")
 public class SnapshotController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SnapshotController.class);
 
     private final SnapshotService snapshotService;
 
@@ -45,6 +49,7 @@ public class SnapshotController {
     public ResponseEntity addSnapshot(
             @ApiParam(value = "The snapshot", required = true) @RequestBody NewSnapshot snapshot)
             throws NotFoundException, URISyntaxException {
+        LOG.debug("REST request to add Snapshot : {}", snapshot);
         Snapshot data = snapshotService.addSurveySnapshot(snapshot);
         URI surveyLocation = new URI("/snapshots/" + data.getSurveyId());
         return ResponseEntity.created(surveyLocation).body(data);

@@ -1,16 +1,28 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
-import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 @RestController
 @RequestMapping(value = "/api/v1/applications")
@@ -44,8 +56,6 @@ public class ApplicationController {
 		ApplicationDTO dto = applicationService.getApplicationById(applicationId);
 		return ResponseEntity.ok(dto);
 	}
-	
-
 
 	@GetMapping()
 	public ResponseEntity<List<ApplicationDTO>> getAllApplications() {
@@ -53,13 +63,18 @@ public class ApplicationController {
 		return ResponseEntity.ok(applications);
 	}
 	
-	
-	
 	@DeleteMapping("/{applicationId}")
 	public ResponseEntity<Void> deleteApplication(@PathVariable("applicationId") Long applicationId) {
 		LOG.debug("REST request to delete Application: {}", applicationId);
 		applicationService.deleteApplication(applicationId);
 		return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("/dashboard")
+    public ResponseEntity<ApplicationDTO> getApplicationDashboard(@RequestParam(value = "applicationId", required = false) Long applicationId,
+            @AuthenticationPrincipal UserDetailsDTO details) {
+	    ApplicationDTO dto = applicationService.getApplicationDashboard(applicationId, details);
+        return ResponseEntity.ok(dto);
+    }
 
 }
