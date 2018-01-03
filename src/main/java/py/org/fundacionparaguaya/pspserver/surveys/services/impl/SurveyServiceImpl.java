@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
+
+//import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -135,8 +137,15 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public void deleteSurvey(Long surveyId) {
-        repo.delete(surveyId);
+        try {
+            
+          Optional.ofNullable(repo.findOne(surveyId)).ifPresent(survey -> {
+             repo.delete(survey);
+          });
+        
+        } catch (Exception e) {
+            throw new CustomParameterizedException("The survey can not be deleted!");
+        }
     }
-
 
 }

@@ -1,11 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import io.swagger.annotations.ApiParam;
+
+//import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
+//import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 
@@ -69,8 +72,9 @@ public class SurveyController {
     public ResponseEntity<?> deleteSurvey(
             @ApiParam(value = "The survey id", required = true) @PathParam("survey_id") @PathVariable("survey_id") Long surveyId)
             throws NotFoundException {
-        surveyService.deleteSurvey(surveyId);
-        return ResponseEntity.ok().build();
+       
+       surveyService.deleteSurvey(surveyId);
+       return ResponseEntity.noContent().build();
     }
 
 
