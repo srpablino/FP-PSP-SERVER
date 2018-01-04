@@ -26,7 +26,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
     private Logger LOG = LoggerFactory.getLogger(ImageUploadServiceImpl.class);
 
-    ApplicationProperties applicationProperties;
+    private final ApplicationProperties applicationProperties;
     
     @Autowired
     public ImageUploadServiceImpl(ApplicationProperties applicationProperties) {
@@ -60,10 +60,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 fos.close();
 
                 try {
-                    String accessKeyID = applicationProperties.getAccessKeyID();
-                    String secretAccessKey = applicationProperties.getSecretAccessKey();
+                    String accessKeyID = applicationProperties.getAws().getAccessKeyID();
+                    String secretAccessKey = applicationProperties.getAws().getSecretAccessKey();
                     BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
-                    String strRegion = applicationProperties.getStrRegion();
+                    String strRegion = applicationProperties.getAws().getStrRegion();
                     Regions region = Regions.valueOf(strRegion);
 
                     AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -71,9 +71,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                             .withCredentials(new AWSStaticCredentialsProvider(creds))
                             .build();
 
-                    String bucketName = applicationProperties.getBucketName();
-                    String fileNamePrefix = applicationProperties.getFileNamePrefix();
-                    String folderPath = applicationProperties.getFolderPath();
+                    String bucketName = applicationProperties.getAws().getBucketName();
+                    String fileNamePrefix = applicationProperties.getAws().getFileNamePrefix();
+                    String folderPath = applicationProperties.getAws().getFolderPath();
                     String fileName = fileNamePrefix + entityId + "." + format;
                     String keyName = folderPath + fileName;
 

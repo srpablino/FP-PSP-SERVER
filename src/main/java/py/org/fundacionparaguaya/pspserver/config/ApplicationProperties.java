@@ -1,52 +1,76 @@
 package py.org.fundacionparaguaya.pspserver.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties
+@ConfigurationProperties("application")
 public class ApplicationProperties {
 
-    @Value("${aws.accessKeyID}")
-    String accessKeyID;
+    private Aws aws = new Aws();
 
-    @Value("${aws.secretAccessKey}")
-    String secretAccessKey;
-
-    @Value("${aws.strRegion}")
-    String strRegion;
-
-    @Value("${aws.bucketName}")
-    String bucketName;
-
-    @Value("${aws.folderPath}")
-    String folderPath;
-
-    @Value("${aws.fileNamePrefix}")
-    String fileNamePrefix;
-
-    public String getAccessKeyID() {
-        return accessKeyID;
+    public Aws getAws() {
+        return this.aws;
     }
 
-    public String getSecretAccessKey() {
-        return secretAccessKey;
+    public void setAws(Aws aws) {
+        this.aws = aws;
     }
 
-    public String getStrRegion() {
-        return strRegion;
-    }
+    public static class Aws {
+        private String accessKeyID;
+        private String secretAccessKey;
+        private String strRegion;
+        private String bucketName;
+        private String folderPath;
+        private String fileNamePrefix;
 
-    public String getBucketName() {
-        return bucketName;
-    }
+        public String getAccessKeyID() {
+            return accessKeyID;
+        }
 
-    public String getFolderPath() {
-        return folderPath;
-    }
+        public void setAccessKeyID(String accessKeyID) {
+            this.accessKeyID = accessKeyID;
+        }
 
-    public String getFileNamePrefix() {
-        return fileNamePrefix;
+        public String getSecretAccessKey() {
+            return secretAccessKey;
+        }
+
+        public void setSecretAccessKey(String secretAccessKey) {
+            this.secretAccessKey = secretAccessKey;
+        }
+
+        public String getStrRegion() {
+            return strRegion;
+        }
+
+        public void setStrRegion(String strRegion) {
+            this.strRegion = strRegion;
+        }
+
+        public String getBucketName() {
+            return bucketName;
+        }
+
+        public void setBucketName(String bucketName) {
+            this.bucketName = bucketName;
+        }
+
+        public String getFolderPath() {
+            return folderPath;
+        }
+
+        public void setFolderPath(String folderPath) {
+            this.folderPath = folderPath;
+        }
+
+        public String getFileNamePrefix() {
+            return fileNamePrefix;
+        }
+
+        public void setFileNamePrefix(String fileNamePrefix) {
+            this.fileNamePrefix = fileNamePrefix;
+        }
     }
 }

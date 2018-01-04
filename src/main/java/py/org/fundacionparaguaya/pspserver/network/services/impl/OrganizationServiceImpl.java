@@ -15,7 +15,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
@@ -40,15 +39,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 	
 	 private final OrganizationMapper organizationMapper;
 
-	 @Autowired
-	 private ImageUploadService imageUploadService;
-
 	 private final FamilyService familyService;
 
-	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper, FamilyService familyService) {
+	private final ImageUploadService imageUploadService;
+
+	public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper,
+								   FamilyService familyService, ImageUploadService imageUploadService) {
 		this.organizationRepository = organizationRepository;
 		this.organizationMapper = organizationMapper;
 		this.familyService = familyService;
+		this.imageUploadService = imageUploadService;
 	}
 
 	@Override
