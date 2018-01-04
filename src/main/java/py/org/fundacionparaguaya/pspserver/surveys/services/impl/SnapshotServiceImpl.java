@@ -97,7 +97,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         SnapshotEconomicEntity snapshotEconomicEntity = null;
 
-        PersonEntity personEntity = personMapper.snapshotPersonalToEntity(snapshot.getPersonalSurveyData());
+        PersonEntity personEntity = personMapper.snapshotPersonalToEntity(snapshot);
 
         String code = familyService.generateFamilyCode(personEntity);
 

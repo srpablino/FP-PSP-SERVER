@@ -11,9 +11,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
+import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
 import py.org.fundacionparaguaya.pspserver.families.dtos.PersonDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.mapper.PropertyAttributeSupport;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 
@@ -23,43 +26,55 @@ import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository
 @Component
 public class PersonMapper implements BaseMapper<PersonEntity, PersonDTO> {
 
-	private final ModelMapper modelMapper;
-	
-	private final CountryRepository countryRepository;
+    private final ModelMapper modelMapper;
 
-	public PersonMapper(ModelMapper modelMapper, CountryRepository countryRepository) {
-		this.modelMapper = modelMapper;
-		this.countryRepository = countryRepository;
-	}
+    private final CountryRepository countryRepository;
 
-	@Override
-	public List<PersonDTO> entityListToDtoList(List<PersonEntity> entityList) {
-		return entityList.stream().filter(Objects::nonNull).map(this::entityToDto).collect(Collectors.toList());
-	}
+    private final PropertyAttributeSupport propertyAttributeSupport;
 
-	@Override
-	public PersonDTO entityToDto(PersonEntity entity) {
-		PersonDTO dto = modelMapper.map(entity, PersonDTO.class);
-		return dto;
-	}
+    public PersonMapper(ModelMapper modelMapper, PropertyAttributeSupport propertyAttributeSupport,
+            CountryRepository countryRepository) {
+        this.modelMapper = modelMapper;
+        this.propertyAttributeSupport = propertyAttributeSupport;
+        this.countryRepository = countryRepository;
+    }
 
-	@Override
-	public PersonEntity dtoToEntity(PersonDTO dto) {
-		return modelMapper.map(dto, PersonEntity.class);
-	}
+    @Override
+    public List<PersonDTO> entityListToDtoList(List<PersonEntity> entityList) {
+        return entityList.stream().filter(Objects::nonNull).map(this::entityToDto).collect(Collectors.toList());
+    }
 
-	public PersonEntity snapshotPersonalToEntity(SurveyData snapshot) {
+    @Override
+    public PersonDTO entityToDto(PersonEntity entity) {
+        PersonDTO dto = modelMapper.map(entity, PersonDTO.class);
+        return dto;
+    }
 
-		PersonEntity pe = modelMapper.map(snapshot, PersonEntity.class);
-		if (snapshot.getAsString("birthdate") != null) {
-			pe.setBirthdate(LocalDate.parse(snapshot.getAsString("birthdate"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		}
-		if(snapshot.get("countryOfBirth") != null) {
-			Optional<CountryEntity> country = countryRepository.findByAlfa2Code(snapshot.getAsString("countryOfBirth"));
-			pe.setCountryOfBirth(country.orElse(null));
-		}
-		
-		return pe;
-	}
+    @Override
+    public PersonEntity dtoToEntity(PersonDTO dto) {
+        return modelMapper.map(dto, PersonEntity.class);
+    }
+
+    public PersonEntity snapshotPersonalToEntity(NewSnapshot snapshot) {
+
+        SurveyData personalInformation = snapshot.getMappedPersonalSurveyData(propertyAttributeSupport.staticPersonal(),
+                propertyAttributeSupport::propertySchemaToSystemName);
+        if (personalInformation.get("birthdate") != null) {
+            personalInformation.put("birthdate", LocalDate.parse(personalInformation.getAsString("birthdate"),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        }
+        if (personalInformation.get("gender") != null) {
+            personalInformation.put("gender", Gender.valueOf(personalInformation.getAsString("gender")));
+        }
+        if (personalInformation.get("countryOfBirth") != null) {
+            Optional<CountryEntity> country = countryRepository
+                    .findByAlfa2Code(personalInformation.getAsString("countryOfBirth"));
+            personalInformation.put("countryOfBirth", country.orElse(null));
+        }
+
+        PersonEntity pe = new PersonEntity().staticProperties(personalInformation);
+
+        return pe;
+    }
 
 }

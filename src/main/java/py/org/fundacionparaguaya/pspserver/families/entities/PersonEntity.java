@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
@@ -24,6 +25,8 @@ import com.google.common.base.MoreObjects;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.families.constants.Gender;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+//import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 @Entity
@@ -239,5 +242,18 @@ public class PersonEntity extends BaseEntity {
 				.add("birthdate", birthdate)
 				.toString();
 	}
+	
+	public PersonEntity staticProperties(SurveyData indicatorSurveyData) {
+        indicatorSurveyData.entrySet()
+                .stream()
+                .forEach((entry) -> {
+                    try {
+                        PropertyUtils.setProperty(this, entry.getKey(), entry.getValue());
+                    } catch (Exception e) {
+                        throw new RuntimeException("Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
+                    }
+                });
+        return this;
+    }
 	
 }

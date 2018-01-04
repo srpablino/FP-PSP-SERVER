@@ -43,6 +43,14 @@ public class PropertyAttributeSupport {
                 .findFirst()
                 .isPresent();
     }
+    
+    public Predicate<String> staticPersonal() {
+        return (systemName) -> attributeList.stream()
+                .filter(attr -> attr.getPropertySystemName().equals(systemName))
+                .filter(attr -> attr.getStopLightGroup() == StopLightGroup.PERSONAL)
+                .findFirst()
+                .isPresent();
+    }
 
     public String propertySchemaToSystemName(String propertySchemaName) {
         return attributeList.stream()
