@@ -138,5 +138,30 @@ INSERT INTO data_collect.snapshots_properties_attributes(
 	VALUES ('autonomyDecisions', 'autonomyDecisions', 'MANDATORY', 'es', 'Puede tomar decisiones de forma autónoma?', 'INDICATOR');
 
 
+-- personal information required and recommended survey properties
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('firstName', 'firstName', 'MANDATORY', 'es', 'Cuál es su nombre?', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('lastName', 'lastName', 'MANDATORY', 'es', 'Cuál es su apellido?', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('identificationType', 'identificationType', 'RECOMMENDED', 'es', 'Tipo de documento', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('identificationNumber', 'identificationNumber', 'RECOMMENDED', 'es', 'Número de documento', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('birthdate', 'birthdate', 'MANDATORY', 'es', 'Fecha de nacimiento', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('countryOfBirth', 'countryOfBirth', 'MANDATORY', 'es', 'País de nacimiento', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('gender', 'gender', 'RECOMMENDED', 'es', 'Género', 'PERSONAL');
+INSERT INTO data_collect.snapshots_properties_attributes(
+	property_system_name, property_schema_name, stoplight_type, lang, title, stoplight_group)
+	VALUES ('phoneNumber', 'phoneNumber', 'RECOMMENDED', 'es', 'Número de teléfono', 'PERSONAL');
 
 

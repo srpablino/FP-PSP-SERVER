@@ -154,7 +154,7 @@ public class NewSnapshot   {
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(surveyId, economicSurveyData, indicatorSurveyData);
+        return com.google.common.base.Objects.hashCode(surveyId, personalSurveyData, economicSurveyData, indicatorSurveyData);
     }
     
     public SurveyData getMappedPersonalSurveyData(Predicate<String> nameFilter, Function<String, String> propertySchemaToSystem) {
