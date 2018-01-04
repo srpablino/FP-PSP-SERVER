@@ -813,60 +813,60 @@
       "default": "AGRICULTURE"
     },
     "householdMonthlyIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "Please enter an estimate of your gross monthly household income"
       },
-      "default": 0
+      "default": 0.0
     },
     "salaryIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "How many people under 18 live in your household (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "benefitIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "Do you receive any state income (e.g. benefits, pension, allowances)? Please indicate the approximate monthly amount"
       },
-      "default": 0
+      "default": 0.0
     },
     "pensionIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "pensionIncome (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "savingsIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "savingsIncome (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "otherIncome": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "otherIncome (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "householdMonthlyOutgoing": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "householdMonthlyOutgoing (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "netSuplus": {
-      "type": "integer",
+      "type": "number",
       "title": {
         "es": "netSuplus (Test)"
       },
-      "default": 0
+      "default": 0.0
     },
     "educationClientLevel": {
       "type": "string",

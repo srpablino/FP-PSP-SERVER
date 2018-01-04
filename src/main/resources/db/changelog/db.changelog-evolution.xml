@@ -197,5 +197,10 @@
     <changeSet id="2017-12-28T16:00" author="rvillalba">
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Change data type for income columns-->
+    <changeSet id="2018-01-03T15:30" author="mgonzalez">
+        <sqlFile path="sql/2018-01-03T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
