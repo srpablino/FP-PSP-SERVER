@@ -83,7 +83,7 @@ public class FamilyController {
 			@RequestParam(value = "city_id", required = false) Long cityId,
 			@RequestParam(value = "free_text", required = false) String name,
 			@AuthenticationPrincipal UserDetailsDTO details) {
-		FamilyFilterDTO filter = new FamilyFilterDTO(organizationId, countryId, cityId, name);
+		FamilyFilterDTO filter = new FamilyFilterDTO(organizationId, countryId, cityId, name, true);
 		List<FamilyDTO> families = familyService.listFamilies(filter, details);
 		return ResponseEntity.ok(families);
 	}

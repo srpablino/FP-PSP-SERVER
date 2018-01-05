@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,10 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
@@ -47,17 +53,30 @@ public class FamilyServiceImpl implements FamilyService {
     private final CityRepository cityRepository;
 
     private final OrganizationRepository organizationRepository;
+    
+    private final SnapshotEconomicRepository economicRepository;
+    
+    private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
+    
+    private final SnapshotIndicatorRepository snapshotIndicatorRepository; 
 
     private static final String SPACE = " ";
+    
+    private static final int MAX_DAYS_DELETE_SNAPSHOT = 30;
 
     public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
     		CountryRepository countryRepository, CityRepository cityRepository,
-            OrganizationRepository organizationRepository) {
+            OrganizationRepository organizationRepository, SnapshotEconomicRepository economicRepository,
+            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
+            SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
+        this.economicRepository = economicRepository;
+        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
+        this.snapshotIndicatorRepository = snapshotIndicatorRepository;
     }
 
     @Override
@@ -98,9 +117,28 @@ public class FamilyServiceImpl implements FamilyService {
         checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
 
         Optional.ofNullable(familyRepository.findOne(familyId)).ifPresent(family -> {
-            familyRepository.delete(family);
+        	
+        	SnapshotEconomicEntity snapshotEconomicEntity = economicRepository.findTopByFamilyFamilyIdOrderByIdDesc(familyId);
+
+        	LocalDateTime now =  LocalDateTime.now();
+            LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
+            Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
+            
+            if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
+            	
+            	SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
+	            snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
+	            economicRepository.delete(snapshotEconomicEntity);
+	            snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
+	
+            }
+            
+            family.setActive(false);
+            familyRepository.save(family);
             LOG.debug("Deleted Family: {}", family);
+            
         });
+        
     }
 
     @Override
@@ -116,20 +154,6 @@ public class FamilyServiceImpl implements FamilyService {
         return code;
     }
 
-    @Override
-    public List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText) {
-		
-	  	List<FamilyEntity> listFamilies = new ArrayList<FamilyEntity>();
-	  	
-	  	if (organizationId != null && countryId != null && cityId != null) {
-	  		listFamilies = familyRepository.findByOrganizationIdAndCountryIdAndCityIdAndNameContainingIgnoreCase(organizationId, countryId, cityId, freeText);
-		}else{
-			listFamilies = familyRepository.findByNameContainingIgnoreCase(freeText);
-		}
-		
-		return familyMapper.entityListToDtoList(listFamilies);
-	}
-    
     @Override
     public List<FamilyDTO> listFamilies(FamilyFilterDTO filter, UserDetailsDTO userDetails) {
         loadFilterByDetails(filter, userDetails);

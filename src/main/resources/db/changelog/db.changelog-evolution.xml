@@ -197,5 +197,10 @@
     <changeSet id="2017-12-28T16:00" author="rvillalba">
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Add enabled column in family table -->
+    <changeSet id="2018-01-06T09:13" author="mcespedes">
+        <sqlFile path="sql/2018-01-06T09:13.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>

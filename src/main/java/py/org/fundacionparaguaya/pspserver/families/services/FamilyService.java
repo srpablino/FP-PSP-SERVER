@@ -21,8 +21,6 @@ public interface FamilyService {
 	
 	void deleteFamily(Long familyId);
 
-	List<FamilyDTO> getFamiliesByFilter(Long organizationId, Long countryId, Long cityId, String freeText);
-	
 	String generateFamilyCode(PersonEntity person);
 	
 	FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person);
