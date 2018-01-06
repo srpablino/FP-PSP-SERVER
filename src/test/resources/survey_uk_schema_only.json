@@ -817,56 +817,56 @@
       "title": {
         "es": "Please enter an estimate of your gross monthly household income"
       },
-      "default": 0.0
+      "default": 0
     },
     "salaryIncome": {
       "type": "number",
       "title": {
         "es": "How many people under 18 live in your household (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "benefitIncome": {
       "type": "number",
       "title": {
         "es": "Do you receive any state income (e.g. benefits, pension, allowances)? Please indicate the approximate monthly amount"
       },
-      "default": 0.0
+      "default": 0
     },
     "pensionIncome": {
       "type": "number",
       "title": {
         "es": "pensionIncome (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "savingsIncome": {
       "type": "number",
       "title": {
         "es": "savingsIncome (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "otherIncome": {
       "type": "number",
       "title": {
         "es": "otherIncome (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "householdMonthlyOutgoing": {
       "type": "number",
       "title": {
         "es": "householdMonthlyOutgoing (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "netSuplus": {
       "type": "number",
       "title": {
         "es": "netSuplus (Test)"
       },
-      "default": 0.0
+      "default": 0
     },
     "educationClientLevel": {
       "type": "string",
