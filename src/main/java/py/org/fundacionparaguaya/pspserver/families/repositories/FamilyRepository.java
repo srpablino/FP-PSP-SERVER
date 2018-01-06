@@ -16,8 +16,6 @@ public interface FamilyRepository extends JpaRepository<FamilyEntity, Long>, Jpa
 
 	Page<FamilyEntity> findAll(Pageable page);
 	
-//	List<FamilyEntity> findByIsActive(Specification<FamilyEntity> spec);
-	
 	List<FamilyEntity> findByNameContainingIgnoreCase(String freeText);
 	
 }

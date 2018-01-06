@@ -7,7 +7,6 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,28 +116,25 @@ public class FamilyServiceImpl implements FamilyService {
         checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
 
         Optional.ofNullable(familyRepository.findOne(familyId)).ifPresent(family -> {
-        	
-        	SnapshotEconomicEntity snapshotEconomicEntity = economicRepository.findTopByFamilyFamilyIdOrderByIdDesc(familyId);
+           
+        	Optional.ofNullable(economicRepository.findTopByFamilyFamilyIdOrderByIdDesc(familyId)).ifPresent(snapshotEconomicEntity -> {
+              
+        	  LocalDateTime now =  LocalDateTime.now();
+              LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
+              Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
 
-        	LocalDateTime now =  LocalDateTime.now();
-            LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
-            Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
-            
-            if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
-            	
-            	SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
-	            snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
-	            economicRepository.delete(snapshotEconomicEntity);
-	            snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
-	
-            }
-            
-            family.setActive(false);
-            familyRepository.save(family);
-            LOG.debug("Deleted Family: {}", family);
-            
+              if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
+              	 SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
+     	         snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
+     	         economicRepository.delete(snapshotEconomicEntity);
+     	         snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
+              }
+           });
+
+	       family.setActive(false);
+	       familyRepository.save(family);
+	       LOG.debug("Deleted Family: {}", family);
         });
-        
     }
 
     @Override

@@ -63,21 +63,15 @@ public class FamilyController {
 		return ResponseEntity.ok(dto);
 	}
 
-	@GetMapping()
-	public ResponseEntity<List<FamilyDTO>> getAllFamilies() {
-		List<FamilyDTO> families = familyService.getAllFamilies();
-		return ResponseEntity.ok(families);
-	}
-
 	@DeleteMapping("/{familyId}")
-	public ResponseEntity<Void> deleteFamily(@PathVariable("familyId") Long familyId) {
+	public ResponseEntity<?> deleteFamily(@PathVariable("familyId") Long familyId) {
 		LOG.debug("REST request to delete Family: {}", familyId);
 		familyService.deleteFamily(familyId);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/filter")
-	public ResponseEntity<List<FamilyDTO>> getFamiliesByFilter(
+	@GetMapping()
+	public ResponseEntity<List<FamilyDTO>> getAllFamilies(
 			@RequestParam(value = "organization_id", required = false) Long organizationId,
 			@RequestParam(value = "country_id", required = false) Long countryId,
 			@RequestParam(value = "city_id", required = false) Long cityId,
