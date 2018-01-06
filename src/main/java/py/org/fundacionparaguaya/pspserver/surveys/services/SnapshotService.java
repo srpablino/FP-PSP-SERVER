@@ -20,4 +20,7 @@ public interface SnapshotService {
 	List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId);
 	
 	SnapshotIndicators getLastSnapshotIndicatorsByFamily(Long snapshotId);
+	
+	void deleteSnapshotById(Long snapshotEconomicId);
+	
 }
