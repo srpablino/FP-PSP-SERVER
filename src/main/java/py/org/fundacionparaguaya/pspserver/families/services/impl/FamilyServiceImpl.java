@@ -110,7 +110,7 @@ public class FamilyServiceImpl implements FamilyService {
         String birthdate = person.getBirthdate().format(formatter);
 
         String code = person.getCountryOfBirth().getAlfa2Code().concat(".")
-                .concat(person.getFirstName().substring(0, 1)).concat(person.getLastName().substring(0, 1)).concat(".")
+                .concat(person.getFirstName().substring(0, 1).toUpperCase()).concat(person.getLastName().substring(0, 1).toUpperCase()).concat(".")
                 .concat(birthdate);
 
         return code;
