@@ -34,68 +34,63 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 public class PersonEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1762584396723284335L;
-	
+
 	@Id
-    @GenericGenerator(
-            name = ""
-                    + "personSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
-                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "person_person_id_seq"),
-                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
-                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1")
-            }
-    )
-    @GeneratedValue(generator = "personSequenceGenerator")
+	@GenericGenerator(name = ""
+			+ "personSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+					@Parameter(name = SequenceStyleGenerator.SCHEMA, value = "ps_families"),
+					@Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "person_person_id_seq"),
+					@Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+					@Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+	@GeneratedValue(generator = "personSequenceGenerator")
 	@Column(name = "person_id")
 	private Long personId;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(name = "identification_type")
 	private String identificationType;
-	
+
 	@Column(name = "identification_number")
 	private String identificationNumber;
-	
-	@Column(name="person_role")
+
+	@Column(name = "person_role")
 	private String personRole;
-	
+
 	@Column(name = "gender")
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	
-	@Column(name="activity_primary")
+
+	@Column(name = "activity_primary")
 	private String activityPrimary;
-	
-	@Column(name="activity_secundary")
+
+	@Column(name = "activity_secundary")
 	private String activitySecundary;
-	
-	@Column(name="phone_number")
+
+	@Column(name = "phone_number")
 	private String phoneNumber;
-	
+
 	@ManyToOne(targetEntity = CountryEntity.class)
 	@JoinColumn(name = "country_of_birth")
 	private CountryEntity countryOfBirth;
-	
+
 	@ManyToOne(targetEntity = CityEntity.class)
 	@JoinColumn(name = "city")
 	private CityEntity city;
-	
+
 	@ManyToOne(targetEntity = FamilyEntity.class)
 	@JoinColumn(name = "family_id")
 	private FamilyEntity family;
-	
-	@Column(name="birthdate")
+
+	@Column(name = "birthdate")
 	@Convert(converter = LocalDateConverter.class)
-    private LocalDate birthdate;
-	
+	private LocalDate birthdate;
+
 	public FamilyEntity getFamily() {
 		return family;
 	}
@@ -217,7 +212,7 @@ public class PersonEntity extends BaseEntity {
 		PersonEntity toCompare = (PersonEntity) obj;
 		return personId.equals(toCompare.personId);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return personId == null ? 0 : personId.hashCode();
@@ -225,41 +220,33 @@ public class PersonEntity extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this)
-				.add("personId", personId)
-				.add("firstName", firstName)
-				.add("lastName", lastName)
-				.add("identificationType", identificationType)
-				.add("identificationNumber", identificationNumber)
-				.add("personRole", personRole)
-				.add("gender", gender)
-				.add("activityPrimary", activityPrimary)
-				.add("activitySecundary", activitySecundary)
-				.add("phoneNumber", phoneNumber)
-				.add("countryOfBirth", countryOfBirth)
-				//.add("city", city.toString())
-				//.add("family", family.toString())
-				.add("birthdate", birthdate)
-				.toString();
+		return MoreObjects.toStringHelper(this).add("personId", personId).add("firstName", firstName)
+				.add("lastName", lastName).add("identificationType", identificationType)
+				.add("identificationNumber", identificationNumber).add("personRole", personRole).add("gender", gender)
+				.add("activityPrimary", activityPrimary).add("activitySecundary", activitySecundary)
+				.add("phoneNumber", phoneNumber).add("countryOfBirth", countryOfBirth)
+				// .add("city", city.toString())
+				// .add("family", family.toString())
+				.add("birthdate", birthdate).toString();
 	}
-	
+
 	public PersonEntity staticProperties(SurveyData indicatorSurveyData) {
-        indicatorSurveyData.entrySet()
-                .stream()
-                .forEach((entry) -> {
-                    try {
-                        Object value = null;
-                        if(Double.class.equals(PropertyUtils.getPropertyType(this, entry.getKey()))){
-                            value = Double.valueOf(entry.getValue().toString());
-                        } else {
-                            value = entry.getValue();
-                        }
-                        PropertyUtils.setProperty(this, entry.getKey(), value);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
-                    }
-                });
-        return this;
-    }
-	
+		indicatorSurveyData.entrySet().stream().forEach((entry) -> {
+			try {
+				Object value = null;
+				if (Double.class.equals(PropertyUtils.
+						getPropertyType(this, entry.getKey()))) {
+					value = Double.valueOf(entry.getValue().toString());
+				} else {
+					value = entry.getValue();
+				}
+				PropertyUtils.setProperty(this, entry.getKey(), value);
+			} catch (Exception e) {
+				throw new RuntimeException(
+						"Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
+			}
+		});
+		return this;
+	}
+
 }

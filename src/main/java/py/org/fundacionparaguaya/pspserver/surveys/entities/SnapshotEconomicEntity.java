@@ -350,7 +350,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         economicSurveyData.entrySet().stream().forEach((entry) -> {
             try {
                 Object value = null;
-                if(Double.class.equals(PropertyUtils.getPropertyType(this, entry.getKey()))){
+                if (Double.class.equals(PropertyUtils.
+                		getPropertyType(this, entry.getKey()))){
                     value = Double.valueOf(entry.getValue().toString());
                 } else {
                     value = entry.getValue();
