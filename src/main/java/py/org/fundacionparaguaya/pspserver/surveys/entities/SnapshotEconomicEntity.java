@@ -347,10 +347,13 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public SnapshotEconomicEntity staticProperties(SurveyData economicSurveyData) {
 
-        economicSurveyData.entrySet().stream().forEach((entry) -> {
-            try {
-                Object value = null;
-                if(Double.class.equals(PropertyUtils.getPropertyType(this, entry.getKey()))){
+        economicSurveyData.entrySet()
+        .stream()
+        .forEach((entry) -> {
+        	try {
+        		Object value = null;
+                if (Double.class.equals(PropertyUtils.
+                	getPropertyType(this, entry.getKey()))){
                     value = Double.valueOf(entry.getValue().toString());
                 } else {
                     value = entry.getValue();
@@ -358,7 +361,8 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
                 PropertyUtils.setProperty(this, entry.getKey(), value);
             } catch (Exception e) {
                 throw new RuntimeException(
-                        "Could not set property '" + entry.getKey() + "' to value '" + entry.getValue() + "'", e);
+                        "Could not set property '" + entry.getKey() + 
+                        "' to value '" + entry.getValue() + "'", e);
             }
         });
         return this;
