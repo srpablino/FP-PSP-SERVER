@@ -257,9 +257,9 @@ public class PersonEntity extends BaseEntity {
                 }
                 PropertyUtils.setProperty(this, entry.getKey(), value);
         	} catch (Exception e) {
-        		throw new RuntimeException("Could not set property '" + 
-        				entry.getKey() + "' to value '" + 
-        				entry.getValue() + "'", e);
+        		throw new RuntimeException("Could not set property '"
+        				+ entry.getKey() + "' to value '"
+        				+ entry.getValue() + "'", e);
             }
         });
         return this;
