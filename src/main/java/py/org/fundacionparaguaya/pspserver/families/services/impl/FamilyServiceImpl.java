@@ -57,7 +57,7 @@ public class FamilyServiceImpl implements FamilyService {
     
     private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
     
-    private final SnapshotIndicatorRepository snapshotIndicatorRepository; 
+    private final SnapshotIndicatorRepository snapshotIndicatorRepository;
 
     private static final String SPACE = " ";
     
@@ -65,7 +65,8 @@ public class FamilyServiceImpl implements FamilyService {
 
     public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
     		CountryRepository countryRepository, CityRepository cityRepository,
-            OrganizationRepository organizationRepository, SnapshotEconomicRepository economicRepository,
+            OrganizationRepository organizationRepository, 
+            SnapshotEconomicRepository economicRepository,
             SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.familyRepository = familyRepository;
@@ -115,9 +116,13 @@ public class FamilyServiceImpl implements FamilyService {
     public void deleteFamily(Long familyId) {
         checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
 
-        Optional.ofNullable(familyRepository.findOne(familyId)).ifPresent(family -> {
+        Optional.ofNullable(familyRepository
+        		.findOne(familyId))
+                  .ifPresent(family -> {
            
-        	Optional.ofNullable(economicRepository.findTopByFamilyFamilyIdOrderByIdDesc(familyId)).ifPresent(snapshotEconomicEntity -> {
+        	Optional.ofNullable(economicRepository
+        			.findTopByFamilyFamilyIdOrderByIdDesc(familyId))
+        	           .ifPresent(snapshotEconomicEntity -> {
               
         	  LocalDateTime now =  LocalDateTime.now();
               LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
@@ -125,10 +130,12 @@ public class FamilyServiceImpl implements FamilyService {
 
               if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
               	 SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
-     	         snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
+     	         snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository
+     	        		 .findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
      	         economicRepository.delete(snapshotEconomicEntity);
      	         snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
               }
+              
            });
 
 	       family.setActive(false);

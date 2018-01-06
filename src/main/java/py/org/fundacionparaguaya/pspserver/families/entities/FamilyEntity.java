@@ -187,7 +187,7 @@ public class FamilyEntity extends BaseEntity {
 				.add("person", person.toString())
 				.add("application", application.toString())
 				.add("organization", organization.toString())
-				.add("isActive", isActive)				
+				.add("isActive", isActive)
 				.toString();
 	}
 }

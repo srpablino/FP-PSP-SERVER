@@ -39,8 +39,11 @@ public class FamilyDTO {
 	
 	public FamilyDTO(){}
 
-	private FamilyDTO(Long familyId, String name, String code, CountryDTO country, CityDTO city, String locationType,
-			String locationPositionGps, PersonDTO person, ApplicationDTO application, OrganizationDTO organization, boolean isActive) {
+	private FamilyDTO(Long familyId, String name, String code, 
+			CountryDTO country, CityDTO city, String locationType,
+			String locationPositionGps, PersonDTO person, 
+			ApplicationDTO application, OrganizationDTO organization, 
+			boolean isActive) {
 		this.familyId = familyId;
 		this.name = name;
 		this.code = code;
@@ -112,7 +115,10 @@ public class FamilyDTO {
 			return this;
 		}
 		public FamilyDTO build(){
-			return new FamilyDTO(familyId, name, code, country, city, locationType, locationPositionGps, person, application, organization, isActive);
+			return new FamilyDTO(
+				familyId, name, code, country, 
+				city, locationType, locationPositionGps, 
+				person, application, organization, isActive);
 		}
 	}
 	
