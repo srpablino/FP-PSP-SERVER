@@ -197,5 +197,10 @@
     <changeSet id="2017-12-28T16:00" author="rvillalba">
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Create termcondpol table and add relationships into snapshots_economic table -->
+    <changeSet id="2018-01-08T09:00" author="mgonzalez">
+        <sqlFile path="sql/2018-01-08T09:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
