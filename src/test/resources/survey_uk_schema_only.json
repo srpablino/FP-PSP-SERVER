@@ -1159,7 +1159,7 @@
     "income": {
       "type": "array",
       "title": {
-        "es": "Income above the Poverty Line"
+        "es": "Income above the Poverty Line <input type=\"checkbox\" name=\"vehicle\" value=\"Bike\"> I have a bike"
       },
       "items": {
         "type": "object",
@@ -1175,10 +1175,7 @@
           "value":"RED"}
         ]
       },
-      "uniqueItems": true,
-      "default": [{"url":"https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg",
-          "description":"Household income is above 60% of the UK average. Single: £9,500 or more. Couple with no children £14,200 or more. Couple with two children £20,000 or more.",
-          "value":"GREEN"}]
+      "uniqueItems": true
     },
     "documentation": {
       "type": "array",
