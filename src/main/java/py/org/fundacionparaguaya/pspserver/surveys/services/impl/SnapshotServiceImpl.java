@@ -2,6 +2,8 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
@@ -64,14 +68,22 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final FamilyService familyService;
     
+    private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
+    
+    private final SnapshotIndicatorRepository snapshotIndicatorRepository;
+    
     private static final String INDICATOR_NAME = "name";
 
     private static final String INDICATOR_VALUE = "value";
+    
+    private static final int MAX_DAYS_DELETE_SNAPSHOT = 30;
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
-            FamilyRepository familyRepository, FamilyService familyService) {
+            FamilyRepository familyRepository, FamilyService familyService,
+            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
+            SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -81,6 +93,8 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.personMapper = personMapper;
         this.familyRepository = familyRepository;
         this.familyService = familyService;
+        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
+        this.snapshotIndicatorRepository = snapshotIndicatorRepository;
     }
 
     @Override
@@ -252,6 +266,28 @@ public class SnapshotServiceImpl implements SnapshotService {
 		        }
 			}	
 		);
+	}
+
+	@Override
+	public void deleteSnapshotByFamily(Long familyId) {
+		Optional.ofNullable(economicRepository
+    			.findTopByFamilyFamilyIdOrderByIdDesc(familyId))
+    	           .ifPresent(snapshotEconomicEntity -> {
+          
+    	  LocalDateTime now =  LocalDateTime.now();
+          LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
+          Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
+
+          if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
+          	 SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
+ 	         snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository
+ 	        		 .findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
+ 	         economicRepository.delete(snapshotEconomicEntity);
+ 	         snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
+          }
+          
+       });
+		
 	}
 
 }
