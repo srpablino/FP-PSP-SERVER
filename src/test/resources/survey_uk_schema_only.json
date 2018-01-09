@@ -3,6 +3,7 @@
   "description": "A simple stoplight survey example with default values for UK.",
   "type": "object",
   "required": [
+	"phoneNumber",
     "identificationType",
   	"identificationNumber",
   	"firstName",
@@ -30,30 +31,7 @@
     "educationLevelAttained",
     "housingSituation",
     "familyCity",
-    "familyCountry",
-    "income",
-    "documentation",
-    "drinkingWaterAccess",
-    "nearbyHealthPost",
-    "alimentation",
-    "garbageDisposal",
-    "safeHouse",
-    "safeBathroom",
-    "electricityAccess",
-    "refrigerator",
-    "separateBed",
-    "separateBedrooms",
-    "properKitchen",
-    "phone",
-    "security",
-    "readAndWrite",
-    "middleEducation",
-    "socialCapital",
-    "informationAccess",
-    "influenceInPublicSector",
-    "awarenessOfNeeds",
-    "selfEsteem",
-    "autonomyDecisions"
+    "familyCountry"    
   ],
   "properties": {
   
@@ -1175,7 +1153,10 @@
           "value":"RED"}
         ]
       },
-      "uniqueItems": true
+      "uniqueItems": true,
+      "default": [{"url":"https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg", 
+          "description":"In my household all family members have valid ID and proper documentation. I can prove my ID to anyone who asks. These may include: Driving License or Birth Certificate.",
+          "value":"GREEN"}]
     },
     "documentation": {
       "type": "array",
