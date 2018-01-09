@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +33,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
@@ -81,9 +77,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             SnapshotIndicatorPriorityService priorityService, 
             PersonMapper personMapper,
             FamilyRepository familyRepository, 
-            FamilyService familyService,
-            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
-            SnapshotIndicatorRepository snapshotIndicatorRepository) {
+            FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
