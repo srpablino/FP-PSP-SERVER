@@ -22,7 +22,6 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
-import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
@@ -30,7 +29,6 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
@@ -51,8 +49,6 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final OrganizationRepository organizationRepository;
     
-    private final FamilySnapshotsManager familySnapshotsManager;
-    
     private final ApplicationMapper applicationMapper;
 
     private static final String SPACE = " ";
@@ -63,15 +59,12 @@ public class FamilyServiceImpl implements FamilyService {
     		CountryRepository countryRepository, 
     		CityRepository cityRepository,
             OrganizationRepository organizationRepository, 
-            SnapshotService snapshotService,
-            FamilySnapshotsManager familySnapshotsManager,
             ApplicationMapper applicationMapper){
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
-        this.familySnapshotsManager = familySnapshotsManager;
         this.applicationMapper = applicationMapper;
     }
 
@@ -115,9 +108,6 @@ public class FamilyServiceImpl implements FamilyService {
         Optional.ofNullable(familyRepository
         		.findOne(familyId))
                   .ifPresent(family -> {
-                	  
-           familySnapshotsManager.deleteSnapshotByFamily(familyId);
-
 	       family.setActive(false);
 	       familyRepository.save(family);
 	       LOG.debug("Deleted Family: {}", family);

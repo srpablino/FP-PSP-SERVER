@@ -73,11 +73,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
-    @Autowired
-    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
-            SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
-            FamilyRepository familyRepository, @Lazy FamilyService familyService,
+    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, 
+    		SnapshotEconomicMapper economicMapper,
+            SurveyService surveyService, 
+            SurveyRepository surveyRepository, 
+            SnapshotIndicatorMapper indicatorMapper,
+            SnapshotIndicatorPriorityService priorityService, 
+            PersonMapper personMapper,
+            FamilyRepository familyRepository, 
+            FamilyService familyService,
             SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.economicRepository = economicRepository;

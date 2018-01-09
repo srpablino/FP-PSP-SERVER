@@ -66,7 +66,7 @@ public class FamilyController {
 	@DeleteMapping("/{familyId}")
 	public ResponseEntity<?> deleteFamily(@PathVariable("familyId") Long familyId) {
 		LOG.debug("REST request to delete Family: {}", familyId);
-		familyService.deleteFamily(familyId);
+		familyMapService.deleteSnapshotByFamily(familyId);
 		return ResponseEntity.noContent().build();
 	}
 
