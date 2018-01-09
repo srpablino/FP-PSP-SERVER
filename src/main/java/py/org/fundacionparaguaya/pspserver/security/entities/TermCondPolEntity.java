@@ -1,18 +1,22 @@
 package py.org.fundacionparaguaya.pspserver.security.entities;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters.LocalDateConverter;
 
 import com.google.common.base.MoreObjects;
 
@@ -28,7 +32,7 @@ import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
 @Table(name = "termcondpol", schema = "security")
 public class TermCondPolEntity extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1213762117818707037L;
 
     @Id
     @GenericGenerator(name = "termcondpolSequenceGenerator",
@@ -57,11 +61,12 @@ public class TermCondPolEntity extends BaseEntity {
     private Integer year;
 
     @Column(name = "created_date")
+    @Convert(converter = LocalDateConverter.class)
     private LocalDate createdDate;
 
     @Column(name = "type_cod")
     @Enumerated(EnumType.STRING)
-    private TermCondPolType type;
+    private TermCondPolType typeCod;
 
     public Long getId() {
         return id;
@@ -103,12 +108,12 @@ public class TermCondPolEntity extends BaseEntity {
         this.createdDate = createdDate;
     }
 
-    public TermCondPolType getType() {
-        return type;
+    public TermCondPolType getTypeCod() {
+        return typeCod;
     }
 
-    public void setType(TermCondPolType type) {
-        this.type = type;
+    public void setTypeCod(TermCondPolType type) {
+        this.typeCod = type;
     }
 
     @Override
@@ -136,8 +141,17 @@ public class TermCondPolEntity extends BaseEntity {
             .add("version", version)
             .add("year", year)
             .add("created date", createdDate)
-            .add("type", type)
+            .add("type", typeCod)
             .toString();
+    }
+    
+    @Transient
+    public String getCreatedDateAsISOString() {
+        
+        if (this.createdDate != null) {
+            return createdDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
+        return null;
     }
 
 }

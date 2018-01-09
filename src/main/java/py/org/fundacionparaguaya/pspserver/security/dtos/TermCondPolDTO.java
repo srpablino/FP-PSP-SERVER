@@ -20,8 +20,10 @@ public class TermCondPolDTO {
     @JsonProperty("created_date")
     private String createdDate;
     
-    @JsonProperty("type")
-    private TermCondPolType type;
+    @JsonProperty("type_cod")
+    private TermCondPolType typeCod;
+    
+    public TermCondPolDTO(){}
     
     private TermCondPolDTO(Long id, String html, String version, Integer year, String createdDate, TermCondPolType type) {
         this.id = id;
@@ -29,7 +31,7 @@ public class TermCondPolDTO {
         this.version = version;
         this.year = year;
         this.createdDate = createdDate;
-        this.type = type;
+        this.typeCod = type;
     }
 
     public Long getId() {
@@ -72,12 +74,12 @@ public class TermCondPolDTO {
         this.createdDate = createdDate;
     }
 
-    public TermCondPolType getType() {
-        return type;
+    public TermCondPolType getTypeCod() {
+        return typeCod;
     }
 
-    public void setType(TermCondPolType type) {
-        this.type = type;
+    public void setTypeCod(TermCondPolType type) {
+        this.typeCod = type;
     }
     
     public static class Builder {
@@ -87,7 +89,7 @@ public class TermCondPolDTO {
         private String version;
         private Integer year;
         private String createdDate;
-        private TermCondPolType type;
+        private TermCondPolType typeCod;
 
         public Builder id(Long id) {
             this.id = id;
@@ -114,13 +116,13 @@ public class TermCondPolDTO {
             return this;
         }
         
-        public Builder type(TermCondPolType type) {
-            this.type = type;
+        public Builder typeCod(TermCondPolType type) {
+            this.typeCod = type;
             return this;
         }
 
         public TermCondPolDTO build() {
-            return new TermCondPolDTO(id, html, version, year, createdDate, type);
+            return new TermCondPolDTO(id, html, version, year, createdDate, typeCod);
         }
     }
     
