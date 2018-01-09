@@ -6,5 +6,5 @@ import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
 import py.org.fundacionparaguaya.pspserver.security.entities.TermCondPolEntity;
 
 public interface TermCondPolRepository extends JpaRepository<TermCondPolEntity, Long>{
-    TermCondPolEntity findFirstByTypeOrderByCreatedDateDesc(TermCondPolType type);
+    TermCondPolEntity findFirstByTypeCodOrderByCreatedDateDesc(TermCondPolType type);
 }

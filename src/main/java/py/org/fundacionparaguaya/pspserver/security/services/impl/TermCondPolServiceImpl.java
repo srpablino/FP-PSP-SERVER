@@ -28,9 +28,9 @@ public class TermCondPolServiceImpl implements TermCondPolService {
     @Override
     public TermCondPolDTO getLastTermCondPol(TermCondPolType type) {
         
-        checkArgument(type==null, "Argument was %s but expected not null", type);
-      
-        return Optional.ofNullable(repository.findFirstByTypeOrderByCreatedDateDesc(type))
+        checkArgument(type!=null, "Argument was %s but expected not null", type);
+
+        return Optional.ofNullable(repository.findFirstByTypeCodOrderByCreatedDateDesc(type))
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("Terms and Conditions o Privacity Polities does not exist"));
       
