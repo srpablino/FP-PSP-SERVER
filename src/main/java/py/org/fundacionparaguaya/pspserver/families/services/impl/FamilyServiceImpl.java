@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -21,9 +22,11 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
@@ -48,20 +51,28 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final OrganizationRepository organizationRepository;
     
-    private final SnapshotService snapshotService; 
+    private final FamilySnapshotsManager familySnapshotsManager;
+    
+    private final ApplicationMapper applicationMapper;
 
     private static final String SPACE = " ";
     
-    public FamilyServiceImpl(FamilyRepository familyRepository, FamilyMapper familyMapper,
-    		CountryRepository countryRepository, CityRepository cityRepository,
+    @Autowired
+    public FamilyServiceImpl(FamilyRepository familyRepository, 
+    		FamilyMapper familyMapper,
+    		CountryRepository countryRepository, 
+    		CityRepository cityRepository,
             OrganizationRepository organizationRepository, 
-            SnapshotService snapshotService) {
+            SnapshotService snapshotService,
+            FamilySnapshotsManager familySnapshotsManager,
+            ApplicationMapper applicationMapper){
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
-        this.snapshotService = snapshotService;
+        this.familySnapshotsManager = familySnapshotsManager;
+        this.applicationMapper = applicationMapper;
     }
 
     @Override
@@ -105,7 +116,7 @@ public class FamilyServiceImpl implements FamilyService {
         		.findOne(familyId))
                   .ifPresent(family -> {
                 	  
-           snapshotService.deleteSnapshotByFamily(familyId);
+           familySnapshotsManager.deleteSnapshotByFamily(familyId);
 
 	       family.setActive(false);
 	       familyRepository.save(family);
@@ -137,12 +148,14 @@ public class FamilyServiceImpl implements FamilyService {
 	}
     
     @Override
-    public FamilyEntity createFamilyFromSnapshot(NewSnapshot snapshot, String code, PersonEntity person) {
+    public FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, String code, PersonEntity person) {
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setPerson(person);
         newFamily.setCode(code);
         newFamily.setName(person.getFirstName().concat(SPACE).concat(person.getLastName()));
         newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
+        newFamily.setApplication(applicationMapper.dtoToEntity(details.getApplication()));
+        newFamily.setActive(true);
 
         Optional<CountryEntity> country = countryRepository
                 .findByCountry(snapshot.getEconomicSurveyData().getAsString("familyCountry"));

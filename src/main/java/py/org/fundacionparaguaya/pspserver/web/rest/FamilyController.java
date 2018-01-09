@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
-import py.org.fundacionparaguaya.pspserver.families.services.FamilyMapService;
+import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
@@ -36,9 +36,9 @@ public class FamilyController {
 
 	private FamilyService familyService;
 
-	private FamilyMapService familyMapService;
+	private FamilySnapshotsManager familyMapService;
 
-	public FamilyController(FamilyService familyService, FamilyMapService familyMapService) {
+	public FamilyController(FamilyService familyService, FamilySnapshotsManager familyMapService) {
 		this.familyService = familyService;
 		this.familyMapService = familyMapService;
 	}

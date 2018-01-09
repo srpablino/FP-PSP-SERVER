@@ -2,8 +2,6 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +10,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +22,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -68,20 +69,15 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final FamilyService familyService;
     
-    private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
-    
-    private final SnapshotIndicatorRepository snapshotIndicatorRepository;
-    
     private static final String INDICATOR_NAME = "name";
 
     private static final String INDICATOR_VALUE = "value";
-    
-    private static final int MAX_DAYS_DELETE_SNAPSHOT = 30;
 
+    @Autowired
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
-            FamilyRepository familyRepository, FamilyService familyService,
+            FamilyRepository familyRepository, @Lazy FamilyService familyService,
             SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.economicRepository = economicRepository;
@@ -93,13 +89,11 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.personMapper = personMapper;
         this.familyRepository = familyRepository;
         this.familyService = familyService;
-        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
-        this.snapshotIndicatorRepository = snapshotIndicatorRepository;
     }
 
     @Override
     @Transactional
-    public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
+    public Snapshot addSurveySnapshot(UserDetailsDTO details, NewSnapshot snapshot) {
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
@@ -120,7 +114,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         if (family.isPresent()) {
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
         } else {
-            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(snapshot, code, personEntity);
+            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(details, snapshot, code, personEntity);
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
         }
 
@@ -266,28 +260,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 		        }
 			}	
 		);
-	}
-
-	@Override
-	public void deleteSnapshotByFamily(Long familyId) {
-		Optional.ofNullable(economicRepository
-    			.findTopByFamilyFamilyIdOrderByIdDesc(familyId))
-    	           .ifPresent(snapshotEconomicEntity -> {
-          
-    	  LocalDateTime now =  LocalDateTime.now();
-          LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
-          Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
-
-          if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
-          	 SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
- 	         snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository
- 	        		 .findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
- 	         economicRepository.delete(snapshotEconomicEntity);
- 	         snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
-          }
-          
-       });
-		
 	}
 
 }
