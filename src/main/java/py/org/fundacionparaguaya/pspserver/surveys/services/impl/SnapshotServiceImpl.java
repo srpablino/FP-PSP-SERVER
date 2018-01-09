@@ -273,6 +273,10 @@ public class SnapshotServiceImpl implements SnapshotService {
 				.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
 		economicRepository.delete(snapshotEconomicEntity);
 		snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
+		
+		if (economicRepository.findByFamilyFamilyId(snapshotEconomicEntityAux.getFamily().getFamilyId()).size() == 0) {
+			familyRepository.delete(snapshotEconomicEntityAux.getFamily().getFamilyId());
+		}
 	}
 
 }
