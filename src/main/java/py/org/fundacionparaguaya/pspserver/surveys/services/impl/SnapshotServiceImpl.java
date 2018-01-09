@@ -86,6 +86,8 @@ public class SnapshotServiceImpl implements SnapshotService {
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
+        System.out.println("snapshot json");
+        System.out.println(snapshot);
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);

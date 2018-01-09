@@ -416,6 +416,21 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.additionalProperties = additionalProperties;
         return this;
     }
+    
+    public SnapshotEconomicEntity user(UserEntity user) {
+        this.user = user;
+        return this;
+    }
+    
+    public SnapshotEconomicEntity termCond(TermCondPolEntity termCond) {
+        this.termCond = termCond;
+        return this;
+    }
+    
+    public SnapshotEconomicEntity privPol(TermCondPolEntity privPol) {
+        this.privPol = privPol;
+        return this;
+    }
 
     public SnapshotEconomicEntity staticProperties(
             SurveyData economicSurveyData) {

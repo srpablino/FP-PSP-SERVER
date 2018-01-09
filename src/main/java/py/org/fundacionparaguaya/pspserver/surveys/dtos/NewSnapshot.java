@@ -43,8 +43,8 @@ public class NewSnapshot   {
     @JsonProperty("indicator_survey_data")
     private SurveyData indicatorSurveyData = null;
 
-    @JsonProperty("user_id")
-    private Long userId = null;
+    @JsonProperty("user_name")
+    private String userName = null;
 
     @JsonProperty("term_cond_id")
     private Long termCondId = null;
@@ -125,12 +125,12 @@ public class NewSnapshot   {
         this.indicatorSurveyData = indicatorSurveyData;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userId) {
+        this.userName = userId;
     }
 
     public Long getTermCondId() {
@@ -169,7 +169,7 @@ public class NewSnapshot   {
         .append(toIndentedString(indicatorSurveyData))
         .append("\n");
         sb.append("    user: ")
-        .append(toIndentedString(userId))
+        .append(toIndentedString(userName))
         .append("\n");
         sb.append("    termCond: ")
         .append(toIndentedString(termCondId))
@@ -214,8 +214,8 @@ public class NewSnapshot   {
                         that.economicSurveyData)
                 && com.google.common.base.Objects.equal(
                         this.indicatorSurveyData, that.indicatorSurveyData)
-                && com.google.common.base.Objects.equal(this.userId,
-                        that.userId)
+                && com.google.common.base.Objects.equal(this.userName,
+                        that.userName)
                 && com.google.common.base.Objects.equal(this.termCondId,
                         that.termCondId)
                 && com.google.common.base.Objects.equal(this.privPolId,

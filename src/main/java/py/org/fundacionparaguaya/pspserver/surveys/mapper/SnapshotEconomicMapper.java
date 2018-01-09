@@ -3,6 +3,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.mapper;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.stereotype.Component;
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
+import py.org.fundacionparaguaya.pspserver.security.entities.TermCondPolEntity;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.security.repositories.TermCondPolRepository;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.*;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
@@ -21,9 +25,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SnapshotEconomicMapper implements BaseMapper<SnapshotEconomicEntity, Snapshot> {
 
     private final PropertyAttributeSupport propertyAttributeSupport;
+    private UserRepository userRepository;
+    private TermCondPolRepository termCondPolRepository;
 
-    public SnapshotEconomicMapper(PropertyAttributeSupport propertyAttributeSupport) {
+    public SnapshotEconomicMapper(PropertyAttributeSupport propertyAttributeSupport, UserRepository userRepository, TermCondPolRepository termCondPolRepository) {
         this.propertyAttributeSupport = propertyAttributeSupport;
+        this.userRepository = userRepository;
+        this.termCondPolRepository = termCondPolRepository;
     }
 
     @Override
@@ -57,11 +65,28 @@ public class SnapshotEconomicMapper implements BaseMapper<SnapshotEconomicEntity
     }
 
     public SnapshotEconomicEntity newSnapshotToEconomicEntity(NewSnapshot snapshot, SnapshotIndicatorEntity indicator) {
+        UserEntity user = null;
+        TermCondPolEntity termCond = null;
+        TermCondPolEntity privPol = null;
+        if(snapshot.getUserName()!=null) {
+            user = userRepository.findOneByUsername(snapshot.getUserName()).get();
+        }
+        if(snapshot.getTermCondId()!=null) {
+            termCond = termCondPolRepository.findOne(snapshot.getTermCondId());
+        }
+        
+        if(snapshot.getPrivPolId()!=null) {
+            privPol = termCondPolRepository.findOne(snapshot.getPrivPolId());
+        }
+        
         return new SnapshotEconomicEntity().surveyDefinition(new SurveyEntity(snapshot.getSurveyId()))
                 .surveyIndicator(indicator)
                 .staticProperties(snapshot.getMappedEconomicSurveyData(propertyAttributeSupport.staticEconomic(),
                         propertyAttributeSupport::propertySchemaToSystemName))
-                .additionalProperties(snapshot.getEconomicSurveyData(propertyAttributeSupport.additional()));
+                .additionalProperties(snapshot.getEconomicSurveyData(propertyAttributeSupport.additional()))
+                .user(user)
+                .termCond(termCond)
+                .privPol(privPol);
     }
 
     public SurveyData getAllProperties(StoreableSnapshot bean, List<PropertyAttributeEntity> attributes) {
