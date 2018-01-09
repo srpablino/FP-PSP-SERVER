@@ -2,8 +2,8 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
@@ -20,8 +20,9 @@ public class TermCondPolController {
         this.service = service;
     }
     
-    @GetMapping("/last/{type}")
-    public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(@PathVariable("type") TermCondPolType type) {
+    @GetMapping("/last")
+    public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(@RequestParam(value = "type", required = true) TermCondPolType type) {
+        System.out.println("llamo al metodo");
         TermCondPolDTO dto = service.getLastTermCondPol(type);
         return ResponseEntity.ok(dto);
     }
