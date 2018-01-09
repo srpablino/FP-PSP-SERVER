@@ -197,5 +197,10 @@
     <changeSet id="2017-12-28T16:00" author="rvillalba">
         <sqlFile path="sql/2017-12-28T16:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Update stoplight indicator group to recommended -->
+    <changeSet id="2018-01-09T09:59.sql" author="mcespedes">
+        <sqlFile path="sql/2018-01-09T09:59.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
