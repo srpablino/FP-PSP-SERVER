@@ -20,6 +20,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -68,10 +69,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
-    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
-            SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
-            FamilyRepository familyRepository, FamilyService familyService) {
+    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, 
+    		SnapshotEconomicMapper economicMapper,
+            SurveyService surveyService, 
+            SurveyRepository surveyRepository, 
+            SnapshotIndicatorMapper indicatorMapper,
+            SnapshotIndicatorPriorityService priorityService, 
+            PersonMapper personMapper,
+            FamilyRepository familyRepository, 
+            FamilyService familyService) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -85,9 +91,9 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     @Override
     @Transactional
-    public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
-        System.out.println("snapshot json");
-        System.out.println(snapshot);
+
+    public Snapshot addSurveySnapshot(UserDetailsDTO details, NewSnapshot snapshot) {
+
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
@@ -108,7 +114,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         if (family.isPresent()) {
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
         } else {
-            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(snapshot, code, personEntity);
+            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(details, snapshot, code, personEntity);
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
         }
 

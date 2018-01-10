@@ -75,7 +75,7 @@ public class SnapshotControllerTest {
     public void shouldPostToCreateSnapshot() throws Exception {
         Snapshot snapshot = getSnapshot();
 
-        when(service.addSurveySnapshot(anyObject())).thenReturn(snapshot);
+        when(service.addSurveySnapshot(anyObject(), anyObject())).thenReturn(snapshot);
 
         String content = TestHelper.mapToJson(snapshot);
         this.mockMvc.perform(

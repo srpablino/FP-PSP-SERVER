@@ -16,6 +16,7 @@ public class FamilyFilterDTO {
 	private Long countryId;
 	private Long cityId;
 	private String name;
+	private boolean isActive;
 	
 	public FamilyFilterDTO() {
 	    super();
@@ -27,12 +28,14 @@ public class FamilyFilterDTO {
         this.organizationId = organizationId;
     }
 	
-	public FamilyFilterDTO(Long organizationId, Long countryId, Long cityId, String name) {
+	public FamilyFilterDTO(Long organizationId, Long countryId, 
+			Long cityId, String name, boolean isActive) {
         super();
         this.organizationId = organizationId;
         this.countryId = countryId;
         this.cityId = cityId;
         this.name = name;
+        this.isActive = isActive;
     }
 
     public Long getApplicationId() {
@@ -74,8 +77,16 @@ public class FamilyFilterDTO {
     public void setName(String name) {
         this.name = name;
     }
-	
-    @Override
+    
+    public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         builder.append("applicationId", applicationId);
@@ -83,6 +94,7 @@ public class FamilyFilterDTO {
         builder.append("countryId", countryId);
         builder.append("cityId", cityId);
         builder.append("name", name);
+        builder.append("isActive", isActive);
         return builder.build();
     }
 }
