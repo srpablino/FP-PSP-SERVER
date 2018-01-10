@@ -20,6 +20,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -32,6 +33,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotEconomicMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
@@ -62,6 +65,10 @@ public class SnapshotServiceImpl implements SnapshotService {
     
     private final FamilyRepository familyRepository;
     
+    private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
+    
+    private final SnapshotIndicatorRepository snapshotIndicatorRepository;
+    
     private final FamilyService familyService;
     
     private static final String INDICATOR_NAME = "name";
@@ -71,7 +78,9 @@ public class SnapshotServiceImpl implements SnapshotService {
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository, SnapshotEconomicMapper economicMapper,
             SurveyService surveyService, SurveyRepository surveyRepository, SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService, PersonMapper personMapper,
-            FamilyRepository familyRepository, FamilyService familyService) {
+            FamilyRepository familyRepository, FamilyService familyService,
+            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
+            SnapshotIndicatorRepository snapshotIndicatorRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -81,11 +90,13 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.personMapper = personMapper;
         this.familyRepository = familyRepository;
         this.familyService = familyService;
+        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
+        this.snapshotIndicatorRepository = snapshotIndicatorRepository;
     }
 
     @Override
     @Transactional
-    public Snapshot addSurveySnapshot(NewSnapshot snapshot) {
+    public Snapshot addSurveySnapshot(UserDetailsDTO details, NewSnapshot snapshot) {
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
@@ -106,7 +117,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         if (family.isPresent()) {
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, family.get());
         } else {
-            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(snapshot, code, personEntity);
+            FamilyEntity newFamily = familyService.createFamilyFromSnapshot(details, snapshot, code, personEntity);
             snapshotEconomicEntity = saveEconomic(snapshot, indicatorEntity, newFamily);
         }
 
@@ -252,6 +263,20 @@ public class SnapshotServiceImpl implements SnapshotService {
 		        }
 			}	
 		);
+	}
+
+	@Override
+	public void deleteSnapshotById(Long snapshotEconomicId) {
+		SnapshotEconomicEntity snapshotEconomicEntity = economicRepository.getOne(snapshotEconomicId);
+		SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
+		snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository
+				.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
+		economicRepository.delete(snapshotEconomicEntity);
+		snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
+		
+		if (economicRepository.findByFamilyFamilyId(snapshotEconomicEntityAux.getFamily().getFamilyId()).size() == 0) {
+			familyRepository.delete(snapshotEconomicEntityAux.getFamily().getFamilyId());
+		}
 	}
 
 }

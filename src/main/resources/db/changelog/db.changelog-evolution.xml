@@ -203,4 +203,9 @@
         <sqlFile path="sql/2018-01-03T15:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add enabled column in family table -->
+    <changeSet id="2018-01-06T09:13" author="mcespedes">
+        <sqlFile path="sql/2018-01-06T09:13.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
