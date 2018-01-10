@@ -22,7 +22,7 @@ public class TermCondPolController {
 
     @GetMapping("/last")
     public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(
-        @RequestParam(value = "type", required = true) 
+        @RequestParam(value = "type", required = true)
         TermCondPolType type) {
         TermCondPolDTO dto = service.getLastTermCondPol(type);
         return ResponseEntity.ok(dto);

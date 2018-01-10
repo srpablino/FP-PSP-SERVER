@@ -82,9 +82,9 @@ public class TermCondPolDTO {
     public void setTypeCod(TermCondPolType type) {
         this.typeCod = type;
     }
-    
+
     public static class Builder {
-        
+
         private Long id;
         private String html;
         private String version;
@@ -111,12 +111,12 @@ public class TermCondPolDTO {
             this.year = year;
             return this;
         }
-        
+
         public Builder createdDate(String createdDate) {
             this.createdDate = createdDate;
             return this;
         }
-        
+
         public Builder typeCod(TermCondPolType type) {
             this.typeCod = type;
             return this;
@@ -127,7 +127,6 @@ public class TermCondPolDTO {
                 version, year, createdDate, typeCod);
         }
     }
-    
-    
+
 
 }

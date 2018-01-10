@@ -28,7 +28,7 @@ public class TermCondPolServiceImpl implements TermCondPolService {
 
     @Override
     public TermCondPolDTO getLastTermCondPol(TermCondPolType type) {
-        
+
         checkArgument(type!=null,
             "Argument was %s but expected not null", type);
 

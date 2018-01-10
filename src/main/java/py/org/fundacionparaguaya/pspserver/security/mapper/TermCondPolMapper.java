@@ -2,8 +2,6 @@ package py.org.fundacionparaguaya.pspserver.security.mapper;
 
 import java.util.List;
 
-//import javax.print.attribute.standard.Destination;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Component;
@@ -46,7 +44,7 @@ public class TermCondPolMapper implements BaseMapper<TermCondPolEntity,
 
     @Override
     public TermCondPolDTO entityToDto(TermCondPolEntity entity) {
-      
+
         TermCondPolDTO dto = modelMapper.map(entity, TermCondPolDTO.class);
         dto.setCreatedDate(entity.getCreatedDateAsISOString());
         return dto;
