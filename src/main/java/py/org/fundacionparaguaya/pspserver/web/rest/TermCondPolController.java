@@ -13,15 +13,17 @@ import py.org.fundacionparaguaya.pspserver.security.services.TermCondPolService;
 @RestController
 @RequestMapping(value = "/api/v1/termcondpol")
 public class TermCondPolController {
-    
+
     private TermCondPolService service;
-    
+
     public TermCondPolController(TermCondPolService service) {
         this.service = service;
     }
-    
+
     @GetMapping("/last")
-    public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(@RequestParam(value = "type", required = true) TermCondPolType type) {
+    public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(
+        @RequestParam(value = "type", required = true) 
+        TermCondPolType type) {
         TermCondPolDTO dto = service.getLastTermCondPol(type);
         return ResponseEntity.ok(dto);
     }

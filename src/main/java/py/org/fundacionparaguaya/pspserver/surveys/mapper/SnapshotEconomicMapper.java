@@ -28,7 +28,10 @@ public class SnapshotEconomicMapper implements BaseMapper<SnapshotEconomicEntity
     private UserRepository userRepository;
     private TermCondPolRepository termCondPolRepository;
 
-    public SnapshotEconomicMapper(PropertyAttributeSupport propertyAttributeSupport, UserRepository userRepository, TermCondPolRepository termCondPolRepository) {
+    public SnapshotEconomicMapper(
+        PropertyAttributeSupport propertyAttributeSupport,
+        UserRepository userRepository,
+        TermCondPolRepository termCondPolRepository) {
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.userRepository = userRepository;
         this.termCondPolRepository = termCondPolRepository;
@@ -68,14 +71,14 @@ public class SnapshotEconomicMapper implements BaseMapper<SnapshotEconomicEntity
         UserEntity user = null;
         TermCondPolEntity termCond = null;
         TermCondPolEntity privPol = null;
-        if(snapshot.getUserName()!=null) {
+        if (snapshot.getUserName()!=null) {
             user = userRepository.findOneByUsername(snapshot.getUserName()).get();
         }
-        if(snapshot.getTermCondId()!=null) {
+        if (snapshot.getTermCondId()!=null) {
             termCond = termCondPolRepository.findOne(snapshot.getTermCondId());
         }
         
-        if(snapshot.getPrivPolId()!=null) {
+        if (snapshot.getPrivPolId()!=null) {
             privPol = termCondPolRepository.findOne(snapshot.getPrivPolId());
         }
         
@@ -83,7 +86,8 @@ public class SnapshotEconomicMapper implements BaseMapper<SnapshotEconomicEntity
                 .surveyIndicator(indicator)
                 .staticProperties(snapshot.getMappedEconomicSurveyData(propertyAttributeSupport.staticEconomic(),
                         propertyAttributeSupport::propertySchemaToSystemName))
-                .additionalProperties(snapshot.getEconomicSurveyData(propertyAttributeSupport.additional()))
+                .additionalProperties(snapshot
+                		.getEconomicSurveyData(propertyAttributeSupport.additional()))
                 .user(user)
                 .termCond(termCond)
                 .privPol(privPol);

@@ -144,10 +144,10 @@ public class TermCondPolEntity extends BaseEntity {
             .add("type", typeCod)
             .toString();
     }
-    
+
     @Transient
     public String getCreatedDateAsISOString() {
-        
+
         if (this.createdDate != null) {
             return createdDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
         }

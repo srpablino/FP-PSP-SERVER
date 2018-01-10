@@ -7,25 +7,26 @@ import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
 public class TermCondPolDTO {
     @JsonProperty("id")
     private Long id;
-    
+
     @JsonProperty("html")
     private String html;
-    
+
     @JsonProperty("version")
     private String version;
-    
+
     @JsonProperty("year")
     private Integer year;
-    
+
     @JsonProperty("created_date")
     private String createdDate;
-    
+
     @JsonProperty("type_cod")
     private TermCondPolType typeCod;
-    
+
     public TermCondPolDTO(){}
-    
-    private TermCondPolDTO(Long id, String html, String version, Integer year, String createdDate, TermCondPolType type) {
+
+    private TermCondPolDTO(Long id, String html, String version,
+        Integer year, String createdDate, TermCondPolType type) {
         this.id = id;
         this.html = html;
         this.version = version;
@@ -122,7 +123,8 @@ public class TermCondPolDTO {
         }
 
         public TermCondPolDTO build() {
-            return new TermCondPolDTO(id, html, version, year, createdDate, typeCod);
+            return new TermCondPolDTO(id, html,
+                version, year, createdDate, typeCod);
         }
     }
     

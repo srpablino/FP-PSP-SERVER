@@ -22,11 +22,10 @@ public class TermCondPolMapper implements BaseMapper<TermCondPolEntity,
     TermCondPolDTO> {
 
     private final ModelMapper modelMapper;
-    
-    PropertyMap<TermCondPolEntity, TermCondPolDTO> skip = new PropertyMap<TermCondPolEntity, TermCondPolDTO>()
-    {
-        protected void configure()
-        {
+
+    private PropertyMap<TermCondPolEntity, TermCondPolDTO> skip =
+        new PropertyMap<TermCondPolEntity, TermCondPolDTO>() {
+        protected void configure() {
            map(destination.getCreatedDate()).setCreatedDate(null);
         }
     };

@@ -17,23 +17,28 @@ import py.org.fundacionparaguaya.pspserver.security.services.TermCondPolService;
 public class TermCondPolServiceImpl implements TermCondPolService {
 
     private TermCondPolRepository repository;
-    
+
     private final TermCondPolMapper mapper;
-    
-    public TermCondPolServiceImpl(TermCondPolRepository repository, TermCondPolMapper mapper) {
+
+    public TermCondPolServiceImpl(TermCondPolRepository repository,
+        TermCondPolMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
-    
+
     @Override
     public TermCondPolDTO getLastTermCondPol(TermCondPolType type) {
         
-        checkArgument(type!=null, "Argument was %s but expected not null", type);
+        checkArgument(type!=null,
+            "Argument was %s but expected not null", type);
 
-        return Optional.ofNullable(repository.findFirstByTypeCodOrderByCreatedDateDesc(type))
-                .map(mapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Terms and Conditions o Privacity Polities does not exist"));
-      
+        return Optional.ofNullable(repository
+            .findFirstByTypeCodOrderByCreatedDateDesc(type))
+            .map(mapper::entityToDto)
+            .orElseThrow(() -> new UnknownResourceException(
+                "Terms and Conditions o Privacity Polities"
+                + " does not exist"));
+
     }
 
 }
