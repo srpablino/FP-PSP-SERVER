@@ -22,7 +22,6 @@ public class TermCondPolController {
     
     @GetMapping("/last")
     public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(@RequestParam(value = "type", required = true) TermCondPolType type) {
-        System.out.println("llamo al metodo");
         TermCondPolDTO dto = service.getLastTermCondPol(type);
         return ResponseEntity.ok(dto);
     }
