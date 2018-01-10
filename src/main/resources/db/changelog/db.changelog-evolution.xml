@@ -202,5 +202,10 @@
     <changeSet id="2018-01-08T09:00" author="mgonzalez">
         <sqlFile path="sql/2018-01-08T09:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    
+    <!-- Insert example for "Terms and Conditions" and "Privacy Policies" -->
+    <changeSet id="2018-01-09T23:00" author="mgonzalez">
+        <sqlFile path="sql/2018-01-09T23:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
