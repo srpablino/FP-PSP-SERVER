@@ -84,28 +84,28 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     private String activitySecondary;
 
     @Column(name = "household_monthly_income")
-    private Integer householdMonthlyIncome;
+    private Double householdMonthlyIncome;
 
     @Column(name = "salary_income")
-    private Integer salaryIncome;
+    private Double salaryIncome;
 
     @Column(name = "benefit_income")
-    private Integer benefitIncome;
+    private Double  benefitIncome;
 
     @Column(name = "pension_income")
-    private Integer pensionIncome;
+    private Double pensionIncome;
 
     @Column(name = "savings_income")
-    private Integer savingsIncome;
+    private Double savingsIncome;
 
     @Column(name = "other_income")
-    private Integer otherIncome;
+    private Double otherIncome;
 
     @Column(name = "household_monthly_outgoing")
-    private Integer householdMonthlyOutgoing;
+    private Double householdMonthlyOutgoing;
 
     @Column(name = "net_suplus")
-    private Integer netSuplus;
+    private Double netSuplus;
 
     @Column(name = "education_client_level")
     private String educationClientLevel;
@@ -236,67 +236,67 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         this.activitySecondary = activitySecondary;
     }
 
-    public Integer getHouseholdMonthlyIncome() {
+    public Double getHouseholdMonthlyIncome() {
         return householdMonthlyIncome;
     }
 
-    public void setHouseholdMonthlyIncome(Integer householdMonthlyIncome) {
+    public void setHouseholdMonthlyIncome(Double householdMonthlyIncome) {
         this.householdMonthlyIncome = householdMonthlyIncome;
     }
 
-    public Integer getSalaryIncome() {
+    public Double getSalaryIncome() {
         return salaryIncome;
     }
 
-    public void setSalaryIncome(Integer salaryIncome) {
+    public void setSalaryIncome(Double salaryIncome) {
         this.salaryIncome = salaryIncome;
     }
 
-    public Integer getBenefitIncome() {
+    public Double getBenefitIncome() {
         return benefitIncome;
     }
 
-    public void setBenefitIncome(Integer benefitIncome) {
+    public void setBenefitIncome(Double benefitIncome) {
         this.benefitIncome = benefitIncome;
     }
 
-    public Integer getPensionIncome() {
+    public Double getPensionIncome() {
         return pensionIncome;
     }
 
-    public void setPensionIncome(Integer pensionIncome) {
+    public void setPensionIncome(Double pensionIncome) {
         this.pensionIncome = pensionIncome;
     }
 
-    public Integer getSavingsIncome() {
+    public Double getSavingsIncome() {
         return savingsIncome;
     }
 
-    public void setSavingsIncome(Integer savingsIncome) {
+    public void setSavingsIncome(Double savingsIncome) {
         this.savingsIncome = savingsIncome;
     }
 
-    public Integer getOtherIncome() {
+    public Double getOtherIncome() {
         return otherIncome;
     }
 
-    public void setOtherIncome(Integer otherIncome) {
+    public void setOtherIncome(Double otherIncome) {
         this.otherIncome = otherIncome;
     }
 
-    public Integer getHouseholdMonthlyOutgoing() {
+    public Double getHouseholdMonthlyOutgoing() {
         return householdMonthlyOutgoing;
     }
 
-    public void setHouseholdMonthlyOutgoing(Integer householdMonthlyOutgoing) {
+    public void setHouseholdMonthlyOutgoing(Double householdMonthlyOutgoing) {
         this.householdMonthlyOutgoing = householdMonthlyOutgoing;
     }
 
-    public Integer getNetSuplus() {
+    public Double getNetSuplus() {
         return netSuplus;
     }
 
-    public void setNetSuplus(Integer netSuplus) {
+    public void setNetSuplus(Double netSuplus) {
         this.netSuplus = netSuplus;
     }
 
@@ -435,15 +435,23 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     public SnapshotEconomicEntity staticProperties(
             SurveyData economicSurveyData) {
 
-        economicSurveyData.entrySet().stream().forEach((entry) -> {
+        economicSurveyData.entrySet()
+        .stream()
+        .forEach((entry) -> {
             try {
-                PropertyUtils.setProperty(this,
-                        entry.getKey(), entry.getValue());
+
+        		Object value = null;
+                if (Double.class.equals(PropertyUtils.
+                	getPropertyType(this, entry.getKey()))){
+                    value = Double.valueOf(entry.getValue().toString());
+                } else {
+                    value = entry.getValue();
+                }
+                PropertyUtils.setProperty(this, entry.getKey(), value);
             } catch (Exception e) {
                 throw new RuntimeException(
-                        "Could not set property '"
-                                + entry.getKey() + "' to value '"
-                                + entry.getValue() + "'", e);
+                        "Could not set property '" + entry.getKey()
+                        + "' to value '" + entry.getValue() + "'", e);
             }
         });
         return this;
