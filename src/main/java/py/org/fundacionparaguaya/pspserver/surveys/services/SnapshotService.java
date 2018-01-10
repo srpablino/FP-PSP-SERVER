@@ -22,4 +22,6 @@ public interface SnapshotService {
 	
 	SnapshotIndicators getLastSnapshotIndicatorsByFamily(Long snapshotId);
 	
+	void deleteSnapshotById(Long snapshotEconomicId);
+
 }
