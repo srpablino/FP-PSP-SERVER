@@ -28,9 +28,10 @@ public class FamilyFilterDTO {
         this.organizationId = organizationId;
     }
 	
-	public FamilyFilterDTO(Long organizationId, Long countryId, 
+	public FamilyFilterDTO(Long applicationId, Long organizationId, Long countryId, 
 			Long cityId, String name, boolean isActive) {
         super();
+        this.applicationId = applicationId;
         this.organizationId = organizationId;
         this.countryId = countryId;
         this.cityId = cityId;
