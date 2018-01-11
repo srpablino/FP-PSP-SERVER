@@ -62,7 +62,19 @@ public class ApplicationController {
 		List<ApplicationDTO> applications = applicationService.getAllApplications();
 		return ResponseEntity.ok(applications);
 	}
-	
+
+	@GetMapping("/hubs")
+	public ResponseEntity<List<ApplicationDTO>> getAllHubs() {
+		List<ApplicationDTO> hubs = applicationService.getAllHubs();
+		return ResponseEntity.ok(hubs);
+	}
+
+	@GetMapping("/partners")
+	public ResponseEntity<List<ApplicationDTO>> getAllPartners() {
+		List<ApplicationDTO> partners = applicationService.getAllPartners();
+		return ResponseEntity.ok(partners);
+	}
+
 	@DeleteMapping("/{applicationId}")
 	public ResponseEntity<Void> deleteApplication(@PathVariable("applicationId") Long applicationId) {
 		LOG.debug("REST request to delete Application: {}", applicationId);

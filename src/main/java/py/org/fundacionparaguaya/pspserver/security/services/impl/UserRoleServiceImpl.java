@@ -2,15 +2,19 @@ package py.org.fundacionparaguaya.pspserver.security.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
 import py.org.fundacionparaguaya.pspserver.security.mapper.UserRoleMapper;
@@ -67,6 +71,27 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public List<UserRoleDTO> getAllUserRoles() {
 		List<UserRoleEntity> userRole = userRoleRepository.findAll();
 		return userRoleMapper.entityListToDtoList(userRole);
+	}
+
+	@Override
+	public List<UserRoleDTO> getRolesByLoggedUser() {
+		List<UserRoleDTO> rolesByLoggedUser = new ArrayList<UserRoleDTO>();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_ROOT.name())) {
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_HUB_ADMIN).build());
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
+		} else if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_HUB_ADMIN.name())) {
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
+		} else if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_APP_ADMIN.name())) {
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
+			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_SURVEY_USER).build());
+//			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_SOCIAL_ASSISTANT).build());
+		}
+
+		return rolesByLoggedUser;
 	}
 
 	@Override

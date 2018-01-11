@@ -11,6 +11,8 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 
 public interface OrganizationRepository extends PagingAndSortingRepository<OrganizationEntity, Long>, JpaSpecificationExecutor<OrganizationEntity>{
 
+	OrganizationEntity findById(Long id);
 	List<OrganizationEntity> findAll();
 	Page<OrganizationEntity> findAll(Pageable page);
+	List<OrganizationEntity> findByApplicationId(Long application_id);
 }

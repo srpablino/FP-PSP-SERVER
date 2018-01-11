@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -73,7 +74,19 @@ public class OrganizationController {
 		PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 		return ResponseEntity.ok(response);
 	}
-	
+
+	@GetMapping("/organizationsByLoggedUser")
+	public ResponseEntity<List<OrganizationDTO>> getOrganizationsByLoggedUser(@AuthenticationPrincipal UserDetailsDTO userDetails) {
+		List<OrganizationDTO> organizationsByLoggedUser = organizationService.getOrganizationsByLoggedUser(userDetails);
+		return ResponseEntity.ok(organizationsByLoggedUser);
+	}
+
+	@GetMapping("/organizationByLoggedUser")
+	public ResponseEntity<List<OrganizationDTO>> getOrganizationByLoggedUser(@AuthenticationPrincipal UserDetailsDTO userDetails) {
+		List<OrganizationDTO> organizationByLoggedUser = organizationService.getOrganizationByLoggedUser(userDetails);
+		return ResponseEntity.ok(organizationByLoggedUser);
+	}
+
 	@DeleteMapping("/{organizationId}")
 	public ResponseEntity<Void> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
 		LOG.debug("REST request to delete Organization: {}", organizationId);
