@@ -96,7 +96,9 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     @Override
     @Transactional
+
     public Snapshot addSurveySnapshot(UserDetailsDTO details, NewSnapshot snapshot) {
+
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService.checkSchemaCompliance(snapshot);
