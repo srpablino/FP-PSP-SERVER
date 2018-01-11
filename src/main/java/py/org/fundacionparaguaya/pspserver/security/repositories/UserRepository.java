@@ -1,8 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.security.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,5 +14,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findOneByUsername(String username);
     UserEntity findByUsername(String username);
+    Page<UserEntity> findAll(Pageable page);
+    List<UserEntity> findAll();
 }
 

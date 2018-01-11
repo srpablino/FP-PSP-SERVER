@@ -4,7 +4,11 @@ import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.core.convert.converter.Converter;
+
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -15,6 +19,7 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepos
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.UserApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
@@ -29,6 +34,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -172,6 +179,21 @@ public class UserServiceImpl implements UserService {
                 .map(userMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("User does not exist"));
     }
+
+
+	@Override
+	public Page<UserDTO> listUsers(PageRequest pageRequest) {
+		Page<UserEntity> pageResponse = userRepository.findAll(pageRequest);
+		if (pageResponse != null) {
+			return pageResponse.map(new Converter<UserEntity, UserDTO>() {
+			    @Override
+				public UserDTO convert(UserEntity source) {
+			    	return userMapper.entityToDto(source);
+				}
+			});
+		}
+		return null;
+	}
 
 	
 }

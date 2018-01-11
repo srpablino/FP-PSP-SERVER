@@ -2,6 +2,9 @@ package py.org.fundacionparaguaya.pspserver.security.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
@@ -20,4 +23,5 @@ public interface UserService {
 	
 	void deleteUser(Long userId);
 	
+	Page<UserDTO>listUsers(PageRequest pageRequest);
 }

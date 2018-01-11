@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
@@ -58,9 +65,19 @@ public class UserController {
 	
 
 	@GetMapping()
-	public ResponseEntity<List<UserDTO>> getAllUsers() {
+	public ResponseEntity<PaginableList<UserDTO>>  getPaginatedUsers(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+			@RequestParam(value = "sort_by", required = false, defaultValue = "username") String sortBy,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy){
+	//public ResponseEntity<List<UserDTO>> getAllUsers() {
+		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+		Page<UserDTO> pageProperties = userService.listUsers(pageRequest);
+		PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+		return ResponseEntity.ok(response);
+		/*
 		List<UserDTO> users = userService.getAllUsers();
 		return ResponseEntity.ok(users);
+		*/
 	}
 	
 	
