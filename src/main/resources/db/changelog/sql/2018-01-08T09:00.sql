@@ -8,6 +8,8 @@ CREATE TABLE security.TERMCONDPOL (
 	type_cod character varying (10) NOT NULL
 );
 
+CREATE SEQUENCE security.TERMCONDPOL_id_seq;
+
 --Add snapshot relationships
 --Relationship snapshot with user
 ALTER TABLE data_collect.snapshots_economics ADD COLUMN user_id bigint;
