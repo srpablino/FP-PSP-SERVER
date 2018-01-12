@@ -1,25 +1,25 @@
 lang;title;property_schema_name;property_system_name;stoplight_group;stoplight_type
-es;Ingrese su Área de residencia;areaOfResidence;areaOfResidence;ECONOMIC;MANDATORY
-es;Ingrese su puesto en su empleo principal;employmentStatusPrimary;employmentStatusPrimary;ECONOMIC;MANDATORY
-es;Ingrese su puesto en su empleo secundario;employmentStatusSecondary;employmentStatusSecondary;ECONOMIC;MANDATORY
-es;Ingrese su moneda;currency;currency;ECONOMIC;MANDATORY
-es;Ingrese su actividad primaria;activityMain;activityMain;ECONOMIC;MANDATORY
-es;Ingrese su actividad secundaria;activitySecondary;activitySecondary;ECONOMIC;MANDATORY
-es;Ingrese su ingreso mensual en su hogar;householdMonthlyIncome;householdMonthlyIncome;ECONOMIC;MANDATORY
-es;Ingrese su salario mensual;salaryIncome;salaryIncome;ECONOMIC;MANDATORY
-es;Ingrese su ingreso a modo de beneficio;benefitIncome;benefitIncome;ECONOMIC;MANDATORY
-es;Ingrese su pensión;pensionIncome;pensionIncome;ECONOMIC;MANDATORY
-es;Ingrese su ingreso por medio de ahorros;savingsIncome;savingsIncome;ECONOMIC;MANDATORY
-es;Ingrese otros ingresos que tenga;otherIncome;otherIncome;ECONOMIC;MANDATORY
-es;Ingrese los gastos mensuales que tiene en su hogar;householdMonthlyOutgoing;householdMonthlyOutgoing;ECONOMIC;MANDATORY
-es;Ingrese net SUPLUS?;netSuplus;netSuplus;ECONOMIC;MANDATORY
-es;Nivel de educación del entrevistado;educationClientLevel;educationClientLevel;ECONOMIC;MANDATORY
-es;Nivel de educación de la persona con más estudios en la familia;educationPersonMostStudied;educationPersonMostStudied;ECONOMIC;MANDATORY
-es;Nivel de educación alcanzado;educationLevelAttained;educationLevelAttained;ECONOMIC;MANDATORY
-es;Situación de la casa;housingSituation;housingSituation;ECONOMIC;MANDATORY
-es;Seleccione la ubicación geográfica de la familia;familyUbication;familyUbication;ECONOMIC;MANDATORY
-es;País en el que reside la familia;familyCountry;familyCountry;ECONOMIC;MANDATORY
-es;Ciudad en la que reside la familia;familyCity;familyCity;ECONOMIC;MANDATORY
+es;Ingrese su Área de residencia;areaOfResidence;areaOfResidence;ECONOMIC;RECOMMENDED
+es;Ingrese su puesto en su empleo principal;employmentStatusPrimary;employmentStatusPrimary;ECONOMIC;RECOMMENDED
+es;Ingrese su puesto en su empleo secundario;employmentStatusSecondary;employmentStatusSecondary;ECONOMIC;RECOMMENDED
+es;Ingrese su moneda;currency;currency;ECONOMIC;RECOMMENDED
+es;Ingrese su actividad primaria;activityMain;activityMain;ECONOMIC;RECOMMENDED
+es;Ingrese su actividad secundaria;activitySecondary;activitySecondary;ECONOMIC;RECOMMENDED
+es;Ingrese su ingreso mensual en su hogar;householdMonthlyIncome;householdMonthlyIncome;ECONOMIC;RECOMMENDED
+es;Ingrese su salario mensual;salaryIncome;salaryIncome;ECONOMIC;RECOMMENDED
+es;Ingrese su ingreso a modo de beneficio;benefitIncome;benefitIncome;ECONOMIC;RECOMMENDED
+es;Ingrese su pensión;pensionIncome;pensionIncome;ECONOMIC;RECOMMENDED
+es;Ingrese su ingreso por medio de ahorros;savingsIncome;savingsIncome;ECONOMIC;RECOMMENDED
+es;Ingrese otros ingresos que tenga;otherIncome;otherIncome;ECONOMIC;RECOMMENDED
+es;Ingrese los gastos mensuales que tiene en su hogar;householdMonthlyOutgoing;householdMonthlyOutgoing;ECONOMIC;RECOMMENDED
+es;Ingrese net SUPLUS?;netSuplus;netSuplus;ECONOMIC;RECOMMENDED
+es;Nivel de educación del entrevistado;educationClientLevel;educationClientLevel;ECONOMIC;RECOMMENDED
+es;Nivel de educación de la persona con más estudios en la familia;educationPersonMostStudied;educationPersonMostStudied;ECONOMIC;RECOMMENDED
+es;Nivel de educación alcanzado;educationLevelAttained;educationLevelAttained;ECONOMIC;RECOMMENDED
+es;Situación de la casa;housingSituation;housingSituation;ECONOMIC;RECOMMENDED
+es;Seleccione la ubicación geográfica de la familia;familyUbication;familyUbication;ECONOMIC;RECOMMENDED
+es;País en el que reside la familia;familyCountry;familyCountry;ECONOMIC;RECOMMENDED
+es;Ciudad en la que reside la familia;familyCity;familyCity;ECONOMIC;RECOMMENDED
 es;Usted cuenta con acceso a agua potable?;drinkingWaterAccess;drinkingWaterAccess;INDICATOR;RECOMMENDED
 es;Usted cuenta con algún puesto de salud cercano?;nearbyHealthPost;nearbyHealthPost;INDICATOR;RECOMMENDED
 es;Esto representa su ingreso?;income;income;INDICATOR;RECOMMENDED
