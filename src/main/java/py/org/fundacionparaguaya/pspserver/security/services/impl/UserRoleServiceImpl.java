@@ -9,12 +9,11 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
 import py.org.fundacionparaguaya.pspserver.security.mapper.UserRoleMapper;
@@ -74,24 +73,21 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 
 	@Override
-	public List<UserRoleDTO> getRolesByLoggedUser() {
-		List<UserRoleDTO> rolesByLoggedUser = new ArrayList<UserRoleDTO>();
+	public List<UserRoleDTO> getAssignableRolesByUser(UserDetailsDTO userDetails) {
+		List<UserRoleDTO> getAssignableRolesByUser = new ArrayList<UserRoleDTO>();
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_ROOT.name())) {
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_HUB_ADMIN).build());
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
-		} else if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_HUB_ADMIN.name())) {
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
-		} else if (authentication.getAuthorities().toArray()[0].toString().equals(Role.ROLE_APP_ADMIN.name())) {
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
-			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_SURVEY_USER).build());
-//			rolesByLoggedUser.add(UserRoleDTO.builder().role(Role.ROLE_SOCIAL_ASSISTANT).build());
+		if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_ROOT.name())) {
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_HUB_ADMIN).build());
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
+		} else if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_HUB_ADMIN.name())) {
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
+		} else if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_APP_ADMIN.name())) {
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
+			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_SURVEY_USER).build());
 		}
 
-		return rolesByLoggedUser;
+		return getAssignableRolesByUser;
 	}
 
 	@Override

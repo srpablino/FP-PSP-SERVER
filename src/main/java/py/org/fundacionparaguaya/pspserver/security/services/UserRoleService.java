@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.security.services;
 
 import java.util.List;
 
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 
 
@@ -16,7 +17,7 @@ public interface UserRoleService {
 	
 	List<UserRoleDTO> getAllUserRoles();
 
-	List<UserRoleDTO> getRolesByLoggedUser();
+	List<UserRoleDTO> getAssignableRolesByUser(UserDetailsDTO userDetails);
 
 	void deleteUserRole(Long userRoleId);
 	

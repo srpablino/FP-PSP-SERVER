@@ -34,8 +34,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -104,46 +102,58 @@ public class UserServiceImpl implements UserService {
 		UserEntity newUser = userRepository.save(user);
 
 		if (userRoleApplicationDTO.getRole() != null) {
-			// Create UserRole
-			UserRoleEntity userRole = new UserRoleEntity();
-			userRole.setUser(newUser);
-			userRole.setRole(userRoleApplicationDTO.getRole());
-			userRoleRepository.save(userRole);
+			createUserRole(newUser, userRoleApplicationDTO.getRole());
 		}
 
 		if (userRoleApplicationDTO.getApplication() != null) {
-			// Create User-Application
-			UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-			userApplicationEntity.setUser(newUser);
-			ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplication().getId());
-			userApplicationEntity.setApplication(application);
-			userApplicationRepository.save(userApplicationEntity);
+			createUserApplication(newUser, userRoleApplicationDTO);
 		}
 		else if (userRoleApplicationDTO.getOrganization() != null) {
-			// Create User-Organization
-			UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-			userApplicationEntity.setUser(newUser);
-
-			OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization().getId());
-			userApplicationEntity.setOrganization(organization);
-			userApplicationEntity.setApplication(organization.getApplication());
-
-			userApplicationRepository.save(userApplicationEntity);
+			createUserOrganization(newUser, userRoleApplicationDTO);
 		}
 
 		if (userRoleApplicationDTO.getRole() == Role.ROLE_USER || userRoleApplicationDTO.getRole() == Role.ROLE_SURVEY_USER) {
-			UserEntity loggedUser = userRepository.findOneByUsername(userDetails.getUsername()).orElseGet(UserEntity::new);
-			UserApplicationEntity loggedUserApplicationEntity = userApplicationRepository.findByUser(loggedUser).orElseGet(UserApplicationEntity::new);
-
-			UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-			userApplicationEntity.setUser(newUser);
-			userApplicationEntity.setApplication(loggedUserApplicationEntity.getApplication());
-			userApplicationEntity.setOrganization(loggedUserApplicationEntity.getOrganization());
-
-			userApplicationRepository.save(userApplicationEntity);
+			createUserApplicationSameAsAdmin(newUser, userDetails);
 		}
 
 		return userMapper.entityToDto(newUser);
+	}
+
+	private UserRoleEntity createUserRole(UserEntity user, Role role) {
+		UserRoleEntity userRole = new UserRoleEntity();
+		userRole.setUser(user);
+		userRole.setRole(role);
+		UserRoleEntity newUserRoleEntity = userRoleRepository.save(userRole);
+		return newUserRoleEntity;
+	}
+
+	private UserApplicationEntity createUserApplication(UserEntity user , UserRoleApplicationDTO userRoleApplicationDTO) {
+		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+		userApplicationEntity.setUser(user);
+		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplication().getId());
+		userApplicationEntity.setApplication(application);
+		return userApplicationRepository.save(userApplicationEntity);
+	}
+
+	private UserApplicationEntity createUserOrganization(UserEntity user, UserRoleApplicationDTO userRoleApplicationDTO) {
+		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+		userApplicationEntity.setUser(user);
+		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization().getId());
+		userApplicationEntity.setOrganization(organization);
+		userApplicationEntity.setApplication(organization.getApplication());
+		return userApplicationRepository.save(userApplicationEntity);
+	}
+
+	private UserApplicationEntity createUserApplicationSameAsAdmin(UserEntity user, UserDetailsDTO userDetails) {
+		UserEntity loggedUser = userRepository.findOneByUsername(userDetails.getUsername()).orElseGet(UserEntity::new);
+		UserApplicationEntity loggedUserApplicationEntity = userApplicationRepository.findByUser(loggedUser).orElseGet(UserApplicationEntity::new);
+
+		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+		userApplicationEntity.setUser(user);
+		userApplicationEntity.setApplication(loggedUserApplicationEntity.getApplication());
+		userApplicationEntity.setOrganization(loggedUserApplicationEntity.getOrganization());
+
+		return userApplicationRepository.save(userApplicationEntity);
 	}
 
 

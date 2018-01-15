@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 import py.org.fundacionparaguaya.pspserver.security.services.UserRoleService;
 
@@ -62,9 +64,9 @@ public class UserRoleController {
 	}
 
 
-	@GetMapping("/rolesByLoggedUser")
-	public ResponseEntity<List<UserRoleDTO>> getRolesByLoggedUser() {
-		List<UserRoleDTO> rolesByLoggedUser = userRoleService.getRolesByLoggedUser();
+	@GetMapping("/assignableRolesByUser")
+	public ResponseEntity<List<UserRoleDTO>> getAssignableRolesByUser(@AuthenticationPrincipal UserDetailsDTO userDetails) {
+		List<UserRoleDTO> rolesByLoggedUser = userRoleService.getAssignableRolesByUser(userDetails);
 		return ResponseEntity.ok(rolesByLoggedUser);
 	}
 
