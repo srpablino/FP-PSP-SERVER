@@ -139,12 +139,16 @@ public class FamilyServiceImpl implements FamilyService {
     
     @Override
     public FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, String code, PersonEntity person) {
+   
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setPerson(person);
         newFamily.setCode(code);
         newFamily.setName(person.getFirstName().concat(SPACE).concat(person.getLastName()));
         newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData().getAsString("familyUbication"));
-        newFamily.setApplication(applicationMapper.dtoToEntity(details.getApplication()));
+        if (details.getApplication()!=null) {
+            newFamily.setApplication(applicationMapper.
+                    dtoToEntity(details.getApplication()));
+        }
         newFamily.setActive(true);
 
         Optional<CountryEntity> country = countryRepository
