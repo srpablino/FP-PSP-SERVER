@@ -1153,7 +1153,7 @@
           "description":"Household income is below 60% of the UK average. Single: £9,500 or more. Couple with no children £14,200 or more. Couple with two children £20,000 or more",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1180,7 +1180,7 @@
           "description":"Someone in my household does not have an ID/documentation or has a problem with ID/documentation and does not know how to solve it or can’t afford to do so.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1209,7 +1209,7 @@
           "description":"In my house we do not always have access to a bathroom and/or our bathroom is not in a bad condition.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1237,7 +1237,7 @@
           "description":"Someone in the household is not registered at a local GP or does not seek medical treatment when needed.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1264,7 +1264,7 @@
           "description":"We don’t know very much about healthy eating and are not concerned whether we are eating healthy food or not.  Our diet does not usually include fruit or vegetables.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1291,7 +1291,7 @@
           "description":"My household does not have access or does not use a household or communal waste bin. Rubbish is rarely collected in my area.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1318,7 +1318,7 @@
           "description":"My house has serious safety issues that are a risk for people who live there.  It is unsuitable in certain weather conditions (e.g. significant damp or mould, always floods in heavy rains, doors and windows do not lock securely)",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1345,7 +1345,7 @@
             "description":"In my house we do not always have access to a bathroom and/or our bathroom is not in a bad condition.",
             "value":"RED"},
             {"url":"NONE", 
-                "description":"NONE",
+                "description":"",
                 "value":"NONE"}
             
           ]
@@ -1373,7 +1373,7 @@
           "description":"In my household in the past year we sometimes have had no gas or electricity for heating or cooking.  Sometimes we need to choose between food and heating.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1400,7 +1400,7 @@
           "description":"In my household we have very limited access to or do not have one or more essential household appliances.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
         ]
       },
@@ -1427,7 +1427,7 @@
           "description":"In my house multiple people sleep in the same bedroom.  A mix of adults, adolescents and children share bedrooms with each other. My house is overcrowded and we need more space.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           ]
       },
@@ -1454,7 +1454,7 @@
             "description":"In my house multiple people sleep in the same bedroom.  A mix of adults, adolescents and children share bedrooms with each other. My house is overcrowded and we need more space.",
             "value":"RED"},
             {"url":"NONE", 
-                "description":"NONE",
+                "description":"",
                 "value":"NONE"}
             ]
         },
@@ -1481,7 +1481,7 @@
           "description":"In my household we do not have a proper kitchen or equipment. We have to cook elsewhere or share a space with many other",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1509,7 +1509,7 @@
           "description":"We have no access either to a phone or internet in the house.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1537,7 +1537,7 @@
           "description":"In the past year someone in my household has suffered acts of violence and we feel unsafe in the area we live or work in.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1565,7 +1565,7 @@
           "description":"Some members of my household do not read and write English at an appropriate level.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1593,7 +1593,7 @@
           "description":"There are members of my household that should be attending school but they are not. 16-18 year olds are not in college or apprenticeship/traineeship.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1621,7 +1621,7 @@
           "description":"There is someone in my household who does not belong to any group (e.g neighbourhood group, church, commmittees, parent groups, social groups).",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1649,7 +1649,7 @@
           "description":"None or very restricted access to (relevant) information OR different media sources.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1677,7 +1677,7 @@
           "description":"In my household we do not know how to contact local authorities OR we think there’s no point in getting involved because nothing ever changes.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1705,7 +1705,7 @@
           "description":"In my household we can’t imagine changing things OR We’d like things to be different but what’s the point?",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1733,7 +1733,7 @@
           "description":"Most of our family find it difficult to be self-confident and lack self-esteem; we don’t enter situations out of our comfort zone.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]
@@ -1761,7 +1761,7 @@
           "description":"In my household one person makes the decisions and the rest have to live with it.",
           "value":"RED"},
           {"url":"NONE", 
-              "description":"NONE",
+              "description":"",
               "value":"NONE"}
           
         ]

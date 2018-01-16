@@ -131,6 +131,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         SnapshotEconomicEntity entity = economicMapper.newSnapshotToEconomicEntity(snapshot, indicator);
         entity.setFamily(family);
+        entity.setPersonalInformation(snapshot.getPersonalSurveyData());
 
         return this.economicRepository.save(entity);
     }

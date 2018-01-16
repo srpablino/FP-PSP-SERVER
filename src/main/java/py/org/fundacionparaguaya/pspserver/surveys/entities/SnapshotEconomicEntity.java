@@ -154,6 +154,17 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
     @ManyToOne(targetEntity = TermCondPolEntity.class)
     @JoinColumn(name = "priv_pol_id")
     private TermCondPolEntity privPol;
+    
+    @Column(name = "personal_information")
+    @Type(type = "py.org.fundacionparaguaya.pspserver."
+            + "surveys.entities.types.SecondJSONBUserType",
+    parameters = {
+            @org.hibernate.annotations.Parameter(
+                    name = SecondJSONBUserType.CLASS,
+                    value = "py.org.fundacionparaguaya."
+            + "pspserver.surveys.dtos.SurveyData")
+            })
+    private SurveyData personalInformation;
 
     public Long getId() {
         return id;
@@ -396,6 +407,14 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
 
     public void setPrivPol(TermCondPolEntity privPol) {
         this.privPol = privPol;
+    }
+
+    public SurveyData getPersonalInformation() {
+        return personalInformation;
+    }
+
+    public void setPersonalInformation(SurveyData personalInformation) {
+        this.personalInformation = personalInformation;
     }
 
     public SnapshotEconomicEntity surveyDefinition(
