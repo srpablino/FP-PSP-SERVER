@@ -14,5 +14,5 @@ public interface OrganizationRepository extends PagingAndSortingRepository<Organ
 	OrganizationEntity findById(Long id);
 	List<OrganizationEntity> findAll();
 	Page<OrganizationEntity> findAll(Pageable page);
-	List<OrganizationEntity> findByApplicationId(Long application_id);
+	List<OrganizationEntity> findByApplicationIdAndIsActive(Long application_id, boolean isActive);
 }

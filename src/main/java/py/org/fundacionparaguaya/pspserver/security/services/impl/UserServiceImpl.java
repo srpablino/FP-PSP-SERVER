@@ -112,10 +112,6 @@ public class UserServiceImpl implements UserService {
 			createUserOrganization(newUser, userRoleApplicationDTO);
 		}
 
-		if (userRoleApplicationDTO.getRole() == Role.ROLE_USER || userRoleApplicationDTO.getRole() == Role.ROLE_SURVEY_USER) {
-			createUserApplicationSameAsAdmin(newUser, userDetails);
-		}
-
 		return userMapper.entityToDto(newUser);
 	}
 
@@ -141,18 +137,6 @@ public class UserServiceImpl implements UserService {
 		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization().getId());
 		userApplicationEntity.setOrganization(organization);
 		userApplicationEntity.setApplication(organization.getApplication());
-		return userApplicationRepository.save(userApplicationEntity);
-	}
-
-	private UserApplicationEntity createUserApplicationSameAsAdmin(UserEntity user, UserDetailsDTO userDetails) {
-		UserEntity loggedUser = userRepository.findOneByUsername(userDetails.getUsername()).orElseGet(UserEntity::new);
-		UserApplicationEntity loggedUserApplicationEntity = userApplicationRepository.findByUser(loggedUser).orElseGet(UserApplicationEntity::new);
-
-		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-		userApplicationEntity.setUser(user);
-		userApplicationEntity.setApplication(loggedUserApplicationEntity.getApplication());
-		userApplicationEntity.setOrganization(loggedUserApplicationEntity.getOrganization());
-
 		return userApplicationRepository.save(userApplicationEntity);
 	}
 

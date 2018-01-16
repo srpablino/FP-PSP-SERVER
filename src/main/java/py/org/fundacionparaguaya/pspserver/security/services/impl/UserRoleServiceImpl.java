@@ -2,9 +2,7 @@ package py.org.fundacionparaguaya.pspserver.security.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,18 +74,25 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public List<UserRoleDTO> getAssignableRolesByUser(UserDetailsDTO userDetails) {
 		List<UserRoleDTO> getAssignableRolesByUser = new ArrayList<UserRoleDTO>();
 
-		if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_ROOT.name())) {
+		if (userHasRole(userDetails, Role.ROLE_ROOT)) {
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_HUB_ADMIN).build());
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
-		} else if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_HUB_ADMIN.name())) {
+		} else if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
-		} else if (userDetails.getAuthorities().toArray()[0].toString().equals(Role.ROLE_APP_ADMIN.name())) {
+		} else if (userHasRole(userDetails, Role.ROLE_APP_ADMIN)) {
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
 			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_SURVEY_USER).build());
 		}
 
 		return getAssignableRolesByUser;
+	}
+
+	private boolean userHasRole(UserDetailsDTO user, Role role) {
+		return user.getAuthorities()
+				.stream()
+				.filter(auth -> auth.toString().equals(role.name()))
+				.count() > 0;
 	}
 
 	@Override

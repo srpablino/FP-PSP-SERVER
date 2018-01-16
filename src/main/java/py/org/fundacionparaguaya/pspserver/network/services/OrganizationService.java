@@ -18,9 +18,7 @@ public interface OrganizationService{
 	
 	List<OrganizationDTO> getAllOrganizations();
 
-	List<OrganizationDTO> getOrganizationsByLoggedUser(UserDetailsDTO userDetails);
-
-	List<OrganizationDTO> getOrganizationByLoggedUser(UserDetailsDTO userDetails);
+	List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
 
 	void deleteOrganization(Long organizationId);
 

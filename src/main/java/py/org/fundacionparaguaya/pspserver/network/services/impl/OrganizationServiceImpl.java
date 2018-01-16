@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +22,10 @@ import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
-import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
-import py.org.fundacionparaguaya.pspserver.network.repositories.UserApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
-import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 
 
 @Service
@@ -45,21 +39,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 	 
 	 private final FamilyService familyService;
 
-	private final UserRepository userRepository;
 
-	private UserApplicationRepository userApplicationRepository;
-
-	private ApplicationRepository applicationRepository;
-	 
 	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper,
-									FamilyService familyService, UserRepository userRepository,
-									UserApplicationRepository userApplicationRepository, ApplicationRepository applicationRepository) {
+									FamilyService familyService) {
 		this.organizationRepository = organizationRepository;
 		this.organizationMapper = organizationMapper;
 		this.familyService = familyService;
-		 this.userRepository = userRepository;
-		 this.userApplicationRepository = userApplicationRepository;
-		 this.applicationRepository = applicationRepository;
 	}
 
 	@Override
@@ -100,33 +85,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organizationMapper.entityListToDtoList(organizations);
 	}
 
+
 	@Override
-	public List<OrganizationDTO> getOrganizationsByLoggedUser(UserDetailsDTO userDetails) {
-
-		UserEntity user = userRepository.findOneByUsername(userDetails.getUsername()).orElseGet(UserEntity::new);
-		UserApplicationEntity userApplicationEntity = userApplicationRepository.findByUser(user).orElseGet(UserApplicationEntity::new);
-		List<OrganizationEntity> organizations = organizationRepository.findByApplicationId(userApplicationEntity.getApplication().getId());
-
+	public List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId) {
+		List<OrganizationEntity> organizations = organizationRepository.findByApplicationIdAndIsActive(applicationId, true);
 		return organizationMapper.entityListToDtoList(organizations);
 	}
 
-	@Override
-	public List<OrganizationDTO> getOrganizationByLoggedUser(UserDetailsDTO userDetails) {
-
-		UserEntity user = userRepository.findOneByUsername(userDetails.getUsername()).orElseGet(UserEntity::new);
-		UserApplicationEntity userApplicationEntity = userApplicationRepository.findByUser(user).orElseGet(UserApplicationEntity::new);
-
-		OrganizationDTO organizationDTO = new OrganizationDTO();
-		if (userApplicationEntity.getOrganization() != null) {
-			organizationDTO = organizationMapper.entityToDto(userApplicationEntity.getOrganization());
-		} else {
-			organizationDTO.setName(userApplicationEntity.getApplication().getName());
-		}
-		List<OrganizationDTO> organizationDTOS = new ArrayList<OrganizationDTO>();
-		organizationDTOS.add(organizationDTO);
-
-		return organizationDTOS;
-	}
 
 	@Override
 	public void deleteOrganization(Long organizationId) {
