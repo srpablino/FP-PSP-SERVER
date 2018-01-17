@@ -151,59 +151,66 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotEconomicEntity originalSnapshot = economicRepository
                 .findOne(snapshotId);
 
-        if (originalSnapshot!=null) {
-
-            SurveyEntity survey = surveyRepository.getOne(originalSnapshot
-                    .getSurveyDefinition().getId());
-            List<String> indicatorGroup = survey.getSurveyDefinition()
-                    .getSurveyUISchema().getGroupIndicators();
-
-            List<String> order = survey.getSurveyDefinition()
-                    .getSurveyUISchema().getUiOrder().stream()
-                    .filter(field -> indicatorGroup.contains(field))
-                    .collect(Collectors.toList());
-
-            List<SnapshotIndicatorPriority> priorities = priorityService
-                    .getSnapshotIndicatorPriorityList(originalSnapshot.
-                            getSnapshotIndicator().getId());
-            toRet.setIndicatorsPriorities(priorities);
-
-            SurveyData indicators = indicatorMapper
-                    .entityToDto(originalSnapshot.getSnapshotIndicator());
-            List<SurveyData> indicatorsToRet = new ArrayList<>();
-            if (indicatorGroup != null && !indicatorGroup.isEmpty()
-                    && order != null && !order.isEmpty()) {
-
-                order.forEach(indicator -> {
-                    if (indicators.containsKey(indicator)) {
-                        SurveyData sd = new SurveyData();
-                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
-                        sd.put(INDICATOR_VALUE, indicators.get(indicator));
-                        countIndicators(toRet, sd.get(INDICATOR_VALUE));
-                        indicatorsToRet.add(sd);
-                    }
-                });
-
-            }
-
-            toRet.setIndicatorsSurveyData(indicatorsToRet);
-            toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
-            toRet.setSnapshotIndicatorId(originalSnapshot
-                    .getSnapshotIndicator().getId());
-            toRet.setSnapshotEconomicId(originalSnapshot.getId());
-            toRet.setSurveyId(originalSnapshot.getSurveyDefinition().getId());
-
-            //set family for information purpose
-            Long familyId = originalSnapshot.getFamily().getFamilyId();
-            toRet.setFamilyId(familyId);
-            toRet.setFamily(familyService.getFamilyById(familyId));
+        if (originalSnapshot==null) {
+            return toRet;
         }
+
+        List<SnapshotIndicatorPriority> priorities = priorityService
+                  .getSnapshotIndicatorPriorityList(originalSnapshot.
+                          getSnapshotIndicator().getId());
+
+        toRet.setIndicatorsPriorities(priorities);
+        toRet.setIndicatorsSurveyData(getIndicatorsValue(
+                originalSnapshot, toRet));
+        toRet.setCreatedAt(originalSnapshot.getCreatedAtAsISOString());
+        toRet.setSnapshotIndicatorId(originalSnapshot
+                .getSnapshotIndicator().getId());
+        toRet.setSnapshotEconomicId(originalSnapshot.getId());
+        toRet.setSurveyId(originalSnapshot.getSurveyDefinition().getId());
+
+        //set family for information purpose
+        Long familyId = originalSnapshot.getFamily().getFamilyId();
+        toRet.setFamilyId(familyId);
+        toRet.setFamily(familyService.getFamilyById(familyId));
 
         return toRet;
     }
 
     private String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
+    }
+
+    private List<SurveyData> getIndicatorsValue(
+            SnapshotEconomicEntity snapshotEconomic, SnapshotIndicators toRet){
+
+        SurveyEntity survey = surveyRepository.getOne(snapshotEconomic
+                .getSurveyDefinition().getId());
+        List<String> indicatorGroup = survey.getSurveyDefinition()
+                .getSurveyUISchema().getGroupIndicators();
+
+        List<String> order = survey.getSurveyDefinition()
+                .getSurveyUISchema().getUiOrder().stream()
+                .filter(field -> indicatorGroup.contains(field))
+                .collect(Collectors.toList());
+
+        SurveyData indicators = indicatorMapper
+                .entityToDto(snapshotEconomic.getSnapshotIndicator());
+        List<SurveyData> indicatorsToRet = new ArrayList<>();
+        if (indicatorGroup != null && !indicatorGroup.isEmpty()
+                && order != null && !order.isEmpty()) {
+
+            order.forEach(indicator -> {
+                if (indicators.containsKey(indicator)) {
+                    SurveyData sd = new SurveyData();
+                    sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    sd.put(INDICATOR_VALUE, indicators.get(indicator));
+                    countIndicators(toRet, sd.get(INDICATOR_VALUE));
+                    indicatorsToRet.add(sd);
+                }
+            });
+
+        }
+        return indicatorsToRet;
     }
 
     @Override
