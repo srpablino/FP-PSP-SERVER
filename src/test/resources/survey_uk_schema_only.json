@@ -896,7 +896,7 @@
 		"familyCountry": {
 			"type": "string",
 			"title": {
-				"es": "familyCountry (Test)"
+				"es": "familyCountry"
 			},
 			"enum": [
 				"United Kingdom"
@@ -1317,7 +1317,7 @@
 		"separateBedrooms": {
 			"type": "array",
 			"title": {
-				"es": "Separate Bedrooms (Duplicate)"
+				"es": "Separate Bedrooms"
 			},
 			"items": {
 				"type": "object",
