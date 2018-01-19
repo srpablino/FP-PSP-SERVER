@@ -78,7 +78,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Override
 	public List<ApplicationDTO> getAllApplications() {
-		List<ApplicationEntity> applications = applicationRepository.findAll();
+		List<ApplicationEntity> applications = applicationRepository.findByIsActive(true);
 		return applicationMapper.entityListToDtoList(applications);
 	}
 

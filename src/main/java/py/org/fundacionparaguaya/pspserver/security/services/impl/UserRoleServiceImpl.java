@@ -10,8 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-import py.org.fundacionparaguaya.pspserver.security.constants.Role;
-import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
 import py.org.fundacionparaguaya.pspserver.security.mapper.UserRoleMapper;
@@ -68,31 +66,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public List<UserRoleDTO> getAllUserRoles() {
 		List<UserRoleEntity> userRole = userRoleRepository.findAll();
 		return userRoleMapper.entityListToDtoList(userRole);
-	}
-
-	@Override
-	public List<UserRoleDTO> getAssignableRolesByUser(UserDetailsDTO userDetails) {
-		List<UserRoleDTO> getAssignableRolesByUser = new ArrayList<UserRoleDTO>();
-
-		if (userHasRole(userDetails, Role.ROLE_ROOT)) {
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_HUB_ADMIN).build());
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
-		} else if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_APP_ADMIN).build());
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
-		} else if (userHasRole(userDetails, Role.ROLE_APP_ADMIN)) {
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_USER).build());
-			getAssignableRolesByUser.add(UserRoleDTO.builder().role(Role.ROLE_SURVEY_USER).build());
-		}
-
-		return getAssignableRolesByUser;
-	}
-
-	private boolean userHasRole(UserDetailsDTO user, Role role) {
-		return user.getAuthorities()
-				.stream()
-				.filter(auth -> auth.toString().equals(role.name()))
-				.count() > 0;
 	}
 
 	@Override

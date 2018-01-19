@@ -1,38 +1,54 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
 import com.google.common.base.MoreObjects;
-import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
-import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 
 public class UserRoleApplicationDTO {
 
-    private UserDTO user;
+    private String username;
+
+    private String email;
+
+    private String pass;
 
     private Role role;
 
-    private ApplicationDTO application;
+    private Long application;
 
-    private OrganizationDTO organization;
+    private Long organization;
 
     public UserRoleApplicationDTO() {
     }
 
-    private UserRoleApplicationDTO(UserDTO user, Role role, ApplicationDTO application, OrganizationDTO organization) {
-        this.user = user;
+    private UserRoleApplicationDTO(String username, String email, String pass, Role role, Long application, Long organization) {
+        this.username = username;
+        this.email = email;
+        this.pass = pass;
         this.role = role;
         this.application = application;
         this.organization = organization;
     }
 
     public static class Builder {
-        private UserDTO user;
+        private String username;
+        private String email;
+        private String pass;
         private Role role;
-        private ApplicationDTO application;
-        private OrganizationDTO organization;
+        private Long application;
+        private Long organization;
 
-        public UserRoleApplicationDTO.Builder user(UserDTO user) {
-            this.user = user;
+        public UserRoleApplicationDTO.Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserRoleApplicationDTO.Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserRoleApplicationDTO.Builder pass(String pass) {
+            this.pass = pass;
             return this;
         }
 
@@ -41,28 +57,47 @@ public class UserRoleApplicationDTO {
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder application(ApplicationDTO application) {
+        public UserRoleApplicationDTO.Builder application(Long application) {
             this.application = application;
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder organization(OrganizationDTO organization) {
+        public UserRoleApplicationDTO.Builder organization(Long organization) {
             this.organization = organization;
             return this;
         }
 
         public UserRoleApplicationDTO build() {
-            return new UserRoleApplicationDTO(user, role, application, organization);
+            return new UserRoleApplicationDTO(username, email, pass, role, application, organization);
         }
-
     }
 
-    public UserDTO getUser() {
-        return user;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public Role getRole() {
@@ -73,26 +108,28 @@ public class UserRoleApplicationDTO {
         this.role = role;
     }
 
-    public ApplicationDTO getApplication() {
+    public Long getApplication() {
         return application;
     }
 
-    public void setApplication(ApplicationDTO application) {
+    public void setApplication(Long application) {
         this.application = application;
     }
 
-    public OrganizationDTO getOrganization() {
+    public Long getOrganization() {
         return organization;
     }
 
-    public void setOrganization(OrganizationDTO organization) {
+    public void setOrganization(Long organization) {
         this.organization = organization;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("user", user)
+                .add("username", username)
+                .add("email", email)
+                .add("pass", pass)
                 .add("role", role)
                 .add("application", application)
                 .add("organization", organization)

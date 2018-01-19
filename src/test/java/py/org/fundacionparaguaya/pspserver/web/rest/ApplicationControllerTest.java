@@ -52,7 +52,7 @@ public class ApplicationControllerTest {
 
         mockApplication = ApplicationDTO.builder().name("foo.name").code("foo.code").description("foo.description")
                 .isActive(true).country(getCountryTest()).city(getCityTest()).information("foo.information").isHub(true)
-                .isOrganization(true).build();
+                .isPartner(true).build();
 
     }
 

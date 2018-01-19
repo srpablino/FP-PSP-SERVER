@@ -94,10 +94,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO, UserDetailsDTO userDetails) {
-		// Create User
 		UserEntity user = new UserEntity();
-		BeanUtils.copyProperties(userRoleApplicationDTO.getUser(), user);
-		user.setPass(new BCryptPasswordEncoder().encode(user.getPass()));
+		user.setUsername(userRoleApplicationDTO.getUsername());
+		user.setEmail(userRoleApplicationDTO.getEmail());
+		user.setPass(new BCryptPasswordEncoder().encode(userRoleApplicationDTO.getPass()));
 		user.setActive(true);
 		UserEntity newUser = userRepository.save(user);
 
@@ -105,11 +105,11 @@ public class UserServiceImpl implements UserService {
 			createUserRole(newUser, userRoleApplicationDTO.getRole());
 		}
 
-		if (userRoleApplicationDTO.getApplication() != null) {
-			createUserApplication(newUser, userRoleApplicationDTO);
-		}
-		else if (userRoleApplicationDTO.getOrganization() != null) {
+		if (userRoleApplicationDTO.getOrganization() != null) {
 			createUserOrganization(newUser, userRoleApplicationDTO);
+		}
+		else if (userRoleApplicationDTO.getApplication() != null) {
+			createUserApplication(newUser, userRoleApplicationDTO);
 		}
 
 		return userMapper.entityToDto(newUser);
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
 	private UserApplicationEntity createUserApplication(UserEntity user , UserRoleApplicationDTO userRoleApplicationDTO) {
 		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
 		userApplicationEntity.setUser(user);
-		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplication().getId());
+		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplication());
 		userApplicationEntity.setApplication(application);
 		return userApplicationRepository.save(userApplicationEntity);
 	}
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
 	private UserApplicationEntity createUserOrganization(UserEntity user, UserRoleApplicationDTO userRoleApplicationDTO) {
 		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
 		userApplicationEntity.setUser(user);
-		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization().getId());
+		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization());
 		userApplicationEntity.setOrganization(organization);
 		userApplicationEntity.setApplication(organization.getApplication());
 		return userApplicationRepository.save(userApplicationEntity);
