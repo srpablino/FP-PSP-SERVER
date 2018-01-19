@@ -96,7 +96,7 @@
       	"ui:field": "numberFormat"
       },
       "birthdate": {
-      	"ui:field": "dateFormat"
+      	"ui:field": "date"
       }
    },
 
