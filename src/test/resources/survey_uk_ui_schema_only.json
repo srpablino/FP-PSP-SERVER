@@ -96,7 +96,7 @@
       	"ui:field": "numberFormat"
       },
       "birthdate": {
-      	"ui:field": "dateFormat"
+      	"ui:field": "date"
       }
    },
 
@@ -169,7 +169,6 @@
 	  "familyUbication",
 	  "householdMonthlyIncome",
 	  "housingSituation"
-
   ],
 
   "ui:group:indicators": [	

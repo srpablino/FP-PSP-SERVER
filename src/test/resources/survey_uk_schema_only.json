@@ -891,7 +891,6 @@
 			],
 			"default": "NO-MEMBER-DISABILITIES"
 		},
-		
 		"familyUbication": {
 			"type": "string",
 			"title": {
