@@ -6,7 +6,7 @@ CREATE TABLE data_collect.snapshot_tmp (
 	  economic_response jsonb,
 	  indicator_response jsonb,
 	  personal_response jsonb NOT NULL,
-	  state text NOT NULL,
+	  state_draft jsonb NOT NULL,
       survey_definition_id bigint NOt NULL,
 	  term_cond_id bigint NOT NULL,
 	  priv_pol_id bigint NOT NULL,
