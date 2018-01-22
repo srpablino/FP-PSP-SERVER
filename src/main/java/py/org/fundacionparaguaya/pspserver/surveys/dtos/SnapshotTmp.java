@@ -26,8 +26,8 @@ public class SnapshotTmp {
     @JsonProperty("personal_response")
     private SurveyData personalResponse;
 
-    @JsonProperty("state")
-    private String state;
+    @JsonProperty("state_draft")
+    private SurveyData stateDraft;
 
     @JsonProperty("survey_id")
     private Long surveyId;
@@ -92,12 +92,12 @@ public class SnapshotTmp {
         this.personalResponse = personalResponse;
     }
 
-    public String getState() {
-        return state;
+    public SurveyData getStateDraft() {
+        return stateDraft;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setDraft(SurveyData stateDraft) {
+        this.stateDraft = stateDraft;
     }
 
     public Long getSurveyId() {
@@ -231,8 +231,8 @@ public class SnapshotTmp {
                         that.personFirstName)
                 && com.google.common.base.Objects.equal(this.personLastName,
                         that.personLastName)
-                && com.google.common.base.Objects.equal(this.state,
-                        that.state);
+                && com.google.common.base.Objects.equal(this.stateDraft,
+                        that.stateDraft);
     }
 
     @Override
@@ -240,6 +240,6 @@ public class SnapshotTmp {
         return com.google.common.base.Objects.hashCode(id, surveyId,
                 personalResponse, economicResponse, indicatorResponse,
                 userName, termCondId, privPolId, personFirstName,
-                personLastName, state);
+                personLastName, stateDraft);
     }
 }

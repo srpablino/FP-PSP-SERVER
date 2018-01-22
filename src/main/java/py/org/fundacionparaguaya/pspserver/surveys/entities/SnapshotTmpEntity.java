@@ -92,8 +92,16 @@ public class SnapshotTmpEntity extends BaseEntity {
             })
     private SurveyData personalResponse;
 
-    @Column(name = "state")
-    private String state;
+    @Column(name = "state_draft")
+    @Type(type = "py.org.fundacionparaguaya.pspserver."
+            + "surveys.entities.types.SecondJSONBUserType",
+    parameters = {
+            @org.hibernate.annotations.Parameter(
+                    name = SecondJSONBUserType.CLASS,
+                    value = "py.org.fundacionparaguaya."
+            + "pspserver.surveys.dtos.SurveyData")
+            })
+    private SurveyData stateDraft;
 
     @ManyToOne(targetEntity = SurveyEntity.class)
     @JoinColumn(name = "survey_definition_id")
@@ -163,12 +171,12 @@ public class SnapshotTmpEntity extends BaseEntity {
         this.personalResponse = personalResponse;
     }
 
-    public String getState() {
-        return state;
+    public SurveyData getStateDraft() {
+        return stateDraft;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setDraft(SurveyData stateDraft) {
+        this.stateDraft = stateDraft;
     }
 
     public SurveyEntity getSurveyDefinition() {
