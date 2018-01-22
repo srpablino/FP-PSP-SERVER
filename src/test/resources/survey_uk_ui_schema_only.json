@@ -119,9 +119,8 @@
 	  "householdMonthlyIncome",
 	  "educationClientLevel",
 	  "educationPersonMostStudied",
-	  "familyCountry",
-	  "familyUbication",
 	  "housingSituation",
+	  "familyUbication",
 	  "income",
 	  "documentation",
 	  "drinkingWaterAccess",
@@ -167,7 +166,6 @@
 	  "educationPersonMostStudied",
 	  "employmentStatusPrimary",
 	  "employmentStatusSecondary",
-	  "familyCountry",
 	  "familyUbication",
 	  "householdMonthlyIncome",
 	  "housingSituation"
