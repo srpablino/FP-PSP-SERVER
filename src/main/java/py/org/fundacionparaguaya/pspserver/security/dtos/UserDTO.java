@@ -15,14 +15,17 @@ public class UserDTO {
 	private String pass;
 	
 	private boolean active;
+	
+	private String email;
 
 	public UserDTO(){}
 
-	private UserDTO(Long userId, String username, String pass, boolean active) {
+	private UserDTO(Long userId, String username, String pass, boolean active, String email) {
 		this.userId = userId;
 		this.username = username;
 		this.pass = pass;
 		this.active = active;
+		this.email = email;
 	}
 
 	public static class Builder {
@@ -30,6 +33,7 @@ public class UserDTO {
 		private String username;
 		private String pass;
 		private boolean active;
+		private String email;
 
 		public Builder userId(Long userId) {
 			this.userId = userId;
@@ -50,9 +54,14 @@ public class UserDTO {
 			this.active = active;
 			return this;
 		}
+		
+		public Builder email(String email) {
+			this.email = email;
+			return this;
+		}
 
 		public UserDTO build() {
-			return new UserDTO(userId, username, pass, active);
+			return new UserDTO(userId, username, pass, active, email);
 		}
 	}
 
@@ -71,7 +80,6 @@ public class UserDTO {
 	public String getPass() {
 		return pass;
 	}
-
 
 	public boolean isActive() {
 		return active;
@@ -92,6 +100,14 @@ public class UserDTO {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
@@ -100,6 +116,7 @@ public class UserDTO {
 				.add("username", username)
 				.add("pass", pass)
 				.add("active", active)
+				.add("email", email)
 				.toString();
 	}
 }
