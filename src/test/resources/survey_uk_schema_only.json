@@ -11,7 +11,6 @@
 		"educationPersonMostStudied",
 		"employmentStatusPrimary",
 		"employmentStatusSecondary",
-		"familyCountry",
 		"familyUbication",
 		"householdMonthlyIncome",
 		"housingSituation",
@@ -891,21 +890,6 @@
 				"No member with disabilities"
 			],
 			"default": "NO-MEMBER-DISABILITIES"
-		},
-
-		"familyCountry": {
-			"type": "string",
-			"title": {
-				"es": "familyCountry"
-			},
-			"enum": [
-				"United Kingdom"
-			],
-			"enumNames": [
-				"United Kingdom"
-			],
-			"default": "United Kingdom"
-
 		},
 		"familyUbication": {
 			"type": "string",
