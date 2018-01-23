@@ -3,17 +3,15 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.websocket.server.PathParam;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
@@ -66,7 +64,7 @@ public class SnapshotTmpController {
     }
 
 
-    @GetMapping(value = "/{snapshot_tmp_id}",
+    @GetMapping(
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(
         value = "Get temporal Snapshot",
@@ -78,7 +76,7 @@ public class SnapshotTmpController {
          response = SurveyDefinition.class) })
     public ResponseEntity<?> getSnapshotTmp(
             @ApiParam(value = "The snapshot tmp id", required = true)
-            @PathParam("snapshot_tmp_id") @PathVariable("snapshot_tmp_id")
+            @RequestParam(value="snapshot_tmp_id", required=true)
                 Long snapshotTmpId)
             throws NotFoundException {
         SnapshotTmp snapshot = service.getSnapshotTmp(snapshotTmpId);
