@@ -6,10 +6,20 @@ import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 public interface PasswordResetTokenService {
 
-	void resetPassword(HttpServletRequest request, String userEmail);
+    void resetPassword(
+            HttpServletRequest request,
+            String userEmail);
 
-	void createPasswordResetTokenForUser(UserEntity user, String token, String temporalPassword);
+    void createPasswordResetTokenForUser(
+            UserEntity user,
+            String token,
+            String temporalPassword);
 
-	void validatePasswordResetToken(String token, Long userId, String temporalPassword, String password, String repeatPassword);
+    void validatePasswordResetToken(
+            String token,
+            Long userId,
+            String temporalPassword,
+            String password,
+            String repeatPassword);
 
 }

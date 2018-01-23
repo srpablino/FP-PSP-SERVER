@@ -18,57 +18,67 @@ import py.org.fundacionparaguaya.pspserver.mail.service.EmailService;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-	private JavaMailSenderImpl emailSender;
-	
-	@Value("${spring.mail.host}")
-	private String mailHost;
+    private JavaMailSenderImpl emailSender;
 
-	public EmailServiceImpl(JavaMailSenderImpl emailSender) {
-		this.emailSender = emailSender;
-	}
+    @Value("${spring.mail.host}")
+    private String mailHost;
 
-	@Override
-	public void sendSimpleMessage(String to, String subject, String text) {
-		try {
-			emailSender.setHost(mailHost);
-			MimeMessage mail = emailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mail, true);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(text, true);
-			emailSender.send(mail);
-		} catch (Exception exception) {
-			throw new CustomParameterizedException("Mail server connection failed", mailHost);
-		}
-	}
+    public EmailServiceImpl(JavaMailSenderImpl emailSender) {
+        this.emailSender = emailSender;
+    }
 
-	@Override
-	public void sendSimpleMessageUsingTemplate(String to, String subject, SimpleMailMessage template,
-			String... templateArgs) {
-		String text = String.format(template.getText(), templateArgs);
-		sendSimpleMessage(to, subject, text);
-	}
+    @Override
+    public void sendSimpleMessage(String to, String subject, String text) {
+        try {
+            emailSender.setHost(mailHost);
+            MimeMessage mail = emailSender.createMimeMessage();
+            MimeMessageHelper helper =
+                  new MimeMessageHelper(mail, true);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(text, true);
+            emailSender.send(mail);
+        } catch (Exception exception) {
+            throw new
+            CustomParameterizedException(
+                "Mail server connection failed",
+                 mailHost);
+        }
+    }
 
-	@Override
-	public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) {
-		try {
-			emailSender.setHost(mailHost);
+    @Override
+    public void sendSimpleMessageUsingTemplate(String to,
+           String subject, SimpleMailMessage template,
+           String... templateArgs) {
+        String text = String.format(template.getText(), templateArgs);
+        sendSimpleMessage(to, subject, text);
+    }
 
-			MimeMessage message = emailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    @Override
+    public void sendMessageWithAttachment(String to,
+           String subject, String text, String pathToAttachment) {
+        try {
+            emailSender.setHost(mailHost);
 
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(text);
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper =
+                new MimeMessageHelper(message, true);
 
-			FileSystemResource file = new FileSystemResource(new File(pathToAttachment));
-			helper.addAttachment("File", file);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(text);
 
-			emailSender.send(message);
-		} catch (MessagingException e) {
-			throw new CustomParameterizedException("Error sending email");
-		}
+            FileSystemResource file =
+                    new FileSystemResource(
+                    new File(pathToAttachment));
+            helper.addAttachment("File", file);
 
-	}
+            emailSender.send(message);
+        } catch (MessagingException e) {
+            throw new
+              CustomParameterizedException("Error sending email");
+        }
+
+    }
 
 }
