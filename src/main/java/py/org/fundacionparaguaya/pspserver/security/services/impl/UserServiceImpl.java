@@ -105,10 +105,10 @@ public class UserServiceImpl implements UserService {
 			createUserRole(newUser, userRoleApplicationDTO.getRole());
 		}
 
-		if (userRoleApplicationDTO.getOrganization() != null) {
+		if (userRoleApplicationDTO.getOrganizationId() != null) {
 			createUserOrganization(newUser, userRoleApplicationDTO);
 		}
-		else if (userRoleApplicationDTO.getApplication() != null) {
+		else if (userRoleApplicationDTO.getApplicationId() != null) {
 			createUserApplication(newUser, userRoleApplicationDTO);
 		}
 
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
 	private UserApplicationEntity createUserApplication(UserEntity user , UserRoleApplicationDTO userRoleApplicationDTO) {
 		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
 		userApplicationEntity.setUser(user);
-		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplication());
+		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplicationId());
 		userApplicationEntity.setApplication(application);
 		return userApplicationRepository.save(userApplicationEntity);
 	}
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
 	private UserApplicationEntity createUserOrganization(UserEntity user, UserRoleApplicationDTO userRoleApplicationDTO) {
 		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
 		userApplicationEntity.setUser(user);
-		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganization());
+		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganizationId());
 		userApplicationEntity.setOrganization(organization);
 		userApplicationEntity.setApplication(organization.getApplication());
 		return userApplicationRepository.save(userApplicationEntity);

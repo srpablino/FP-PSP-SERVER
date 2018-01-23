@@ -64,6 +64,7 @@ public class UserControllerTest {
     public void setup() {
         mockUser = UserDTO.builder()
                 .username("foo.user")
+                .email("foo@bar")
                 .pass("123")
                 .build();
     }
@@ -95,7 +96,7 @@ public class UserControllerTest {
 
     @Test
     public void requestingPostUserShouldFailIfNotValidArgument() throws Exception {
-        List<String> properties = Arrays.asList("username", "pass");
+        List<String> properties = Arrays.asList("username", "email", "pass");
         mockMvc.perform(post("/api/v1/users").content("{}").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
@@ -113,6 +114,7 @@ public class UserControllerTest {
     public void requestingPostUserShouldFailIfUserAlreadyExists() throws Exception {
         UserDTO dto = UserDTO.builder()
                 .username("admin")
+                .email("foo@bar")
                 .pass("123")
                 .build();
 

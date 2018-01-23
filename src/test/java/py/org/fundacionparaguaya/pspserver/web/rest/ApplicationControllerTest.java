@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
+import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.CountryDTO;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
@@ -44,6 +45,9 @@ public class ApplicationControllerTest {
 
     @MockBean
     private ApplicationService applicationService;
+
+    @MockBean
+    private OrganizationService organizationService;
 
     private ApplicationDTO mockApplication;
 

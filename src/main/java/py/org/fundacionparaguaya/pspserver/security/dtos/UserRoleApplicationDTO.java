@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 
@@ -13,20 +14,22 @@ public class UserRoleApplicationDTO {
 
     private Role role;
 
-    private Long application;
+    @JsonProperty("application")
+    private Long applicationId;
 
-    private Long organization;
+    @JsonProperty("organization")
+    private Long organizationId;
 
     public UserRoleApplicationDTO() {
     }
 
-    private UserRoleApplicationDTO(String username, String email, String pass, Role role, Long application, Long organization) {
+    private UserRoleApplicationDTO(String username, String email, String pass, Role role, Long applicationId, Long organizationId) {
         this.username = username;
         this.email = email;
         this.pass = pass;
         this.role = role;
-        this.application = application;
-        this.organization = organization;
+        this.applicationId = applicationId;
+        this.organizationId = organizationId;
     }
 
     public static class Builder {
@@ -34,8 +37,8 @@ public class UserRoleApplicationDTO {
         private String email;
         private String pass;
         private Role role;
-        private Long application;
-        private Long organization;
+        private Long applicationId;
+        private Long organizationId;
 
         public UserRoleApplicationDTO.Builder username(String username) {
             this.username = username;
@@ -57,18 +60,18 @@ public class UserRoleApplicationDTO {
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder application(Long application) {
-            this.application = application;
+        public UserRoleApplicationDTO.Builder applicationId(Long applicationId) {
+            this.applicationId = applicationId;
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder organization(Long organization) {
-            this.organization = organization;
+        public UserRoleApplicationDTO.Builder organizationId(Long organizationId) {
+            this.organizationId = organizationId;
             return this;
         }
 
         public UserRoleApplicationDTO build() {
-            return new UserRoleApplicationDTO(username, email, pass, role, application, organization);
+            return new UserRoleApplicationDTO(username, email, pass, role, applicationId, organizationId);
         }
     }
 
@@ -108,20 +111,20 @@ public class UserRoleApplicationDTO {
         this.role = role;
     }
 
-    public Long getApplication() {
-        return application;
+    public Long getApplicationId() {
+        return applicationId;
     }
 
-    public void setApplication(Long application) {
-        this.application = application;
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
-    public Long getOrganization() {
-        return organization;
+    public Long getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrganization(Long organization) {
-        this.organization = organization;
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 
     @Override
@@ -131,8 +134,8 @@ public class UserRoleApplicationDTO {
                 .add("email", email)
                 .add("pass", pass)
                 .add("role", role)
-                .add("application", application)
-                .add("organization", organization)
+                .add("applicationId", applicationId)
+                .add("organizationId", organizationId)
                 .toString();
     }
 
