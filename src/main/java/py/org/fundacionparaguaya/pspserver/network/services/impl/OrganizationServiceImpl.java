@@ -96,12 +96,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 	}
 
 	@Override
-	public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails) {
-		Long applicationId = Optional.ofNullable(userDetails.getApplication())
-				.orElse(new ApplicationDTO()).getId();
-		
-		Long organizationId = Optional.ofNullable(userDetails.getOrganization())
-				.orElse(new OrganizationDTO()).getId();
+	public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, Long applicationId, Long organizationId) {
+//		Long applicationId = Optional.ofNullable(userDetails.getApplication())
+//				.orElse(new ApplicationDTO()).getId();
+//		
+//		Long organizationId = Optional.ofNullable(userDetails.getOrganization())
+//				.orElse(new OrganizationDTO()).getId();
 		
         Page<OrganizationEntity> pageResponse = organizationRepository
                 .findAll(where(byFilter(applicationId, organizationId)), pageRequest);

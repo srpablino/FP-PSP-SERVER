@@ -67,9 +67,11 @@ public class OrganizationController {
 			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
 			@RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
 			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-			@AuthenticationPrincipal UserDetailsDTO details) {
+			@RequestParam(value = "applicationId", required = true) Long applicationId,
+			@RequestParam(value = "organizationId", required = false) Long organizationId) {
+	    System.out.println("buscando organizacion");
 		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-		Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(pageRequest, details);
+		Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(pageRequest, applicationId, organizationId);
 		PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 		return ResponseEntity.ok(response);
 	}
