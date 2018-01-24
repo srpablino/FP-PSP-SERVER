@@ -1,6 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 
 import javax.validation.constraints.NotNull;
@@ -16,7 +15,6 @@ public class UserDTO {
 	private String email;
 
 	@NotNull
-	@JsonIgnore
 	private String pass;
 	
 	private boolean active;
