@@ -223,7 +223,7 @@
         <sqlFile path="sql/2018-01-11T14:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
     
-    <!-- Create snapshot tmp table" -->
+    <!-- Create snapshot draft table" -->
     <changeSet id="2018-01-18T11:30" author="mgonzalez">
         <sqlFile path="sql/2018-01-18T11:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
