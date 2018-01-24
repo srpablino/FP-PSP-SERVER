@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author mgonzalez
  *
  */
-public class SnapshotTmp {
+public class SnapshotDraft {
 
     @JsonProperty("id")
     private Long id;
@@ -108,7 +108,7 @@ public class SnapshotTmp {
         this.surveyId = surveyId;
     }
 
-    public SnapshotTmp surveyId(Long surveyId) {
+    public SnapshotDraft surveyId(Long surveyId) {
         this.surveyId = surveyId;
         return this;
     }
@@ -145,7 +145,7 @@ public class SnapshotTmp {
         this.createdAt = createdAt;
     }
 
-    public SnapshotTmp createdAt(String createdAt) {
+    public SnapshotDraft createdAt(String createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -153,7 +153,7 @@ public class SnapshotTmp {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SnapshotTmp {\n");
+        sb.append("class SnapshotDraft {\n");
         sb.append("    id: ")
         .append(toIndentedString(id))
         .append("\n");
@@ -209,7 +209,7 @@ public class SnapshotTmp {
             return false;
         }
 
-        SnapshotTmp that = (SnapshotTmp) o;
+        SnapshotDraft that = (SnapshotDraft) o;
 
         return com.google.common.base.Objects.equal(this.id,
                 that.id)

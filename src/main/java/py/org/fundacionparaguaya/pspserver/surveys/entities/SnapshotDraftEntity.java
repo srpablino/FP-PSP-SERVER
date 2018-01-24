@@ -30,25 +30,25 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.types.SecondJSONBUse
  *
  */
 @Entity
-@Table(schema = "data_collect", name = "snapshot_tmp")
-public class SnapshotTmpEntity extends BaseEntity {
+@Table(schema = "data_collect", name = "snapshot_draft")
+public class SnapshotDraftEntity extends BaseEntity {
 
     @Id
-    @GenericGenerator(name = "snapshotTmpSequenceGenerator",
+    @GenericGenerator(name = "snapshotDraftSequenceGenerator",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
     parameters = {
     @org.hibernate.annotations.Parameter(name = SequenceStyleGenerator.SCHEMA,
         value = "data_collect"),
     @org.hibernate.annotations.Parameter(
         name = SequenceStyleGenerator.SEQUENCE_PARAM,
-        value = "snapshot_tmp_id_seq"),
+        value = "snapshot_draft_id_seq"),
     @org.hibernate.annotations.Parameter(
         name = SequenceStyleGenerator.INITIAL_PARAM,
         value = "1"),
     @org.hibernate.annotations.Parameter(
         name = SequenceStyleGenerator.INCREMENT_PARAM,
         value = "1") })
-    @GeneratedValue(generator = "snapshotTmpSequenceGenerator")
+    @GeneratedValue(generator = "snapshotDraftSequenceGenerator")
 
     @Column(name="id")
     private Long id;
@@ -187,7 +187,7 @@ public class SnapshotTmpEntity extends BaseEntity {
         this.surveyDefinition = surveyDefinition;
     }
 
-    public SnapshotTmpEntity surveyDefinition(SurveyEntity surveyDefinition) {
+    public SnapshotDraftEntity surveyDefinition(SurveyEntity surveyDefinition) {
         this.surveyDefinition = surveyDefinition;
         return this;
     }
@@ -200,7 +200,7 @@ public class SnapshotTmpEntity extends BaseEntity {
         this.termCond = termCond;
     }
 
-    public SnapshotTmpEntity termCond(TermCondPolEntity termCond) {
+    public SnapshotDraftEntity termCond(TermCondPolEntity termCond) {
         this.termCond = termCond;
         return this;
     }
@@ -213,7 +213,7 @@ public class SnapshotTmpEntity extends BaseEntity {
         this.privPol = privPol;
     }
 
-    public SnapshotTmpEntity privPol(TermCondPolEntity privPol) {
+    public SnapshotDraftEntity privPol(TermCondPolEntity privPol) {
         this.privPol = privPol;
         return this;
     }
@@ -226,7 +226,7 @@ public class SnapshotTmpEntity extends BaseEntity {
         this.user = user;
     }
 
-    public SnapshotTmpEntity user(UserEntity user) {
+    public SnapshotDraftEntity user(UserEntity user) {
         this.user = user;
         return this;
     }

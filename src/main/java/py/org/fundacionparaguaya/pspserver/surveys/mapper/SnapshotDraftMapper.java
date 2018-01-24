@@ -2,18 +2,16 @@ package py.org.fundacionparaguaya.pspserver.surveys.mapper;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
-import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.security.repositories.TermCondPolRepository;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTmp;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotTmpEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository;
 
 /**
@@ -22,8 +20,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository
  *
  */
 @Component
-public class SnapshotTmpMapper implements
-    BaseMapper<SnapshotTmpEntity, SnapshotTmp> {
+public class SnapshotDraftMapper implements
+    BaseMapper<SnapshotDraftEntity, SnapshotDraft> {
 
     private final ModelMapper modelMapper;
 
@@ -33,7 +31,7 @@ public class SnapshotTmpMapper implements
 
     private final SurveyRepository surveyRepository;
 
-    public SnapshotTmpMapper(ModelMapper modelMapper,
+    public SnapshotDraftMapper(ModelMapper modelMapper,
             UserRepository userRepository,
             TermCondPolRepository termCondPolRepository,
             SurveyRepository surveyRepository) {
@@ -44,8 +42,8 @@ public class SnapshotTmpMapper implements
     }
 
     @Override
-    public List<SnapshotTmp> entityListToDtoList(
-            List<SnapshotTmpEntity> entityList) {
+    public List<SnapshotDraft> entityListToDtoList(
+            List<SnapshotDraftEntity> entityList) {
         return entityList.stream()
                 .filter(Objects::nonNull)
                 .map(this::entityToDto)
@@ -53,37 +51,35 @@ public class SnapshotTmpMapper implements
     }
 
     @Override
-    public SnapshotTmp entityToDto(SnapshotTmpEntity entity) {
-        SnapshotTmp dto = modelMapper.map(entity, SnapshotTmp.class);
+    public SnapshotDraft entityToDto(SnapshotDraftEntity entity) {
+        SnapshotDraft dto = modelMapper.map(entity, SnapshotDraft.class);
         dto = dto.createdAt(entity.getCreatedAtAsISOString()).
                 surveyId(entity.getSurveyDefinition().getId());
         return dto;
     }
 
     @Override
-    public SnapshotTmpEntity dtoToEntity(SnapshotTmp dto) {
-        SnapshotTmpEntity entity = modelMapper.map(dto,
-                SnapshotTmpEntity.class);
-
+    public SnapshotDraftEntity dtoToEntity(SnapshotDraft dto) {
+        SnapshotDraftEntity entity = modelMapper.map(dto,
+                SnapshotDraftEntity.class);
         if (dto.getUserName()!=null) {
-            Optional<UserEntity> user = userRepository
-                    .findOneByUsername(dto.getUserName());
-            entity = entity.user(user.isPresent()? user.get() : null);
+            entity.setUser(userRepository.findOneByUsername(
+                    dto.getUserName()).orElse(null));
         }
 
         if (dto.getTermCondId()!=null) {
-            entity = entity.termCond(termCondPolRepository
-                    .findOne(dto.getTermCondId()));
+            entity.setTermCond(termCondPolRepository
+                .findOne(dto.getTermCondId()));
         }
 
         if (dto.getPrivPolId()!=null) {
-            entity = entity.privPol(termCondPolRepository
-                    .findOne(dto.getPrivPolId()));
+            entity.setPrivPol(termCondPolRepository
+                .findOne(dto.getPrivPolId()));
         }
 
         if (dto.getSurveyId()!=null) {
-            entity = entity.surveyDefinition(surveyRepository
-                    .findOne(dto.getSurveyId()));
+            entity.setSurveyDefinition(surveyRepository
+                .findOne(dto.getSurveyId()));
         }
 
         return entity;
