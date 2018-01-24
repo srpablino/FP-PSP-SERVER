@@ -33,11 +33,10 @@ public class PasswordResetTokenController {
     public ResponseEntity<?> showChangePasswordPage(
             @RequestParam("token") String token,
             @RequestParam("userId") Long userId,
-            @RequestParam("temporalPassword") String temporalPassword,
             @RequestParam("password") String password,
             @RequestParam("repeatPassword") String repeatPassword) {
          passwordResetTokenService.validatePasswordResetToken(token, userId,
-               temporalPassword, password, repeatPassword);
+               password, repeatPassword);
          return ResponseEntity.noContent().build();
     }
 

@@ -8,8 +8,7 @@ CREATE TABLE security.password_reset_token
   id bigserial PRIMARY KEY,
   token text NOT NULL,
   user_id bigint NOT NULL,
-  expiry_date date NOT NULL,
-  temporal_password text NOT NULL
+  expiry_date date NOT NULL
 );
 
 -- add constraint to security.password_reset_token

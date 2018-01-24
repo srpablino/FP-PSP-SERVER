@@ -12,13 +12,11 @@ public interface PasswordResetTokenService {
 
     void createPasswordResetTokenForUser(
             UserEntity user,
-            String token,
-            String temporalPassword);
+            String token);
 
     void validatePasswordResetToken(
             String token,
             Long userId,
-            String temporalPassword,
             String password,
             String repeatPassword);
 

@@ -10,17 +10,14 @@ public class PasswordResetTokenDTO {
 
     private String token;
 
-    private String temporalPassword;
-
     private UserDTO user;
 
     private Date expiryDate;
 
     private PasswordResetTokenDTO(Long id, String token,
-            String temporalPassword, UserDTO user, Date expiryDate) {
+           UserDTO user, Date expiryDate) {
         this.id = id;
         this.token = token;
-        this.temporalPassword = temporalPassword;
         this.user = user;
         this.expiryDate = expiryDate;
     }
@@ -28,7 +25,6 @@ public class PasswordResetTokenDTO {
     public static class Builder {
         private Long id;
         private String token;
-        private String temporalPassword;
         private UserDTO user;
         private Date expiryDate;
 
@@ -42,11 +38,6 @@ public class PasswordResetTokenDTO {
             return this;
         }
 
-        public Builder temporalPassword(String temporalPassword) {
-            this.temporalPassword = temporalPassword;
-            return this;
-        }
-
         public Builder user(UserDTO user) {
             this.user = user;
             return this;
@@ -55,12 +46,6 @@ public class PasswordResetTokenDTO {
         public Builder expiryDate(Date expiryDate) {
             this.expiryDate = expiryDate;
             return this;
-        }
-
-        public PasswordResetTokenDTO build() {
-            return new PasswordResetTokenDTO(
-                    id, token, temporalPassword, user,
-                    expiryDate);
         }
 
     }
@@ -85,14 +70,6 @@ public class PasswordResetTokenDTO {
         this.token = token;
     }
 
-    public String getTemporalPassword() {
-        return temporalPassword;
-    }
-
-    public void setTemporalPassword(String temporalPassword) {
-        this.temporalPassword = temporalPassword;
-    }
-
     public UserDTO getUser() {
         return user;
     }
@@ -114,7 +91,6 @@ public class PasswordResetTokenDTO {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("token", token)
-                .add("temporalPassword", temporalPassword)
                 .add("user", user)
                 .add("expiryDate", expiryDate)
                 .toString();

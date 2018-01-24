@@ -47,8 +47,6 @@ public class PasswordResetTokenEntity {
 
     private String token;
 
-    private String temporalPassword;
-
     @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private UserEntity user;
@@ -80,14 +78,6 @@ public class PasswordResetTokenEntity {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getTemporalPassword() {
-        return temporalPassword;
-    }
-
-    public void setTemporalPassword(String temporalPassword) {
-        this.temporalPassword = temporalPassword;
     }
 
     public UserEntity getUser() {

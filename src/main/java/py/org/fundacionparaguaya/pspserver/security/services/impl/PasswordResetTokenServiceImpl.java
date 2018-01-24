@@ -3,9 +3,7 @@ package py.org.fundacionparaguaya.pspserver.security.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
-import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -77,11 +75,7 @@ public class PasswordResetTokenServiceImpl
 
         String token = UUID.randomUUID().toString();
 
-        SecureRandom ran = new SecureRandom();
-
-        String temporalPassword = new BigInteger(50, ran).toString(50);
-
-        createPasswordResetTokenForUser(user, token, temporalPassword);
+        createPasswordResetTokenForUser(user, token);
 
         SimpleMailMessage template = new SimpleMailMessage();
         template.setText(loadTemplate(MAIL_PAGE_TEMPLATE));
@@ -91,8 +85,7 @@ public class PasswordResetTokenServiceImpl
                 + token
                 + "&"+MAIL_PARAM_ID+"="
                 + user.getId(),
-                user.getEmail(),
-                temporalPassword};
+                user.getEmail()};
 
         emailService.sendSimpleMessageUsingTemplate(user.getEmail(),
                 "Reset your password for Poverty Stoplight Platform",
@@ -117,8 +110,7 @@ public class PasswordResetTokenServiceImpl
 
     @Override
     public void createPasswordResetTokenForUser(UserEntity user,
-            String token,
-            String temporalPassword) {
+            String token) {
         PasswordResetTokenEntity myToken =
                 new PasswordResetTokenEntity(token, user);
         LocalDateTime expirationLocalDate = LocalDateTime.now().
@@ -127,13 +119,12 @@ public class PasswordResetTokenServiceImpl
         Instant instant = expirationLocalDate.toInstant(ZoneOffset.UTC);
         Date expirationDate = Date.from(instant);
         myToken.setExpiryDate(expirationDate);
-        myToken.setTemporalPassword(encryptPassword(temporalPassword));
         passwordTokenRepository.save(myToken);
     }
 
     @Override
     public void validatePasswordResetToken(String token,
-            Long userId, String temporalPassword, String password,
+            Long userId, String password,
             String repeatPassword) {
 
         checkArgument(userId > 0,
@@ -153,14 +144,6 @@ public class PasswordResetTokenServiceImpl
                 getUser().getId().longValue()
                 != userId.longValue()) {
             throw new CustomParameterizedException("Invalid token", token);
-        } else {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            if (!passwordEncoder.matches(temporalPassword,
-                    passwordResetTokenEntity.getTemporalPassword())){
-                throw new CustomParameterizedException(
-                        "Invalid temporal password",
-                        temporalPassword);
-            }
         }
 
         Calendar cal = Calendar.getInstance();
