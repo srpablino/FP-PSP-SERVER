@@ -59,4 +59,11 @@ public class SnapshotTmpServiceImpl implements SnapshotTmpService {
         });
     }
 
+    @Override
+    public SnapshotTmp updateSnapshotTmp(SnapshotTmp snapshotTmp) {
+        SnapshotTmpEntity snapshotTmpEntity = mapper.dtoToEntity(snapshotTmp);
+        snapshotTmpEntity = repository.save(snapshotTmpEntity);
+        return mapper.entityToDto(snapshotTmpEntity);
+    }
+
 }

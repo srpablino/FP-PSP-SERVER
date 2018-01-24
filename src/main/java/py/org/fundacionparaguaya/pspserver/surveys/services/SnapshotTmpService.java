@@ -11,6 +11,8 @@ public interface SnapshotTmpService {
     SnapshotTmp addSnapshotTmp(SnapshotTmp snapshot);
 
     SnapshotTmp getSnapshotTmp(Long id);
+    
+    SnapshotTmp updateSnapshotTmp(SnapshotTmp snapshotTmp);
 
     void deleteSnapshotTmp(Long id);
 }

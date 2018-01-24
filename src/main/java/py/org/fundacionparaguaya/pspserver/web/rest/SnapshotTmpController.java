@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,8 +57,8 @@ public class SnapshotTmpController {
             @ApiParam(value = "The snapshot", required = true)
             @RequestBody SnapshotTmp snapshot)
             throws NotFoundException, URISyntaxException {
-
-        LOG.debug("REST request to add temporal Snapshot : {}", snapshot);
+        System.out.println("entro en post");
+        //LOG.debug("REST request to add temporal Snapshot : {}", snapshot);
         SnapshotTmp data = service.addSnapshotTmp(snapshot);
         URI snapshotTmpLocation = new URI("/snapshots/tmp/" + data.getId());
         return ResponseEntity.created(snapshotTmpLocation).body(data);
@@ -82,4 +83,25 @@ public class SnapshotTmpController {
         SnapshotTmp snapshot = service.getSnapshotTmp(snapshotTmpId);
         return ResponseEntity.ok(snapshot);
     }
+    
+    @PutMapping(
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @io.swagger.annotations.ApiOperation(
+        value = "Get temporal Snapshot",
+        notes = "", response = SnapshotTmp.class, tags = {})
+    @io.swagger.annotations.ApiResponses(value = {
+    @io.swagger.annotations.ApiResponse(
+        code = 200,
+        message = "The requested survey definition",
+        response = SurveyDefinition.class) })
+    public ResponseEntity<?> updateSnapshotTmp(
+        @ApiParam(value = "The snapshot tmp id", required = true)
+        @RequestParam(value="snapshot_tmp_id", required=true)
+        Long snapshotTmpId, @RequestBody SnapshotTmp snapshotTmp)
+                throws NotFoundException {
+             System.out.println("entro en put");
+            snapshotTmp.setId(snapshotTmpId);
+            SnapshotTmp snapshot = service.updateSnapshotTmp(snapshotTmp);
+            return ResponseEntity.ok(snapshot);
+        }
 }
