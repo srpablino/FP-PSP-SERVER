@@ -28,7 +28,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService
  *
  */
 @RestController
-@RequestMapping(value = "/api/v1/snapshots/draft")
+@RequestMapping(value = "/api/v1/snapshots/drafts")
 public class SnapshotDraftController {
 
     private static final Logger LOG = LoggerFactory
