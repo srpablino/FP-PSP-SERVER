@@ -22,8 +22,10 @@ import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
+import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
@@ -37,15 +39,19 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	 private final OrganizationRepository organizationRepository;
 	
+	 private final ApplicationRepository applicationRepository;
+
 	 private final OrganizationMapper organizationMapper;
 
 	 private final FamilyService familyService;
 
 	private final ImageUploadService imageUploadService;
 
-	public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper,
-								   FamilyService familyService, ImageUploadService imageUploadService) {
+	public OrganizationServiceImpl(OrganizationRepository organizationRepository, ApplicationRepository applicationRepository,
+								   OrganizationMapper organizationMapper, FamilyService familyService,
+								   ImageUploadService imageUploadService) {
 		this.organizationRepository = organizationRepository;
+		this.applicationRepository = applicationRepository;
 		this.organizationMapper = organizationMapper;
 		this.familyService = familyService;
 		this.imageUploadService = imageUploadService;
@@ -71,18 +77,19 @@ public class OrganizationServiceImpl implements OrganizationService {
 		// Save Organization entity
 		OrganizationEntity organization = new OrganizationEntity();
 		BeanUtils.copyProperties(organizationDTO, organization);
+		ApplicationEntity application = applicationRepository.findById(organizationDTO.getApplication().getId());
+		organization.setApplication(application);
+		organization.setActive(true);
 		OrganizationEntity newOrganization= organizationRepository.save(organization);
 
 		// Upload image to AWS S3 service
 		String file = organizationDTO.getFile();
-		if (file != null) {
-			String logoURL = imageUploadService.uploadImage(file, newOrganization.getId());
+		String logoURL = imageUploadService.uploadImage(file, newOrganization.getId());
 
-			if (logoURL != null) {
-				// Update Organization entity with image URL
-				newOrganization.setLogoUrl(logoURL);
-				organizationRepository.save(newOrganization);
-			}
+		if (logoURL != null) {
+			// Update Organization entity with image URL
+			newOrganization.setLogoUrl(logoURL);
+			organizationRepository.save(newOrganization);
 		}
 
 		return organizationMapper.entityToDto(newOrganization);

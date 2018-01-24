@@ -14,12 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 @Service
 public class ImageUploadServiceImpl implements ImageUploadService {
@@ -38,57 +37,37 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
         String url = null;
 
-        // Image format validation (image/jpg, image/jpeg, image/png, ...)
-        String data = fileString.substring(0, fileString.indexOf(';'));
-        String attribute = data.substring(0, data.indexOf(':'));
-        if (attribute.equals("data")) {
-            String contentType = data.substring(data.indexOf(':') + 1);
-            String type = contentType.substring(0, contentType.indexOf('/'));
-            if (type.equals("image")) {
+        ImageDTO image = ImageParser.parse(fileString);
+        if (image != null) {
+            try {
+                String accessKeyID = applicationProperties.getAws().getAccessKeyID();
+                String secretAccessKey = applicationProperties.getAws().getSecretAccessKey();
+                BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
+                String strRegion = applicationProperties.getAws().getStrRegion();
+                Regions region = Regions.valueOf(strRegion);
 
-                String format = contentType.substring(contentType.indexOf('/') + 1);
+                AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                        .withRegion(region)
+                        .withCredentials(new AWSStaticCredentialsProvider(creds))
+                        .build();
 
-                String base64 = fileString.substring(fileString.indexOf(',') + 1);
+                String bucketName = applicationProperties.getAws().getBucketName();
+                String fileNamePrefix = applicationProperties.getAws().getFileNamePrefix();
+                String folderPath = applicationProperties.getAws().getFolderPath();
+                String fileName = fileNamePrefix + entityId + "." + image.getFormat();
+                String keyName = folderPath + fileName;
 
-                Base64.Decoder decoder = Base64.getDecoder();
-                byte[] fileBytes = decoder.decode(base64);
+                s3Client.putObject(new PutObjectRequest(bucketName, keyName, image.getFile())
+                        .withCannedAcl(CannedAccessControlList.PublicRead));
 
-                File file = File.createTempFile("file", ".tmp");
+                url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
 
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(fileBytes);
-                fos.close();
-
-                try {
-                    String accessKeyID = applicationProperties.getAws().getAccessKeyID();
-                    String secretAccessKey = applicationProperties.getAws().getSecretAccessKey();
-                    BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
-                    String strRegion = applicationProperties.getAws().getStrRegion();
-                    Regions region = Regions.valueOf(strRegion);
-
-                    AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                            .withRegion(region)
-                            .withCredentials(new AWSStaticCredentialsProvider(creds))
-                            .build();
-
-                    String bucketName = applicationProperties.getAws().getBucketName();
-                    String fileNamePrefix = applicationProperties.getAws().getFileNamePrefix();
-                    String folderPath = applicationProperties.getAws().getFolderPath();
-                    String fileName = fileNamePrefix + entityId + "." + format;
-                    String keyName = folderPath + fileName;
-
-                    s3Client.putObject(new PutObjectRequest(bucketName, keyName, file)
-                            .withCannedAcl(CannedAccessControlList.PublicRead));
-
-                    url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
-
-                } catch (AmazonServiceException ase) {
-                    LOG.error(ase.getMessage(), ase);
-                    throw new RuntimeException(ase);
-                } catch (AmazonClientException ace) {
-                    LOG.error(ace.getMessage(), ace);
-                    throw new RuntimeException(ace);
-                }
+            } catch (AmazonServiceException ase) {
+                LOG.error(ase.getMessage(), ase);
+                throw new RuntimeException(ase);
+            } catch (AmazonClientException ace) {
+                LOG.error(ace.getMessage(), ace);
+                throw new RuntimeException(ace);
             }
         }
 
