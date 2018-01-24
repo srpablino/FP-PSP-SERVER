@@ -60,10 +60,10 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     @Override
-    public SnapshotTmp updateSnapshotTmp(SnapshotTmp snapshotTmp) {
-        SnapshotTmpEntity snapshotTmpEntity = mapper.dtoToEntity(snapshotTmp);
-        snapshotTmpEntity = repository.save(snapshotTmpEntity);
-        return mapper.entityToDto(snapshotTmpEntity);
+    public SnapshotDraft updateSnapshotDraft(SnapshotDraft snapshotDraft) {
+        SnapshotDraftEntity snapshotDraftEntity = mapper.dtoToEntity(snapshotDraft);
+        snapshotDraftEntity = repository.save(snapshotDraftEntity);
+        return mapper.entityToDto(snapshotDraftEntity);
     }
 
 }

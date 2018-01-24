@@ -76,9 +76,9 @@ public class SnapshotDraftController {
          response = SurveyDefinition.class) })
 
     public ResponseEntity<?> getSnapshotTmp(
-            @ApiParam(value = "The snapshot tmp id", required = true)
-            @RequestParam(value="snapshot_tmp_id", required=true)
-                Long snapshotTmpId)
+            @ApiParam(value = "The snapshot draft id", required = true)
+            @RequestParam(value="snapshot_draft_id", required=true)
+                Long snapshotDraftId)
             throws NotFoundException {
         SnapshotDraft snapshot = service.getSnapshotDraft(snapshotDraftId);
         return ResponseEntity.ok(snapshot);
