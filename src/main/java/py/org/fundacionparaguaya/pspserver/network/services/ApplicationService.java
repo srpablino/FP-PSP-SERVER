@@ -2,23 +2,28 @@ package py.org.fundacionparaguaya.pspserver.network.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
-
-
 public interface ApplicationService {
 
-	ApplicationDTO updateApplication(Long applicationId, ApplicationDTO application);
+  ApplicationDTO updateApplication(Long applicationId,
+      ApplicationDTO application);
 
-	ApplicationDTO addApplication(ApplicationDTO application);
-	
-	ApplicationDTO getApplicationById(Long applicationId);
-	
-	List<ApplicationDTO> getAllApplications();
-	
-	void deleteApplication(Long applicationId);
+  ApplicationDTO addApplication(ApplicationDTO application);
 
-    ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details);
-	
+  ApplicationDTO getApplicationById(Long applicationId);
+
+  List<ApplicationDTO> getAllApplications();
+
+  void deleteApplication(Long applicationId);
+
+  ApplicationDTO getApplicationDashboard(Long applicationId,
+      UserDetailsDTO details);
+
+  Page<ApplicationDTO> listApplicationsHubs(PageRequest pageRequest);
+
 }
