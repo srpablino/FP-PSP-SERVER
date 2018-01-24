@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTmp;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotTmpService;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService;
 
 /**
  *
@@ -28,15 +28,15 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotTmpService;
  *
  */
 @RestController
-@RequestMapping(value = "/api/v1/snapshots/tmp")
-public class SnapshotTmpController {
+@RequestMapping(value = "/api/v1/snapshots/draft")
+public class SnapshotDraftController {
 
     private static final Logger LOG = LoggerFactory
-            .getLogger(SnapshotTmpController.class);
+            .getLogger(SnapshotDraftController.class);
 
-    private final SnapshotTmpService service;
+    private final SnapshotDraftService service;
 
-    public SnapshotTmpController(SnapshotTmpService service) {
+    public SnapshotDraftController(SnapshotDraftService service) {
         this.service = service;
     }
 
@@ -45,43 +45,43 @@ public class SnapshotTmpController {
         value = "Create a temporal Snapshot ",
         notes = "A `POST` request will create new temporal snapshot for a"
                 + " particular survey.",
-        response = SnapshotTmp.class,
+        response = SnapshotDraft.class,
         tags = {})
     @io.swagger.annotations.ApiResponses(value = {
         @io.swagger.annotations.ApiResponse(
         code = 201,
         message = "The created temporal snapshot",
-        response = SnapshotTmp.class)
+        response = SnapshotDraft.class)
      })
 
-    public ResponseEntity<SnapshotTmp> addSnapshotTmp(
+    public ResponseEntity<SnapshotDraft> addSnapshotDraft(
             @ApiParam(value = "The snapshot", required = true)
-            @RequestBody SnapshotTmp snapshot)
+            @RequestBody SnapshotDraft snapshot)
             throws NotFoundException, URISyntaxException {
 
-        LOG.debug("REST request to add temporal Snapshot : {}", snapshot);
-        SnapshotTmp data = service.addSnapshotTmp(snapshot);
-        URI snapshotTmpLocation = new URI("/snapshots/tmp/" + data.getId());
-        return ResponseEntity.created(snapshotTmpLocation).body(data);
+        LOG.debug("REST request to add Snapshot draft : {}", snapshot);
+        SnapshotDraft data = service.addSnapshotDraft(snapshot);
+        URI snapshotDraftLocation = new URI("/snapshots/draft/" + data.getId());
+        return ResponseEntity.created(snapshotDraftLocation).body(data);
     }
 
 
-    @GetMapping(value = "/{snapshot_tmp_id}",
+    @GetMapping(value = "/{snapshot_draft_id}",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(
-        value = "Get temporal Snapshot",
-        notes = "", response = SnapshotTmp.class, tags = {})
+        value = "Get Snapshot draft",
+        notes = "", response = SnapshotDraft.class, tags = {})
     @io.swagger.annotations.ApiResponses(value = {
         @io.swagger.annotations.ApiResponse(
          code = 200,
-         message = "The requested survey definition",
+         message = "The requested snapshot draft",
          response = SurveyDefinition.class) })
-    public ResponseEntity<?> getSnapshotTmp(
-            @ApiParam(value = "The snapshot tmp id", required = true)
-            @PathParam("snapshot_tmp_id") @PathVariable("snapshot_tmp_id")
-                Long snapshotTmpId)
+    public ResponseEntity<?> getSnapshotDraft(
+            @ApiParam(value = "The snapshot draft id", required = true)
+            @PathParam("snapshot_draft_id") @PathVariable("snapshot_draft_id")
+                Long snapshotDraftId)
             throws NotFoundException {
-        SnapshotTmp snapshot = service.getSnapshotTmp(snapshotTmpId);
+        SnapshotDraft snapshot = service.getSnapshotDraft(snapshotDraftId);
         return ResponseEntity.ok(snapshot);
     }
 }
