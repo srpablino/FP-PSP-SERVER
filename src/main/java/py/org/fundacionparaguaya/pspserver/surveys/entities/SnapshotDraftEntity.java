@@ -175,7 +175,7 @@ public class SnapshotDraftEntity extends BaseEntity {
         return stateDraft;
     }
 
-    public void setDraft(SurveyData stateDraft) {
+    public void setStateDraft(SurveyData stateDraft) {
         this.stateDraft = stateDraft;
     }
 
