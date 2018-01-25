@@ -2,8 +2,6 @@ package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -40,15 +38,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         ImageDTO image = ImageParser.parse(fileString);
         if (image != null) {
             try {
-                String accessKeyID = applicationProperties.getAws().getAccessKeyID();
-                String secretAccessKey = applicationProperties.getAws().getSecretAccessKey();
-                BasicAWSCredentials creds = new BasicAWSCredentials(accessKeyID, secretAccessKey);
                 String strRegion = applicationProperties.getAws().getStrRegion();
                 Regions region = Regions.valueOf(strRegion);
 
                 AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
                         .withRegion(region)
-                        .withCredentials(new AWSStaticCredentialsProvider(creds))
                         .build();
 
                 String bucketName = applicationProperties.getAws().getBucketName();

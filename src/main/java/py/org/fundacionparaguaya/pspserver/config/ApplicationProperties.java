@@ -18,28 +18,10 @@ public class ApplicationProperties {
     }
 
     public static class Aws {
-        private String accessKeyID;
-        private String secretAccessKey;
         private String strRegion;
         private String bucketName;
         private String folderPath;
         private String fileNamePrefix;
-
-        public String getAccessKeyID() {
-            return accessKeyID;
-        }
-
-        public void setAccessKeyID(String accessKeyID) {
-            this.accessKeyID = accessKeyID;
-        }
-
-        public String getSecretAccessKey() {
-            return secretAccessKey;
-        }
-
-        public void setSecretAccessKey(String secretAccessKey) {
-            this.secretAccessKey = secretAccessKey;
-        }
 
         public String getStrRegion() {
             return strRegion;
