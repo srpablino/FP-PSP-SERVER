@@ -7,12 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfiguration {
 
-    private ApplicationProperties applicationProps;
-
-    public SpringConfiguration(ApplicationProperties applicationProps) {
-        this.applicationProps = applicationProps;
-    }
-
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
