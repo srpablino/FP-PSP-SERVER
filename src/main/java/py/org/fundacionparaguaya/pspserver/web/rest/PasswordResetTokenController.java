@@ -1,7 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +15,14 @@ public class PasswordResetTokenController {
     private PasswordResetTokenService passwordResetTokenService;
 
     public PasswordResetTokenController(
-            PasswordResetTokenService passwordResetTokenService){
+            PasswordResetTokenService passwordResetTokenService) {
         this.passwordResetTokenService = passwordResetTokenService;
     }
 
     @PostMapping("/resetPassword")
     public ResponseEntity<?> resetPassword(
-            HttpServletRequest request,
             @RequestParam("email") String userEmail) {
-        passwordResetTokenService.resetPassword(request, userEmail);
+        passwordResetTokenService.resetPassword(userEmail);
         return ResponseEntity.noContent().build();
     }
 
@@ -35,9 +32,9 @@ public class PasswordResetTokenController {
             @RequestParam("userId") Long userId,
             @RequestParam("password") String password,
             @RequestParam("repeatPassword") String repeatPassword) {
-         passwordResetTokenService.validatePasswordResetToken(token, userId,
-               password, repeatPassword);
-         return ResponseEntity.noContent().build();
+        passwordResetTokenService.validatePasswordResetToken(token, userId,
+                password, repeatPassword);
+        return ResponseEntity.noContent().build();
     }
 
 }
