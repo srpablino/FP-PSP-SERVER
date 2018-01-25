@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,7 +58,7 @@ public class SnapshotDraftController {
             @ApiParam(value = "The snapshot", required = true)
             @RequestBody SnapshotDraft snapshot)
             throws NotFoundException, URISyntaxException {
-        LOG.debug("REST request to add Snapshot draft : {}", snapshot);
+        //LOG.debug("REST request to add Snapshot draft : {}", snapshot);
         SnapshotDraft data = service.addSnapshotDraft(snapshot);
         URI snapshotDraftLocation = new URI("/snapshots/draft/" + data.getId());
         return ResponseEntity.created(snapshotDraftLocation).body(data);
@@ -83,8 +84,8 @@ public class SnapshotDraftController {
         SnapshotDraft snapshot = service.getSnapshotDraft(snapshotDraftId);
         return ResponseEntity.ok(snapshot);
     }
-    
-    @PutMapping(
+
+    @PutMapping(value = "/{snapshot_draft_id}",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(
         value = "Get temporal Snapshot",
@@ -96,12 +97,12 @@ public class SnapshotDraftController {
         response = SnapshotDraft.class) })
     public ResponseEntity<?> updateSnapshotDraft(
         @ApiParam(value = "The snapshot draft id", required = true)
-        @RequestParam(value="snapshot_draft_id", required=true)
+        @PathVariable(value="snapshot_draft_id")
         Long snapshotDraftId, @RequestBody SnapshotDraft snapshotDraft)
                 throws NotFoundException {
-             System.out.println("entro en put");
-            snapshotDraft.setId(snapshotDraftId);
-            SnapshotDraft snapshot = service.updateSnapshotDraft(snapshotDraft);
+            SnapshotDraft snapshot = service.updateSnapshotDraft(
+                    snapshotDraftId, snapshotDraft);
             return ResponseEntity.ok(snapshot);
-        }
+
+      }
 }

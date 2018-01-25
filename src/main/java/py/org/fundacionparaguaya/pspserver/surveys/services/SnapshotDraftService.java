@@ -12,7 +12,7 @@ public interface SnapshotDraftService {
 
     SnapshotDraft getSnapshotDraft(Long id);
 
-    SnapshotDraft updateSnapshotDraft(SnapshotDraft snapshot);
-    
+    SnapshotDraft updateSnapshotDraft(Long id, SnapshotDraft snapshot);
+
     void deleteSnapshotDraft(Long id);
 }

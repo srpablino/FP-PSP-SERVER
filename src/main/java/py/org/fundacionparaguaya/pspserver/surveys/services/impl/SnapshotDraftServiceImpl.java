@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotDraftMapper;
@@ -24,10 +26,14 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     private final SnapshotDraftRepository repository;
 
+    private final UserRepository userRepository;
+
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
-            SnapshotDraftRepository repository) {
+            SnapshotDraftRepository repository,
+            UserRepository userRepository) {
         this.mapper = mapper;
         this.repository = repository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -60,10 +66,34 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     @Override
-    public SnapshotDraft updateSnapshotDraft(SnapshotDraft snapshotDraft) {
-        SnapshotDraftEntity snapshotDraftEntity = mapper.dtoToEntity(snapshotDraft);
-        snapshotDraftEntity = repository.save(snapshotDraftEntity);
-        return mapper.entityToDto(snapshotDraftEntity);
+    public SnapshotDraft updateSnapshotDraft(Long id,
+            SnapshotDraft snapshotDraft) {
+        checkArgument(id!=null && id > 0, "Argument"
+                + " was %s but expected nonnegative", id);
+        checkArgument(snapshotDraft!=null, "Argument"
+                + " was %s but expected non null", snapshotDraft);
+
+        SnapshotDraftEntity snapshotEntity = Optional.ofNullable(repository
+                .findOne(id))
+                .orElseThrow(() ->
+                new CustomParameterizedException(
+                        "Snapshot draft does not exist"));
+        snapshotEntity.setEconomicResponse(snapshotDraft.getEconomicResponse());
+        snapshotEntity.setIndicatorResponse(
+                snapshotDraft.getIndicatorResponse());
+        snapshotEntity.setPersonalResponse(snapshotDraft.getPersonalResponse());
+        snapshotEntity.setStateDraft(snapshotDraft.getStateDraft());
+
+        if (snapshotDraft.getUserName()!=null) {
+            snapshotEntity.setUser(userRepository
+                    .findOneByUsername(snapshotDraft.getUserName())
+                    .orElseThrow(() ->
+                    new CustomParameterizedException(
+                            "User does not exist")));
+        }
+
+        snapshotEntity = repository.save(snapshotEntity);
+        return mapper.entityToDto(snapshotEntity);
     }
 
 }
