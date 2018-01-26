@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
@@ -15,4 +17,5 @@ public interface SnapshotEconomicRepository extends JpaRepository<SnapshotEconom
     Optional<SnapshotEconomicEntity> findFirstByFamilyFamilyIdOrderByCreatedAtDesc(Long familyId);
     List<SnapshotEconomicEntity> findByFamilyFamilyId(Long familyId);
     SnapshotEconomicEntity findTopByFamilyFamilyIdOrderByIdDesc(Long familyID);
+    List<SnapshotEconomicEntity> findByFamilyIn(List<FamilyEntity> families);
 }

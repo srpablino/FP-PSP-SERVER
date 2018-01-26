@@ -4,9 +4,16 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
@@ -26,115 +35,280 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
-	 private Logger LOG = LoggerFactory.getLogger(OrganizationServiceImpl.class);
+    private Logger LOG = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
-	 private final OrganizationRepository organizationRepository;
-	
-	 private final OrganizationMapper organizationMapper;
-	 
-	 private final FamilyService familyService;
-	 
-	 public OrganizationServiceImpl(OrganizationRepository organizationRepository, OrganizationMapper organizationMapper, FamilyService familyService) {
-		this.organizationRepository = organizationRepository;
-		this.organizationMapper = organizationMapper;
-		this.familyService = familyService;
-	}
+    private final OrganizationRepository organizationRepository;
 
-	@Override
-	public OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO) {
-		checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
+    private final OrganizationMapper organizationMapper;
 
-		return Optional.ofNullable(organizationRepository.findOne(organizationId))
-                .map(organization -> {
-                	organization.setName(organizationDTO.getName());
-                    organization.setDescription(organizationDTO.getDescription());
-					LOG.debug("Changed Information for Organization: {}", organization);
-					return organizationRepository.save(organization);
-			    })
-                .map(organizationMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
-	}
+    private final FamilyService familyService;
 
-	@Override
-	public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) {
-		OrganizationEntity organization = new OrganizationEntity();
-		BeanUtils.copyProperties(organizationDTO, organization);
-		OrganizationEntity newOrganization= organizationRepository.save(organization);
-		return organizationMapper.entityToDto(newOrganization);
-	}
+    private final FamilyRepository familyRepository;
 
-	@Override
-	public OrganizationDTO getOrganizationById(Long organizationId) {
-		checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
+    private final SnapshotEconomicRepository snapshotEconomicRepo;
 
-        return Optional.ofNullable(organizationRepository.findOne(organizationId))
-                .map(organizationMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
-	}
+    public OrganizationServiceImpl(
+                    OrganizationRepository organizationRepository,
+                    OrganizationMapper organizationMapper,
+                    FamilyService familyService,
+                    FamilyRepository familyRepository,
+                    SnapshotEconomicRepository snapshotEconomicRepo) {
+        this.organizationRepository = organizationRepository;
+        this.organizationMapper = organizationMapper;
+        this.familyService = familyService;
+        this.familyRepository = familyRepository;
+        this.snapshotEconomicRepo = snapshotEconomicRepo;
+    }
 
-	@Override
-	public List<OrganizationDTO> getAllOrganizations() {
-		List<OrganizationEntity> organizations = organizationRepository.findAll();
-		return organizationMapper.entityListToDtoList(organizations);
-	}
+    @Override
+    public OrganizationDTO updateOrganization(Long organizationId,
+                    OrganizationDTO organizationDTO) {
+        checkArgument(organizationId > 0,
+                        "Argument was %s but expected nonnegative",
+                        organizationId);
 
-	@Override
-	public void deleteOrganization(Long organizationId) {
-		checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
+        return Optional.ofNullable(
+                        organizationRepository.findOne(organizationId))
+                        .map(organization -> {
+                            organization.setName(organizationDTO.getName());
+                            organization.setDescription(
+                                            organizationDTO.getDescription());
+                            LOG.debug("Changed Information for Organization: {}",
+                                            organization);
+                            return organizationRepository.save(organization);
+                        }).map(organizationMapper::entityToDto)
+                        .orElseThrow(() -> new UnknownResourceException(
+                                        "Organization does not exist"));
+    }
+
+    @Override
+    public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) {
+        OrganizationEntity organization = new OrganizationEntity();
+        BeanUtils.copyProperties(organizationDTO, organization);
+        OrganizationEntity newOrganization = organizationRepository
+                        .save(organization);
+        return organizationMapper.entityToDto(newOrganization);
+    }
+
+    @Override
+    public OrganizationDTO getOrganizationById(Long organizationId) {
+        checkArgument(organizationId > 0,
+                        "Argument was %s but expected nonnegative",
+                        organizationId);
+
+        return Optional.ofNullable(
+                        organizationRepository.findOne(organizationId))
+                        .map(organizationMapper::entityToDto)
+                        .orElseThrow(() -> new UnknownResourceException(
+                                        "Organization does not exist"));
+    }
+
+    @Override
+    public List<OrganizationDTO> getAllOrganizations() {
+        List<OrganizationEntity> organizations = organizationRepository
+                        .findAll();
+        return organizationMapper.entityListToDtoList(organizations);
+    }
+
+    @Override
+    public void deleteOrganization(Long organizationId) {
+        checkArgument(organizationId > 0,
+                        "Argument was %s but expected nonnegative",
+                        organizationId);
 
         Optional.ofNullable(organizationRepository.findOne(organizationId))
-                .ifPresent(organization -> {
-                	organizationRepository.delete(organization);
-                    LOG.debug("Deleted Organization: {}", organization);
-                });
-		
-	}
+                        .ifPresent(organization -> {
+                            organizationRepository.delete(organization);
+                            LOG.debug("Deleted Organization: {}", organization);
+                        });
 
-	@Override
-	public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails) {
-		Long applicationId = Optional.ofNullable(userDetails.getApplication())
-				.orElse(new ApplicationDTO()).getId();
-		
-		Long organizationId = Optional.ofNullable(userDetails.getOrganization())
-				.orElse(new OrganizationDTO()).getId();
-		
-        Page<OrganizationEntity> pageResponse = organizationRepository
-                .findAll(where(byFilter(applicationId, organizationId)), pageRequest);
-		
-		if (pageResponse != null) {
-			return pageResponse.map(new Converter<OrganizationEntity, OrganizationDTO>() {
-			    @Override
-				public OrganizationDTO convert(OrganizationEntity source) {
-			    	return organizationMapper.entityToDto(source);
-				}
-			});
-		}
-		
-		return null;
-	}
-	
-	@Override
-    public OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details) {
-	    OrganizationDTO dto = new OrganizationDTO();
-        
-        if(details.getOrganization() != null && details.getOrganization().getId() != null) {
+    }
+
+    @Override
+    public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest,
+                    UserDetailsDTO userDetails) {
+        Long applicationId = Optional.ofNullable(userDetails.getApplication())
+                        .orElse(new ApplicationDTO()).getId();
+
+        Long organizationId = Optional.ofNullable(userDetails.getOrganization())
+                        .orElse(new OrganizationDTO()).getId();
+
+        Page<OrganizationEntity> pageResponse = organizationRepository.findAll(
+                        where(byFilter(applicationId, organizationId)),
+                        pageRequest);
+
+        if (pageResponse != null) {
+            return pageResponse.map(
+                            new Converter<OrganizationEntity, OrganizationDTO>() {
+                                @Override
+                                public OrganizationDTO convert(
+                                                OrganizationEntity source) {
+                                    return organizationMapper
+                                                    .entityToDto(source);
+                                }
+                            });
+        }
+
+        return null;
+    }
+
+    @Override
+    public OrganizationDTO getOrganizationDashboard(Long organizationId,
+                    UserDetailsDTO details) {
+        OrganizationDTO dto = new OrganizationDTO();
+
+        if (details.getOrganization() != null
+                        && details.getOrganization().getId() != null) {
             dto = getOrganizationById(details.getOrganization().getId());
-        }else if(organizationId != null){
+        } else if (organizationId != null) {
             dto = getOrganizationById(organizationId);
         }
-        
+
         Long applicationId = Optional.ofNullable(details.getApplication())
-                .orElse(new ApplicationDTO()).getId();
-	    
-	    FamilyFilterDTO filter = new FamilyFilterDTO(applicationId, dto.getId());	    
-	    dto.setDashboard(DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
-	    
-	    return dto;
-	}
+                        .orElse(new ApplicationDTO()).getId();
+
+        FamilyFilterDTO filter = new FamilyFilterDTO(applicationId,
+                        dto.getId());
+        dto.setDashboard(DashboardDTO
+                        .of(familyService.countFamiliesByFilter(filter)));
+
+        dto.getDashboard()
+                        .setTopOfIndicators(getTopOfIndicators(organizationId));
+
+        return dto;
+    }
+
+    @Override
+    public List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
+        List<FamilyEntity> families = familyRepository
+                        .findByOrganizationId(organizationId);
+
+        List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
+                        .findByFamilyIn(families);
+
+        List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
+
+        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
+
+        for (SnapshotEconomicEntity data : snapshotEconomics) {
+
+            Field[] fields = data.getSnapshotIndicator().getClass()
+                            .getDeclaredFields();
+
+            for (Field field : fields) {
+
+                int green = 0;
+                int yellow = 0;
+                int red = 0;
+                TopOfIndicators ti = new TopOfIndicators();
+
+                for (SnapshotEconomicEntity aux : snapshotEconomicsAux) {
+
+                    Field[] fieldsAux = aux.getSnapshotIndicator().getClass()
+                                    .getDeclaredFields();
+
+                    for (Field fieldAux : fieldsAux) {
+
+                        if (fieldAux.getName().equals(field.getName())) {
+
+                            ti.setIndicatorName(fieldAux.getName());
+
+                            Object obj = null;
+
+                            try {
+                                if (!fieldAux.getName()
+                                                .equals("serialVersionUID")
+                                                && !fieldAux.getName()
+                                                                .equals("id")
+                                                && !fieldAux.getName()
+                                                                .equals("additionalProperties")
+                                                && !fieldAux.getName().equals(
+                                                                "priorities")) {
+
+                                    System.out.println(fieldAux.getName());
+
+                                    obj = PropertyUtils.getProperty(
+                                                    aux.getSnapshotIndicator(),
+                                                    fieldAux.getName());
+
+                                    String value = (String) obj;
+
+                                    System.out.println("el value es: " + value);
+
+                                    switch (value) {
+
+                                    case "GREEN":
+                                        ti.setTotalGreen(++green);
+                                        ti.setTotalRed(red);
+                                        ti.setTotalYellow(yellow);
+                                        break;
+                                    case "YELLOW":
+                                        ti.setTotalYellow(++yellow);
+                                        ti.setTotalRed(red);
+                                        ti.setTotalGreen(green);
+                                        break;
+                                    case "RED":
+                                        ti.setTotalRed(++red);
+                                        ti.setTotalYellow(yellow);
+                                        ti.setTotalGreen(green);
+                                        break;
+
+                                    default:
+                                        ti.setTotalRed(red);
+                                        ti.setTotalYellow(yellow);
+                                        ti.setTotalGreen(green);
+                                        break;
+                                    }
+
+                                }
+
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchMethodException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+
+                }
+                if (!ti.getIndicatorName().equals("serialVersionUID")
+                                && !ti.getIndicatorName().equals("id")
+                                && !ti.getIndicatorName()
+                                                .equals("additionalProperties")
+                                && !ti.getIndicatorName()
+                                                .equals("priorities")) {
+                    topOfInticators.add(ti);
+                }
+            }
+
+            break;
+
+        }
+
+        Collections.sort(topOfInticators, new Comparator<TopOfIndicators>() {
+            @Override
+            public int compare(TopOfIndicators p1, TopOfIndicators p2) {
+                return new CompareToBuilder()
+                                .append(p2.getTotalRed(), p1.getTotalRed())
+                                .append(p2.getTotalYellow(),
+                                                p1.getTotalYellow())
+                                .toComparison();
+            }
+        });
+
+        return topOfInticators;
+
+    }
 
 }
