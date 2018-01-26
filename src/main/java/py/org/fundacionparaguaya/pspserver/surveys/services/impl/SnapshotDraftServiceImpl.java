@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -58,5 +59,12 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
             repository.delete(snapshot);
         });
     }
+
+  @Override
+  public List<SnapshotDraft> getSnapshotDraftByUser(Long userId) {
+    checkArgument(userId!=null && userId > 0, "Argument"
+            + " was %s but expected nonnegative", userId);
+    return mapper.entityListToDtoList(repository.findByUserId(userId));
+  }
 
 }

@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.websocket.server.PathParam;
 
@@ -84,4 +85,21 @@ public class SnapshotDraftController {
         SnapshotDraft snapshot = service.getSnapshotDraft(snapshotDraftId);
         return ResponseEntity.ok(snapshot);
     }
+
+    @GetMapping(value = "/{user_id}/user",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+        @io.swagger.annotations.ApiOperation(
+          value = "Get Snapshot draft by user id",
+            notes = "", response = SnapshotDraft.class, tags = {})
+        @io.swagger.annotations.ApiResponses(value = {
+            @io.swagger.annotations.ApiResponse(
+             code = 200,
+             message = "The requested snapshot draft by user id",
+             response = SurveyDefinition.class) })
+        public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser(
+                @ApiParam(value = "The snapshot draft by user id", required = true)
+                @PathParam("user_id") @PathVariable("user_id") Long userId)
+                throws NotFoundException {
+            return ResponseEntity.ok(service.getSnapshotDraftByUser(userId));
+        }
 }
