@@ -94,6 +94,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO, UserDetailsDTO userDetails) {
+		userRepository.findOneByUsername(userRoleApplicationDTO.getUsername())
+				.ifPresent((user) -> {
+					throw new CustomParameterizedException(
+							"User already exists.",
+							new ImmutableMultimap.Builder<String, String>().
+									put("username", user.getUsername()).
+									build().asMap()
+					);
+				});
+
 		UserEntity user = new UserEntity();
 		user.setUsername(userRoleApplicationDTO.getUsername());
 		user.setEmail(userRoleApplicationDTO.getEmail());
