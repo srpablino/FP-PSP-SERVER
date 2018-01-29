@@ -25,7 +25,4 @@ public interface ApplicationService {
   PaginableList<ApplicationDTO> listApplicationsHubs(int page, int perPage,
             String orderBy, String sortBy);
 
-  ApplicationDTO getUserApplication(UserDetailsDTO details,
-            Long applicationId);
-
 }
