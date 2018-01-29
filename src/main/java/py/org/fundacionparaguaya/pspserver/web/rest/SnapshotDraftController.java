@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,7 +94,7 @@ public class SnapshotDraftController {
     @io.swagger.annotations.ApiResponses(value = {
     @io.swagger.annotations.ApiResponse(
         code = 200,
-        message = "The requested survey definition",
+        message = "The requested snapshot draft",
         response = SnapshotDraft.class) })
     public ResponseEntity<?> updateSnapshotDraft(
         @ApiParam(value = "The snapshot draft id", required = true)
@@ -105,4 +106,13 @@ public class SnapshotDraftController {
             return ResponseEntity.ok(snapshot);
 
       }
+
+    @DeleteMapping(value = "/{snapshot_draft_id}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> deleteSnapshot(
+            @PathVariable("snapshot_draft_id") Long snapshotDraftId) {
+
+        service.deleteSnapshotDraft(snapshotDraftId);
+        return ResponseEntity.noContent().build();
+    }
 }
