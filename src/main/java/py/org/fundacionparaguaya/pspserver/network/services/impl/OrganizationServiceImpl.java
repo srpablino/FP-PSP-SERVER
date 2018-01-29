@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
@@ -53,6 +54,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final FamilyRepository familyRepository;
 
     private final SnapshotEconomicRepository snapshotEconomicRepo;
+
+    private final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
+                    "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
                     OrganizationRepository organizationRepository,
@@ -224,23 +228,19 @@ public class OrganizationServiceImpl implements OrganizationService {
 
                             try {
                                 if (!fieldAux.getName()
-                                                .equals("serialVersionUID")
+                                                .equals(EXCLUDE_FIELDS[0])
                                                 && !fieldAux.getName()
-                                                                .equals("id")
+                                                                .equals(EXCLUDE_FIELDS[1])
                                                 && !fieldAux.getName()
-                                                                .equals("additionalProperties")
+                                                                .equals(EXCLUDE_FIELDS[2])
                                                 && !fieldAux.getName().equals(
-                                                                "priorities")) {
-
-                                    System.out.println(fieldAux.getName());
+                                                                EXCLUDE_FIELDS[3])) {
 
                                     obj = PropertyUtils.getProperty(
                                                     aux.getSnapshotIndicator(),
                                                     fieldAux.getName());
 
                                     String value = (String) obj;
-
-                                    System.out.println("el value es: " + value);
 
                                     switch (value) {
 
@@ -271,10 +271,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
+                                throw new CustomParameterizedException("Error");
                             } catch (InvocationTargetException e) {
                                 e.printStackTrace();
+                                throw new CustomParameterizedException("Error");
                             } catch (NoSuchMethodException e) {
                                 e.printStackTrace();
+                                throw new CustomParameterizedException("Error");
                             }
 
                         }
@@ -282,12 +285,13 @@ public class OrganizationServiceImpl implements OrganizationService {
                     }
 
                 }
-                if (!ti.getIndicatorName().equals("serialVersionUID")
-                                && !ti.getIndicatorName().equals("id")
+                if (!ti.getIndicatorName().equals(EXCLUDE_FIELDS[0])
                                 && !ti.getIndicatorName()
-                                                .equals("additionalProperties")
+                                                .equals(EXCLUDE_FIELDS[1])
                                 && !ti.getIndicatorName()
-                                                .equals("priorities")) {
+                                                .equals(EXCLUDE_FIELDS[2])
+                                && !ti.getIndicatorName()
+                                                .equals(EXCLUDE_FIELDS[3])) {
                     topOfInticators.add(ti);
                 }
             }

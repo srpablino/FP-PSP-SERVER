@@ -33,80 +33,81 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 @RequestMapping(value = "/api/v1/organizations")
 public class OrganizationController {
 
-  private static final Logger LOG = LoggerFactory
-          .getLogger(OrganizationController.class);
+    private static final Logger LOG = LoggerFactory
+                    .getLogger(OrganizationController.class);
 
-  private OrganizationService organizationService;
+    private OrganizationService organizationService;
 
-  public OrganizationController(OrganizationService organizationService) {
-    this.organizationService = organizationService;
-  }
+    public OrganizationController(OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
 
-  @PostMapping()
-  public ResponseEntity<OrganizationDTO> addOrganization(
-          @Valid @RequestBody OrganizationDTO organizationDTO)
-          throws URISyntaxException {
-    OrganizationDTO result = organizationService
-            .addOrganization(organizationDTO);
-    return ResponseEntity
-            .created(new URI("/api/v1/organizations/" + result.getId()))
-            .body(result);
-  }
+    @PostMapping()
+    public ResponseEntity<OrganizationDTO> addOrganization(
+                    @Valid @RequestBody OrganizationDTO organizationDTO)
+                    throws URISyntaxException {
+        OrganizationDTO result = organizationService
+                        .addOrganization(organizationDTO);
+        return ResponseEntity.created(
+                        new URI("/api/v1/organizations/" + result.getId()))
+                        .body(result);
+    }
 
-  @PutMapping("/{organizationId}")
-  public ResponseEntity<OrganizationDTO> updateOrganization(
-          @PathVariable("organizationId") long organizationId,
-          @RequestBody OrganizationDTO organizationDTO) {
-    OrganizationDTO result = organizationService
-            .updateOrganization(organizationId, organizationDTO);
-    return ResponseEntity.ok(result);
-  }
+    @PutMapping("/{organizationId}")
+    public ResponseEntity<OrganizationDTO> updateOrganization(
+                    @PathVariable("organizationId") long organizationId,
+                    @RequestBody OrganizationDTO organizationDTO) {
+        OrganizationDTO result = organizationService
+                        .updateOrganization(organizationId, organizationDTO);
+        return ResponseEntity.ok(result);
+    }
 
-  @GetMapping("/{organizationId}")
-  public ResponseEntity<OrganizationDTO> getOrganizationById(
-          @PathVariable("organizationId") Long organizationId) {
-    OrganizationDTO dto = organizationService
-            .getOrganizationById(organizationId);
-    return ResponseEntity.ok(dto);
-  }
+    @GetMapping("/{organizationId}")
+    public ResponseEntity<OrganizationDTO> getOrganizationById(
+                    @PathVariable("organizationId") Long organizationId) {
+        OrganizationDTO dto = organizationService
+                        .getOrganizationById(organizationId);
+        return ResponseEntity.ok(dto);
+    }
 
-  @GetMapping()
-  public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
-          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-          @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
-          @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-          @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-          @AuthenticationPrincipal UserDetailsDTO details) {
-    PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
-            sortBy);
-    Page<OrganizationDTO> pageProperties = organizationService
-            .listOrganizations(pageRequest, details);
-    PaginableList<OrganizationDTO> response = new PaginableList<>(
-            pageProperties, pageProperties.getContent());
-    return ResponseEntity.ok(response);
-  }
+    @GetMapping()
+    public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
+                    @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                    @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+                    @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
+                    @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+                    @AuthenticationPrincipal UserDetailsDTO details) {
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
+                        sortBy);
+        Page<OrganizationDTO> pageProperties = organizationService
+                        .listOrganizations(pageRequest, details);
+        PaginableList<OrganizationDTO> response = new PaginableList<>(
+                        pageProperties, pageProperties.getContent());
+        return ResponseEntity.ok(response);
+    }
 
-  @DeleteMapping("/{organizationId}")
-  public ResponseEntity<Void> deleteOrganization(
-          @PathVariable("organizationId") Long organizationId) {
-    LOG.debug("REST request to delete Organization: {}", organizationId);
-    organizationService.deleteOrganization(organizationId);
-    return ResponseEntity.ok().build();
-  }
+    @DeleteMapping("/{organizationId}")
+    public ResponseEntity<Void> deleteOrganization(
+                    @PathVariable("organizationId") Long organizationId) {
+        LOG.debug("REST request to delete Organization: {}", organizationId);
+        organizationService.deleteOrganization(organizationId);
+        return ResponseEntity.ok().build();
+    }
 
-  @GetMapping("/dashboard")
-  public ResponseEntity<OrganizationDTO> getApplicationDashboard(
-          @RequestParam(value = "organizationId", required = false) Long organizationId,
-          @AuthenticationPrincipal UserDetailsDTO details) {
-    OrganizationDTO dto = organizationService
-            .getOrganizationDashboard(organizationId, details);
-    return ResponseEntity.ok(dto);
-  }
+    @GetMapping("/dashboard")
+    public ResponseEntity<OrganizationDTO> getApplicationDashboard(
+                    @RequestParam(value = "organizationId", required = false) Long organizationId,
+                    @AuthenticationPrincipal UserDetailsDTO details) {
+        OrganizationDTO dto = organizationService
+                        .getOrganizationDashboard(organizationId, details);
+        return ResponseEntity.ok(dto);
+    }
 
-  @GetMapping("/topOfIndicatos")
-  public ResponseEntity<List<TopOfIndicators>> getTopOfIndicators(
-          @RequestParam(value = "organizationId", required = false) Long organizationId) {
-    return ResponseEntity.ok(organizationService.getTopOfIndicators(organizationId));
-  }
+    @GetMapping("/top-of-indicatos")
+    public ResponseEntity<List<TopOfIndicators>> getTopOfIndicators(
+                    @RequestParam(value = "organizationId", required = false) Long organizationId) {
+        return ResponseEntity.ok(
+                        organizationService.getTopOfIndicators(organizationId));
+    }
 
 }
