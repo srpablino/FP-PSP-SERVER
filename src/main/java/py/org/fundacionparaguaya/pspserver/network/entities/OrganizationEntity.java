@@ -7,6 +7,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "organizations", schema = "ps_network")
@@ -28,12 +29,16 @@ public class OrganizationEntity {
 	@Column(name = "id")
 	private Long id;
 
+	@NotNull
 	private String name;
 
+	@NotNull
 	private String code;
 
+	@NotNull
 	private String description;
 
+	@NotNull
 	private boolean isActive;
 
 	@ManyToOne(targetEntity = CountryEntity.class)
@@ -42,6 +47,7 @@ public class OrganizationEntity {
 
 	private String information;
 
+	@NotNull
 	@ManyToOne(targetEntity = ApplicationEntity.class)
 	@JoinColumn(name = "application_id")
 	private ApplicationEntity application;
