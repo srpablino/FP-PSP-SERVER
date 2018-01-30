@@ -7,6 +7,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users", schema = "security")
@@ -29,10 +30,13 @@ public class UserEntity extends BaseEntity {
 	
 	private String username;
 
+	@NotNull
 	private String email;
 
+	@NotNull
 	private String pass;
-	
+
+	@NotNull
 	private boolean active;
 
 	public Long getId() {

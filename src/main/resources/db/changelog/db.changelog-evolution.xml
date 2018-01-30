@@ -233,4 +233,14 @@
         <sqlFile path="sql/2018-01-10T09:50.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Insert default email to default users -->
+    <changeSet id="2018-01-30T15:30" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Change columns to NOT NULL in users table -->
+    <changeSet id="2018-01-30T15:40" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:40.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
