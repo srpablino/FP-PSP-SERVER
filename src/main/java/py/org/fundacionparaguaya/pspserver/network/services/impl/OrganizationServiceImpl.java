@@ -189,7 +189,6 @@ public class OrganizationServiceImpl implements OrganizationService {
         return dto;
     }
 
-    @Override
     public List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
         List<FamilyEntity> families = familyRepository
                         .findByOrganizationId(organizationId);
@@ -311,7 +310,8 @@ public class OrganizationServiceImpl implements OrganizationService {
             }
         });
 
-        return topOfInticators;
+        //return limit 5
+        return topOfInticators.subList(0, 5);
 
     }
 

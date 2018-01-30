@@ -103,11 +103,4 @@ public class OrganizationController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/top-of-indicatos")
-    public ResponseEntity<List<TopOfIndicators>> getTopOfIndicators(
-                    @RequestParam(value = "organizationId", required = false) Long organizationId) {
-        return ResponseEntity.ok(
-                        organizationService.getTopOfIndicators(organizationId));
-    }
-
 }

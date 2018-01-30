@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 
 public interface OrganizationService {
 
@@ -27,7 +26,5 @@ public interface OrganizationService {
 
   OrganizationDTO getOrganizationDashboard(Long organizationId,
           UserDetailsDTO details);
-
-  List<TopOfIndicators> getTopOfIndicators(Long organizationId);
 
 }

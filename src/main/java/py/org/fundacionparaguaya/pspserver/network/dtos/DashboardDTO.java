@@ -5,6 +5,7 @@ package py.org.fundacionparaguaya.pspserver.network.dtos;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -23,6 +24,7 @@ public class DashboardDTO implements Serializable {
     private Long numberOfFamilies;
     private List<ActivityDTO> activityFeed;
     private List<TopOfIndicators> topOfIndicators;
+    private Map<String, Integer> quantityOfLigth;
 
     public DashboardDTO() {
         super();
@@ -59,6 +61,14 @@ public class DashboardDTO implements Serializable {
 
     public void setTopOfIndicators(List<TopOfIndicators> topOfIndicators) {
         this.topOfIndicators = topOfIndicators;
+    }
+    
+    public Map<String, Integer> getQuantityOfLigth() {
+        return quantityOfLigth;
+    }
+
+    public void setQuantityOfLigth(Map<String, Integer> quantityOfLigth) {
+        this.quantityOfLigth = quantityOfLigth;
     }
 
     @Override
