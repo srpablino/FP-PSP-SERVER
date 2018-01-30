@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.services;
 
 import java.util.List;
 
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 /**
  *
@@ -16,5 +17,5 @@ public interface SnapshotDraftService {
 
     void deleteSnapshotDraft(Long id);
 
-    List<SnapshotDraft> getSnapshotDraftByUser(Long userId, String description);
+    List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details, String description);
 }

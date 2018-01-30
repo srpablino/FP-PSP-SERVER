@@ -46,11 +46,10 @@ public class SnapshotDraftSpecification {
                     Predicate orClause = cb.or(cb.like(
                         cb.upper(root.<String>get(
                            SnapshotDraftEntity_.personFirstName)),
-                           "%" + description.toUpperCase() + "%"),
-                           cb.like(cb.upper(root
+                           "%" + description.trim().toUpperCase()
+                           + "%"),cb.like(cb.upper(root
                            .<String>get(SnapshotDraftEntity_.personLastName)),
-                           "%" + description
-                           .toUpperCase()+ "%"));
+                           "%" + description.trim().toUpperCase() + "%"));
 
                     predicates.add(orClause);
                 }

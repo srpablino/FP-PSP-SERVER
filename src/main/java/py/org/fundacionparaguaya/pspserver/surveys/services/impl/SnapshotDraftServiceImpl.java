@@ -13,6 +13,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotDraftMapper;
@@ -32,11 +35,15 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     private final SnapshotDraftMapper mapper;
 
     private final SnapshotDraftRepository repository;
+    
+    private final UserRepository userRepo;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
-                    SnapshotDraftRepository repository) {
+                    SnapshotDraftRepository repository,
+                    UserRepository userRepo) {
         this.mapper = mapper;
         this.repository = repository;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -67,15 +74,17 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     @Override
-    public List<SnapshotDraft> getSnapshotDraftByUser(Long userId,
+    public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
                     String description) {
 
         List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
+        
+        Optional<UserEntity> user = userRepo.findOneByUsername(details.getUsername());
 
         LocalDateTime now = LocalDateTime.now();
-
+        
         for (SnapshotDraftEntity snapshotDraft : repository
-                        .findAll(where(byFilter(userId, description)))) {
+                        .findAll(where(byFilter(user.get().getId(), description)))) {
 
             if (snapshotDraft.getCreatedAt().until(now,
                             ChronoUnit.DAYS) < SNAPSHOT_DRAFT_MAX_DAY) {

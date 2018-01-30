@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService;
@@ -97,11 +99,10 @@ public class SnapshotDraftController {
              message = "The requested snapshot draft by user id",
              response = SurveyDefinition.class) })
         public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser(                        
-                        @RequestParam(value = "user_id", required = true) 
-                        Long userId,
                         @RequestParam(value = "description", required = true) 
-                        String description)
+                        String description,
+                        @AuthenticationPrincipal UserDetailsDTO details)
                 throws NotFoundException {
-            return ResponseEntity.ok(service.getSnapshotDraftByUser(userId, description));
+            return ResponseEntity.ok(service.getSnapshotDraftByUser(details, description));
         }
 }
