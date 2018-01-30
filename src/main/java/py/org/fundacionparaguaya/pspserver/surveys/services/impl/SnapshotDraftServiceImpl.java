@@ -78,10 +78,7 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
                 .orElseThrow(() ->
                 new CustomParameterizedException(
                         "Snapshot draft does not exist"));
-        snapshotEntity.setEconomicResponse(snapshotDraft.getEconomicResponse());
-        snapshotEntity.setIndicatorResponse(
-                snapshotDraft.getIndicatorResponse());
-        snapshotEntity.setPersonalResponse(snapshotDraft.getPersonalResponse());
+        
         snapshotEntity.setStateDraft(snapshotDraft.getStateDraft());
 
         if (snapshotDraft.getUserName()!=null) {
