@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
@@ -86,8 +87,7 @@ public class SnapshotDraftController {
         return ResponseEntity.ok(snapshot);
     }
 
-    @GetMapping(value = "/{user_id}/user",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
         @io.swagger.annotations.ApiOperation(
           value = "Get Snapshot draft by user id",
             notes = "", response = SnapshotDraft.class, tags = {})
@@ -96,10 +96,12 @@ public class SnapshotDraftController {
              code = 200,
              message = "The requested snapshot draft by user id",
              response = SurveyDefinition.class) })
-        public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser(
-                @ApiParam(value = "The snapshot draft by user id", required = true)
-                @PathParam("user_id") @PathVariable("user_id") Long userId)
+        public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser(                        
+                        @RequestParam(value = "user_id", required = true) 
+                        Long userId,
+                        @RequestParam(value = "description", required = true) 
+                        String description)
                 throws NotFoundException {
-            return ResponseEntity.ok(service.getSnapshotDraftByUser(userId));
+            return ResponseEntity.ok(service.getSnapshotDraftByUser(userId, description));
         }
 }
