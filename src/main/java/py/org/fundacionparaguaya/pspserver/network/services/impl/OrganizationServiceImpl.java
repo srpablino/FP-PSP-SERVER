@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
 
+import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
@@ -74,6 +76,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException {
+		organizationRepository.findOneByName(organizationDTO.getName())
+				.ifPresent((organization) -> {
+					throw new CustomParameterizedException(
+							"Organisation already exists",
+							new ImmutableMultimap.Builder<String, String>().
+									put("name", organization.getName()).
+									build().asMap()
+					);
+				});
+
 		// Save Organization entity
 		OrganizationEntity organization = new OrganizationEntity();
 		BeanUtils.copyProperties(organizationDTO, organization);
