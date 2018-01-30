@@ -1,19 +1,30 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.byFilter;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotDraftMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotDraftRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService;
+
 /**
  *
  * @author mgonzalez
@@ -21,6 +32,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService
  */
 @Service
 public class SnapshotDraftServiceImpl implements SnapshotDraftService {
+
+    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
 
     private final SnapshotDraftMapper mapper;
 
@@ -45,20 +58,18 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public SnapshotDraft getSnapshotDraft(Long id) {
-       checkArgument(id!=null && id > 0, "Argument"
-               + " was %s but expected nonnegative", id);
-       return Optional.ofNullable(repository
-               .findOne(id))
-               .map(mapper::entityToDto)
-               .orElseThrow(() ->
-               new UnknownResourceException(
-                       "Temporal snapshot does not exist"));
+        checkArgument(id != null && id > 0,
+                        "Argument" + " was %s but expected nonnegative", id);
+        return Optional.ofNullable(repository.findOne(id))
+                        .map(mapper::entityToDto)
+                        .orElseThrow(() -> new UnknownResourceException(
+                                        "Temporal snapshot does not exist"));
     }
 
     @Override
     public void deleteSnapshotDraft(Long id) {
-        checkArgument(id!=null && id > 0, "Argument"
-                + " was %s but expected nonnegative", id);
+        checkArgument(id != null && id > 0,
+                        "Argument" + " was %s but expected nonnegative", id);
 
         Optional.ofNullable(repository.findOne(id)).ifPresent(snapshot -> {
             repository.delete(snapshot);
@@ -66,6 +77,7 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     @Override
+
     public SnapshotDraft updateSnapshotDraft(Long id,
             SnapshotDraft snapshotDraft) {
         checkArgument(id!=null && id > 0, "Argument"
@@ -91,6 +103,27 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
         snapshotEntity = repository.save(snapshotEntity);
         return mapper.entityToDto(snapshotEntity);
+
+    public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
+                    String description) {
+
+        List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
+        
+        Optional<UserEntity> user = userRepository.findOneByUsername(details.getUsername());
+
+        LocalDateTime now = LocalDateTime.now();
+        
+        for (SnapshotDraftEntity snapshotDraft : repository
+                        .findAll(where(byFilter(user.get().getId(), description)))) {
+
+            if (snapshotDraft.getCreatedAt().until(now,
+                            ChronoUnit.DAYS) < SNAPSHOT_DRAFT_MAX_DAY) {
+                ret.add(snapshotDraft);
+            }
+        }
+
+        return mapper.entityListToDtoList(ret);
+
     }
 
 }
