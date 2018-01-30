@@ -103,6 +103,7 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
         snapshotEntity = repository.save(snapshotEntity);
         return mapper.entityToDto(snapshotEntity);
+    }
 
     public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
                     String description) {

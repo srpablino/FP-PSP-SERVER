@@ -69,7 +69,7 @@ public class SnapshotDraftController {
     }
 
 
-    @GetMapping(
+    @GetMapping(value = "/{snapshot_draft_id}",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @io.swagger.annotations.ApiOperation(
         value = "Get Snapshot draft",
@@ -82,7 +82,7 @@ public class SnapshotDraftController {
 
     public ResponseEntity<?> getSnapshotTmp(
             @ApiParam(value = "The snapshot draft id", required = true)
-            @RequestParam(value="snapshot_draft_id", required=true)
+            @PathVariable(value="snapshot_draft_id")
                 Long snapshotDraftId)
             throws NotFoundException {
         SnapshotDraft snapshot = service.getSnapshotDraft(snapshotDraftId);
