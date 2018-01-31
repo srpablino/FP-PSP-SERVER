@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.core.convert.converter.Converter;
 
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
@@ -186,18 +185,41 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public Page<UserDTO> listUsers(PageRequest pageRequest) {
-		Page<UserEntity> pageResponse = userRepository.findAll(pageRequest);
-		if (pageResponse != null) {
-			return pageResponse.map(new Converter<UserEntity, UserDTO>() {
-			    @Override
-				public UserDTO convert(UserEntity source) {
-			    	return userMapper.entityToDto(source);
-				}
-			});
+	public Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails) {
+
+		if (userHasRole(userDetails, Role.ROLE_ROOT)) {
+			Page<UserEntity> userPage = userRepository.findAll(pageRequest);
+
+			if (userPage != null)
+				return userPage.map((user) -> userMapper.entityToDto(user));
+
+		} else {
+			PageRequest pageRequestUserApplication = new PageRequest(pageRequest.getPageNumber(), pageRequest.getPageSize(),
+					pageRequest.getSort().iterator().next().getDirection(), "user." + pageRequest.getSort().iterator().next().getProperty());
+
+			if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
+				ApplicationEntity application = applicationRepository.findById(userDetails.getApplication().getId());
+				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByApplication(application, pageRequestUserApplication);
+
+				if (userApplicationPage != null)
+					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
+
+			} else if (userHasRole(userDetails, Role.ROLE_APP_ADMIN)) {
+				OrganizationEntity organization = organizationRepository.findById(userDetails.getOrganization().getId());
+				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByOrganization(organization, pageRequestUserApplication);
+
+				if (userApplicationPage != null)
+					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
+			}
 		}
+
 		return null;
 	}
 
-	
+	private boolean userHasRole(UserDetailsDTO user, Role role) {
+		return user.getAuthorities()
+				.stream()
+				.filter(auth -> auth.toString().equals(role.name()))
+				.count() > 0;
+	}
 }

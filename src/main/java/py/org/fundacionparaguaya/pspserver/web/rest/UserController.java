@@ -74,9 +74,10 @@ public class UserController {
 	public ResponseEntity<PaginableList<UserDTO>> getPaginatedUsers(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 																	@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
 																	@RequestParam(value = "sort_by", required = false, defaultValue = "username") String sortBy,
-																	@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
+																	@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+																	@AuthenticationPrincipal UserDetailsDTO userDetails) {
 		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-		Page<UserDTO> pageProperties = userService.listUsers(pageRequest);
+		Page<UserDTO> pageProperties = userService.listUsers(pageRequest, userDetails);
 		PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 		return ResponseEntity.ok(response);
 	}

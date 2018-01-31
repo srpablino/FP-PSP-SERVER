@@ -23,5 +23,5 @@ public interface UserService {
 	
 	void deleteUser(Long userId);
 	
-	Page<UserDTO>listUsers(PageRequest pageRequest);
+	Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails);
 }
