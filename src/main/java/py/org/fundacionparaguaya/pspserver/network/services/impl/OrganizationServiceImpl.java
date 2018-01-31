@@ -3,9 +3,13 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFilter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,12 +40,21 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
+import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+
+    private static final int MAX_MONTH_AGO = 2;
+
+    private static final int LIMIT_TOP_OF_INDICATOR = 5;
 
     private Logger LOG = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
@@ -55,6 +68,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotEconomicRepository snapshotEconomicRepo;
 
+    private final SnapshotIndicatorMapper indicatorMapper;
+
     private final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
                     "additionalProperties", "priorities" };
 
@@ -63,12 +78,14 @@ public class OrganizationServiceImpl implements OrganizationService {
                     OrganizationMapper organizationMapper,
                     FamilyService familyService,
                     FamilyRepository familyRepository,
-                    SnapshotEconomicRepository snapshotEconomicRepo) {
+                    SnapshotEconomicRepository snapshotEconomicRepo,
+                    SnapshotIndicatorMapper indicatorMapper) {
         this.organizationRepository = organizationRepository;
         this.organizationMapper = organizationMapper;
         this.familyService = familyService;
         this.familyRepository = familyRepository;
         this.snapshotEconomicRepo = snapshotEconomicRepo;
+        this.indicatorMapper = indicatorMapper;
     }
 
     @Override
@@ -180,16 +197,127 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         FamilyFilterDTO filter = new FamilyFilterDTO(applicationId,
                         dto.getId());
+
         dto.setDashboard(DashboardDTO
                         .of(familyService.countFamiliesByFilter(filter)));
 
         dto.getDashboard()
                         .setTopOfIndicators(getTopOfIndicators(organizationId));
 
+        dto.getDashboard().setSnapshotIndicators(
+                        countSnapshotIndicators(organizationId));
+
+        dto.getDashboard().setSnapshotTaken(countSnapshotTaken(organizationId));
+
         return dto;
     }
 
-    public List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
+    private SurveyData countSnapshotTaken(Long organizationId) {
+
+        LocalDate initial = LocalDate.now();
+        LocalDate startToday = initial.withDayOfMonth(1);
+        LocalDate endToday = initial.withDayOfMonth(initial.lengthOfMonth());
+
+        List<SnapshotEconomicEntity> listSnapshotEconomicToday = snapshotEconomicRepo
+                        .findAll(byFilter(
+                                        LocalDateTime.of(startToday,
+                                                        LocalTime.of(0, 0, 0)),
+                                        LocalDateTime.of(endToday, LocalTime
+                                                        .of(23, 59, 59))));
+
+        SurveyData data = new SurveyData();
+
+        for (int i = MAX_MONTH_AGO; i >= 1; i--) {
+
+            LocalDate initial_ = LocalDate.now().minusMonths(i);
+
+            LocalDate startToday_ = initial_.withDayOfMonth(1);
+            LocalDate endToday_ = initial_
+                            .withDayOfMonth(initial_.lengthOfMonth());
+
+            List<SnapshotEconomicEntity> listSnapshotEconomicToday_ = snapshotEconomicRepo
+                            .findAll(byFilter(
+                                            LocalDateTime.of(startToday_,
+                                                            LocalTime.of(0, 0,
+                                                                            0)),
+                                            LocalDateTime.of(endToday_,
+                                                            LocalTime.of(23, 59,
+                                                                            59))));
+
+            if (listSnapshotEconomicToday_.size() > 0) {
+                data.put(String.valueOf(initial_.getMonthValue()),
+                                listSnapshotEconomicToday_.size());
+            } else {
+                data.put(String.valueOf(initial_.getMonthValue()), 0);
+            }
+
+        }
+
+        if (listSnapshotEconomicToday.size() > 0) {
+            data.put("TODAY", listSnapshotEconomicToday.size());
+        } else {
+            data.put("TODAY", 0);
+        }
+
+        return data;
+
+    }
+
+    private SnapshotIndicators countSnapshotIndicators(Long organizationId) {
+
+        List<FamilyEntity> families = familyRepository
+                        .findByOrganizationId(organizationId);
+
+        List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
+                        .findByFamilyIn(families);
+
+        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
+
+        for (SnapshotEconomicEntity economics : snapshotEconomics) {
+            entityList.add(economics.getSnapshotIndicator());
+        }
+
+        SnapshotIndicators indicators = new SnapshotIndicators();
+
+        List<SurveyData> listProperties = indicatorMapper
+                        .entityListToDtoList(entityList);
+
+        for (SurveyData properties : listProperties) {
+            properties.forEach((k, v) -> {
+                countIndicators(indicators, v);
+            });
+        }
+
+        return indicators;
+
+    }
+
+    private void countIndicators(SnapshotIndicators indicators, Object v) {
+        Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
+                        .ifPresent(light -> {
+                            switch (light) {
+                            case RED:
+                                indicators.setCountRedIndicators(
+                                                indicators.getCountRedIndicators()
+                                                                + 1);
+                                break;
+                            case YELLOW:
+                                indicators.setCountYellowIndicators(
+                                                indicators.getCountYellowIndicators()
+                                                                + 1);
+                                break;
+                            case GREEN:
+                                indicators.setCountGreenIndicators(
+                                                indicators.getCountGreenIndicators()
+                                                                + 1);
+                                break;
+                            default:
+                                break;
+                            }
+                        });
+    }
+
+    private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
         List<FamilyEntity> families = familyRepository
                         .findByOrganizationId(organizationId);
 
@@ -310,8 +438,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             }
         });
 
-        //return limit 5
-        return topOfInticators.subList(0, 5);
+        return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
 
     }
 

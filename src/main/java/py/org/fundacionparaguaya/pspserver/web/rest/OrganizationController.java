@@ -2,7 +2,6 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -27,7 +26,6 @@ import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 
 @RestController
 @RequestMapping(value = "/api/v1/organizations")

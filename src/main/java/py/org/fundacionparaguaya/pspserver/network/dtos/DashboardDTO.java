@@ -5,10 +5,11 @@ package py.org.fundacionparaguaya.pspserver.network.dtos;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
 
@@ -24,7 +25,8 @@ public class DashboardDTO implements Serializable {
     private Long numberOfFamilies;
     private List<ActivityDTO> activityFeed;
     private List<TopOfIndicators> topOfIndicators;
-    private Map<String, Integer> quantityOfLigth;
+    private SnapshotIndicators snapshotIndicators;
+    private SurveyData snapshotTaken;
 
     public DashboardDTO() {
         super();
@@ -38,7 +40,7 @@ public class DashboardDTO implements Serializable {
     public static DashboardDTO of(Long numberOfFamilies) {
         return new DashboardDTO(numberOfFamilies);
     }
-
+    
     public Long getNumberOfFamilies() {
         return numberOfFamilies;
     }
@@ -63,12 +65,20 @@ public class DashboardDTO implements Serializable {
         this.topOfIndicators = topOfIndicators;
     }
     
-    public Map<String, Integer> getQuantityOfLigth() {
-        return quantityOfLigth;
+    public SnapshotIndicators getSnapshotIndicators() {
+        return snapshotIndicators;
     }
 
-    public void setQuantityOfLigth(Map<String, Integer> quantityOfLigth) {
-        this.quantityOfLigth = quantityOfLigth;
+    public void setSnapshotIndicators(SnapshotIndicators snapshotIndicators) {
+        this.snapshotIndicators = snapshotIndicators;
+    }
+    
+    public SurveyData getSnapshotTaken() {
+        return snapshotTaken;
+    }
+
+    public void setSnapshotTaken(SurveyData snapshotTaken) {
+        this.snapshotTaken = snapshotTaken;
     }
 
     @Override
