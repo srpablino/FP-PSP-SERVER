@@ -4,13 +4,29 @@ import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
+import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.network.repositories.UserApplicationRepository;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserRoleEntity;
 import py.org.fundacionparaguaya.pspserver.security.mapper.UserMapper;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRoleRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 
 import java.util.List;
@@ -25,10 +41,24 @@ public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
 
+	private UserRoleRepository userRoleRepository;
+
+	private ApplicationRepository applicationRepository;
+
+	private OrganizationRepository organizationRepository;
+
+	private UserApplicationRepository userApplicationRepository;
+
 	private final UserMapper userMapper;
 
-	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+	public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
+						   ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
+						   UserApplicationRepository userApplicationRepository, UserMapper userMapper) {
 		this.userRepository = userRepository;
+		this.userRoleRepository = userRoleRepository;
+		this.applicationRepository = applicationRepository;
+		this.organizationRepository = organizationRepository;
+		this.userApplicationRepository = userApplicationRepository;
         this.userMapper = userMapper;
     }
 
@@ -60,7 +90,66 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UnknownResourceException("User does not exist"));
 	}
 
-	
+
+	@Override
+	public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO, UserDetailsDTO userDetails) {
+		userRepository.findOneByUsername(userRoleApplicationDTO.getUsername())
+				.ifPresent((user) -> {
+					throw new CustomParameterizedException(
+							"User already exists.",
+							new ImmutableMultimap.Builder<String, String>().
+									put("username", user.getUsername()).
+									build().asMap()
+					);
+				});
+
+		UserEntity user = new UserEntity();
+		user.setUsername(userRoleApplicationDTO.getUsername());
+		user.setEmail(userRoleApplicationDTO.getEmail());
+		user.setPass(new BCryptPasswordEncoder().encode(userRoleApplicationDTO.getPass()));
+		user.setActive(true);
+		UserEntity newUser = userRepository.save(user);
+
+		if (userRoleApplicationDTO.getRole() != null) {
+			createUserRole(newUser, userRoleApplicationDTO.getRole());
+		}
+
+		if (userRoleApplicationDTO.getOrganizationId() != null) {
+			createUserOrganization(newUser, userRoleApplicationDTO);
+		}
+		else if (userRoleApplicationDTO.getApplicationId() != null) {
+			createUserApplication(newUser, userRoleApplicationDTO);
+		}
+
+		return userMapper.entityToDto(newUser);
+	}
+
+	private UserRoleEntity createUserRole(UserEntity user, Role role) {
+		UserRoleEntity userRole = new UserRoleEntity();
+		userRole.setUser(user);
+		userRole.setRole(role);
+		UserRoleEntity newUserRoleEntity = userRoleRepository.save(userRole);
+		return newUserRoleEntity;
+	}
+
+	private UserApplicationEntity createUserApplication(UserEntity user , UserRoleApplicationDTO userRoleApplicationDTO) {
+		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+		userApplicationEntity.setUser(user);
+		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplicationId());
+		userApplicationEntity.setApplication(application);
+		return userApplicationRepository.save(userApplicationEntity);
+	}
+
+	private UserApplicationEntity createUserOrganization(UserEntity user, UserRoleApplicationDTO userRoleApplicationDTO) {
+		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+		userApplicationEntity.setUser(user);
+		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganizationId());
+		userApplicationEntity.setOrganization(organization);
+		userApplicationEntity.setApplication(organization.getApplication());
+		return userApplicationRepository.save(userApplicationEntity);
+	}
+
+
 	@Override
 	public List<UserDTO> getAllUsers() {
 		List<UserEntity> users = userRepository.findAll();
@@ -94,5 +183,43 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UnknownResourceException("User does not exist"));
     }
 
-	
+
+	@Override
+	public Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails) {
+
+		if (userHasRole(userDetails, Role.ROLE_ROOT)) {
+			Page<UserEntity> userPage = userRepository.findAll(pageRequest);
+
+			if (userPage != null)
+				return userPage.map((user) -> userMapper.entityToDto(user));
+
+		} else {
+			PageRequest pageRequestUserApplication = new PageRequest(pageRequest.getPageNumber(), pageRequest.getPageSize(),
+					pageRequest.getSort().iterator().next().getDirection(), "user." + pageRequest.getSort().iterator().next().getProperty());
+
+			if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
+				ApplicationEntity application = applicationRepository.findById(userDetails.getApplication().getId());
+				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByApplication(application, pageRequestUserApplication);
+
+				if (userApplicationPage != null)
+					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
+
+			} else if (userHasRole(userDetails, Role.ROLE_APP_ADMIN)) {
+				OrganizationEntity organization = organizationRepository.findById(userDetails.getOrganization().getId());
+				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByOrganization(organization, pageRequestUserApplication);
+
+				if (userApplicationPage != null)
+					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
+			}
+		}
+
+		return null;
+	}
+
+	private boolean userHasRole(UserDetailsDTO user, Role role) {
+		return user.getAuthorities()
+				.stream()
+				.filter(auth -> auth.toString().equals(role.name()))
+				.count() > 0;
+	}
 }

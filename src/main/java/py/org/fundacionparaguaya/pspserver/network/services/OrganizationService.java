@@ -18,7 +18,9 @@ public interface OrganizationService{
 	OrganizationDTO getOrganizationById(Long organizationId);
 	
 	List<OrganizationDTO> getAllOrganizations();
-	
+
+	List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
+
 	void deleteOrganization(Long organizationId);
 
 	Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails);

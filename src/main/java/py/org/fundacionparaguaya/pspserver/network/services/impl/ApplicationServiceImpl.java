@@ -78,11 +78,24 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Override
 	public List<ApplicationDTO> getAllApplications() {
-		List<ApplicationEntity> applications = applicationRepository.findAll();
+		List<ApplicationEntity> applications = applicationRepository.findByIsActive(true);
 		return applicationMapper.entityListToDtoList(applications);
 	}
 
-	
+
+	@Override
+	public List<ApplicationDTO> getAllHubs() {
+		List<ApplicationEntity> hubs = applicationRepository.findByIsHubAndIsActive(true, true);
+		return applicationMapper.entityListToDtoList(hubs);
+	}
+
+	@Override
+	public List<ApplicationDTO> getAllPartners() {
+		List<ApplicationEntity> partners = applicationRepository.findByIsPartnerAndIsActive(true, true);
+		return applicationMapper.entityListToDtoList(partners);
+	}
+
+
 	@Override
 	public void deleteApplication(Long applicationId) {
 		checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);

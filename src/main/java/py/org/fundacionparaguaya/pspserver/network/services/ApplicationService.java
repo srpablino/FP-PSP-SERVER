@@ -16,7 +16,11 @@ public interface ApplicationService {
 	ApplicationDTO getApplicationById(Long applicationId);
 	
 	List<ApplicationDTO> getAllApplications();
-	
+
+	List<ApplicationDTO> getAllHubs();
+
+	List<ApplicationDTO> getAllPartners();
+
 	void deleteApplication(Long applicationId);
 
     ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details);

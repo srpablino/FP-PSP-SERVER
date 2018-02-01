@@ -74,7 +74,7 @@ public class OrganizationController {
 		PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 		return ResponseEntity.ok(response);
 	}
-	
+
 	@DeleteMapping("/{organizationId}")
 	public ResponseEntity<Void> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
 		LOG.debug("REST request to delete Organization: {}", organizationId);

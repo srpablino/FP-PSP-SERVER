@@ -11,7 +11,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 
 public interface OrganizationRepository extends PagingAndSortingRepository<OrganizationEntity, Long>, JpaSpecificationExecutor<OrganizationEntity>{
+
+	OrganizationEntity findById(Long id);
 	Optional<OrganizationEntity> findOneByName(String name);
 	List<OrganizationEntity> findAll();
 	Page<OrganizationEntity> findAll(Pageable page);
+	List<OrganizationEntity> findByApplicationIdAndIsActive(Long application_id, boolean isActive);
 }

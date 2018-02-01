@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
+import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 @RestController
@@ -32,8 +34,11 @@ public class ApplicationController {
 	
 	private ApplicationService applicationService;
 
-	public ApplicationController(ApplicationService applicationService) {
+	private OrganizationService organizationService;
+
+	public ApplicationController(ApplicationService applicationService, OrganizationService organizationService) {
 		this.applicationService = applicationService;
+		this.organizationService = organizationService;
 	}
 	
 	@PostMapping()
@@ -62,14 +67,32 @@ public class ApplicationController {
 		List<ApplicationDTO> applications = applicationService.getAllApplications();
 		return ResponseEntity.ok(applications);
 	}
-	
+
+	@GetMapping("/hubs")
+	public ResponseEntity<List<ApplicationDTO>> getAllHubs() {
+		List<ApplicationDTO> hubs = applicationService.getAllHubs();
+		return ResponseEntity.ok(hubs);
+	}
+
+	@GetMapping("/partners")
+	public ResponseEntity<List<ApplicationDTO>> getAllPartners() {
+		List<ApplicationDTO> partners = applicationService.getAllPartners();
+		return ResponseEntity.ok(partners);
+	}
+
 	@DeleteMapping("/{applicationId}")
 	public ResponseEntity<Void> deleteApplication(@PathVariable("applicationId") Long applicationId) {
 		LOG.debug("REST request to delete Application: {}", applicationId);
 		applicationService.deleteApplication(applicationId);
 		return ResponseEntity.ok().build();
 	}
-	
+
+	@GetMapping("/{applicationId}/organizations")
+	public ResponseEntity<List<OrganizationDTO>> getOrganizationsByApplicationId(@PathVariable("applicationId") Long applicationId) {
+		List<OrganizationDTO> organizationsByLoggedUser = organizationService.getOrganizationsByApplicationId(applicationId);
+		return ResponseEntity.ok(organizationsByLoggedUser);
+	}
+
 	@GetMapping("/dashboard")
     public ResponseEntity<ApplicationDTO> getApplicationDashboard(@RequestParam(value = "applicationId", required = false) Long applicationId,
             @AuthenticationPrincipal UserDetailsDTO details) {

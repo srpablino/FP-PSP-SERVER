@@ -122,6 +122,14 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organizationMapper.entityListToDtoList(organizations);
 	}
 
+
+	@Override
+	public List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId) {
+		List<OrganizationEntity> organizations = organizationRepository.findByApplicationIdAndIsActive(applicationId, true);
+		return organizationMapper.entityListToDtoList(organizations);
+	}
+
+
 	@Override
 	public void deleteOrganization(Long organizationId) {
 		checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);

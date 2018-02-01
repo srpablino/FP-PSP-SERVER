@@ -60,8 +60,8 @@ public class UserRoleController {
 		List<UserRoleDTO> userRoles = userRoleService.getAllUserRoles();
 		return ResponseEntity.ok(userRoles);
 	}
-	
-	
+
+
 	@DeleteMapping("/{userRoleId}")
 	public ResponseEntity<Void> deleteUserRole(@PathVariable("userRoleId") Long userRoleId) {
 		LOG.debug("REST request to delete UserRole: {}", userRoleId);

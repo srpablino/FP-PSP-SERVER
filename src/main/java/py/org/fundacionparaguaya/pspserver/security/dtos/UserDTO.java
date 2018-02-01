@@ -12,15 +12,19 @@ public class UserDTO {
 	private String username;
 
 	@NotNull
+	private String email;
+
+	@NotNull
 	private String pass;
 	
 	private boolean active;
 
 	public UserDTO(){}
 
-	private UserDTO(Long userId, String username, String pass, boolean active) {
+	private UserDTO(Long userId, String username, String email, String pass, boolean active) {
 		this.userId = userId;
 		this.username = username;
+		this.email = email;
 		this.pass = pass;
 		this.active = active;
 	}
@@ -28,6 +32,7 @@ public class UserDTO {
 	public static class Builder {
 		private Long userId;
 		private String username;
+		private String email;
 		private String pass;
 		private boolean active;
 
@@ -38,6 +43,11 @@ public class UserDTO {
 
 		public Builder username(String username) {
 			this.username = username;
+			return this;
+		}
+
+		public Builder email(String email) {
+			this.email = email;
 			return this;
 		}
 
@@ -52,7 +62,7 @@ public class UserDTO {
 		}
 
 		public UserDTO build() {
-			return new UserDTO(userId, username, pass, active);
+			return new UserDTO(userId, username, email, pass, active);
 		}
 	}
 
@@ -66,6 +76,10 @@ public class UserDTO {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 	public String getPass() {
@@ -85,6 +99,10 @@ public class UserDTO {
 		this.username = username;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
@@ -98,6 +116,7 @@ public class UserDTO {
 		return MoreObjects.toStringHelper(this)
 				.add("userId", userId)
 				.add("username", username)
+				.add("email", email)
 				.add("pass", pass)
 				.add("active", active)
 				.toString();

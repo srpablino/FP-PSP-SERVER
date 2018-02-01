@@ -12,38 +12,38 @@ import java.io.Serializable;
 public class ApplicationDTO implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
-	private String code;
-	
-	private String description;
-	
-	private boolean isActive;
-	
-	private CountryDTO country;
-	
-	private CityDTO city;
-	
-	private String information;
-	
-	private boolean isHub;
-	
-	private boolean isOrganization;
-	
-	private DashboardDTO dashboard;
-	
-	public ApplicationDTO() {}
-	
 
-	private ApplicationDTO(Long id, String name, String code, String description, boolean isActive, CountryDTO country, 
-	        CityDTO city, String information, boolean isHub, boolean isOrganization, DashboardDTO dashboard) {
+	private String code;
+
+	private String description;
+
+	private boolean isActive;
+
+	private CountryDTO country;
+
+	private CityDTO city;
+
+	private String information;
+
+	private boolean isHub;
+
+	private boolean isPartner;
+
+	private DashboardDTO dashboard;
+
+	public ApplicationDTO() {}
+
+
+	private ApplicationDTO(Long id, String name, String code, String description, boolean isActive, CountryDTO country,
+						   CityDTO city, String information, boolean isHub, boolean isPartner, DashboardDTO dashboard) {
 		this.id = id;
 		this.name = name;
 		this.code = code;
@@ -53,7 +53,7 @@ public class ApplicationDTO implements Serializable {
 		this.city = city;
 		this.information = information;
 		this.isHub = isHub;
-		this.isOrganization = isOrganization;
+		this.isPartner = isPartner;
 		this.dashboard = dashboard;
 	}
 
@@ -67,34 +67,34 @@ public class ApplicationDTO implements Serializable {
 		private CityDTO city;
 		private String information;
 		private boolean isHub;
-		private boolean isOrganization;
+		private boolean isPartner;
 		private DashboardDTO dashboard;
-		
+
 		public Builder applicationId(Long applicationId) {
 			this.applicationId = applicationId;
 			return this;
 		}
-		
+
 		public Builder name(String name) {
 			this.name = name;
 			return this;
 		}
-		
+
 		public Builder code(String code) {
 			this.code = code;
 			return this;
 		}
-		
+
 		public Builder description(String description) {
 			this.description = description;
 			return this;
 		}
-		
+
 		public Builder isActive(boolean isActive) {
 			this.isActive = isActive;
 			return this;
 		}
-		
+
 		public Builder country(CountryDTO country) {
 			this.country = country;
 			return this;
@@ -104,37 +104,37 @@ public class ApplicationDTO implements Serializable {
 			this.city = city;
 			return this;
 		}
-		
+
 		public Builder information(String information) {
 			this.information = information;
 			return this;
 		}
-		
+
 		public Builder isHub(boolean isHub) {
 			this.isHub = isHub;
 			return this;
 		}
-		
-		public Builder isOrganization(boolean isOrganization) {
-			this.isOrganization = isOrganization;
+
+		public Builder isPartner(boolean isPartner) {
+			this.isPartner = isPartner;
 			return this;
 		}
-		
+
 		public Builder dashboard(DashboardDTO dashboard) {
             this.dashboard = dashboard;
             return this;
         }
-		
+
 		public ApplicationDTO build() {
-			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub,  isOrganization, dashboard);
+			return new ApplicationDTO(applicationId, name, code, description, isActive, country,  city,  information,  isHub, isPartner, dashboard);
 		}
-		
+
 	}
 
 	public static Builder builder() {
 		return new Builder();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -207,14 +207,14 @@ public class ApplicationDTO implements Serializable {
 		this.isHub = isHub;
 	}
 
-	public boolean isOrganization() {
-		return isOrganization;
+	public boolean isPartner() {
+		return isPartner;
 	}
 
-	public void setDirect(boolean isOrganization) {
-		this.isOrganization = isOrganization;
+	public void setPartner(boolean isPartner) {
+		this.isPartner = isPartner;
 	}
-	
+
 	public DashboardDTO getDashboard() {
         return dashboard;
     }
@@ -223,7 +223,7 @@ public class ApplicationDTO implements Serializable {
     public void setDashboard(DashboardDTO dashboard) {
         this.dashboard = dashboard;
     }
-	
+
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this)
@@ -236,7 +236,7 @@ public class ApplicationDTO implements Serializable {
 				.add("city", city.toString())
 				.add("information", information)
 				.add("isHub", isHub)
-				.add("isPartner", isOrganization)
+				.add("isPartner", isPartner)
 				.add("dashboard", dashboard.toString())
 				.toString();
 	}

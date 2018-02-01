@@ -15,7 +15,7 @@ public interface UserRoleService {
 	UserRoleDTO getUserRoleById(Long userRoleId);
 	
 	List<UserRoleDTO> getAllUserRoles();
-	
+
 	void deleteUserRole(Long userRoleId);
 	
 }
