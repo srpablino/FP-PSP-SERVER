@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
@@ -58,12 +60,26 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
 	}
 
-	
+
 	@Override
 	public ApplicationDTO addApplication(ApplicationDTO applicationDTO) {
+		applicationRepository.findOneByName(applicationDTO.getName())
+				.ifPresent((application) -> {
+					throw new CustomParameterizedException(
+							"Application already exists",
+							new ImmutableMultimap.Builder<String, String>().
+									put("name", application.getName()).
+									build().asMap()
+					);
+				});
+
+		// Save Application entity
 		ApplicationEntity application = new ApplicationEntity();
 		BeanUtils.copyProperties(applicationDTO, application);
+		application.setHub(true);
+		application.setActive(true);
 		ApplicationEntity newApplication = applicationRepository.save(application);
+
 		return applicationMapper.entityToDto(newApplication);
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by rodrigovillalba on 8/27/17.
@@ -13,6 +14,8 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Long> {
 
     ApplicationEntity findById(Long id);
+
+    Optional<ApplicationEntity> findOneByName(String name);
 
     List<ApplicationEntity> findByIsActive(boolean isActive);
 
