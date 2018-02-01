@@ -3,13 +3,9 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFilter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,7 +48,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomic
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
-    private static final int MAX_MONTH_AGO = 2;
+   
 
     private static final int LIMIT_TOP_OF_INDICATOR = 5;
 
@@ -207,61 +203,12 @@ public class OrganizationServiceImpl implements OrganizationService {
         dto.getDashboard().setSnapshotIndicators(
                         countSnapshotIndicators(organizationId));
 
-        dto.getDashboard().setSnapshotTaken(countSnapshotTaken(organizationId));
+     
 
         return dto;
     }
 
-    private SurveyData countSnapshotTaken(Long organizationId) {
-
-        LocalDate initial = LocalDate.now();
-        LocalDate startToday = initial.withDayOfMonth(1);
-        LocalDate endToday = initial.withDayOfMonth(initial.lengthOfMonth());
-
-        List<SnapshotEconomicEntity> listSnapshotEconomicToday = snapshotEconomicRepo
-                        .findAll(byFilter(
-                                        LocalDateTime.of(startToday,
-                                                        LocalTime.of(0, 0, 0)),
-                                        LocalDateTime.of(endToday, LocalTime
-                                                        .of(23, 59, 59))));
-
-        SurveyData data = new SurveyData();
-
-        for (int i = MAX_MONTH_AGO; i >= 1; i--) {
-
-            LocalDate initial_ = LocalDate.now().minusMonths(i);
-
-            LocalDate startToday_ = initial_.withDayOfMonth(1);
-            LocalDate endToday_ = initial_
-                            .withDayOfMonth(initial_.lengthOfMonth());
-
-            List<SnapshotEconomicEntity> listSnapshotEconomicToday_ = snapshotEconomicRepo
-                            .findAll(byFilter(
-                                            LocalDateTime.of(startToday_,
-                                                            LocalTime.of(0, 0,
-                                                                            0)),
-                                            LocalDateTime.of(endToday_,
-                                                            LocalTime.of(23, 59,
-                                                                            59))));
-
-            if (listSnapshotEconomicToday_.size() > 0) {
-                data.put(String.valueOf(initial_.getMonthValue()),
-                                listSnapshotEconomicToday_.size());
-            } else {
-                data.put(String.valueOf(initial_.getMonthValue()), 0);
-            }
-
-        }
-
-        if (listSnapshotEconomicToday.size() > 0) {
-            data.put("TODAY", listSnapshotEconomicToday.size());
-        } else {
-            data.put("TODAY", 0);
-        }
-
-        return data;
-
-    }
+    
 
     private SnapshotIndicators countSnapshotIndicators(Long organizationId) {
 
@@ -437,8 +384,14 @@ public class OrganizationServiceImpl implements OrganizationService {
                                 .toComparison();
             }
         });
-
-        return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
+        
+        if(topOfInticators.isEmpty()){
+        	 return topOfInticators;
+        }else{
+        	return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
+        }
+       
+        
 
     }
 

@@ -26,7 +26,7 @@ public class DashboardDTO implements Serializable {
     private List<ActivityDTO> activityFeed;
     private List<TopOfIndicators> topOfIndicators;
     private SnapshotIndicators snapshotIndicators;
-    private SurveyData snapshotTaken;
+    private String snapshotTaken;
 
     public DashboardDTO() {
         super();
@@ -73,11 +73,11 @@ public class DashboardDTO implements Serializable {
         this.snapshotIndicators = snapshotIndicators;
     }
     
-    public SurveyData getSnapshotTaken() {
+    public String getSnapshotTaken() {
         return snapshotTaken;
     }
 
-    public void setSnapshotTaken(SurveyData snapshotTaken) {
+    public void setSnapshotTaken(String snapshotTaken) {
         this.snapshotTaken = snapshotTaken;
     }
 
