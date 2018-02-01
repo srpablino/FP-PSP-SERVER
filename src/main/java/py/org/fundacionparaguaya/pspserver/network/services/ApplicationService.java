@@ -2,6 +2,8 @@ package py.org.fundacionparaguaya.pspserver.network.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
@@ -24,5 +26,6 @@ public interface ApplicationService {
 	void deleteApplication(Long applicationId);
 
     ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details);
-	
+
+	Page<ApplicationDTO> getPaginatedApplications(PageRequest pageRequest, UserDetailsDTO details);
 }

@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.network.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 
@@ -13,6 +15,8 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     ApplicationEntity findById(Long id);
 
     List<ApplicationEntity> findByIsActive(boolean isActive);
+
+    Page<ApplicationEntity> findAll(Pageable pageRequest);
 
     List<ApplicationEntity> findByIsHubAndIsActive(boolean isHub, boolean isActive);
 

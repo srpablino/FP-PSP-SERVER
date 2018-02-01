@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
@@ -44,8 +48,7 @@ public class ApplicationController {
 	@PostMapping()
 	public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO) throws URISyntaxException {
 		ApplicationDTO result = applicationService.addApplication(applicationDTO);
-		return ResponseEntity.created(new URI("/api/v1/applications/" + result.getId()))
-				.body(result);
+		return ResponseEntity.created(new URI("/api/v1/applications/" + result.getId())).body(result);
 	}
 	
 	
@@ -63,9 +66,16 @@ public class ApplicationController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<List<ApplicationDTO>> getAllApplications() {
-		List<ApplicationDTO> applications = applicationService.getAllApplications();
-		return ResponseEntity.ok(applications);
+	public ResponseEntity<PaginableList<ApplicationDTO>> getPaginatedApplications(
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+			@RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
+			@RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+			@AuthenticationPrincipal UserDetailsDTO details) {
+		PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+		Page<ApplicationDTO> pageProperties = applicationService.getPaginatedApplications(pageRequest, details);
+		PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/hubs")

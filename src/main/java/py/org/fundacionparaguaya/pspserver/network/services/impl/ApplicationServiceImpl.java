@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -82,6 +84,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return applicationMapper.entityListToDtoList(applications);
 	}
 
+
+	@Override
+	public Page<ApplicationDTO> getPaginatedApplications(PageRequest pageRequest, UserDetailsDTO userDetails) {
+		Page<ApplicationEntity> applicationsPage = applicationRepository.findAll(pageRequest);
+
+		if (applicationsPage != null)
+			return applicationsPage.map(applicationMapper::entityToDto);
+
+		return null;
+	}
 
 	@Override
 	public List<ApplicationDTO> getAllHubs() {
