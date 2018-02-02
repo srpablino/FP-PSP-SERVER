@@ -45,8 +45,8 @@ public class SnapshotDraftSpecification {
           };
     }
 
-    public static Specification<SnapshotDraftEntity> likeDescription(
-            String description) {
+    public static Specification<SnapshotDraftEntity> likeFamilyName(
+            String familyName) {
         return new Specification<SnapshotDraftEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotDraftEntity> root,
@@ -55,11 +55,11 @@ public class SnapshotDraftSpecification {
                 return cb.or(cb.like(
                        cb.upper(root.<String>get(
                            SnapshotDraftEntity_.getPersonFirstName())),
-                           "%" + description.trim().toUpperCase()
+                           "%" + familyName.trim().toUpperCase()
                            + "%"), cb.like(cb.upper(root
                            .<String>get(SnapshotDraftEntity_.
                                    getPersonLastName())),
-                           "%" + description.trim().toUpperCase() + "%"));
+                           "%" + familyName.trim().toUpperCase() + "%"));
                 };
           };
     }

@@ -4,10 +4,11 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.userEquals;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeDescription;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeFamilyName;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.createdAtLess8Days;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,19 +81,22 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
-                    String description) {
+                    String familyName) {
 
         List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
 
         UserEntity user = userRepo.findOneByUsername(
                 details.getUsername()).orElse(null);
 
-        if (user!= null && description!=null && !description.isEmpty()) {
-            ret = repository
-                    .findAll(where(userEquals(user.getId()))
-                            .and(likeDescription(description))
-                            .and(createdAtLess8Days()));
+        if (user == null) {
+            return Collections.emptyList();
         }
+
+        ret = repository
+                  .findAll(where(userEquals(user.getId()))
+                  .and(likeFamilyName(familyName))
+                  .and(createdAtLess8Days()));
+
         return mapper.entityListToDtoList(ret);
 
     }
