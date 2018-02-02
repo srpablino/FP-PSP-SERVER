@@ -1,8 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.system.services;
 
-import java.io.IOException;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 
 public interface ImageUploadService {
 
-    String uploadImage(String fileString, Long id) throws IOException;
+    String uploadImage(ImageDTO image, String entity, Long id);
 }

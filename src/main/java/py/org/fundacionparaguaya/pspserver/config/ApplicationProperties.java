@@ -20,8 +20,11 @@ public class ApplicationProperties {
     public static class Aws {
         private String strRegion;
         private String bucketName;
-        private String folderPath;
-        private String fileNamePrefix;
+
+        private String hubsImageDirectory;
+        private String hubsImageNamePrefix;
+        private String orgsImageDirectory;
+        private String orgsImageNamePrefix;
 
         public String getStrRegion() {
             return strRegion;
@@ -39,20 +42,36 @@ public class ApplicationProperties {
             this.bucketName = bucketName;
         }
 
-        public String getFolderPath() {
-            return folderPath;
+        public String getHubsImageDirectory() {
+            return hubsImageDirectory;
         }
 
-        public void setFolderPath(String folderPath) {
-            this.folderPath = folderPath;
+        public void setHubsImageDirectory(String hubsImageDirectory) {
+            this.hubsImageDirectory = hubsImageDirectory;
         }
 
-        public String getFileNamePrefix() {
-            return fileNamePrefix;
+        public String getHubsImageNamePrefix() {
+            return hubsImageNamePrefix;
         }
 
-        public void setFileNamePrefix(String fileNamePrefix) {
-            this.fileNamePrefix = fileNamePrefix;
+        public void setHubsImageNamePrefix(String hubsImageNamePrefix) {
+            this.hubsImageNamePrefix = hubsImageNamePrefix;
+        }
+
+        public String getOrgsImageDirectory() {
+            return orgsImageDirectory;
+        }
+
+        public void setOrgsImageDirectory(String orgsImageDirectory) {
+            this.orgsImageDirectory = orgsImageDirectory;
+        }
+
+        public String getOrgsImageNamePrefix() {
+            return orgsImageNamePrefix;
+        }
+
+        public void setOrgsImageNamePrefix(String orgsImageNamePrefix) {
+            this.orgsImageNamePrefix = orgsImageNamePrefix;
         }
     }
 }
