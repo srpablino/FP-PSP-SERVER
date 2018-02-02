@@ -92,7 +92,7 @@ public class ApplicationController {
   public ResponseEntity<PaginableList<ApplicationDTO>> getAllApplicationsHubs(
       @RequestParam(value = "page", required = false,
                          defaultValue = "1") int page,
-      @RequestParam(value = "per_page",required = false,
+      @RequestParam(value = "per_page", required = false,
                          defaultValue = "12") int perPage,
       @RequestParam(value = "sort_by", required = false,
                          defaultValue = "name") String sortBy,

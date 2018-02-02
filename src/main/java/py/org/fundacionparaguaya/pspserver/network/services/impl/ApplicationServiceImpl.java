@@ -151,7 +151,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
              Page<ApplicationDTO> applicationPage = pageResponse.map(
                   new Converter<ApplicationEntity, ApplicationDTO>() {
-        				  @Override
+                          @Override
         				  public ApplicationDTO convert(
                                   ApplicationEntity source) {
                              return applicationMapper.entityToDto(source);
