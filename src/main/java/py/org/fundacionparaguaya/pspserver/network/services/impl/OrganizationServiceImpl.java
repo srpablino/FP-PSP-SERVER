@@ -66,7 +66,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id", 
+    private static final String[] EXCLUDE_FIELDS = {"serialVersionUID", "id",
                     "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
@@ -242,27 +242,27 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private void countIndicators(SnapshotIndicators indicators, Object v) {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
-                        .ifPresent(light -> {
-                            switch (light) {
-                            case RED:
-                                indicators.setCountRedIndicators(
-                                		indicators.getCountRedIndicators()
-                                		+ 1);
-                                break;
-                            case YELLOW:
-                                indicators.setCountYellowIndicators(
-                                		indicators.getCountYellowIndicators()
-                                		+ 1);
-                                break;
-                            case GREEN:
-                                indicators.setCountGreenIndicators(
-                                		indicators.getCountGreenIndicators()
-                                		+ 1);
-                                break;
-                            default:
-                                break;
-                            }
-                        });
+           .ifPresent(light -> {
+        	   switch (light) {
+        	       case RED:
+        	    	   indicators.setCountRedIndicators(
+        	    			   indicators.getCountRedIndicators()
+        	    			   + 1);
+        	    	   break;
+        	       case YELLOW:
+        	    	   indicators.setCountYellowIndicators(
+        	    			   indicators.getCountYellowIndicators()
+        	    			   + 1);
+        	    	    break;
+        	       case GREEN:
+        	    	   indicators.setCountGreenIndicators(
+        	    			   indicators.getCountGreenIndicators()
+        	    			   + 1);
+        	    	    break;
+        	       default:
+        	    	   break;
+        	    }
+            });
     }
 
     private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {

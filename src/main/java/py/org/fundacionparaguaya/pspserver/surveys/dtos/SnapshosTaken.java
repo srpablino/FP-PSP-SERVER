@@ -7,7 +7,6 @@ public class SnapshosTaken {
     private long today;
     private Map<String, Long> byMonth;
     
-	
 	public long getToday() {
 		return today;
 	}

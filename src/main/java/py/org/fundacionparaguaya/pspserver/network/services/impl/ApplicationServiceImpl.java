@@ -167,13 +167,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         for (int i = MAX_MONTH_AGO; i >= 1; i--) {
 
-            LocalDate initial_ = LocalDate.now().minusMonths(i);
+            final LocalDate initial_ = LocalDate.now().minusMonths(i);
 
-            LocalDate startToday_ = initial_.withDayOfMonth(1);
-            LocalDate endToday_ = initial_
+            final LocalDate startToday_ = initial_.withDayOfMonth(1);
+            final LocalDate endToday_ = initial_
                             .withDayOfMonth(initial_.lengthOfMonth());
 
-            List<SnapshotEconomicEntity> listSnapshotEconomicToday_ =
+            final List<SnapshotEconomicEntity> listSnapshotEconomicToday_ =
             		getSnapshotsByRange(startToday_, endToday_, families);
             
             if (listSnapshotEconomicToday_.size() > 0) {
