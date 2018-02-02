@@ -275,12 +275,12 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
 
         List<TopOfIndicators> topOfInticators =
-        		new ArrayList<TopOfIndicators>();
+             new ArrayList<TopOfIndicators>();
 
         for (SnapshotEconomicEntity data : snapshotEconomics) {
 
             Field[] fields = data.getSnapshotIndicator().getClass()
-                            .getDeclaredFields();
+                      .getDeclaredFields();
 
             for (Field field : fields) {
 
@@ -288,14 +288,14 @@ public class OrganizationServiceImpl implements OrganizationService {
                 int yellow = 0;
                 int red = 0;
                 TopOfIndicators ti = new TopOfIndicators();
-                
+
                 if (!snapshotEconomicsAux.isEmpty()){
-                	
+
                 	SnapshotEconomicEntity aux =
-                			snapshotEconomicsAux.get(0);
-    
+                         snapshotEconomicsAux.get(0);
+
                     Field[] fieldsAux = aux.getSnapshotIndicator().getClass()
-                                    .getDeclaredFields();
+                            .getDeclaredFields();
 
                     for (Field fieldAux : fieldsAux) {
 
@@ -308,16 +308,16 @@ public class OrganizationServiceImpl implements OrganizationService {
                             try {
                                 if (!fieldAux.getName()
                                 		.equals(EXCLUDE_FIELDS[0])
-                                                && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[1])
-                                                && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[2])
-                                                && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[3])) {
+                                           && !fieldAux.getName()
+                                        .equals(EXCLUDE_FIELDS[1])
+                                           && !fieldAux.getName()
+                                        .equals(EXCLUDE_FIELDS[2])
+                                           && !fieldAux.getName()
+                                        .equals(EXCLUDE_FIELDS[3])) {
 
                                     obj = PropertyUtils.getProperty(
-                                                    aux.getSnapshotIndicator(),
-                                                    fieldAux.getName());
+                                             aux.getSnapshotIndicator(),
+                                             fieldAux.getName());
 
                                     String value = (String) obj;
 
@@ -345,9 +345,7 @@ public class OrganizationServiceImpl implements OrganizationService {
                                         ti.setTotalGreen(green);
                                         break;
                                     }
-
                                 }
-
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                                 throw new CustomParameterizedException("Error");
@@ -358,11 +356,8 @@ public class OrganizationServiceImpl implements OrganizationService {
                                 e.printStackTrace();
                                 throw new CustomParameterizedException("Error");
                             }
-
                         }
-
                     }
-
                 }
                 if (!ti.getIndicatorName().equals(EXCLUDE_FIELDS[0])
                                 && !ti.getIndicatorName()
@@ -374,7 +369,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                     topOfInticators.add(ti);
                 }
             }
-
 
         }
 
@@ -388,14 +382,12 @@ public class OrganizationServiceImpl implements OrganizationService {
                                 .toComparison();
             }
         });
-        
+
         if (topOfInticators.isEmpty()){
         	 return topOfInticators;
         } else {
         	return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
         }
-       
-        
 
     }
 
