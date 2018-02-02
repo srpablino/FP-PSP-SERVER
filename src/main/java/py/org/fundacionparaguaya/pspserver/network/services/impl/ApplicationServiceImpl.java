@@ -140,25 +140,19 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
                         sortBy);
-        
-        PaginableList<ApplicationDTO> response;
-
         Page<ApplicationEntity> pageResponse = applicationRepository
                         .findAllByIsHub(true, pageRequest);
         if (pageResponse == null) {
-            return new PaginableList<>(Collections.emptyList());
-          } else {
-
-             Page<ApplicationDTO> applicationPage = pageResponse.map(
+            return new PaginableList<ApplicationDTO>(Collections.emptyList());
+          }
+          Page<ApplicationDTO> applicationPage = pageResponse.map(
                   new Converter<ApplicationEntity, ApplicationDTO>() {
                           public ApplicationDTO convert(
                                ApplicationEntity source) {
                              return applicationMapper.entityToDto(source);
                           }
                       });
-               response = new PaginableList<ApplicationDTO>(applicationPage,
+         return new PaginableList<ApplicationDTO>(applicationPage,
                       applicationPage.getContent());
-         }
-         return response;
      }
 }
