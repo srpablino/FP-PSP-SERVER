@@ -14,8 +14,6 @@ import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 @StaticMetamodel(SnapshotDraftEntity.class)
 public class SnapshotDraftEntity_ {
 
-    private SnapshotDraftEntity_() {}
-
     private static volatile SingularAttribute<SnapshotDraftEntity,
         UserEntity> user;
     private static volatile SingularAttribute<SnapshotDraftEntity,
@@ -24,6 +22,8 @@ public class SnapshotDraftEntity_ {
         String> personLastName;
     private static volatile SingularAttribute<SnapshotDraftEntity,
         LocalDateTime> createdAt;
+
+    private SnapshotDraftEntity_() {}
 
     public static SingularAttribute<SnapshotDraftEntity, UserEntity> getUser() {
         return user;
