@@ -2,10 +2,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.userEquals;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeDescription;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.createdAtLess8Days;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +30,10 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService
 @Service
 public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
-    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
-
     private final SnapshotDraftMapper mapper;
 
     private final SnapshotDraftRepository repository;
-    
+
     private final UserRepository userRepo;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
@@ -78,20 +76,16 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
                     String description) {
 
         List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
-        
-        Optional<UserEntity> user = userRepo.findOneByUsername(details.getUsername());
 
-        LocalDateTime now = LocalDateTime.now();
-        
-        for (SnapshotDraftEntity snapshotDraft : repository
-                        .findAll(where(byFilter(user.get().getId(), description)))) {
+        UserEntity user = userRepo.findOneByUsername(
+                details.getUsername()).orElse(null);
 
-            if (snapshotDraft.getCreatedAt().until(now,
-                            ChronoUnit.DAYS) < SNAPSHOT_DRAFT_MAX_DAY) {
-                ret.add(snapshotDraft);
-            }
+        if (user!= null && description!=null && !description.isEmpty()) {
+            ret = repository
+                    .findAll(where(userEquals(user.getId()))
+                            .and(likeDescription(description))
+                            .and(createdAtLess8Days()));
         }
-
         return mapper.entityListToDtoList(ret);
 
     }

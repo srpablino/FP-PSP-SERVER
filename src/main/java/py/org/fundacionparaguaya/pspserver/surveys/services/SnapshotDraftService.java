@@ -17,5 +17,6 @@ public interface SnapshotDraftService {
 
     void deleteSnapshotDraft(Long id);
 
-    List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details, String description);
+    List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
+            String description);
 }

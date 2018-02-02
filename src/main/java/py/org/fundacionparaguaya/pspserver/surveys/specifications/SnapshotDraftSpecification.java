@@ -1,7 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.specifications;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,47 +16,68 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity_;
 
 /**
- * @author mcespedes
+ * @author mcespedes, mgonzalez
  *
  */
 public class SnapshotDraftSpecification {
 
     private static final String ID_ATTRIBUTE = "id";
 
-    public static Specification<SnapshotDraftEntity> byFilter(Long userId,
-                    String description) {
+    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
+
+
+    private SnapshotDraftSpecification() {}
+
+    public static Specification<SnapshotDraftEntity> userEquals(Long userId) {
         return new Specification<SnapshotDraftEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotDraftEntity> root,
                             CriteriaQuery<?> query, CriteriaBuilder cb) {
 
-                List<Predicate> predicates = new ArrayList<>();
-
-                if (userId != null) {
                     Join<SnapshotDraftEntity, UserEntity> joinUser = root
-                                    .join(SnapshotDraftEntity_.user);
+                                    .join(SnapshotDraftEntity_.getUser());
                     Expression<Long> byUserId = joinUser
                                     .<Long>get(ID_ATTRIBUTE);
-                    predicates.add(cb.equal(byUserId, userId));
-                }
 
-                if (description != null) {
+                    return cb.equal(byUserId, userId);
 
-                    Predicate orClause = cb.or(cb.like(
-                        cb.upper(root.<String>get(
-                           SnapshotDraftEntity_.personFirstName)),
+                };
+          };
+    }
+
+    public static Specification<SnapshotDraftEntity> likeDescription(
+            String description) {
+        return new Specification<SnapshotDraftEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SnapshotDraftEntity> root,
+                            CriteriaQuery<?> query, CriteriaBuilder cb) {
+
+                return cb.or(cb.like(
+                       cb.upper(root.<String>get(
+                           SnapshotDraftEntity_.getPersonFirstName())),
                            "%" + description.trim().toUpperCase()
-                           + "%"),cb.like(cb.upper(root
-                           .<String>get(SnapshotDraftEntity_.personLastName)),
+                           + "%"), cb.like(cb.upper(root
+                           .<String>get(SnapshotDraftEntity_.
+                                   getPersonLastName())),
                            "%" + description.trim().toUpperCase() + "%"));
+                };
+          };
+    }
 
-                    predicates.add(orClause);
-                }
+    public static Specification<SnapshotDraftEntity> createdAtLess8Days() {
+        return new Specification<SnapshotDraftEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SnapshotDraftEntity> root,
+                            CriteriaQuery<?> query, CriteriaBuilder cb) {
 
-                return cb.and(predicates
-                                .toArray(new Predicate[predicates.size()]));
-            }
-        };
+                LocalDateTime limit = LocalDateTime.now();
+                limit = limit.minusDays(SNAPSHOT_DRAFT_MAX_DAY);
+
+                return cb.and(cb.greaterThan(root.<LocalDateTime>get(
+                        SnapshotDraftEntity_.getCreatedAt()), limit));
+
+                };
+          };
     }
 
 }

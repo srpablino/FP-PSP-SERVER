@@ -98,11 +98,12 @@ public class SnapshotDraftController {
              code = 200,
              message = "The requested snapshot draft by user id",
              response = SurveyDefinition.class) })
-        public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser(                        
-                        @RequestParam(value = "description", required = true) 
+        public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser (
+                @RequestParam(value = "description", required = true)
                         String description,
                         @AuthenticationPrincipal UserDetailsDTO details)
                 throws NotFoundException {
-            return ResponseEntity.ok(service.getSnapshotDraftByUser(details, description));
+            return ResponseEntity.ok(service.getSnapshotDraftByUser(details,
+                    description));
         }
 }
