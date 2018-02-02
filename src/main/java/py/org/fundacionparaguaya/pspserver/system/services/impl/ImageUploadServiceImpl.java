@@ -48,6 +48,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 if (entity.equals("organization")) {
                     imageDirectory = applicationProperties.getAws().getOrgsImageDirectory();
                     imageNamePrefix = applicationProperties.getAws().getOrgsImageNamePrefix();
+                } else if (entity.equals("hub")) {
+                    imageDirectory = applicationProperties.getAws().getHubsImageDirectory();
+                    imageNamePrefix = applicationProperties.getAws().getHubsImageNamePrefix();
                 }
                 String fileName = imageNamePrefix + entityId + "." + image.getFormat();
                 String keyName = imageDirectory + fileName;

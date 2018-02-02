@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.network.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ public interface ApplicationService {
 
 	ApplicationDTO updateApplication(Long applicationId, ApplicationDTO application);
 
-	ApplicationDTO addApplication(ApplicationDTO application);
+	ApplicationDTO addApplication(ApplicationDTO application) throws IOException;
 	
 	ApplicationDTO getApplicationById(Long applicationId);
 	

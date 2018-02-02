@@ -253,4 +253,9 @@
         <sqlFile path="sql/2018-01-30T15:40.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add column logo_url into application table-->
+    <changeSet id="2018-02-02T11:30" author="cbenitez">
+        <sqlFile path="sql/2018-02-02T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

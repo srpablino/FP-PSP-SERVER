@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ApplicationController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO) throws URISyntaxException {
+	public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO) throws URISyntaxException, IOException {
 		ApplicationDTO result = applicationService.addApplication(applicationDTO);
 		return ResponseEntity.created(new URI("/api/v1/applications/" + result.getId())).body(result);
 	}

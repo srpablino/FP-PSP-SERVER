@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,9 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
+import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
 
 @Service
@@ -38,11 +41,15 @@ public class ApplicationServiceImpl implements ApplicationService {
 	private final ApplicationMapper applicationMapper;
 	
 	private final FamilyService familyService;
-	 
-	public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper, FamilyService familyService) {
+
+	private final ImageUploadService imageUploadService;
+
+	public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper,
+								  FamilyService familyService, ImageUploadService imageUploadService) {
 		this.applicationRepository = applicationRepository;
 		this.applicationMapper = applicationMapper;
 		this.familyService = familyService;
+		this.imageUploadService = imageUploadService;
 	}
 	
 
@@ -62,7 +69,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 
 	@Override
-	public ApplicationDTO addApplication(ApplicationDTO applicationDTO) {
+	public ApplicationDTO addApplication(ApplicationDTO applicationDTO) throws IOException {
 		applicationRepository.findOneByName(applicationDTO.getName())
 				.ifPresent((application) -> {
 					throw new CustomParameterizedException(
@@ -79,6 +86,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 		application.setHub(true);
 		application.setActive(true);
 		ApplicationEntity newApplication = applicationRepository.save(application);
+
+		// Upload image to AWS S3 service
+		ImageDTO image = ImageParser.parse(applicationDTO.getFile());
+		String logoURL = imageUploadService.uploadImage(image, "hub", newApplication.getId());
+
+		if (logoURL != null) {
+			// Update Application entity with image URL
+			newApplication.setLogoUrl(logoURL);
+			applicationRepository.save(newApplication);
+		}
 
 		return applicationMapper.entityToDto(newApplication);
 	}
