@@ -19,7 +19,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
  *
  */
 public class SnapshotEconomicSpecification {
-	
    private SnapshotEconomicSpecification(){
       //not called
    }

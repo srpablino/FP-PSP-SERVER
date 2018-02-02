@@ -174,13 +174,16 @@ public class ApplicationServiceImpl implements ApplicationService {
                             .withDayOfMonth(initialAux.lengthOfMonth());
 
             List<SnapshotEconomicEntity> listSnapshotEconomicAux =
-            		getSnapshotsByRange(startTodayAux, endTodayAux, families);
+            		getSnapshotsByRange(startTodayAux,
+            				endTodayAux,
+            				families);
             
             if (listSnapshotEconomicAux.size() > 0) {
             	map.put(String.valueOf(initialAux.getMonthValue()),
                               new Long(listSnapshotEconomicAux.size()));
             } else {
-            	map.put(String.valueOf(initialAux.getMonthValue()), new Long(0));
+            	map.put(String.valueOf(initialAux.getMonthValue()),
+            			new Long(0));
             }
 
         }

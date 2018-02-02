@@ -219,7 +219,7 @@ public class OrganizationServiceImpl implements OrganizationService {
                         .findByFamilyIn(families);
 
         List<SnapshotIndicatorEntity> entityList =
-        		new ArrayList<SnapshotIndicatorEntity>();
+              new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());
