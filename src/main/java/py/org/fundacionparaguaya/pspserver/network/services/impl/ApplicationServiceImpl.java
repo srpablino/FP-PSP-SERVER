@@ -167,20 +167,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         for (int i = MAX_MONTH_AGO; i >= 1; i--) {
 
-            final LocalDate initial_ = LocalDate.now().minusMonths(i);
+            LocalDate initialAux = LocalDate.now().minusMonths(i);
 
-            final LocalDate startToday_ = initial_.withDayOfMonth(1);
-            final LocalDate endToday_ = initial_
-                            .withDayOfMonth(initial_.lengthOfMonth());
+            LocalDate startTodayAux = initialAux.withDayOfMonth(1);
+            LocalDate endTodayAux = initialAux
+                            .withDayOfMonth(initialAux.lengthOfMonth());
 
-            final List<SnapshotEconomicEntity> listSnapshotEconomicToday_ =
-            		getSnapshotsByRange(startToday_, endToday_, families);
+            List<SnapshotEconomicEntity> listSnapshotEconomicAux =
+            		getSnapshotsByRange(startTodayAux, endTodayAux, families);
             
-            if (listSnapshotEconomicToday_.size() > 0) {
-            	map.put(String.valueOf(initial_.getMonthValue()),
-                              new Long(listSnapshotEconomicToday_.size()));
+            if (listSnapshotEconomicAux.size() > 0) {
+            	map.put(String.valueOf(initialAux.getMonthValue()),
+                              new Long(listSnapshotEconomicAux.size()));
             } else {
-            	map.put(String.valueOf(initial_.getMonthValue()), new Long(0));
+            	map.put(String.valueOf(initialAux.getMonthValue()), new Long(0));
             }
 
         }

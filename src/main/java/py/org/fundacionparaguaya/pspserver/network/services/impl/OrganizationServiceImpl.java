@@ -163,7 +163,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         if (pageResponse != null) {
             return pageResponse.map(
-            		new Converter<OrganizationEntity, OrganizationDTO>() {
+               new Converter<OrganizationEntity, OrganizationDTO>() {
                                 @Override
                                 public OrganizationDTO convert(
                                                 OrganizationEntity source) {
