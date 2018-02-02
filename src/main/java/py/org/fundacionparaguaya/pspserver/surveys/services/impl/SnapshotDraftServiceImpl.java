@@ -1,12 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.byFilter;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.userEquals;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeFamilyName;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.createdAtLess8Days;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
+
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotDraftMapper;
@@ -33,20 +36,18 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotDraftService
 @Service
 public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
-    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
-
     private final SnapshotDraftMapper mapper;
 
     private final SnapshotDraftRepository repository;
 
-    private final UserRepository userRepository;
+    private final UserRepository userRepo;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
-            SnapshotDraftRepository repository,
-            UserRepository userRepository) {
+                    SnapshotDraftRepository repository,
+                    UserRepository userRepo) {
         this.mapper = mapper;
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -110,22 +111,21 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
-                    String description) {
+                    String familyName) {
 
         List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
-        
-        Optional<UserEntity> user = userRepository.findOneByUsername(details.getUsername());
 
-        LocalDateTime now = LocalDateTime.now();
-        
-        for (SnapshotDraftEntity snapshotDraft : repository
-                        .findAll(where(byFilter(user.get().getId(), description)))) {
+        UserEntity user = userRepo.findOneByUsername(
+                details.getUsername()).orElse(null);
 
-            if (snapshotDraft.getCreatedAt().until(now,
-                            ChronoUnit.DAYS) < SNAPSHOT_DRAFT_MAX_DAY) {
-                ret.add(snapshotDraft);
-            }
+        if (user == null) {
+            return Collections.emptyList();
         }
+
+        ret = repository
+                  .findAll(where(userEquals(user.getId()))
+                  .and(likeFamilyName(familyName))
+                  .and(createdAtLess8Days()));
 
         return mapper.entityListToDtoList(ret);
 
