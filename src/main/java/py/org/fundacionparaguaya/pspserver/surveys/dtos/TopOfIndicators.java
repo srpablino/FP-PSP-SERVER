@@ -1,9 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 public class TopOfIndicators {
-        String indicatorName;
-        Integer totalGreen;
-        Integer totalYellow;
-        Integer totalRed;
+        private String indicatorName;
+        private Integer totalGreen;
+        private Integer totalYellow;
+        private Integer totalRed;
 
         public String getIndicatorName() {
             return indicatorName;

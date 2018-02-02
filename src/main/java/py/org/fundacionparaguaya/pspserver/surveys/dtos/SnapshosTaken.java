@@ -4,12 +4,9 @@ import java.util.Map;
 
 public class SnapshosTaken {
 
-	long today;
-    Map<String, Long> byMonth;
+    private long today;
+    private Map<String, Long> byMonth;
     
-	public SnapshosTaken() {
-		super();
-	}
 	
 	public long getToday() {
 		return today;

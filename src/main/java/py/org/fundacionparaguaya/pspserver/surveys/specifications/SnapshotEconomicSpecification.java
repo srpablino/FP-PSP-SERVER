@@ -1,6 +1,3 @@
-/**
- * 
- */
 package py.org.fundacionparaguaya.pspserver.surveys.specifications;
 
 import java.time.LocalDateTime;

@@ -39,7 +39,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	private Logger LOG = LoggerFactory.getLogger(ApplicationServiceImpl.class);
 	
-	 private static final int MAX_MONTH_AGO = 2;
+	private static final int MAX_MONTH_AGO = 2;
 
 	private final ApplicationRepository applicationRepository;
 	
@@ -47,11 +47,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	private final FamilyService familyService;
 	
-	 private final SnapshotEconomicRepository snapshotEconomicRepo;
+	private final SnapshotEconomicRepository snapshotEconomicRepo;
+	private final FamilyRepository familyRepository;
 	 
-	 private final FamilyRepository familyRepository;
-	 
-	public ApplicationServiceImpl(ApplicationRepository applicationRepository, 
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository,
 			ApplicationMapper applicationMapper,
 			FamilyService familyService,
 			SnapshotEconomicRepository snapshotEconomicRepo,
@@ -131,7 +130,8 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .orElse(new OrganizationDTO()).getId();
         
         FamilyFilterDTO filter = new FamilyFilterDTO(dto.getId(), organizationId);
-        dashboardDTO = DashboardDTO.of(familyService.countFamiliesByFilter(filter));
+        dashboardDTO = DashboardDTO.of(
+        		familyService.countFamiliesByFilter(filter));
         
         dashboardDTO.setSnapshotTaken(countSnapshotTaken(organizationId));
         
@@ -150,8 +150,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<FamilyEntity> families = familyRepository
                 .findByOrganizationId(organizationId);
         
-        List<SnapshotEconomicEntity> listSnapshotEconomicToday = 
-        		                                     getSnapshotsByRange(startToday, endToday, families);
+        List<SnapshotEconomicEntity> listSnapshotEconomicToday =
+        		getSnapshotsByRange(startToday, endToday, families);
         
         SnapshosTaken snapshotTaken = new SnapshosTaken();
         HashMap<String, Long> map = new HashMap<>();
@@ -159,9 +159,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         snapshotTaken.setToday(System.currentTimeMillis());
         
         if (listSnapshotEconomicToday.size() > 0) {
-            map.put("TODAY",  new Long(listSnapshotEconomicToday.size()));
+            map.put("TODAY", new Long(listSnapshotEconomicToday.size()));
         } else {
-            map.put("TODAY",new Long(0));
+            map.put("TODAY", new Long(0));
         }
 
 
@@ -174,13 +174,13 @@ public class ApplicationServiceImpl implements ApplicationService {
                             .withDayOfMonth(initial_.lengthOfMonth());
 
             List<SnapshotEconomicEntity> listSnapshotEconomicToday_ =
-            		                                   getSnapshotsByRange(startToday_, endToday_, families);
+            		getSnapshotsByRange(startToday_, endToday_, families);
             
             if (listSnapshotEconomicToday_.size() > 0) {
             	map.put(String.valueOf(initial_.getMonthValue()),
                               new Long(listSnapshotEconomicToday_.size()));
             } else {
-            	map.put(String.valueOf(initial_.getMonthValue()),new Long(0));
+            	map.put(String.valueOf(initial_.getMonthValue()), new Long(0));
             }
 
         }
@@ -191,8 +191,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     }
 	
-	private List<SnapshotEconomicEntity> getSnapshotsByRange(LocalDate startToday, 
-			LocalDate endToday,  List<FamilyEntity> families){
+	private List<SnapshotEconomicEntity> getSnapshotsByRange(
+			LocalDate startToday,
+			LocalDate endToday,
+			List<FamilyEntity> families){
 		 return snapshotEconomicRepo
                   .findAll(byFilter(
                                   LocalDateTime.of(startToday,

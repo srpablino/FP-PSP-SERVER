@@ -18,8 +18,8 @@ public interface SnapshotEconomicRepository
                 JpaSpecificationExecutor<SnapshotEconomicEntity> {
     Collection<SnapshotEconomicEntity> findBySurveyDefinitionId(Long surveyId);
 
-    Optional<SnapshotEconomicEntity> findFirstByFamilyFamilyIdOrderByCreatedAtDesc(
-                    Long familyId);
+    Optional<SnapshotEconomicEntity> 
+                findFirstByFamilyFamilyIdOrderByCreatedAtDesc(Long familyId);
 
     List<SnapshotEconomicEntity> findByFamilyFamilyId(Long familyId);
 

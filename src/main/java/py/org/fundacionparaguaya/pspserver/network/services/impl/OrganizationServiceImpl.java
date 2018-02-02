@@ -66,7 +66,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
+    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id", 
                     "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
@@ -163,7 +163,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         if (pageResponse != null) {
             return pageResponse.map(
-                            new Converter<OrganizationEntity, OrganizationDTO>() {
+            		new Converter<OrganizationEntity, OrganizationDTO>() {
                                 @Override
                                 public OrganizationDTO convert(
                                                 OrganizationEntity source) {
@@ -218,7 +218,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
                         .findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> entityList =
+        		new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());
@@ -245,18 +246,18 @@ public class OrganizationServiceImpl implements OrganizationService {
                             switch (light) {
                             case RED:
                                 indicators.setCountRedIndicators(
-                                                indicators.getCountRedIndicators()
-                                                                + 1);
+                                		indicators.getCountRedIndicators()
+                                		+ 1);
                                 break;
                             case YELLOW:
                                 indicators.setCountYellowIndicators(
-                                                indicators.getCountYellowIndicators()
-                                                                + 1);
+                                		indicators.getCountYellowIndicators()
+                                		+ 1);
                                 break;
                             case GREEN:
                                 indicators.setCountGreenIndicators(
-                                                indicators.getCountGreenIndicators()
-                                                                + 1);
+                                		indicators.getCountGreenIndicators()
+                                		+ 1);
                                 break;
                             default:
                                 break;
@@ -273,7 +274,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
 
-        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
+        List<TopOfIndicators> topOfInticators =
+        		new ArrayList<TopOfIndicators>();
 
         for (SnapshotEconomicEntity data : snapshotEconomics) {
 
@@ -287,9 +289,10 @@ public class OrganizationServiceImpl implements OrganizationService {
                 int red = 0;
                 TopOfIndicators ti = new TopOfIndicators();
                 
-                if(!snapshotEconomicsAux.isEmpty()){
+                if (!snapshotEconomicsAux.isEmpty()){
                 	
-                	SnapshotEconomicEntity aux = snapshotEconomicsAux.get(0);
+                	SnapshotEconomicEntity aux =
+                			snapshotEconomicsAux.get(0);
     
                     Field[] fieldsAux = aux.getSnapshotIndicator().getClass()
                                     .getDeclaredFields();
@@ -304,13 +307,13 @@ public class OrganizationServiceImpl implements OrganizationService {
 
                             try {
                                 if (!fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[0])
+                                		.equals(EXCLUDE_FIELDS[0])
                                                 && !fieldAux.getName()
-                                                                .equals(EXCLUDE_FIELDS[1])
+                                                .equals(EXCLUDE_FIELDS[1])
                                                 && !fieldAux.getName()
-                                                                .equals(EXCLUDE_FIELDS[2])
-                                                && !fieldAux.getName().equals(
-                                                                EXCLUDE_FIELDS[3])) {
+                                                .equals(EXCLUDE_FIELDS[2])
+                                                && !fieldAux.getName()
+                                                .equals(EXCLUDE_FIELDS[3])) {
 
                                     obj = PropertyUtils.getProperty(
                                                     aux.getSnapshotIndicator(),
@@ -386,9 +389,9 @@ public class OrganizationServiceImpl implements OrganizationService {
             }
         });
         
-        if(topOfInticators.isEmpty()){
+        if (topOfInticators.isEmpty()){
         	 return topOfInticators;
-        }else{
+        } else {
         	return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
         }
        

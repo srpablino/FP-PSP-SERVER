@@ -94,8 +94,9 @@ public class OrganizationController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<OrganizationDTO> getApplicationDashboard(
-                    @RequestParam(value = "organizationId", required = false) Long organizationId,
-                    @AuthenticationPrincipal UserDetailsDTO details) {
+    		@RequestParam(value = "organizationId", 
+    		required = false)Long organizationId,
+    		@AuthenticationPrincipal UserDetailsDTO details) {
         OrganizationDTO dto = organizationService
                         .getOrganizationDashboard(organizationId, details);
         return ResponseEntity.ok(dto);
