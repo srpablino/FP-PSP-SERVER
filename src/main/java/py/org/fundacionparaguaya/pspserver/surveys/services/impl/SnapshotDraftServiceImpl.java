@@ -1,6 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
+
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.userEquals;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeDescription;
@@ -13,9 +14,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
+
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotDraft;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotDraftEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotDraftMapper;
@@ -53,18 +56,22 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public SnapshotDraft getSnapshotDraft(Long id) {
-        checkArgument(id != null && id > 0,
-                        "Argument" + " was %s but expected nonnegative", id);
-        return Optional.ofNullable(repository.findOne(id))
-                        .map(mapper::entityToDto)
-                        .orElseThrow(() -> new UnknownResourceException(
-                                        "Temporal snapshot does not exist"));
+
+       checkArgument(id!=null && id > 0, "Argument"
+               + " was %s but expected nonnegative", id);
+       return Optional.ofNullable(repository
+               .findOne(id))
+               .map(mapper::entityToDto)
+               .orElseThrow(() ->
+               new UnknownResourceException(
+                       "Temporal snapshot does not exist"));
     }
 
     @Override
     public void deleteSnapshotDraft(Long id) {
-        checkArgument(id != null && id > 0,
-                        "Argument" + " was %s but expected nonnegative", id);
+
+        checkArgument(id!=null && id > 0, "Argument"
+                + " was %s but expected nonnegative", id);
 
         Optional.ofNullable(repository.findOne(id)).ifPresent(snapshot -> {
             repository.delete(snapshot);
