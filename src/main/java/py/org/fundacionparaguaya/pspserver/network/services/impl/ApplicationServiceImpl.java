@@ -151,18 +151,14 @@ public class ApplicationServiceImpl implements ApplicationService {
 
              Page<ApplicationDTO> applicationPage = pageResponse.map(
                   new Converter<ApplicationEntity, ApplicationDTO>() {
-                          @Override
-        				  public ApplicationDTO convert(
-                                  ApplicationEntity source) {
+                          public ApplicationDTO convert(
+                               ApplicationEntity source) {
                              return applicationMapper.entityToDto(source);
-        				  }
-        			  });
-        	  
-        	  response = new PaginableList<ApplicationDTO>(applicationPage,
-        			  applicationPage.getContent());
-        	  
-          }
-        return response;
-    }
-
+                          }
+                      });
+               response = new PaginableList<ApplicationDTO>(applicationPage,
+                      applicationPage.getContent());
+         }
+         return response;
+     }
 }
