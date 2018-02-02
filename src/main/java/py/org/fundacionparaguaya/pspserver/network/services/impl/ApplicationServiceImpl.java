@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,21 +140,29 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
                         sortBy);
+        
+        PaginableList<ApplicationDTO> response;
 
         Page<ApplicationEntity> pageResponse = applicationRepository
                         .findAllByIsHub(true, pageRequest);
-
-        Page<ApplicationDTO> applicationPage = pageResponse.map(
-                        new Converter<ApplicationEntity, ApplicationDTO>() {
-                            @Override
-                            public ApplicationDTO convert(
-                                            ApplicationEntity source) {
-                                return applicationMapper.entityToDto(source);
-                            }
-                        });
-
-        return new PaginableList<ApplicationDTO>(applicationPage,
-                        applicationPage.getContent());
+        if (pageResponse == null) {
+            return new PaginableList<>(Collections.emptyList());
+          } else {
+        	  
+        	  Page<ApplicationDTO> applicationPage = pageResponse.map(
+        			  new Converter<ApplicationEntity, ApplicationDTO>() {
+        				  @Override
+        				  public ApplicationDTO convert(
+        						  ApplicationEntity source) {
+        					  return applicationMapper.entityToDto(source);
+        				  }
+        			  });
+        	  
+        	  response = new PaginableList<ApplicationDTO>(applicationPage,
+        			  applicationPage.getContent());
+        	  
+          }
+        return response;
     }
 
 }
