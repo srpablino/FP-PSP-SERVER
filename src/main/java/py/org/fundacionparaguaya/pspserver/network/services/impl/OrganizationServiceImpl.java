@@ -33,7 +33,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
-  private static Logger LOG = LoggerFactory
+  private static final Logger LOG = LoggerFactory
       .getLogger(OrganizationServiceImpl.class);
 
   private final OrganizationRepository organizationRepository;

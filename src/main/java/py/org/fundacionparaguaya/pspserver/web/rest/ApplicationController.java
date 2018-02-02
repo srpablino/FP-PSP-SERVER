@@ -80,7 +80,8 @@ public class ApplicationController {
 
   @GetMapping("/dashboard")
   public ResponseEntity<ApplicationDTO> getApplicationDashboard(
-      @RequestParam(value = "applicationId", required = false) Long applicationId,
+      @RequestParam(value = "applicationId",
+          required = false) Long applicationId,
       @AuthenticationPrincipal UserDetailsDTO details) {
     ApplicationDTO dto = applicationService
         .getApplicationDashboard(applicationId, details);
@@ -89,10 +90,14 @@ public class ApplicationController {
 
   @GetMapping("/hubs")
   public ResponseEntity<PaginableList<ApplicationDTO>> getAllApplicationsHubs(
-      @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-      @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
-      @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-      @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
+      @RequestParam(value = "page", required = false,
+                         defaultValue = "1") int page,
+      @RequestParam(value = "per_page",required = false,
+                         defaultValue = "12") int perPage,
+      @RequestParam(value = "sort_by", required = false,
+                         defaultValue = "name") String sortBy,
+      @RequestParam(value = "order", required = false,
+                         defaultValue = "asc") String orderBy) {
 
     return ResponseEntity.ok(applicationService.listApplicationsHubs(page,
         perPage, orderBy, sortBy));

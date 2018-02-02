@@ -13,7 +13,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
@@ -28,10 +27,11 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepos
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
+
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
-    private static Logger LOG = LoggerFactory
+    private static final Logger LOG = LoggerFactory
                     .getLogger(ApplicationServiceImpl.class);
 
     private final ApplicationRepository applicationRepository;
@@ -148,13 +148,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         if (pageResponse == null) {
             return new PaginableList<>(Collections.emptyList());
           } else {
-        	  
-        	  Page<ApplicationDTO> applicationPage = pageResponse.map(
-        			  new Converter<ApplicationEntity, ApplicationDTO>() {
+
+             Page<ApplicationDTO> applicationPage = pageResponse.map(
+                  new Converter<ApplicationEntity, ApplicationDTO>() {
         				  @Override
         				  public ApplicationDTO convert(
-        						  ApplicationEntity source) {
-        					  return applicationMapper.entityToDto(source);
+                                  ApplicationEntity source) {
+                             return applicationMapper.entityToDto(source);
         				  }
         			  });
         	  
