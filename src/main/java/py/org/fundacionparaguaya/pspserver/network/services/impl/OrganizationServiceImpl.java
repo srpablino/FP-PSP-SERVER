@@ -30,6 +30,8 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
@@ -95,8 +97,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 		OrganizationEntity newOrganization= organizationRepository.save(organization);
 
 		// Upload image to AWS S3 service
-		String file = organizationDTO.getFile();
-		String logoURL = imageUploadService.uploadImage(file, newOrganization.getId());
+		ImageDTO image = ImageParser.parse(organizationDTO.getFile());
+		String logoURL = imageUploadService.uploadImage(image, "organization", newOrganization.getId());
 
 		if (logoURL != null) {
 			// Update Organization entity with image URL

@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
-import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
-
-import java.io.IOException;
 
 @Service
 public class ImageUploadServiceImpl implements ImageUploadService {
@@ -24,18 +21,17 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     private Logger LOG = LoggerFactory.getLogger(ImageUploadServiceImpl.class);
 
     private final ApplicationProperties applicationProperties;
-    
+
     @Autowired
     public ImageUploadServiceImpl(ApplicationProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
     }
 
     @Override
-    public String uploadImage(String fileString, Long entityId) throws IOException {
+    public String uploadImage(ImageDTO image, String entity, Long entityId) {
 
         String url = null;
 
-        ImageDTO image = ImageParser.parse(fileString);
         if (image != null) {
             try {
                 String strRegion = applicationProperties.getAws().getStrRegion();
@@ -46,10 +42,15 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                         .build();
 
                 String bucketName = applicationProperties.getAws().getBucketName();
-                String fileNamePrefix = applicationProperties.getAws().getFileNamePrefix();
-                String folderPath = applicationProperties.getAws().getFolderPath();
-                String fileName = fileNamePrefix + entityId + "." + image.getFormat();
-                String keyName = folderPath + fileName;
+
+                String imageDirectory = null;
+                String imageNamePrefix = null;
+                if (entity.equals("organization")) {
+                    imageDirectory = applicationProperties.getAws().getOrgsImageDirectory();
+                    imageNamePrefix = applicationProperties.getAws().getOrgsImageNamePrefix();
+                }
+                String fileName = imageNamePrefix + entityId + "." + image.getFormat();
+                String keyName = imageDirectory + fileName;
 
                 s3Client.putObject(new PutObjectRequest(bucketName, keyName, image.getFile())
                         .withCannedAcl(CannedAccessControlList.PublicRead));
