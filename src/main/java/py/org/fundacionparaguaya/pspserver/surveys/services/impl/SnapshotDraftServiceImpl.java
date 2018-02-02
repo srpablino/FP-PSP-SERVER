@@ -58,18 +58,22 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public SnapshotDraft getSnapshotDraft(Long id) {
-        checkArgument(id != null && id > 0,
-                        "Argument" + " was %s but expected nonnegative", id);
-        return Optional.ofNullable(repository.findOne(id))
-                        .map(mapper::entityToDto)
-                        .orElseThrow(() -> new UnknownResourceException(
-                                        "Temporal snapshot does not exist"));
+
+       checkArgument(id!=null && id > 0, "Argument"
+               + " was %s but expected nonnegative", id);
+       return Optional.ofNullable(repository
+               .findOne(id))
+               .map(mapper::entityToDto)
+               .orElseThrow(() ->
+               new UnknownResourceException(
+                       "Temporal snapshot does not exist"));
     }
 
     @Override
     public void deleteSnapshotDraft(Long id) {
-        checkArgument(id != null && id > 0,
-                        "Argument" + " was %s but expected nonnegative", id);
+
+        checkArgument(id!=null && id > 0, "Argument"
+                + " was %s but expected nonnegative", id);
 
         Optional.ofNullable(repository.findOne(id)).ifPresent(snapshot -> {
             repository.delete(snapshot);
