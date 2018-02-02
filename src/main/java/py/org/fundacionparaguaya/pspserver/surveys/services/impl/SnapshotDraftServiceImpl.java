@@ -40,14 +40,14 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     private final SnapshotDraftRepository repository;
 
-    private final UserRepository userRepo;
+    private final UserRepository userRepository;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
                     SnapshotDraftRepository repository,
-                    UserRepository userRepo) {
+                    UserRepository userRepository) {
         this.mapper = mapper;
         this.repository = repository;
-        this.userRepo = userRepo;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
                 .orElseThrow(() ->
                 new CustomParameterizedException(
                         "Snapshot draft does not exist"));
-        
+
         snapshotEntity.setStateDraft(snapshotDraft.getStateDraft());
 
         if (snapshotDraft.getUserName()!=null) {
@@ -115,7 +115,7 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
         List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
 
-        UserEntity user = userRepo.findOneByUsername(
+        UserEntity user = userRepository.findOneByUsername(
                 details.getUsername()).orElse(null);
 
         if (user == null) {
