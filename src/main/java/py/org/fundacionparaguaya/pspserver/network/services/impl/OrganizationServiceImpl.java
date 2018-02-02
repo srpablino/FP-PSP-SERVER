@@ -244,25 +244,25 @@ public class OrganizationServiceImpl implements OrganizationService {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
            .ifPresent(light -> {
               switch (light) {
-        	       case RED:
-        	    	   indicators.setCountRedIndicators(
-        	    			   indicators.getCountRedIndicators()
-        	    			   + 1);
-        	    	   break;
-        	       case YELLOW:
-        	    	   indicators.setCountYellowIndicators(
-        	    			   indicators.getCountYellowIndicators()
-        	    			   + 1);
-        	    	    break;
-        	       case GREEN:
-        	    	   indicators.setCountGreenIndicators(
-        	    			   indicators.getCountGreenIndicators()
-        	    			   + 1);
-        	    	    break;
-        	       default:
-        	    	   break;
-        	    }
-            });
+                   case RED:
+                       indicators.setCountRedIndicators(
+                           indicators.getCountRedIndicators()
+                           + 1);
+                       break;
+                   case YELLOW:
+                       indicators.setCountYellowIndicators(
+                          indicators.getCountYellowIndicators()
+                          + 1);
+                       break;
+                   case GREEN:
+                       indicators.setCountGreenIndicators(
+                          indicators.getCountGreenIndicators()
+                          + 1);
+                       break;
+                   default:
+                       break;
+                 }
+          });
     }
 
     private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
