@@ -286,9 +286,11 @@ public class OrganizationServiceImpl implements OrganizationService {
                 int yellow = 0;
                 int red = 0;
                 TopOfIndicators ti = new TopOfIndicators();
-
-                for (SnapshotEconomicEntity aux : snapshotEconomicsAux) {
-
+                
+                if(!snapshotEconomicsAux.isEmpty()){
+                	
+                	SnapshotEconomicEntity aux = snapshotEconomicsAux.get(0);
+    
                     Field[] fieldsAux = aux.getSnapshotIndicator().getClass()
                                     .getDeclaredFields();
 
@@ -370,7 +372,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                 }
             }
 
-            break;
 
         }
 

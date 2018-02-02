@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
@@ -23,7 +24,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
 public class SnapshotEconomicSpecification {
 
     public static Specification<SnapshotEconomicEntity> byFilter(
-                    LocalDateTime startDate, LocalDateTime endDate) {
+                    LocalDateTime startDate, LocalDateTime endDate,
+                    List<FamilyEntity> families) {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotEconomicEntity> root,

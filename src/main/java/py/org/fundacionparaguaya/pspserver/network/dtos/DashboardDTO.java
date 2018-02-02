@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshosTaken;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
 
@@ -26,7 +26,7 @@ public class DashboardDTO implements Serializable {
     private List<ActivityDTO> activityFeed;
     private List<TopOfIndicators> topOfIndicators;
     private SnapshotIndicators snapshotIndicators;
-    private String snapshotTaken;
+    private SnapshosTaken snapshotTaken;
 
     public DashboardDTO() {
         super();
@@ -73,11 +73,11 @@ public class DashboardDTO implements Serializable {
         this.snapshotIndicators = snapshotIndicators;
     }
     
-    public String getSnapshotTaken() {
+    public SnapshosTaken getSnapshotTaken() {
         return snapshotTaken;
     }
 
-    public void setSnapshotTaken(String snapshotTaken) {
+    public void setSnapshotTaken(SnapshosTaken snapshotTaken) {
         this.snapshotTaken = snapshotTaken;
     }
 

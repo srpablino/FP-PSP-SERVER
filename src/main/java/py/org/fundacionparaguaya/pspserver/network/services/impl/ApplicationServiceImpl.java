@@ -6,6 +6,7 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.DashboardDTO;
@@ -27,7 +28,7 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshosTaken;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 
@@ -48,12 +49,18 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	 private final SnapshotEconomicRepository snapshotEconomicRepo;
 	 
-	public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper,
-			FamilyService familyService,SnapshotEconomicRepository snapshotEconomicRepo) {
+	 private final FamilyRepository familyRepository;
+	 
+	public ApplicationServiceImpl(ApplicationRepository applicationRepository, 
+			ApplicationMapper applicationMapper,
+			FamilyService familyService,
+			SnapshotEconomicRepository snapshotEconomicRepo,
+			FamilyRepository familyRepository) {
 		this.applicationRepository = applicationRepository;
 		this.applicationMapper = applicationMapper;
 		this.familyService = familyService;
 		this.snapshotEconomicRepo = snapshotEconomicRepo;
+		this.familyRepository = familyRepository;
 	}
 	
 
@@ -112,6 +119,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	@Override
     public ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details) {
 	    ApplicationDTO dto = new ApplicationDTO();
+	    DashboardDTO dashboardDTO = new DashboardDTO();
 	    
 	    if(details.getApplication() != null && details.getApplication().getId() != null) {
 	        dto = getApplicationById(details.getApplication().getId());
@@ -123,27 +131,39 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .orElse(new OrganizationDTO()).getId();
         
         FamilyFilterDTO filter = new FamilyFilterDTO(dto.getId(), organizationId);
-        dto.setDashboard(DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
+        dashboardDTO = DashboardDTO.of(familyService.countFamiliesByFilter(filter));
         
-        dto.getDashboard().setSnapshotTaken(countSnapshotTaken(organizationId));
+        dashboardDTO.setSnapshotTaken(countSnapshotTaken(organizationId));
+        
+        
+        dto.setDashboard(dashboardDTO);
         
         return dto;
 	}
+	private SnapshosTaken countSnapshotTaken(Long organizationId) {
 	
-	private String countSnapshotTaken(Long organizationId) {
 
         LocalDate initial = LocalDate.now();
         LocalDate startToday = initial.withDayOfMonth(1);
         LocalDate endToday = initial.withDayOfMonth(initial.lengthOfMonth());
 
-        List<SnapshotEconomicEntity> listSnapshotEconomicToday = snapshotEconomicRepo
-                        .findAll(byFilter(
-                                        LocalDateTime.of(startToday,
-                                                        LocalTime.of(0, 0, 0)),
-                                        LocalDateTime.of(endToday, LocalTime
-                                                        .of(23, 59, 59))));
+        List<FamilyEntity> families = familyRepository
+                .findByOrganizationId(organizationId);
+        
+        List<SnapshotEconomicEntity> listSnapshotEconomicToday = 
+        		                                     getSnapshotsByRange(startToday, endToday, families);
+        
+        SnapshosTaken snapshotTaken = new SnapshosTaken();
+        HashMap<String, Long> map = new HashMap<>();
+        
+        snapshotTaken.setToday(System.currentTimeMillis());
+        
+        if (listSnapshotEconomicToday.size() > 0) {
+            map.put("TODAY",  new Long(listSnapshotEconomicToday.size()));
+        } else {
+            map.put("TODAY",new Long(0));
+        }
 
-        SurveyData data = new SurveyData();
 
         for (int i = MAX_MONTH_AGO; i >= 1; i--) {
 
@@ -153,32 +173,33 @@ public class ApplicationServiceImpl implements ApplicationService {
             LocalDate endToday_ = initial_
                             .withDayOfMonth(initial_.lengthOfMonth());
 
-            List<SnapshotEconomicEntity> listSnapshotEconomicToday_ = snapshotEconomicRepo
-                            .findAll(byFilter(
-                                            LocalDateTime.of(startToday_,
-                                                            LocalTime.of(0, 0,
-                                                                            0)),
-                                            LocalDateTime.of(endToday_,
-                                                            LocalTime.of(23, 59,
-                                                                            59))));
-
+            List<SnapshotEconomicEntity> listSnapshotEconomicToday_ =
+            		                                   getSnapshotsByRange(startToday_, endToday_, families);
+            
             if (listSnapshotEconomicToday_.size() > 0) {
-                data.put(String.valueOf(initial_.getMonthValue()),
-                                listSnapshotEconomicToday_.size());
+            	map.put(String.valueOf(initial_.getMonthValue()),
+                              new Long(listSnapshotEconomicToday_.size()));
             } else {
-                data.put(String.valueOf(initial_.getMonthValue()), 0);
+            	map.put(String.valueOf(initial_.getMonthValue()),new Long(0));
             }
 
         }
 
-        if (listSnapshotEconomicToday.size() > 0) {
-            data.put("TODAY", listSnapshotEconomicToday.size());
-        } else {
-            data.put("TODAY", 0);
-        }
-
-        return new Gson().toJson(data);
+        snapshotTaken.setByMonth(map);
+        
+        return snapshotTaken;
 
     }
+	
+	private List<SnapshotEconomicEntity> getSnapshotsByRange(LocalDate startToday, 
+			LocalDate endToday,  List<FamilyEntity> families){
+		 return snapshotEconomicRepo
+                  .findAll(byFilter(
+                                  LocalDateTime.of(startToday,
+                                                  LocalTime.of(0, 0, 0)),
+                                  LocalDateTime.of(endToday, LocalTime
+                                                  .of(23, 59, 59)), families));
+		
+	}
 
 }
