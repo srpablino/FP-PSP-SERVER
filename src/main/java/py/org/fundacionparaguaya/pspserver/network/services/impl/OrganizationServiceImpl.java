@@ -243,7 +243,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private void countIndicators(SnapshotIndicators indicators, Object v) {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
            .ifPresent(light -> {
-        	   switch (light) {
+              switch (light) {
         	       case RED:
         	    	   indicators.setCountRedIndicators(
         	    			   indicators.getCountRedIndicators()
