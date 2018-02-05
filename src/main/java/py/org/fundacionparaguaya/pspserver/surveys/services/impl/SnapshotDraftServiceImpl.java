@@ -5,9 +5,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.userEquals;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.likeFamilyName;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.createdAtLess8Days;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotDraftSpecification.createdAtLessDays;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +40,8 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     private final SnapshotDraftRepository repository;
 
     private final UserRepository userRepository;
+
+    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
                     SnapshotDraftRepository repository,
@@ -113,8 +114,6 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
                     String familyName) {
 
-        List<SnapshotDraftEntity> ret = new ArrayList<SnapshotDraftEntity>();
-
         UserEntity user = userRepository.findOneByUsername(
                 details.getUsername()).orElse(null);
 
@@ -122,12 +121,12 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
             return Collections.emptyList();
         }
 
-        ret = repository
+        List<SnapshotDraftEntity> draftList = repository
                   .findAll(where(userEquals(user.getId()))
                   .and(likeFamilyName(familyName))
-                  .and(createdAtLess8Days()));
+                  .and(createdAtLessDays(SNAPSHOT_DRAFT_MAX_DAY)));
 
-        return mapper.entityListToDtoList(ret);
+        return mapper.entityListToDtoList(draftList);
 
     }
 
