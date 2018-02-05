@@ -27,12 +27,11 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepos
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
-
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
 
     private static final Logger LOG = LoggerFactory
-                    .getLogger(ApplicationServiceImpl.class);
+            .getLogger(ApplicationServiceImpl.class);
 
     private final ApplicationRepository applicationRepository;
 
@@ -41,8 +40,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final FamilyService familyService;
 
     public ApplicationServiceImpl(ApplicationRepository applicationRepository,
-                    ApplicationMapper applicationMapper,
-                    FamilyService familyService) {
+            ApplicationMapper applicationMapper, FamilyService familyService) {
         this.applicationRepository = applicationRepository;
         this.applicationMapper = applicationMapper;
         this.familyService = familyService;
@@ -50,21 +48,19 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDTO updateApplication(Long applicationId,
-                    ApplicationDTO applicationDto) {
+            ApplicationDTO applicationDto) {
         checkArgument(applicationId > 0,
-                        "Argument was %s but expected nonnegative",
-                        applicationId);
+                "Argument was %s but expected nonnegative", applicationId);
 
         return Optional.ofNullable(applicationRepository.findOne(applicationId))
-                        .map(application -> {
-                            BeanUtils.copyProperties(applicationDto,
-                                            application);
-                            LOG.debug("Changed Information for Application: {}",
-                                            application);
-                            return application;
-                        }).map(applicationMapper::entityToDto)
-                        .orElseThrow(() -> new UnknownResourceException(
-                                        "Application does not exist"));
+                .map(application -> {
+                    BeanUtils.copyProperties(applicationDto, application);
+                    LOG.debug("Changed Information for Application: {}",
+                            application);
+                    return application;
+                }).map(applicationMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        "Application does not exist"));
     }
 
     @Override
@@ -72,20 +68,19 @@ public class ApplicationServiceImpl implements ApplicationService {
         ApplicationEntity application = new ApplicationEntity();
         BeanUtils.copyProperties(applicationDto, application);
         ApplicationEntity newApplication = applicationRepository
-                        .save(application);
+                .save(application);
         return applicationMapper.entityToDto(newApplication);
     }
 
     @Override
     public ApplicationDTO getApplicationById(Long applicationId) {
         checkArgument(applicationId > 0,
-                        "Argument was %s but expected nonnegative",
-                        applicationId);
+                "Argument was %s but expected nonnegative", applicationId);
 
         return Optional.ofNullable(applicationRepository.findOne(applicationId))
-                        .map(applicationMapper::entityToDto)
-                        .orElseThrow(() -> new UnknownResourceException(
-                                        "Application does not exist"));
+                .map(applicationMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        "Application does not exist"));
     }
 
     @Override
@@ -97,62 +92,62 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public void deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0,
-                        "Argument was %s but expected nonnegative",
-                        applicationId);
+                "Argument was %s but expected nonnegative", applicationId);
 
         Optional.ofNullable(applicationRepository.findOne(applicationId))
-                        .ifPresent(application -> {
-                            applicationRepository.delete(application);
-                            LOG.debug("Deleted Application: {}", application);
-                        });
+                .ifPresent(application -> {
+                    applicationRepository.delete(application);
+                    LOG.debug("Deleted Application: {}", application);
+                });
     }
 
     @Override
     public ApplicationDTO getApplicationDashboard(Long applicationId,
-                    UserDetailsDTO details) {
+            UserDetailsDTO details) {
+
         ApplicationDTO dto = getUserApplication(details, applicationId);
 
         Long organizationId = Optional.ofNullable(details.getOrganization())
-                        .orElse(new OrganizationDTO()).getId();
+                .orElse(new OrganizationDTO()).getId();
 
         FamilyFilterDTO filter = new FamilyFilterDTO(dto.getId(),
-                        organizationId);
-        dto.setDashboard(DashboardDTO
-                        .of(familyService.countFamiliesByFilter(filter)));
+                organizationId);
+
+        dto.setDashboard(
+                DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
 
         return dto;
     }
 
     private ApplicationDTO getUserApplication(UserDetailsDTO details,
-                    Long applicationId) {
+            Long applicationId) {
         if (details.getApplication() != null
-                        && details.getApplication().getId() != null) {
+                && details.getApplication().getId() != null) {
             return getApplicationById(details.getApplication().getId());
         } else if (applicationId != null) {
             return getApplicationById(applicationId);
         }
-        return null;
+        return new ApplicationDTO();
     }
 
     @Override
     public PaginableList<ApplicationDTO> listApplicationsHubs(int page,
-                    int perPage, String orderBy, String sortBy) {
+            int perPage, String orderBy, String sortBy) {
 
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
-                        sortBy);
+                sortBy);
         Page<ApplicationEntity> pageResponse = applicationRepository
-                        .findAllByIsHub(true, pageRequest);
+                .findAllByIsHub(true, pageRequest);
         if (pageResponse == null) {
             return new PaginableList<ApplicationDTO>(Collections.emptyList());
-          }
-          Page<ApplicationDTO> applicationPage = pageResponse.map(
-                  new Converter<ApplicationEntity, ApplicationDTO>() {
-                          public ApplicationDTO convert(
-                               ApplicationEntity source) {
-                             return applicationMapper.entityToDto(source);
-                          }
-                      });
-         return new PaginableList<ApplicationDTO>(applicationPage,
-                      applicationPage.getContent());
-     }
+        }
+        Page<ApplicationDTO> applicationPage = pageResponse
+                .map(new Converter<ApplicationEntity, ApplicationDTO>() {
+                    public ApplicationDTO convert(ApplicationEntity source) {
+                        return applicationMapper.entityToDto(source);
+                    }
+                });
+        return new PaginableList<ApplicationDTO>(applicationPage,
+                applicationPage.getContent());
+    }
 }
