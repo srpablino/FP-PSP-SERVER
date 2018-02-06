@@ -64,7 +64,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
+    private static final String[] EXCLUDE_FIELDS = {"serialVersionUID", "id",
             "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
@@ -176,7 +176,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
                 .findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> entityList =
+                new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());
@@ -228,7 +229,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
 
-        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
+        List<TopOfIndicators> topOfInticators =
+                new ArrayList<TopOfIndicators>();
 
         for (SnapshotEconomicEntity data : snapshotEconomics) {
 

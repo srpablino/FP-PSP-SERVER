@@ -75,7 +75,8 @@ public class OrganizationController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<OrganizationDTO> getApplicationDashboard(
-            @RequestParam(value = "organizationId", required = false) Long organizationId,
+            @RequestParam(value = "organizationId", required = false)
+            Long organizationId,
             @AuthenticationPrincipal UserDetailsDTO details) {
         OrganizationDTO dto = organizationService
                 .getOrganizationDashboard(organizationId, details);
@@ -84,12 +85,18 @@ public class OrganizationController {
 
     @GetMapping()
     public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
-            @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-            @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-            @RequestParam(value = "applicationId", required = true) Long applicationId,
-            @RequestParam(value = "organizationId", required = false) Long organizationId) {
+            @RequestParam(value = "page", required = false,
+            defaultValue = "1") int page,
+            @RequestParam(value = "per_page", required = false,
+            defaultValue = "12") int perPage,
+            @RequestParam(value = "sort_by", required = false,
+            defaultValue = "name") String sortBy,
+            @RequestParam(value = "order", required = false,
+            defaultValue = "asc") String orderBy,
+            @RequestParam(value = "applicationId", required = true)
+            Long applicationId,
+            @RequestParam(value = "organizationId", required = false)
+            Long organizationId) {
 
         return ResponseEntity.ok(organizationService.listOrganizations(
                 applicationId, organizationId, page, perPage, orderBy, sortBy));

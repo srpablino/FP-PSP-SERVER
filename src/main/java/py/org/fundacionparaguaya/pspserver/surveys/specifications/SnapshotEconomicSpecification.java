@@ -56,8 +56,10 @@ public class SnapshotEconomicSpecification {
                 LocalDateTime limit = LocalDateTime.now();
                 limit = limit.minusMonths(MONTH_AGO).withDayOfMonth(1);
 
-                return cb.and(cb.greaterThan(root.<LocalDateTime>get(
-                        SnapshotEconomicEntity_.getCreatedAt()), limit));
+                return cb.and(cb.greaterThan(
+                        root.<LocalDateTime>get(
+                                SnapshotEconomicEntity_.getCreatedAt()),
+                        limit));
 
             }
         };
