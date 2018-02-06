@@ -44,6 +44,7 @@ public class FamilyDTO implements Serializable {
     public FamilyDTO() {
     }
 
+  //CHECKSTYLE:OFF
     private FamilyDTO(Long familyId, String name, String code,
             CountryDTO country, CityDTO city, String locationType,
             String locationPositionGps, PersonDTO person,
@@ -61,6 +62,7 @@ public class FamilyDTO implements Serializable {
         this.organization = organization;
         this.isActive = isActive;
     }
+  //CHECKSTYLE:ON
 
     public static class Builder {
         private Long familyId;
