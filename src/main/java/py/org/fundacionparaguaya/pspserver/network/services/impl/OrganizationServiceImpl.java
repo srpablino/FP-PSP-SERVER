@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
@@ -62,7 +64,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private static final String[] EXCLUDE_FIELDS = {"serialVersionUID", "id",
+    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
             "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
@@ -139,32 +141,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public Page<OrganizationDTO> listOrganizations(PageRequest pageRequest,
-            UserDetailsDTO userDetails) {
-        Long applicationId = Optional.ofNullable(userDetails.getApplication())
-                .orElse(new ApplicationDTO()).getId();
-
-        Long organizationId = Optional.ofNullable(userDetails.getOrganization())
-                .orElse(new OrganizationDTO()).getId();
-
-        Page<OrganizationEntity> pageResponse = organizationRepository.findAll(
-                where(byFilter(applicationId, organizationId)), pageRequest);
-
-        if (pageResponse != null) {
-            return pageResponse
-                    .map(new Converter<OrganizationEntity, OrganizationDTO>() {
-                        @Override
-                        public OrganizationDTO convert(
-                                OrganizationEntity source) {
-                            return organizationMapper.entityToDto(source);
-                        }
-                    });
-        }
-
-        return null;
-    }
-
-    @Override
     public OrganizationDTO getOrganizationDashboard(Long organizationId,
             UserDetailsDTO details) {
         OrganizationDTO dto = new OrganizationDTO();
@@ -200,8 +176,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
                 .findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> entityList =
-                new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());
@@ -253,8 +228,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
 
-        List<TopOfIndicators> topOfInticators =
-                new ArrayList<TopOfIndicators>();
+        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
 
         for (SnapshotEconomicEntity data : snapshotEconomics) {
 
@@ -363,6 +337,51 @@ public class OrganizationServiceImpl implements OrganizationService {
             return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
         }
 
+    }
+
+    @Override
+    public PaginableList<OrganizationDTO> listOrganizations(Long applicationId,
+            Long organizationId, int page, int perPage, String orderBy,
+            String sortBy) {
+
+        PaginableList<OrganizationDTO> response;
+
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy,
+                sortBy);
+
+        Page<OrganizationEntity> pageResponse = organizationRepository.findAll(
+                where(byFilter(applicationId, organizationId)), pageRequest);
+
+        if (pageResponse == null) {
+            return new PaginableList<>(Collections.emptyList());
+        } else {
+            Page<OrganizationDTO> organizationPage = pageResponse
+                    .map(new Converter<OrganizationEntity, OrganizationDTO>() {
+                        @Override
+                        public OrganizationDTO convert(
+                                OrganizationEntity source) {
+                            return organizationMapper.entityToDto(source);
+                        }
+                    });
+
+            response = new PaginableList<OrganizationDTO>(organizationPage,
+                    organizationPage.getContent());
+        }
+
+        return response;
+
+    }
+
+    @Override
+    public OrganizationDTO getUserOrganization(UserDetailsDTO details,
+            Long organizationId) {
+        if (details.getOrganization() != null
+                && details.getOrganization().getId() != null) {
+            return getOrganizationById(details.getOrganization().getId());
+        } else if (organizationId != null) {
+            return getOrganizationById(organizationId);
+        }
+        return null;
     }
 
 }
