@@ -5,7 +5,7 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFamilies;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     private final FamilyRepository familyRepository;
 
     private final SnapshotIndicatorPriorityRepository
-        snapshotIndicatorPriorityRepository;
+    snapshotIndicatorPriorityRepository;
 
     private final FamilyService familyService;
 
@@ -82,16 +82,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
-    public SnapshotServiceImpl(SnapshotEconomicRepository
-            economicRepository,
+    // CHECKSTYLE:OFF
+    public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
             SnapshotEconomicMapper economicMapper, SurveyService surveyService,
             SurveyRepository surveyRepository,
             SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService,
             PersonMapper personMapper, FamilyRepository familyRepository,
             FamilyService familyService,
-            SnapshotIndicatorPriorityRepository
-            snapshotIndicatorPriorityRepository) {
+            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -101,9 +100,9 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.personMapper = personMapper;
         this.familyRepository = familyRepository;
         this.familyService = familyService;
-        this.snapshotIndicatorPriorityRepository =
-                snapshotIndicatorPriorityRepository;
+        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
     }
+    // CHECKSTYLE:ON
 
     @Override
     @Transactional
@@ -348,14 +347,18 @@ public class SnapshotServiceImpl implements SnapshotService {
                 .findByOrganizationId(organizationId);
 
         List<SnapshotEconomicEntity> snapshots =
-                getSnapshotsLess2MonthsByFamilies(families);
+                getSnapshotsLess2MonthsByFamilies(
+                families);
 
-        Map<LocalDate, Long> result = snapshots.stream().collect(
+        Map<String, Long> result = snapshots.stream().collect(
 
-                Collectors.groupingBy(
-                        item -> item.getCreatedAt().toLocalDate()
-                                .with(TemporalAdjusters.firstDayOfMonth()),
-                        Collectors.counting()));
+                Collectors
+                        .groupingBy(
+                                item -> item.getCreatedAt().toLocalDate()
+                                        .with(TemporalAdjusters
+                                                .firstDayOfMonth())
+                                        .format(DateTimeFormatter.ISO_DATE),
+                                Collectors.counting()));
 
         SnapshotTaken t = new SnapshotTaken();
         t.setByMonth(result);

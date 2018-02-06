@@ -24,7 +24,6 @@ public class DashboardDTO implements Serializable {
     private SnapshotTaken snapshotTaken;
 
     public DashboardDTO() {
-        super();
     }
 
     public DashboardDTO(Long numberOfFamilies, List<ActivityDTO> activityFeed,

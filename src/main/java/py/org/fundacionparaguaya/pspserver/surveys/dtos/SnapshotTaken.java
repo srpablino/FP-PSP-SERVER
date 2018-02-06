@@ -1,18 +1,25 @@
 package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Map;
 
 public class SnapshotTaken implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Map<LocalDate, Long> byMonth;
 
-    public Map<LocalDate, Long> getByMonth() {
+    private Map<String, Long> byMonth;
+
+    public SnapshotTaken() {
+    }
+
+    public SnapshotTaken(Map<String, Long> map) {
+        this.byMonth = map;
+    }
+
+    public Map<String, Long> getByMonth() {
         return byMonth;
     }
 
-    public void setByMonth(Map<LocalDate, Long> byMonth) {
+    public void setByMonth(Map<String, Long> byMonth) {
         this.byMonth = byMonth;
     }
 

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,7 @@ public class ApplicationController {
         this.applicationService = applicationService;
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> addApplication(
             @Valid @RequestBody ApplicationDTO applicationDto)
             throws URISyntaxException {
@@ -49,7 +50,8 @@ public class ApplicationController {
                 .body(result);
     }
 
-    @PutMapping("/{applicationId}")
+    @PutMapping(value = "/{applicationId}",
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> updateApplication(
             @PathVariable("applicationId") long applicationId,
             @RequestBody ApplicationDTO applicationDto) {
@@ -83,7 +85,8 @@ public class ApplicationController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<ApplicationDTO> getApplicationDashboard(
-            @RequestParam(value = "applicationId", required = false) Long applicationId,
+            @RequestParam(value = "applicationId", required = false)
+            Long applicationId,
             @AuthenticationPrincipal UserDetailsDTO details) {
         ApplicationDTO dto = applicationService
                 .getApplicationDashboard(applicationId, details);
@@ -92,10 +95,14 @@ public class ApplicationController {
 
     @GetMapping("/hubs")
     public ResponseEntity<PaginableList<ApplicationDTO>> getAllApplicationsHubs(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
-            @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
-            @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy) {
+            @RequestParam(value = "page", required = false,
+            defaultValue = "1") int page,
+            @RequestParam(value = "per_page", required = false,
+            defaultValue = "12") int perPage,
+            @RequestParam(value = "sort_by", required = false,
+            defaultValue = "name") String sortBy,
+            @RequestParam(value = "order", required = false,
+            defaultValue = "asc") String orderBy) {
 
         return ResponseEntity.ok(applicationService.listApplicationsHubs(page,
                 perPage, orderBy, sortBy));
