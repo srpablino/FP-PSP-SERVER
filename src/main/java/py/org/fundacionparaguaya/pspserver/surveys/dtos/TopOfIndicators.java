@@ -9,6 +9,16 @@ public class TopOfIndicators implements Serializable {
     private Integer totalYellow;
     private Integer totalRed;
 
+    public TopOfIndicators() {
+    }
+
+    public TopOfIndicators(TopOfIndicators topOfIndicators) {
+        this.indicatorName = topOfIndicators.indicatorName;
+        this.totalGreen = topOfIndicators.getTotalGreen();
+        this.totalYellow = topOfIndicators.getTotalYellow();
+        this.totalRed = topOfIndicators.getTotalRed();
+    }
+
     public String getIndicatorName() {
         return indicatorName;
     }

@@ -274,21 +274,17 @@ public class SnapshotServiceImpl implements SnapshotService {
     private SnapshotIndicators countSnapshotIndicators(
             SnapshotEconomicEntity snapshot) {
         SnapshotIndicators indicators = new SnapshotIndicators();
-
         try {
             SurveyData properties = indicatorMapper
                     .entityToDto(snapshot.getSnapshotIndicator());
-
             properties.forEach((k, v) -> {
                 countIndicators(indicators, v);
             });
-
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new UnknownResourceException("Could not get indicators of "
                     + "the snapshot with id " + snapshot.getId());
         }
-
         return indicators;
     }
 

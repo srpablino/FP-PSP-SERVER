@@ -4,29 +4,23 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.OrganizationSpecification.byFilter;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.map.HashedMap;
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
@@ -176,51 +170,91 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<FamilyEntity> families = familyService
                 .findByOrganizationId(organizationId);
 
-        List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
+        List<SnapshotEconomicEntity> snapshotEconomicsList = snapshotEconomicRepo
                 .findByFamilyIn(families);
 
         List<SnapshotIndicatorEntity> indicatorsList = new ArrayList<SnapshotIndicatorEntity>();
 
-        for (SnapshotEconomicEntity economics : snapshotEconomics) {
-            indicatorsList.add(economics.getSnapshotIndicator());
-        }
+        snapshotEconomicsList.forEach(new Consumer<SnapshotEconomicEntity>() {
+            public void accept(SnapshotEconomicEntity name) {
+                indicatorsList.add(name.getSnapshotIndicator());
+            }
+        });
 
-        List<SurveyData> listProperties = indicatorMapper
+        List<SurveyData> propertiesList = indicatorMapper
                 .entityListToDtoList(indicatorsList);
 
         Map<String, TopOfIndicators> map = new HashMap<String, TopOfIndicators>();
 
-        for (SurveyData surveyData : listProperties) {
+        for (SurveyData surveyData : propertiesList) {
 
             surveyData.forEach((k, v) -> {
-                if (map.containsKey(k)) {
-
-                    String light = (String) v;
-                    TopOfIndicators tOi = map.get(k);
-                    
-                    switch (light) {
-                    
-                    case "RED":
-                        tOi.setTotalRed(tOi.getTotalRed() + 1);
-                        break;
-                    case "YELLOW":
-
-                        break;
-                    case "GREEN":
-
-                        break;
-                    default:
-                        break;
-                    }
-
-                } else {
-                    // map.put(k, value);
-                }
+                countTopIndicators(map, k, v);
             });
 
         }
 
-        return null;
+        List<TopOfIndicators> list = map.entrySet().stream()
+                .map(e -> new TopOfIndicators(e.getValue()))
+                .collect(Collectors.toList());
+
+        return list;
+
+    }
+
+    private void countTopIndicators(Map<String, TopOfIndicators> map, String k,
+            Object v) {
+
+        if (map.containsKey(k)) {
+
+            String light = (String) v;
+            TopOfIndicators tOi = map.get(k);
+
+            switch (light) {
+
+            case "RED":
+                tOi.setTotalRed(tOi.getTotalRed() + 1);
+                break;
+            case "YELLOW":
+                tOi.setTotalYellow(tOi.getTotalYellow() + 1);
+                break;
+            case "GREEN":
+                tOi.setTotalGreen(tOi.getTotalGreen() + 1);
+                break;
+            default:
+                break;
+            }
+
+        } else {
+
+            String light = (String) v;
+            TopOfIndicators tOi = new TopOfIndicators();
+            tOi.setIndicatorName((String) k);
+
+            switch (light) {
+
+            case "RED":
+                tOi.setTotalRed(1);
+                tOi.setTotalYellow(0);
+                tOi.setTotalGreen(0);
+                break;
+            case "YELLOW":
+                tOi.setTotalYellow(1);
+                tOi.setTotalRed(0);
+                tOi.setTotalGreen(0);
+                break;
+            case "GREEN":
+                tOi.setTotalGreen(1);
+                tOi.setTotalYellow(0);
+                tOi.setTotalRed(0);
+                break;
+            default:
+                break;
+            }
+
+            map.put(k, tOi);
+
+        }
 
     }
 
@@ -273,126 +307,6 @@ public class OrganizationServiceImpl implements OrganizationService {
                         break;
                     }
                 });
-    }
-
-    private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
-        List<FamilyEntity> families = familyService
-                .findByOrganizationId(organizationId);
-
-        List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
-                .findByFamilyIn(families);
-
-        List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
-
-        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
-
-        for (SnapshotEconomicEntity data : snapshotEconomics) {
-
-            Field[] fields = data.getSnapshotIndicator().getClass()
-                    .getDeclaredFields();
-
-            for (Field field : fields) {
-
-                int green = 0;
-                int yellow = 0;
-                int red = 0;
-                TopOfIndicators ti = new TopOfIndicators();
-
-                if (!snapshotEconomicsAux.isEmpty()) {
-
-                    SnapshotEconomicEntity aux = snapshotEconomicsAux.get(0);
-
-                    Field[] fieldsAux = aux.getSnapshotIndicator().getClass()
-                            .getDeclaredFields();
-
-                    for (Field fieldAux : fieldsAux) {
-
-                        if (fieldAux.getName().equals(field.getName())) {
-
-                            ti.setIndicatorName(fieldAux.getName());
-
-                            Object obj = null;
-
-                            try {
-                                if (!fieldAux.getName()
-                                        .equals(EXCLUDE_FIELDS[0])
-                                        && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[1])
-                                        && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[2])
-                                        && !fieldAux.getName()
-                                                .equals(EXCLUDE_FIELDS[3])) {
-
-                                    obj = PropertyUtils.getProperty(
-                                            aux.getSnapshotIndicator(),
-                                            fieldAux.getName());
-
-                                    String value = (String) obj;
-
-                                    switch (value) {
-
-                                    case "GREEN":
-                                        ti.setTotalGreen(++green);
-                                        ti.setTotalRed(red);
-                                        ti.setTotalYellow(yellow);
-                                        break;
-                                    case "YELLOW":
-                                        ti.setTotalYellow(++yellow);
-                                        ti.setTotalRed(red);
-                                        ti.setTotalGreen(green);
-                                        break;
-                                    case "RED":
-                                        ti.setTotalRed(++red);
-                                        ti.setTotalYellow(yellow);
-                                        ti.setTotalGreen(green);
-                                        break;
-
-                                    default:
-                                        ti.setTotalRed(red);
-                                        ti.setTotalYellow(yellow);
-                                        ti.setTotalGreen(green);
-                                        break;
-                                    }
-                                }
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                                throw new CustomParameterizedException("Error");
-                            } catch (InvocationTargetException e) {
-                                e.printStackTrace();
-                                throw new CustomParameterizedException("Error");
-                            } catch (NoSuchMethodException e) {
-                                e.printStackTrace();
-                                throw new CustomParameterizedException("Error");
-                            }
-                        }
-                    }
-                }
-                if (!ti.getIndicatorName().equals(EXCLUDE_FIELDS[0])
-                        && !ti.getIndicatorName().equals(EXCLUDE_FIELDS[1])
-                        && !ti.getIndicatorName().equals(EXCLUDE_FIELDS[2])
-                        && !ti.getIndicatorName().equals(EXCLUDE_FIELDS[3])) {
-                    topOfInticators.add(ti);
-                }
-            }
-
-        }
-
-        Collections.sort(topOfInticators, new Comparator<TopOfIndicators>() {
-            @Override
-            public int compare(TopOfIndicators p1, TopOfIndicators p2) {
-                return new CompareToBuilder()
-                        .append(p2.getTotalRed(), p1.getTotalRed())
-                        .append(p2.getTotalYellow(), p1.getTotalYellow())
-                        .toComparison();
-            }
-        });
-
-        if (topOfInticators.isEmpty()) {
-            return topOfInticators;
-        } else {
-            return topOfInticators;
-        }
-
     }
 
     @Override
