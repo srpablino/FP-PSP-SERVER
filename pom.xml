@@ -5,7 +5,7 @@
 
 	<groupId>py.org.fundacionparaguaya</groupId>
 	<artifactId>psp-server</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>psp-server</name>
@@ -243,7 +243,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
+                <version>3.0.0</version>
                 <configuration>
                     <failOnViolation>false</failOnViolation>
                     <logViolationsToConsole>true</logViolationsToConsole>
@@ -259,6 +259,16 @@
                     </execution>
                 </executions>
             </plugin>
+
+			<plugin>
+				<groupId>com.amashchenko.maven.plugin</groupId>
+				<artifactId>gitflow-maven-plugin</artifactId>
+				<version>1.9.0</version>
+				<configuration>
+					<!-- optional configuration -->
+				</configuration>
+        	</plugin>
+
 		</plugins>
 
 		<pluginManagement>
