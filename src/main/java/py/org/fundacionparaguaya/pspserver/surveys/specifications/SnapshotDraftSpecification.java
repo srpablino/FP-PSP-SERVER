@@ -25,10 +25,8 @@ public class SnapshotDraftSpecification {
 
     private static final String ID_ATTRIBUTE = "id";
 
-    private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
+    private SnapshotDraftSpecification() {}
 
-    private SnapshotDraftSpecification() {
-    }
 
     public static Specification<SnapshotDraftEntity> userEquals(Long userId) {
         return new Specification<SnapshotDraftEntity>() {
@@ -72,14 +70,15 @@ public class SnapshotDraftSpecification {
         };
     }
 
-    public static Specification<SnapshotDraftEntity> createdAtLess8Days() {
+    public static Specification<SnapshotDraftEntity> createdAtLessDays(
+            long days) {
         return new Specification<SnapshotDraftEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotDraftEntity> root,
                     CriteriaQuery<?> query, CriteriaBuilder cb) {
 
                 LocalDateTime limit = LocalDateTime.now();
-                limit = limit.minusDays(SNAPSHOT_DRAFT_MAX_DAY);
+                limit = limit.minusDays(days);
 
                 return cb
                         .and(cb.greaterThan(
