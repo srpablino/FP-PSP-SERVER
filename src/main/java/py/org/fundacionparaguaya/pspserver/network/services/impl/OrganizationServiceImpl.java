@@ -9,14 +9,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -64,7 +68,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private static final String[] EXCLUDE_FIELDS = {"serialVersionUID", "id",
+    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
             "additionalProperties", "priorities" };
 
     public OrganizationServiceImpl(
@@ -160,12 +164,64 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         DashboardDTO dashboard = DashboardDTO.of(
                 familyService.countFamiliesByFilter(filter), null,
-                getTopOfIndicators(organizationId),
+                getTopOfIndicatorsII(organizationId),
                 countSnapshotIndicators(organizationId), null);
 
         dto.setDashboard(dashboard);
 
         return dto;
+    }
+
+    private List<TopOfIndicators> getTopOfIndicatorsII(Long organizationId) {
+        List<FamilyEntity> families = familyService
+                .findByOrganizationId(organizationId);
+
+        List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
+                .findByFamilyIn(families);
+
+        List<SnapshotIndicatorEntity> indicatorsList = new ArrayList<SnapshotIndicatorEntity>();
+
+        for (SnapshotEconomicEntity economics : snapshotEconomics) {
+            indicatorsList.add(economics.getSnapshotIndicator());
+        }
+
+        List<SurveyData> listProperties = indicatorMapper
+                .entityListToDtoList(indicatorsList);
+
+        Map<String, TopOfIndicators> map = new HashMap<String, TopOfIndicators>();
+
+        for (SurveyData surveyData : listProperties) {
+
+            surveyData.forEach((k, v) -> {
+                if (map.containsKey(k)) {
+
+                    String light = (String) v;
+                    TopOfIndicators tOi = map.get(k);
+                    
+                    switch (light) {
+                    
+                    case "RED":
+                        tOi.setTotalRed(tOi.getTotalRed() + 1);
+                        break;
+                    case "YELLOW":
+
+                        break;
+                    case "GREEN":
+
+                        break;
+                    default:
+                        break;
+                    }
+
+                } else {
+                    // map.put(k, value);
+                }
+            });
+
+        }
+
+        return null;
+
     }
 
     private SnapshotIndicators countSnapshotIndicators(Long organizationId) {
@@ -176,8 +232,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
                 .findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> entityList =
-                new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());
@@ -229,8 +284,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         List<SnapshotEconomicEntity> snapshotEconomicsAux = snapshotEconomics;
 
-        List<TopOfIndicators> topOfInticators =
-                new ArrayList<TopOfIndicators>();
+        List<TopOfIndicators> topOfInticators = new ArrayList<TopOfIndicators>();
 
         for (SnapshotEconomicEntity data : snapshotEconomics) {
 
@@ -336,7 +390,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (topOfInticators.isEmpty()) {
             return topOfInticators;
         } else {
-            return topOfInticators.subList(0, LIMIT_TOP_OF_INDICATOR);
+            return topOfInticators;
         }
 
     }
