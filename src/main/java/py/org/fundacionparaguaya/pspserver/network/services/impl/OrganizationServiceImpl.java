@@ -43,11 +43,10 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEnt
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.surveys.services.impl.SnapshotServiceImpl;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-
-    private static final int LIMIT_TOP_OF_INDICATOR = 5;
 
     private static final Logger LOG = LoggerFactory
             .getLogger(OrganizationServiceImpl.class);
@@ -62,19 +61,20 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final SnapshotIndicatorMapper indicatorMapper;
 
-    private static final String[] EXCLUDE_FIELDS = { "serialVersionUID", "id",
-            "additionalProperties", "priorities" };
+    private final SnapshotServiceImpl snapshotServiceImpl;
 
     public OrganizationServiceImpl(
             OrganizationRepository organizationRepository,
             OrganizationMapper organizationMapper, FamilyService familyService,
             SnapshotEconomicRepository snapshotEconomicRepo,
-            SnapshotIndicatorMapper indicatorMapper) {
+            SnapshotIndicatorMapper indicatorMapper,
+            SnapshotServiceImpl snapshotServiceImpl) {
         this.organizationRepository = organizationRepository;
         this.organizationMapper = organizationMapper;
         this.familyService = familyService;
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.indicatorMapper = indicatorMapper;
+        this.snapshotServiceImpl = snapshotServiceImpl;
     }
 
     @Override
@@ -158,7 +158,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         DashboardDTO dashboard = DashboardDTO.of(
                 familyService.countFamiliesByFilter(filter), null,
-                getTopOfIndicatorsII(organizationId),
+                getTopOfIndicators(organizationId),
                 countSnapshotIndicators(organizationId), null);
 
         dto.setDashboard(dashboard);
@@ -166,25 +166,27 @@ public class OrganizationServiceImpl implements OrganizationService {
         return dto;
     }
 
-    private List<TopOfIndicators> getTopOfIndicatorsII(Long organizationId) {
+    private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
         List<FamilyEntity> families = familyService
                 .findByOrganizationId(organizationId);
 
-        List<SnapshotEconomicEntity> snapshotEconomicsList = snapshotEconomicRepo
-                .findByFamilyIn(families);
+        List<SnapshotEconomicEntity> snapshotEconomicsList =
+                snapshotEconomicRepo.findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> indicatorsList = new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> indicatorsList =
+                new ArrayList<SnapshotIndicatorEntity>();
 
         snapshotEconomicsList.forEach(new Consumer<SnapshotEconomicEntity>() {
-            public void accept(SnapshotEconomicEntity name) {
-                indicatorsList.add(name.getSnapshotIndicator());
+            public void accept(SnapshotEconomicEntity snapshotEconomic) {
+                indicatorsList.add(snapshotEconomic.getSnapshotIndicator());
             }
         });
 
         List<SurveyData> propertiesList = indicatorMapper
                 .entityListToDtoList(indicatorsList);
 
-        Map<String, TopOfIndicators> map = new HashMap<String, TopOfIndicators>();
+        Map<String, TopOfIndicators> map =
+                new HashMap<String, TopOfIndicators>();
 
         for (SurveyData surveyData : propertiesList) {
 
@@ -229,30 +231,32 @@ public class OrganizationServiceImpl implements OrganizationService {
 
             String light = (String) v;
             TopOfIndicators tOi = new TopOfIndicators();
-            tOi.setIndicatorName((String) k);
+            tOi.setIndicatorName(
+                    snapshotServiceImpl.getNameFromCamelCase((String) k));
 
-            switch (light) {
+            if (light != null) {
+                switch (light) {
+                case "RED":
+                    tOi.setTotalRed(1);
+                    tOi.setTotalYellow(0);
+                    tOi.setTotalGreen(0);
+                    break;
+                case "YELLOW":
+                    tOi.setTotalYellow(1);
+                    tOi.setTotalRed(0);
+                    tOi.setTotalGreen(0);
+                    break;
+                case "GREEN":
+                    tOi.setTotalGreen(1);
+                    tOi.setTotalYellow(0);
+                    tOi.setTotalRed(0);
+                    break;
+                default:
+                    break;
+                }
 
-            case "RED":
-                tOi.setTotalRed(1);
-                tOi.setTotalYellow(0);
-                tOi.setTotalGreen(0);
-                break;
-            case "YELLOW":
-                tOi.setTotalYellow(1);
-                tOi.setTotalRed(0);
-                tOi.setTotalGreen(0);
-                break;
-            case "GREEN":
-                tOi.setTotalGreen(1);
-                tOi.setTotalYellow(0);
-                tOi.setTotalRed(0);
-                break;
-            default:
-                break;
+                map.put(k, tOi);
             }
-
-            map.put(k, tOi);
 
         }
 
@@ -266,7 +270,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         List<SnapshotEconomicEntity> snapshotEconomics = snapshotEconomicRepo
                 .findByFamilyIn(families);
 
-        List<SnapshotIndicatorEntity> entityList = new ArrayList<SnapshotIndicatorEntity>();
+        List<SnapshotIndicatorEntity> entityList =
+                new ArrayList<SnapshotIndicatorEntity>();
 
         for (SnapshotEconomicEntity economics : snapshotEconomics) {
             entityList.add(economics.getSnapshotIndicator());

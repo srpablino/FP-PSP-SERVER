@@ -194,7 +194,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         return toRet;
     }
 
-    private String getNameFromCamelCase(String name) {
+    public String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils
                 .join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
