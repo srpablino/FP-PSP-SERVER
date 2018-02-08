@@ -9,8 +9,6 @@ public class ImageDTO implements Serializable {
 
     private String format;
 
-    public ImageDTO() {}
-
     public File getFile() {
         return file;
     }

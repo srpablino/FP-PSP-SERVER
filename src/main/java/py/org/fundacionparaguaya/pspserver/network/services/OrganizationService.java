@@ -1,28 +1,31 @@
 package py.org.fundacionparaguaya.pspserver.network.services;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
-public interface OrganizationService{
+import java.io.IOException;
+import java.util.List;
 
-	OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO);
+public interface OrganizationService {
 
-	OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException;
-	
-	OrganizationDTO getOrganizationById(Long organizationId);
-	
-	List<OrganizationDTO> getAllOrganizations();
-	
-	void deleteOrganization(Long organizationId);
+    OrganizationDTO updateOrganization(Long organizationId,
+                                       OrganizationDTO organizationDTO);
 
-	Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails);
+    OrganizationDTO addOrganization(OrganizationDTO organizationDTO)
+            throws IOException;
 
-    OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details);	
+    OrganizationDTO getOrganizationById(Long organizationId);
+
+    List<OrganizationDTO> getAllOrganizations();
+
+    void deleteOrganization(Long organizationId);
+
+    Page<OrganizationDTO> listOrganizations(PageRequest pageRequest,
+                                            UserDetailsDTO userDetails);
+
+    OrganizationDTO getOrganizationDashboard(Long organizationId,
+                                             UserDetailsDTO details);
 
 }
