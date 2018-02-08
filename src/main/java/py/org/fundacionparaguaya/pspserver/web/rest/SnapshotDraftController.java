@@ -132,7 +132,7 @@ public class SnapshotDraftController {
              message = "The requested snapshot draft by user id",
              response = SurveyDefinition.class) })
         public ResponseEntity<List<SnapshotDraft>> getSnapshotDraftByUser (
-                @RequestParam(value = "description", required = true)
+                @RequestParam(value = "description", required = false)
                         String familyName,
                         @AuthenticationPrincipal UserDetailsDTO details)
                 throws NotFoundException {
