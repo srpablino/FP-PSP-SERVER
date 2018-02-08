@@ -11,6 +11,8 @@ public class ApplicationProperties {
 
     private Templates templates = new Templates();
 
+    private Sender sender = new Sender();
+
     public Client getClient() {
         return client;
     }
@@ -27,6 +29,13 @@ public class ApplicationProperties {
         this.templates = templates;
     }
 
+    public Sender getSender() {
+        return sender;
+    }
+
+    public void setSender(Sender sender) {
+        this.sender = sender;
+    }
 
     public static class Client {
         private String loginUrl;
@@ -50,6 +59,19 @@ public class ApplicationProperties {
 
         public void setResetMail(String resetMail) {
             this.resetMail = resetMail;
+        }
+
+    }
+
+    public static class Sender {
+        private String from;
+
+        public String getFrom() {
+            return from;
+        }
+
+        public void setFrom(String from) {
+            this.from = from;
         }
 
     }
