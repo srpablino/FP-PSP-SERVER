@@ -90,8 +90,31 @@ public class OrganizationController {
                 organizationService.listOrganizations(pageRequest, details);
         PaginableList<OrganizationDTO> response =
                 new PaginableList<>(pageProperties,
-                                    pageProperties.getContent());
+                        pageProperties.getContent());
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/application")
+    public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
+            @RequestParam
+                    (value = "page", required = false, defaultValue = "1")
+                    int page,
+            @RequestParam
+                    (value = "per_page", required = false, defaultValue = "12")
+                    int perPage,
+            @RequestParam
+                    (value = "sort_by", required = false, defaultValue = "name")
+                    String sortBy,
+            @RequestParam
+                    (value = "order", required = false, defaultValue = "asc")
+                    String orderBy,
+            @RequestParam(value = "applicationId", required = true)
+                    Long applicationId,
+            @RequestParam(value = "organizationId", required = false)
+                    Long organizationId) {
+
+        return ResponseEntity.ok(organizationService.listOrganizations(
+                applicationId, organizationId, page, perPage, orderBy, sortBy));
     }
 
     @DeleteMapping("/{organizationId}")

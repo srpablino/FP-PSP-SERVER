@@ -233,6 +233,11 @@
         <sqlFile path="sql/2017-12-29T16:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Delete innecesaries columns in "snapshot_draft" table -->
+    <changeSet id="2018-01-29T17:00" author="mgonzalez">
+        <sqlFile path="sql/2018-01-29T17:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Change columns to NOT NULL in organizations table-->
     <changeSet id="2018-01-30T11:20" author="cbenitez">
         <sqlFile path="sql/2018-01-30T11:20.sql" relativeToChangelogFile="true"/>
