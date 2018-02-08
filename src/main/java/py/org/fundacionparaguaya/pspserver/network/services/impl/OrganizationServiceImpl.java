@@ -6,12 +6,8 @@ import static py.org.fundacionparaguaya.pspserver.network.specifications.Organiz
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +33,6 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
@@ -158,108 +153,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         DashboardDTO dashboard = DashboardDTO.of(
                 familyService.countFamiliesByFilter(filter), null,
-                getTopOfIndicators(organizationId),
+                snapshotServiceImpl.getTopOfIndicators(organizationId),
                 countSnapshotIndicators(organizationId), null);
 
         dto.setDashboard(dashboard);
 
         return dto;
-    }
-
-    private List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
-        List<FamilyEntity> families = familyService
-                .findByOrganizationId(organizationId);
-
-        List<SnapshotEconomicEntity> snapshotEconomicsList =
-                snapshotEconomicRepo.findByFamilyIn(families);
-
-        List<SnapshotIndicatorEntity> indicatorsList =
-                new ArrayList<SnapshotIndicatorEntity>();
-
-        snapshotEconomicsList.forEach(new Consumer<SnapshotEconomicEntity>() {
-            public void accept(SnapshotEconomicEntity snapshotEconomic) {
-                indicatorsList.add(snapshotEconomic.getSnapshotIndicator());
-            }
-        });
-
-        List<SurveyData> propertiesList = indicatorMapper
-                .entityListToDtoList(indicatorsList);
-
-        Map<String, TopOfIndicators> map =
-                new HashMap<String, TopOfIndicators>();
-
-        for (SurveyData surveyData : propertiesList) {
-
-            surveyData.forEach((k, v) -> {
-                countTopIndicators(map, k, v);
-            });
-
-        }
-
-        List<TopOfIndicators> list = map.entrySet().stream()
-                .map(e -> new TopOfIndicators(e.getValue()))
-                .collect(Collectors.toList());
-
-        return list;
-
-    }
-
-    private void countTopIndicators(Map<String, TopOfIndicators> map, String k,
-            Object v) {
-
-        if (map.containsKey(k)) {
-
-            String light = (String) v;
-            TopOfIndicators tOi = map.get(k);
-
-            switch (light) {
-
-            case "RED":
-                tOi.setTotalRed(tOi.getTotalRed() + 1);
-                break;
-            case "YELLOW":
-                tOi.setTotalYellow(tOi.getTotalYellow() + 1);
-                break;
-            case "GREEN":
-                tOi.setTotalGreen(tOi.getTotalGreen() + 1);
-                break;
-            default:
-                break;
-            }
-
-        } else {
-
-            String light = (String) v;
-            TopOfIndicators tOi = new TopOfIndicators();
-            tOi.setIndicatorName(
-                    snapshotServiceImpl.getNameFromCamelCase((String) k));
-
-            if (light != null) {
-                switch (light) {
-                case "RED":
-                    tOi.setTotalRed(1);
-                    tOi.setTotalYellow(0);
-                    tOi.setTotalGreen(0);
-                    break;
-                case "YELLOW":
-                    tOi.setTotalYellow(1);
-                    tOi.setTotalRed(0);
-                    tOi.setTotalGreen(0);
-                    break;
-                case "GREEN":
-                    tOi.setTotalGreen(1);
-                    tOi.setTotalYellow(0);
-                    tOi.setTotalRed(0);
-                    break;
-                default:
-                    break;
-                }
-
-                map.put(k, tOi);
-            }
-
-        }
-
     }
 
     private SnapshotIndicators countSnapshotIndicators(Long organizationId) {

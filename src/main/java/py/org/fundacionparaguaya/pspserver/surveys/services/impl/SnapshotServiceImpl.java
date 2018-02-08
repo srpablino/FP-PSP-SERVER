@@ -8,6 +8,7 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +34,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriorit
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
@@ -368,6 +370,70 @@ public class SnapshotServiceImpl implements SnapshotService {
         return economicRepository.findAll(
                 where(byFamilies(families)).and(createdAtLess2Months()));
 
+    }
+
+    @Override
+    public List<TopOfIndicators> getTopOfIndicators(Long organizationId) {
+        List<FamilyEntity> families = familyService
+                .findByOrganizationId(organizationId);
+
+        List<SurveyData> propertiesList =
+                indicatorMapper.entityListToDtoList(economicRepository.
+                        findByFamilyIn(families).stream()
+                        .map(economic -> economic.getSnapshotIndicator())
+                        .collect(Collectors.toList()));
+
+        Map<String, TopOfIndicators> topOfIndicatorMap =
+                new HashMap<String, TopOfIndicators>();
+
+        for (SurveyData surveyData : propertiesList) {
+            surveyData.forEach((key, value) -> {
+                countTopIndicators(topOfIndicatorMap, key, value);
+            });
+        }
+
+        List<TopOfIndicators> list = topOfIndicatorMap.entrySet().stream()
+                .map(e -> new TopOfIndicators(e.getValue()))
+                .collect(Collectors.toList());
+
+        return list;
+    }
+
+    private void countTopIndicators(
+            Map<String, TopOfIndicators> topOfIndicatorMap,
+            String key,
+            Object value) {
+        String light = (String) value;
+        TopOfIndicators topOfIndicators;
+        if (topOfIndicatorMap.containsKey(key)) {
+            topOfIndicators = topOfIndicatorMap.get(key);
+        } else {
+            topOfIndicators = new TopOfIndicators(0, 0, 0);
+            topOfIndicators.setIndicatorName(
+                    getNameFromCamelCase((String) key));
+            topOfIndicatorMap.put(key, topOfIndicators);
+        }
+        if (light != null) {
+            switch (light) {
+            case "RED":
+                topOfIndicators.setTotalRed(
+                        (topOfIndicators.getTotalRed() == null) ? 1
+                                : topOfIndicators.getTotalRed() + 1);
+                break;
+            case "YELLOW":
+                topOfIndicators.setTotalYellow(
+                        (topOfIndicators.getTotalYellow() == null) ? 1
+                                : topOfIndicators.getTotalYellow() + 1);
+                break;
+            case "GREEN":
+                topOfIndicators.setTotalGreen(
+                        (topOfIndicators.getTotalGreen() == null) ? 1
+                                : topOfIndicators.getTotalGreen() + 1);
+                break;
+            default:
+                break;
+            }
+        }
     }
 
 }
