@@ -164,6 +164,9 @@
         <module name="ArrayTypeStyle"/>
         <module name="TodoComment"/>
         <module name="UpperEll"/>
+        <!-- Added module to enable block warning suppressions -->
+	<!-- See https://stackoverflow.com/questions/4023185/how-to-disable-a-particular-checkstyle-rule-for-a-particular-line-of-code -->
+        <module name="SuppressionCommentFilter"/>
 
     </module>
 
