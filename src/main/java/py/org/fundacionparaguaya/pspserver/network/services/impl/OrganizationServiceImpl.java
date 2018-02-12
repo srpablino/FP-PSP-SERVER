@@ -12,6 +12,7 @@ import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterized
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -54,17 +55,21 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final ImageUploadService imageUploadService;
 
+    private final ApplicationProperties applicationProperties;
+
     public OrganizationServiceImpl(
             OrganizationRepository organizationRepository,
             ApplicationRepository applicationRepository,
             OrganizationMapper organizationMapper,
             FamilyService familyService,
-            ImageUploadService imageUploadService) {
+            ImageUploadService imageUploadService,
+            ApplicationProperties applicationProperties) {
         this.organizationRepository = organizationRepository;
         this.applicationRepository = applicationRepository;
         this.organizationMapper = organizationMapper;
         this.familyService = familyService;
         this.imageUploadService = imageUploadService;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -114,9 +119,14 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .save(organization);
 
         // Upload image to AWS S3 service
-        ImageDTO image = ImageParser.parse(organizationDTO.getFile());
-        String logoURL = imageUploadService
-                .uploadImage(image, "organization", newOrganization.getId());
+        ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile());
+        imageDTO.setImageDirectory(
+                    applicationProperties.getAws().getOrgsImageDirectory());
+        imageDTO.setImageNamePrefix(
+                    applicationProperties.getAws().getOrgsImageNamePrefix());
+
+        String logoURL =
+            imageUploadService.uploadImage(imageDTO, newOrganization.getId());
 
         if (logoURL != null) {
             // Update Organization entity with image URL

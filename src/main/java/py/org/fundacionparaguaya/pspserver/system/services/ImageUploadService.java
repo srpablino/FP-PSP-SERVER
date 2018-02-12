@@ -4,5 +4,5 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 
 public interface ImageUploadService {
 
-    String uploadImage(ImageDTO image, String entity, Long id);
+    String uploadImage(ImageDTO image, Long id);
 }

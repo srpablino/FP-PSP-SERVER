@@ -30,11 +30,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
     @Override
-    public String uploadImage(ImageDTO image, String entity, Long entityId) {
+    public String uploadImage(ImageDTO imageDTO, Long entityId) {
 
         String url = null;
 
-        if (image != null) {
+        if (imageDTO != null) {
             try {
                 String strRegion = applicationProperties
                         .getAws()
@@ -49,25 +49,17 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                         .getAws()
                         .getBucketName();
 
-                String imageDirectory = null;
-                String imageNamePrefix = null;
-                if ("organization".equals(entity)) {
-                    imageDirectory = applicationProperties
-                            .getAws()
-                            .getOrgsImageDirectory();
-                    imageNamePrefix = applicationProperties
-                            .getAws()
-                            .getOrgsImageNamePrefix();
-                }
+                String imageDirectory = imageDTO.getImageDirectory();
+                String imageNamePrefix = imageDTO.getImageNamePrefix();
                 String fileName = imageNamePrefix + entityId
-                        + "." + image.getFormat();
+                        + "." + imageDTO.getFormat();
                 String keyName = imageDirectory + fileName;
 
                 s3Client.putObject(
                         new PutObjectRequest(
                             bucketName,
                             keyName,
-                            image.getFile()
+                            imageDTO.getFile()
                         )
                         .withCannedAcl(CannedAccessControlList.PublicRead));
 
