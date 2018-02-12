@@ -23,7 +23,9 @@ public class UserRoleApplicationDTO {
     public UserRoleApplicationDTO() {
     }
 
-    private UserRoleApplicationDTO(String username, String email, String pass, Role role, Long applicationId, Long organizationId) {
+    private UserRoleApplicationDTO(String username, String email, String pass,
+                                   Role role, Long applicationId,
+                                   Long organizationId) {
         this.username = username;
         this.email = email;
         this.pass = pass;
@@ -60,18 +62,21 @@ public class UserRoleApplicationDTO {
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder applicationId(Long applicationId) {
+        public UserRoleApplicationDTO.Builder applicationId(
+                                                        Long applicationId) {
             this.applicationId = applicationId;
             return this;
         }
 
-        public UserRoleApplicationDTO.Builder organizationId(Long organizationId) {
+        public UserRoleApplicationDTO.Builder organizationId(
+                                                        Long organizationId) {
             this.organizationId = organizationId;
             return this;
         }
 
         public UserRoleApplicationDTO build() {
-            return new UserRoleApplicationDTO(username, email, pass, role, applicationId, organizationId);
+            return new UserRoleApplicationDTO(username, email, pass, role,
+                                                applicationId, organizationId);
         }
     }
 
@@ -138,5 +143,4 @@ public class UserRoleApplicationDTO {
                 .add("organizationId", organizationId)
                 .toString();
     }
-
 }

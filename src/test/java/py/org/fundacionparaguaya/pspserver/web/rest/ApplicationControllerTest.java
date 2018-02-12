@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * 
+ *
  * created by mcespedes on 9/4/17
  *
  */
@@ -37,8 +37,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class ApplicationControllerTest {
 
+    //CHECKSTYLE:OFF
     @Autowired
     private ApplicationController controller;
+    //CHECKSTYLE:ON
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,43 +48,62 @@ public class ApplicationControllerTest {
     @MockBean
     private ApplicationService applicationService;
 
+    //CHECKSTYLE:OFF
     @MockBean
     private OrganizationService organizationService;
+    //CHECKSTYLE:ON
 
     private ApplicationDTO mockApplication;
 
     @Before
     public void setup() {
-
-        mockApplication = ApplicationDTO.builder().name("foo.name").code("foo.code").description("foo.description")
-                .isActive(true).country(getCountryTest()).city(getCityTest()).information("foo.information").isHub(true)
-                .isPartner(true).build();
-
+        mockApplication = ApplicationDTO.builder()
+                .name("foo.name")
+                .code("foo.code")
+                .description("foo.description")
+                .isActive(true)
+                .country(getCountryTest())
+                .city(getCityTest())
+                .information("foo.information")
+                .isHub(true)
+                .isPartner(true)
+                .build();
     }
 
     @Test
-    public void requestingPutApplicationShouldAddNewApplication() throws Exception {
+    public void requestingPutApplicationShouldAddNewApplication()
+            throws Exception {
 
-        when(applicationService.addApplication(anyObject())).thenReturn(mockApplication);
+        when(applicationService.addApplication(anyObject()))
+                                .thenReturn(mockApplication);
 
         String json = TestHelper.mapToJson(mockApplication);
 
-        mockMvc.perform(post("/api/v1/applications").content(json).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/api/v1/applications")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", is(mockApplication.getName())));
     }
 
     @Test
-    public void requestingPostApplicationShouldUpdateApplication() throws Exception {
+    public void requestingPostApplicationShouldUpdateApplication()
+            throws Exception {
         Long applicationId = 9999L;
 
-        when(applicationService.updateApplication(eq(applicationId), anyObject())).thenReturn(mockApplication);
+        when(applicationService.updateApplication(eq(applicationId),
+                                                  anyObject()))
+        .thenReturn(mockApplication);
 
         String json = TestHelper.mapToJson(mockApplication);
-        mockMvc.perform(put("/api/v1/applications/{applicationId}", applicationId).content(json)
-                .contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk())
+        mockMvc.perform(put("/api/v1/applications/{applicationId}",
+                            applicationId)
+                .content(json)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status()
+                .isOk())
                 .andExpect(jsonPath("$.name", is(mockApplication.getName())));
-
     }
 
     private CountryDTO getCountryTest() {
