@@ -48,6 +48,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.repositories.SurveyRepository
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPriorityService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
+import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 
 /**
@@ -158,9 +159,13 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<Snapshot> find(Long surveyId, Long familiyId) {
-        return economicRepository.findBySurveyDefinitionId(surveyId).stream()
-                .map(economicMapper::entityToDto).collect(Collectors.toList());
+    public List<Snapshot> find(Long surveyId, Long familyId) {
+        return economicRepository.findAll(
+                where(SnapshotEconomicSpecification.forSurvey(surveyId))
+                .and(SnapshotEconomicSpecification.forFamily(familyId)))
+                .stream()
+                .map(economicMapper::entityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -404,31 +409,25 @@ public class SnapshotServiceImpl implements SnapshotService {
             String key,
             Object value) {
         String light = (String) value;
-        TopOfIndicators topOfIndicators;
-        if (topOfIndicatorMap.containsKey(key)) {
-            topOfIndicators = topOfIndicatorMap.get(key);
-        } else {
-            topOfIndicators = new TopOfIndicators(0, 0, 0);
+        TopOfIndicators topOfIndicators = topOfIndicatorMap.get(key);
+
+        if (topOfIndicators == null) {
+            topOfIndicators = new TopOfIndicators();
             topOfIndicators.setIndicatorName(
                     getNameFromCamelCase((String) key));
             topOfIndicatorMap.put(key, topOfIndicators);
         }
+
         if (light != null) {
             switch (light) {
             case "RED":
-                topOfIndicators.setTotalRed(
-                        (topOfIndicators.getTotalRed() == null) ? 1
-                                : topOfIndicators.getTotalRed() + 1);
+                topOfIndicators.incrementRed();
                 break;
             case "YELLOW":
-                topOfIndicators.setTotalYellow(
-                        (topOfIndicators.getTotalYellow() == null) ? 1
-                                : topOfIndicators.getTotalYellow() + 1);
+                topOfIndicators.incrementYellow();
                 break;
             case "GREEN":
-                topOfIndicators.setTotalGreen(
-                        (topOfIndicators.getTotalGreen() == null) ? 1
-                                : topOfIndicators.getTotalGreen() + 1);
+                topOfIndicators.incrementGreen();
                 break;
             default:
                 break;

@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class TopOfIndicators implements Serializable {
     private static final long serialVersionUID = 1L;
     private String indicatorName;
-    private Integer totalGreen;
-    private Integer totalYellow;
-    private Integer totalRed;
+    private Integer totalGreen=0;
+    private Integer totalYellow=0;
+    private Integer totalRed=0;
 
     public TopOfIndicators() {
     }
@@ -19,12 +19,16 @@ public class TopOfIndicators implements Serializable {
         this.totalRed = topOfIndicators.getTotalRed();
     }
 
-    public TopOfIndicators(Integer totalGreen,
-            Integer totalYellow,
-            Integer totalRed) {
-        this.totalGreen = totalGreen;
-        this.totalYellow = totalYellow;
-        this.totalRed = totalRed;
+    public void incrementRed(){
+        this.totalRed = totalRed + 1;
+    }
+
+    public void incrementYellow(){
+        this.totalYellow = totalYellow + 1;
+    }
+
+    public void incrementGreen(){
+        this.totalGreen = totalGreen + 1;
     }
 
     public String getIndicatorName() {
