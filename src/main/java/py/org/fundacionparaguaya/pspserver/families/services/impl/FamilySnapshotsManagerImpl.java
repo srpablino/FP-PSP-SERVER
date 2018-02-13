@@ -4,9 +4,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -24,75 +28,102 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 @Service
 public class FamilySnapshotsManagerImpl implements FamilySnapshotsManager {
 
-	private final FamilyMapper familyMapper;
+    @Autowired
+    private MessageSource messageSource;
 
-	private final FamilyRepository familyRepository;
+    private final FamilyMapper familyMapper;
 
-	private final SnapshotService snapshotService;
+    private final FamilyRepository familyRepository;
 
-	private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
+    private final SnapshotService snapshotService;
 
-	private final SnapshotIndicatorRepository snapshotIndicatorRepository;
+    private final SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository;
 
-	private final SnapshotEconomicRepository economicRepository;
+    private final SnapshotIndicatorRepository snapshotIndicatorRepository;
 
-	private static final int MAX_DAYS_DELETE_SNAPSHOT = 30;
+    private final SnapshotEconomicRepository economicRepository;
 
-	public FamilySnapshotsManagerImpl(FamilyRepository familyRepository, 
-			FamilyMapper familyMapper,
-			SnapshotService snapshotService, 
-			SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
-			SnapshotIndicatorRepository snapshotIndicatorRepository, 
-			SnapshotEconomicRepository economicRepository) {
-		this.familyRepository = familyRepository;
-		this.familyMapper = familyMapper;
-		this.snapshotService = snapshotService;
-		this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
-		this.snapshotIndicatorRepository = snapshotIndicatorRepository;
-		this.economicRepository = economicRepository;
-	}
+    private static final int MAX_DAYS_DELETE_SNAPSHOT = 30;
 
-	@Override
-	public FamilyMapDTO getFamilyMapById(Long familyId) {
-		checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
+    public FamilySnapshotsManagerImpl(FamilyRepository familyRepository,
+            FamilyMapper familyMapper, SnapshotService snapshotService,
+            SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
+            SnapshotIndicatorRepository snapshotIndicatorRepository,
+            SnapshotEconomicRepository economicRepository) {
+        this.familyRepository = familyRepository;
+        this.familyMapper = familyMapper;
+        this.snapshotService = snapshotService;
+        this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
+        this.snapshotIndicatorRepository = snapshotIndicatorRepository;
+        this.economicRepository = economicRepository;
+    }
 
-		FamilyMapDTO familyFile = new FamilyMapDTO();
+    @Override
+    public FamilyMapDTO getFamilyMapById(Long familyId) {
+        Locale locale =  LocaleContextHolder.getLocale();
 
-		FamilyDTO family = Optional.ofNullable(familyRepository
-				.findOne(familyId)).map(familyMapper::entityToDto)
-				.orElseThrow(() -> new UnknownResourceException("Family does not exist"));
+        checkArgument(familyId > 0, messageSource.getMessage("argument.nonNegative", null,
+                locale),
+                familyId);
 
-		BeanUtils.copyProperties(family, familyFile);
+        FamilyMapDTO familyFile = new FamilyMapDTO();
 
-		familyFile.setSnapshotIndicators(snapshotService.getLastSnapshotIndicatorsByFamily(familyId));
-		return familyFile;
-	}
+        FamilyDTO family = Optional
+                .ofNullable(familyRepository.findOne(familyId))
+                .map(familyMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        messageSource.getMessage("family.notExist", null,
+                                locale)));
 
-	@Override
-	public void deleteSnapshotByFamily(Long familyId) {
-		checkArgument(familyId > 0, "Argument was %s but expected nonnegative", familyId);
+        BeanUtils.copyProperties(family, familyFile);
 
-		Optional.ofNullable(familyRepository.findOne(familyId)).ifPresent(family -> {
-			Optional.ofNullable(economicRepository.findTopByFamilyFamilyIdOrderByIdDesc(familyId))
-					.ifPresent(snapshotEconomicEntity -> {
+        familyFile.setSnapshotIndicators(
+                snapshotService.getLastSnapshotIndicatorsByFamily(familyId));
+        return familyFile;
+    }
 
-						LocalDateTime now = LocalDateTime.now();
-						LocalDateTime dateOfSnapshot = snapshotEconomicEntity.getCreatedAt();
-						Period intervalPeriod = Period.between(dateOfSnapshot.toLocalDate(), now.toLocalDate());
+    @Override
+    public void deleteSnapshotByFamily(Long familyId) {
+        Locale locale =  LocaleContextHolder.getLocale();
+        
+        checkArgument(familyId > 0, messageSource.getMessage("argument.nonNegative", null,
+                locale),
+                familyId);
 
-						if (intervalPeriod.getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
-							SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
-							snapshotIndicatorPriorityRepository.delete(snapshotIndicatorPriorityRepository
-									.findBySnapshotIndicatorId(snapshotEconomicEntity.getSnapshotIndicator().getId()));
-							economicRepository.delete(snapshotEconomicEntity);
-							snapshotIndicatorRepository.delete(snapshotEconomicEntityAux.getSnapshotIndicator());
-						}
+        Optional.ofNullable(familyRepository.findOne(familyId))
+                .ifPresent(family -> {
+                    Optional.ofNullable(economicRepository
+                            .findTopByFamilyFamilyIdOrderByIdDesc(familyId))
+                            .ifPresent(snapshotEconomicEntity -> {
 
-					});
+                                LocalDateTime now = LocalDateTime.now();
+                                LocalDateTime dateOfSnapshot = snapshotEconomicEntity
+                                        .getCreatedAt();
+                                Period intervalPeriod = Period.between(
+                                        dateOfSnapshot.toLocalDate(),
+                                        now.toLocalDate());
 
-			family.setActive(false);
-			familyRepository.save(family);
-		});
-	}
+                                if (intervalPeriod
+                                        .getDays() < MAX_DAYS_DELETE_SNAPSHOT) {
+                                    SnapshotEconomicEntity snapshotEconomicEntityAux = snapshotEconomicEntity;
+                                    snapshotIndicatorPriorityRepository.delete(
+                                            snapshotIndicatorPriorityRepository
+                                                    .findBySnapshotIndicatorId(
+                                                            snapshotEconomicEntity
+                                                                    .getSnapshotIndicator()
+                                                                    .getId()));
+                                    economicRepository
+                                            .delete(snapshotEconomicEntity);
+                                    snapshotIndicatorRepository
+                                            .delete(snapshotEconomicEntityAux
+                                                    .getSnapshotIndicator());
+                                }
+
+                            });
+
+                    family.setActive(false);
+                    familyRepository.save(family);
+                });
+    }
 
 }
