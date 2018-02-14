@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.network.services;
 
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
@@ -24,4 +25,7 @@ public interface ApplicationService {
 
     ApplicationDTO getApplicationDashboard(Long applicationId,
                                            UserDetailsDTO details);
+
+    PaginableList<ApplicationDTO> listApplicationsHubs(int page, int perPage,
+            String orderBy, String sortBy);
 }

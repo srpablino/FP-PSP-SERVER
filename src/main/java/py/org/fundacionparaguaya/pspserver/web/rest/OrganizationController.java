@@ -22,6 +22,7 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -41,7 +42,7 @@ public class OrganizationController {
     @PostMapping()
     public ResponseEntity<OrganizationDTO> addOrganization(
                             @Valid @RequestBody OrganizationDTO organizationDTO)
-                                                    throws URISyntaxException {
+                                        throws URISyntaxException, IOException {
         OrganizationDTO result =
                         organizationService.addOrganization(organizationDTO);
         return ResponseEntity
@@ -69,18 +70,18 @@ public class OrganizationController {
 
     @GetMapping()
     public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
-            @RequestParam(value = "page",
-                          required = false,
-                          defaultValue = "1") int page,
-            @RequestParam(value = "per_page",
-                          required = false,
-                          defaultValue = "12") int perPage,
-            @RequestParam(value = "sort_by",
-                          required = false,
-                          defaultValue = "name") String sortBy,
-            @RequestParam(value = "order",
-                          required = false,
-                          defaultValue = "asc") String orderBy,
+            @RequestParam
+                    (value = "page", required = false, defaultValue = "1")
+                    int page,
+            @RequestParam
+                    (value = "per_page", required = false, defaultValue = "12")
+                    int perPage,
+            @RequestParam
+                    (value = "sort_by", required = false, defaultValue = "name")
+                    String sortBy,
+            @RequestParam
+                    (value = "order", required = false, defaultValue = "asc")
+                    String orderBy,
             @AuthenticationPrincipal UserDetailsDTO details) {
         PageRequest pageRequest =
                             new PspPageRequest(page, perPage, orderBy, sortBy);
@@ -89,6 +90,29 @@ public class OrganizationController {
         PaginableList<OrganizationDTO> response =
             new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/application")
+    public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
+            @RequestParam
+                    (value = "page", required = false, defaultValue = "1")
+                    int page,
+            @RequestParam
+                    (value = "per_page", required = false, defaultValue = "12")
+                    int perPage,
+            @RequestParam
+                    (value = "sort_by", required = false, defaultValue = "name")
+                    String sortBy,
+            @RequestParam
+                    (value = "order", required = false, defaultValue = "asc")
+                    String orderBy,
+            @RequestParam(value = "applicationId", required = true)
+                    Long applicationId,
+            @RequestParam(value = "organizationId", required = false)
+                    Long organizationId) {
+
+        return ResponseEntity.ok(organizationService.listOrganizations(
+                applicationId, organizationId, page, perPage, orderBy, sortBy));
     }
 
     @DeleteMapping("/{organizationId}")
@@ -102,7 +126,7 @@ public class OrganizationController {
     @GetMapping("/dashboard")
     public ResponseEntity<OrganizationDTO> getApplicationDashboard(
             @RequestParam(value = "organizationId", required = false)
-                                                            Long organizationId,
+                    Long organizationId,
             @AuthenticationPrincipal UserDetailsDTO details) {
         OrganizationDTO dto =
                     organizationService.getOrganizationDashboard(organizationId,

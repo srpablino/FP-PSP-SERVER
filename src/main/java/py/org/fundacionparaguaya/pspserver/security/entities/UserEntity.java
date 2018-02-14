@@ -55,18 +55,16 @@ public class UserEntity extends BaseEntity {
         this.id = id;
     }
 
-
     public String getUsername() {
         return username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
@@ -88,7 +86,6 @@ public class UserEntity extends BaseEntity {
     public void setActive(boolean active) {
         this.active = active;
     }
-
 
     @Override
     public boolean equals(Object obj) {

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
@@ -97,9 +99,8 @@ public class ApplicationController {
     }
 
     @GetMapping("/{applicationId}/organizations")
-    public ResponseEntity<List<OrganizationDTO>>
-                        getOrganizationsByApplicationId(
-                            @PathVariable("applicationId") Long applicationId) {
+    public ResponseEntity<List<OrganizationDTO>> getOrganizationsByApplicationId
+                        (@PathVariable("applicationId") Long applicationId) {
         List<OrganizationDTO> organizationsByLoggedUser =
             organizationService.getOrganizationsByApplicationId(applicationId);
         return ResponseEntity.ok(organizationsByLoggedUser);
@@ -113,5 +114,21 @@ public class ApplicationController {
         ApplicationDTO dto =
             applicationService.getApplicationDashboard(applicationId, details);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/hubs")
+    public ResponseEntity<PaginableList<ApplicationDTO>> getAllApplicationsHubs(
+            @RequestParam(value = "page", required = false,
+                    defaultValue = "1") int page,
+            @RequestParam(value = "per_page", required = false,
+                    defaultValue = "12") int perPage,
+            @RequestParam(value = "sort_by", required = false,
+                    defaultValue = "name") String sortBy,
+            @RequestParam(value = "order", required = false,
+                    defaultValue = "asc") String orderBy) {
+
+        return ResponseEntity.ok(applicationService.listApplicationsHubs(page,
+                perPage, orderBy, sortBy));
+
     }
 }

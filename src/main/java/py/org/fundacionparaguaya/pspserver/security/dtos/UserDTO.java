@@ -87,7 +87,6 @@ public class UserDTO {
         return pass;
     }
 
-
     public boolean isActive() {
         return active;
     }

@@ -2,15 +2,20 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -49,8 +54,7 @@ public class ApplicationServiceImpl implements ApplicationService {
                         "Argument was %s but expected nonnegative",
                         applicationId);
 
-        return Optional.ofNullable(applicationRepository
-                .findOne(applicationId))
+        return Optional.ofNullable(applicationRepository.findOne(applicationId))
                 .map(application -> {
                     BeanUtils.copyProperties(applicationDTO, application);
                     LOG.debug("Changed Information for Application: {}",
@@ -104,7 +108,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationMapper.entityListToDtoList(partners);
     }
 
-
     @Override
     public void deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0,
@@ -121,23 +124,50 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationDTO getApplicationDashboard(Long applicationId,
                                                   UserDetailsDTO details) {
-        ApplicationDTO dto = new ApplicationDTO();
 
-        if (details.getApplication() != null
-                                && details.getApplication().getId() != null) {
-            dto = getApplicationById(details.getApplication().getId());
-        } else if (applicationId != null) {
-            dto = getApplicationById(applicationId);
-        }
+        ApplicationDTO dto = getUserApplication(details, applicationId);
 
         Long organizationId = Optional.ofNullable(details.getOrganization())
                                         .orElse(new OrganizationDTO()).getId();
 
-        FamilyFilterDTO filter = new FamilyFilterDTO(dto.getId(),
-                                                     organizationId);
-        dto.setDashboard(DashboardDTO.of(
-                                familyService.countFamiliesByFilter(filter)));
+        FamilyFilterDTO filter =
+                            new FamilyFilterDTO(dto.getId(), organizationId);
+
+        dto.setDashboard(
+                DashboardDTO.of(familyService.countFamiliesByFilter(filter)));
 
         return dto;
+    }
+
+    private ApplicationDTO getUserApplication(UserDetailsDTO details,
+                                              Long applicationId) {
+        if (details.getApplication() != null
+                && details.getApplication().getId() != null) {
+            return getApplicationById(details.getApplication().getId());
+        } else if (applicationId != null) {
+            return getApplicationById(applicationId);
+        }
+        return new ApplicationDTO();
+    }
+
+    @Override
+    public PaginableList<ApplicationDTO> listApplicationsHubs(
+                        int page, int perPage, String orderBy, String sortBy) {
+
+        PageRequest pageRequest =
+                            new PspPageRequest(page, perPage, orderBy, sortBy);
+        Page<ApplicationEntity> pageResponse =
+                        applicationRepository.findAllByIsHub(true, pageRequest);
+        if (pageResponse == null) {
+            return new PaginableList<ApplicationDTO>(Collections.emptyList());
+        }
+        Page<ApplicationDTO> applicationPage = pageResponse
+                .map(new Converter<ApplicationEntity, ApplicationDTO>() {
+                    public ApplicationDTO convert(ApplicationEntity source) {
+                        return applicationMapper.entityToDto(source);
+                    }
+                });
+        return new PaginableList<ApplicationDTO>(applicationPage,
+                                                applicationPage.getContent());
     }
 }
