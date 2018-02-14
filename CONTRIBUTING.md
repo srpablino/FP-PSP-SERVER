@@ -23,9 +23,9 @@ Thanks for being willing to contribute!
 Please make sure to run the tests before you commit your changes. You can run
 `mvn test` which will run the tests and will also run the maven code analyzers plugins:
 
-* [PMD](https://pmd.github.io/) to check some common potential source of bugs and good practices
-* [CheckStyle](http://checkstyle.sourceforge.net/) to check code style conventions
-* [FindBugs](http://findbugs.sourceforge.net/) to also check some common potential source of bugs
+* [PMD](https://pmd.github.io/), checks some common potential source of bugs and good practices
+* [CheckStyle](http://checkstyle.sourceforge.net/), checks code style conventions
+* [FindBugs](http://findbugs.sourceforge.net/), also checks some common potential source of bugs
 
 If any of those plugins throws any errors you will have to fix them manually and push those fixes to your PR branch.
 
@@ -60,10 +60,10 @@ Overall, we invite contributors to read the existing code and follow the convent
 * No more than 4 parameters in public methods. Create new DTOs if needed, to use them as parameters
 * No more than 15 lines per method
 * No more than one if statement per method
-* Avoid if switch statements if possible, use Java 8 lambdas instead: http://marcels-javanotes.blogspot.com/2016/09/replace-switch-statements-using-lamda.html
+* Avoid switch statements if possible, use Java 8 lambdas instead. You can check [this blog post](http://marcels-javanotes.blogspot.com/2016/09/replace-switch-statements-using-lamda.html) for some inspiration. 
 * No nested loops if possible
-* Use [Builder pattern](https://github.com/HugoMatilla/Effective-JAVA-Summary#2-use-builders-when-faced-with-many-constructors) when faced with classes that require more than one non-empty constructor. Usually this is the case for DTOs used in automated tests.
-* [Enums insteaf of number constants](https://github.com/HugoMatilla/Effective-JAVA-Summary#6-enums-and-annotations)
+* Use [Builder pattern](https://github.com/HugoMatilla/Effective-JAVA-Summary#2-use-builders-when-faced-with-many-constructors) when faced with classes that require more than one non-empty constructor. Usually this is the case for DTOs used in automated tests
+* [Enums instead of int constants](https://github.com/HugoMatilla/Effective-JAVA-Summary#6-enums-and-annotations)
 * Use static final properties for String constants, don't hardcode them in methods
 * If a POJO does not need getters, don't create them. [Minimize mutability](https://github.com/HugoMatilla/Effective-JAVA-Summary#15-minimize-mutability)
 * Don't modify method parameters, create instead new objects and return them. Again, _minimize mutability everywhere_
