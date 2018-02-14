@@ -123,7 +123,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         DashboardDTO dashboard = DashboardDTO.of(
                 familyService.countFamiliesByFilter(filter), null, null, null,
-                snapshotService.countSnapshotTaken(organizationId));
+                snapshotService.countSnapshotTaken(filter));
 
         dto.setDashboard(dashboard);
 

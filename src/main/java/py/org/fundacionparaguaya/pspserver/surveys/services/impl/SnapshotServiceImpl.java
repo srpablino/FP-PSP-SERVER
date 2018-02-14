@@ -2,7 +2,8 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFamilies;
+import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFilter;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
@@ -162,9 +164,8 @@ public class SnapshotServiceImpl implements SnapshotService {
     public List<Snapshot> find(Long surveyId, Long familyId) {
         return economicRepository.findAll(
                 where(SnapshotEconomicSpecification.forSurvey(surveyId))
-                .and(SnapshotEconomicSpecification.forFamily(familyId)))
-                .stream()
-                .map(economicMapper::entityToDto)
+                        .and(SnapshotEconomicSpecification.forFamily(familyId)))
+                .stream().map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -344,14 +345,10 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public SnapshotTaken countSnapshotTaken(Long organizationId) {
-
-        List<FamilyEntity> families = familyRepository
-                .findByOrganizationId(organizationId);
-
+    public SnapshotTaken countSnapshotTaken(FamilyFilterDTO filter) {
         List<SnapshotEconomicEntity> snapshots =
                 getSnapshotsLess2MonthsByFamilies(
-                families);
+                filter);
 
         Map<String, Long> result = snapshots.stream().collect(
 
@@ -371,9 +368,10 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     @Override
     public List<SnapshotEconomicEntity> getSnapshotsLess2MonthsByFamilies(
-            List<FamilyEntity> families) {
-        return economicRepository.findAll(
-                where(byFamilies(families)).and(createdAtLess2Months()));
+            FamilyFilterDTO filter) {
+        return economicRepository.findAll(where(
+                byFilter(filter.getApplicationId(), filter.getOrganizationId()))
+                        .and(createdAtLess2Months()));
 
     }
 
@@ -382,9 +380,8 @@ public class SnapshotServiceImpl implements SnapshotService {
         List<FamilyEntity> families = familyService
                 .findByOrganizationId(organizationId);
 
-        List<SurveyData> propertiesList =
-                indicatorMapper.entityListToDtoList(economicRepository.
-                        findByFamilyIn(families).stream()
+        List<SurveyData> propertiesList = indicatorMapper.entityListToDtoList(
+                economicRepository.findByFamilyIn(families).stream()
                         .map(economic -> economic.getSnapshotIndicator())
                         .collect(Collectors.toList()));
 
@@ -405,16 +402,15 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private void countTopIndicators(
-            Map<String, TopOfIndicators> topOfIndicatorMap,
-            String key,
+            Map<String, TopOfIndicators> topOfIndicatorMap, String key,
             Object value) {
         String light = (String) value;
         TopOfIndicators topOfIndicators = topOfIndicatorMap.get(key);
 
         if (topOfIndicators == null) {
             topOfIndicators = new TopOfIndicators();
-            topOfIndicators.setIndicatorName(
-                    getNameFromCamelCase((String) key));
+            topOfIndicators
+                    .setIndicatorName(getNameFromCamelCase((String) key));
             topOfIndicatorMap.put(key, topOfIndicators);
         }
 

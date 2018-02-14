@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity_;
 
@@ -27,18 +26,23 @@ public class SnapshotEconomicSpecification {
         // not called
     }
 
-    public static Specification<SnapshotEconomicEntity> byFamilies(
-            List<FamilyEntity> families) {
+    public static Specification<SnapshotEconomicEntity> byFilter(
+            Long applicationId, Long organizationId) {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotEconomicEntity> root,
                     CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                if (families != null) {
-                    for (FamilyEntity family : families) {
-                        predicates.add(cb.equal(root.get("family"), family));
-                    }
+                if (applicationId != null) {
+                    predicates.add(cb.equal(
+                            root.join("family").join("application").get("id"),
+                            applicationId));
+                }
+                if (organizationId != null) {
+                    predicates.add(cb.equal(
+                            root.join("family").join("organization").get("id"),
+                            organizationId));
                 }
 
                 return cb.and(
