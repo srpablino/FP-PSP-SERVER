@@ -9,7 +9,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -30,9 +29,6 @@ public interface SnapshotService {
     void deleteSnapshotById(Long snapshotEconomicId);
 
     SnapshotTaken countSnapshotTaken(FamilyFilterDTO filter);
-
-    List<SnapshotEconomicEntity> getSnapshotsLess2MonthsByFamilies(
-            FamilyFilterDTO filter);
 
     List<TopOfIndicators> getTopOfIndicators(Long organizationId);
 
