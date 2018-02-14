@@ -2,7 +2,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 import java.time.format.DateTimeFormatter;
@@ -368,7 +368,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     private List<SnapshotEconomicEntity> getSnapshotsLess2MonthsByFamilies(
             FamilyFilterDTO filter) {
         return economicRepository.findAll(where(
-                byFilter(filter.getApplicationId(), filter.getOrganizationId()))
+                byApplication(filter.getApplicationId()))
                         .and(createdAtLess2Months()));
     }
 

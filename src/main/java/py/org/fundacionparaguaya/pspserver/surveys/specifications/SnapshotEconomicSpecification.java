@@ -26,8 +26,8 @@ public class SnapshotEconomicSpecification {
         // not called
     }
 
-    public static Specification<SnapshotEconomicEntity> byFilter(
-            Long applicationId, Long organizationId) {
+    public static Specification<SnapshotEconomicEntity> byApplication(
+            Long applicationId) {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotEconomicEntity> root,
@@ -38,11 +38,6 @@ public class SnapshotEconomicSpecification {
                     predicates.add(cb.equal(
                             root.join("family").join("application").get("id"),
                             applicationId));
-                }
-                if (organizationId != null) {
-                    predicates.add(cb.equal(
-                            root.join("family").join("organization").get("id"),
-                            organizationId));
                 }
 
                 return cb.and(
