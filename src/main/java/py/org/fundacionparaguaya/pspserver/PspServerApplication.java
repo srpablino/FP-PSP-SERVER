@@ -1,8 +1,5 @@
 package py.org.fundacionparaguaya.pspserver;
 
-import java.util.Locale;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,92 +8,126 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.validation.Validator;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import java.util.Locale;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.MessageInterpolator;
 
 @SpringBootApplication
 public class PspServerApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(PspServerApplication.class);
-	}
-	
-	@Bean
-	public LocaleResolver localeResolver() {
-	    SessionLocaleResolver slr = new SessionLocaleResolver();
-	    slr.setDefaultLocale(Locale.FRENCH);
-	    return slr;
-	}
-	
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-	    LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-	    lci.setParamName("lang");
-	    return lci;
-	}
-	
-	
-	
-	public static void main(String[] args) {
-	 
-		SpringApplication.run(PspServerApplication.class, args);
-	}
-	
-	  class LocaleAwareMessageInterpolator implements MessageInterpolator {
+    @Override
+    protected SpringApplicationBuilder configure(
+            SpringApplicationBuilder application) {
+        return application.sources(PspServerApplication.class);
+    }
 
-	        private MessageSource messageSource;
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.forLanguageTag("es"));
+        return slr;
+    }
 
-	        public LocaleAwareMessageInterpolator(MessageSource messageSource) {
-	            this.messageSource = messageSource;
-	        }
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor() {
+            @Override
+            public boolean preHandle(HttpServletRequest request,
+                    HttpServletResponse response, Object handler)
+                    throws ServletException {
 
-	        @Override
-	        public String interpolate(final String messageTemplate, final Context context) {
-	            //log.info("LocaleAwareMessageInterpolator.interpolate1()");
-	            //System.out.println("locale "+LocaleContextHolder.getLocale());
-	            return messageSource.getMessage(messageTemplate, null, LocaleContextHolder.getLocale());
-	        }
+                String newLocale = request.getHeader("X-Language");
+                if (newLocale != null) {
+                    LocaleResolver localeResolver = RequestContextUtils
+                            .getLocaleResolver(request);
+                    if (localeResolver == null) {
+                        throw new IllegalStateException(
+                                "No LocaleResolver found: not in a DispatcherServlet request?");
+                    }
+                    try {
+                        localeResolver.setLocale(request, response,
+                                parseLocaleValue(newLocale));
+                    } catch (IllegalArgumentException ex) {
+                        if (isIgnoreInvalidLocale()) {
+                            logger.debug("Ignoring invalid locale value ["
+                                    + newLocale + "]: " + ex.getMessage());
+                        } else {
+                            throw ex;
+                        }
+                    }
+                }
+                return true;
+            }
+        };
+        return lci;
+    }
 
-	        @Override
-	        public String interpolate(final String messageTemplate, final Context context, final Locale locale) {
-	            //log.info("LocaleAwareMessageInterpolator.interpolate2() - {}", locale);
-	            return messageSource.getMessage(messageTemplate, null, locale);
-	        }
-	    }
-	
-	 @Configuration
-	    class WebMvcConfig extends WebMvcConfigurerAdapter {
+    public static void main(String[] args) {
 
-	        @Autowired
-	        private MessageSource messageSource;
+        SpringApplication.run(PspServerApplication.class, args);
+    }
 
-	        @Override
-	        public Validator getValidator() {
-	            return validator();
-	        }
+    class LocaleAwareMessageInterpolator implements MessageInterpolator {
 
-	        @Override
-	        public void addInterceptors(InterceptorRegistry registry) {
-	            registry.addInterceptor(localeChangeInterceptor());
-	        }
+        private MessageSource messageSource;
 
+        public LocaleAwareMessageInterpolator(MessageSource messageSource) {
+            this.messageSource = messageSource;
+        }
 
-	        @Bean
-	        public LocalValidatorFactoryBean validator() {
-	            LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-	            factory.setMessageInterpolator(new LocaleAwareMessageInterpolator(messageSource));
-	            factory.setValidationMessageSource(messageSource);
+        @Override
+        public String interpolate(final String messageTemplate,
+                final Context context) {
+            return messageSource.getMessage(messageTemplate, null,
+                    LocaleContextHolder.getLocale());
+        }
 
-	            return factory;
-	        }
-	    }
+        @Override
+        public String interpolate(final String messageTemplate,
+                final Context context, final Locale locale) {
+            return messageSource.getMessage(messageTemplate, null, locale);
+        }
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("i18n/messages");
+        messageSource.setFallbackToSystemLocale(false);
+
+        return messageSource;
+    }
+
+    @Configuration
+    class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+        @Override
+        public void addInterceptors(InterceptorRegistry registry) {
+            registry.addInterceptor(localeChangeInterceptor());
+        }
+
+        @Bean
+        public LocalValidatorFactoryBean validator() {
+            LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
+            factory.setMessageInterpolator(
+                    (MessageInterpolator) new LocaleAwareMessageInterpolator(
+                            messageSource()));
+            factory.setValidationMessageSource(messageSource());
+
+            return factory;
+        }
+    }
 
 }
