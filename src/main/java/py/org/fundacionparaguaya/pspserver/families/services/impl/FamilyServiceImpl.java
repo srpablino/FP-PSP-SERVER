@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
@@ -37,13 +36,22 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
+
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
     @Autowired
     private MessageSource messageSource;
 
-    private Logger LOG = LoggerFactory.getLogger(FamilyServiceImpl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(FamilyServiceImpl.class);
 
     private final FamilyMapper familyMapper;
 
@@ -228,5 +236,21 @@ public class FamilyServiceImpl implements FamilyService {
 
         target.setApplicationId(applicationId);
         target.setOrganizationId(organizationId);
+    }
+
+    @Override
+    public List<FamilyEntity> findByOrganizationId(Long organizationId) {
+        return familyRepository.findByOrganizationId(organizationId);
+    }
+
+    @Override
+    public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot,
+                                                      PersonEntity personEntity) {
+        String code = this.generateFamilyCode(personEntity);
+
+        return familyRepository.findByCode(code)
+                .orElse(this.createFamilyFromSnapshot(
+                        details, snapshot, code, personEntity));
+
     }
 }
