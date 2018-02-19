@@ -1,6 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.security.dtos;
 
 import com.google.common.base.MoreObjects;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,15 +21,21 @@ public class UserDTO {
 
     private boolean active;
 
+    private ApplicationDTO application;
+
+    private OrganizationDTO organization;
+
     public UserDTO() {}
 
-    private UserDTO(Long userId, String username, String email, String pass,
-                                                            boolean active) {
+    private UserDTO(Long userId, String username, String email, String pass, boolean active,
+                        ApplicationDTO application, OrganizationDTO organization) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.pass = pass;
         this.active = active;
+        this.application = application;
+        this.organization = organization;
     }
 
     public static class Builder {
@@ -36,6 +44,8 @@ public class UserDTO {
         private String email;
         private String pass;
         private boolean active;
+        private ApplicationDTO application;
+        private OrganizationDTO organization;
 
         public Builder userId(Long userId) {
             this.userId = userId;
@@ -62,8 +72,18 @@ public class UserDTO {
             return this;
         }
 
+        public Builder application(ApplicationDTO application) {
+            this.application = application;
+            return this;
+        }
+
+        public Builder organization(OrganizationDTO organization) {
+            this.organization = organization;
+            return this;
+        }
+
         public UserDTO build() {
-            return new UserDTO(userId, username, email, pass, active);
+            return new UserDTO(userId, username, email, pass, active, application, organization);
         }
     }
 
@@ -91,6 +111,14 @@ public class UserDTO {
         return active;
     }
 
+    public ApplicationDTO getApplication() {
+        return application;
+    }
+
+    public OrganizationDTO getOrganization() {
+        return organization;
+    }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -111,6 +139,14 @@ public class UserDTO {
         this.active = active;
     }
 
+    public void setApplication(ApplicationDTO application) {
+        this.application = application;
+    }
+
+    public void setOrganization(OrganizationDTO organization) {
+        this.organization = organization;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -119,6 +155,8 @@ public class UserDTO {
                 .add("email", email)
                 .add("pass", pass)
                 .add("active", active)
+                .add("application", application)
+                .add("organization", organization)
                 .toString();
     }
 }
