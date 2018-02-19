@@ -36,14 +36,6 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byFilter;
-
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
