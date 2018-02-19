@@ -35,6 +35,10 @@ public interface FamilyService {
 
     List<FamilyEntity> findByOrganizationId(Long organizationId);
 
-    FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, PersonEntity personEntity);
+    FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details,
+            NewSnapshot snapshot, PersonEntity personEntity);
+
+    List<FamilyDTO> listDistinctFamiliesSnapshotByUser(UserDetailsDTO details,
+            String name);
 
 }
