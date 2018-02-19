@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,17 +42,19 @@ public class ApplicationController {
         this.organizationService = organizationService;
     }
 
-    @PostMapping()
-    public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDTO)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDto)
                                                                                 throws URISyntaxException {
-        ApplicationDTO result = applicationService.addApplication(applicationDTO);
-        return ResponseEntity.created(new URI("/api/v1/applications/" + result.getId())).body(result);
+        ApplicationDTO result = applicationService.addApplication(applicationDto);
+        return ResponseEntity
+                .created(new URI("/api/v1/applications/" + result.getId()))
+                .body(result);
     }
 
-    @PutMapping("/{applicationId}")
+    @PutMapping(value = "/{applicationId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> updateApplication(@PathVariable("applicationId") long applicationId,
-                                                            @RequestBody ApplicationDTO applicationDTO) {
-        ApplicationDTO result = applicationService.updateApplication(applicationId, applicationDTO);
+                                                            @RequestBody ApplicationDTO applicationDto) {
+        ApplicationDTO result = applicationService.updateApplication(applicationId, applicationDto);
         return ResponseEntity.ok(result);
     }
 
@@ -90,8 +93,8 @@ public class ApplicationController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<ApplicationDTO> getApplicationDashboard(
-                                            @RequestParam(value = "applicationId", required = false) Long applicationId,
-                                            @AuthenticationPrincipal UserDetailsDTO details) {
+            @RequestParam(value = "applicationId", required = false) Long applicationId,
+            @AuthenticationPrincipal UserDetailsDTO details) {
         ApplicationDTO dto = applicationService.getApplicationDashboard(applicationId, details);
         return ResponseEntity.ok(dto);
     }
