@@ -8,13 +8,29 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(UserApplicationEntity.class)
 public class UserApplicationEntity_ {
 
+    private static volatile SingularAttribute<UserApplicationEntity, Long> id;
+
+    private static volatile SingularAttribute<UserApplicationEntity, UserEntity> user;
+
+    private static volatile SingularAttribute<UserApplicationEntity, ApplicationEntity> application;
+
+    private static volatile SingularAttribute<UserApplicationEntity, OrganizationEntity> organization;
+
     private UserApplicationEntity_() {}
 
-    public static volatile SingularAttribute<UserApplicationEntity, Long> id;
+    public static SingularAttribute<UserApplicationEntity, Long> getId() {
+        return id;
+    }
 
-    public static volatile SingularAttribute<UserApplicationEntity, UserEntity> user;
+    public static SingularAttribute<UserApplicationEntity, UserEntity> getUser() {
+        return user;
+    }
 
-    public static volatile SingularAttribute<UserApplicationEntity, ApplicationEntity> application;
+    public static SingularAttribute<UserApplicationEntity, ApplicationEntity> getApplication() {
+        return application;
+    }
 
-    public static volatile SingularAttribute<UserApplicationEntity, OrganizationEntity> organization;
+    public static SingularAttribute<UserApplicationEntity, OrganizationEntity> getOrganization() {
+        return organization;
+    }
 }
