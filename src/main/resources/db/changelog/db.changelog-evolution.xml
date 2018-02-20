@@ -252,4 +252,9 @@
         <sqlFile path="sql/2018-02-14T13:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add is_success column in indicator snapshot_indicator_priorities table-->
+    <changeSet id="2018-02-20T11:30" author="jferreira">
+        <sqlFile path="sql/2018-02-20T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
