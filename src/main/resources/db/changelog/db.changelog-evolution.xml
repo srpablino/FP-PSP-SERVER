@@ -247,4 +247,9 @@
         <sqlFile path="sql/2018-01-30T11:20.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+     <!-- Create survey organization table-->
+    <changeSet id="2018-02-20T09:15" author="mcespedes">
+        <sqlFile path="sql/2018-02-20T09:15.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
