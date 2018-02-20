@@ -17,12 +17,13 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
 
     Optional<ApplicationEntity> findOneByName(String name);
 
-    List<ApplicationEntity> findByIsActive(boolean isActive);
-
     Page<ApplicationEntity> findAll(Pageable pageRequest);
+
+    List<ApplicationEntity> findByIsActive(boolean isActive);
 
     List<ApplicationEntity> findByIsHubAndIsActive(boolean isHub, boolean isActive);
 
     List<ApplicationEntity> findByIsPartnerAndIsActive(boolean isPartner, boolean isActive);
 
+    Page<ApplicationEntity> findAllByIsHub(boolean isHub, Pageable page);
 }

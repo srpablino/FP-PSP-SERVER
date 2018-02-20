@@ -9,7 +9,9 @@ public class ImageDTO implements Serializable {
 
     private String format;
 
-    public ImageDTO() {}
+    private String imageDirectory;
+
+    private String imageNamePrefix;
 
     public File getFile() {
         return file;
@@ -25,5 +27,21 @@ public class ImageDTO implements Serializable {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public String getImageDirectory() {
+        return imageDirectory;
+    }
+
+    public void setImageDirectory(String imageDirectory) {
+        this.imageDirectory = imageDirectory;
+    }
+
+    public String getImageNamePrefix() {
+        return imageNamePrefix;
+    }
+
+    public void setImageNamePrefix(String imageNamePrefix) {
+        this.imageNamePrefix = imageNamePrefix;
     }
 }

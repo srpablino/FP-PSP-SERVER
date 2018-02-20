@@ -1,30 +1,40 @@
 package py.org.fundacionparaguaya.pspserver.network.services;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
+import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
-public interface OrganizationService{
+import java.io.IOException;
+import java.util.List;
 
-	OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO);
+public interface OrganizationService {
 
-	OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException;
-	
-	OrganizationDTO getOrganizationById(Long organizationId);
-	
-	List<OrganizationDTO> getAllOrganizations();
+    OrganizationDTO updateOrganization(Long organizationId,
+                                       OrganizationDTO organizationDTO);
 
-	List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
+    OrganizationDTO addOrganization(OrganizationDTO organizationDTO)
+            throws IOException;
 
-	void deleteOrganization(Long organizationId);
+    OrganizationDTO getOrganizationById(Long organizationId);
 
-	Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails);
+    List<OrganizationDTO> getAllOrganizations();
 
-    OrganizationDTO getOrganizationDashboard(Long organizationId, UserDetailsDTO details);	
+    List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
 
+    void deleteOrganization(Long organizationId);
+
+    Page<OrganizationDTO> listOrganizations(PageRequest pageRequest,
+                                            UserDetailsDTO userDetails);
+
+    PaginableList<OrganizationDTO> listOrganizations(Long applicationId,
+                    Long organizationId, int page, int perPage, String orderBy,
+                    String sortBy);
+
+    OrganizationDTO getOrganizationDashboard(Long organizationId,
+                                             UserDetailsDTO details);
+
+    OrganizationDTO getUserOrganization(UserDetailsDTO details,
+                                        Long organizationId);
 }

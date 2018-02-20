@@ -6,19 +6,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.mapper.UserApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.UserApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
-
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserRoleApplicationDTO;
@@ -33,193 +33,170 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasApplication;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasOrganization;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.userIsActive;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	private Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
-	private UserRepository userRepository;
+    private UserRepository userRepository;
 
-	private UserRoleRepository userRoleRepository;
+    private UserRoleRepository userRoleRepository;
 
-	private ApplicationRepository applicationRepository;
+    private ApplicationRepository applicationRepository;
 
-	private OrganizationRepository organizationRepository;
+    private OrganizationRepository organizationRepository;
 
-	private UserApplicationRepository userApplicationRepository;
+    private UserApplicationRepository userApplicationRepository;
 
-	private final UserMapper userMapper;
+    private final UserMapper userMapper;
 
-	public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
-						   ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
-						   UserApplicationRepository userApplicationRepository, UserMapper userMapper) {
-		this.userRepository = userRepository;
-		this.userRoleRepository = userRoleRepository;
-		this.applicationRepository = applicationRepository;
-		this.organizationRepository = organizationRepository;
-		this.userApplicationRepository = userApplicationRepository;
+    private final UserApplicationMapper userApplicationMapper;
+
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
+                           ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
+                           UserApplicationRepository userApplicationRepository, UserMapper userMapper,
+                           UserApplicationMapper userApplicationMapper) {
+        this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
+        this.applicationRepository = applicationRepository;
+        this.organizationRepository = organizationRepository;
+        this.userApplicationRepository = userApplicationRepository;
         this.userMapper = userMapper;
+        this.userApplicationMapper = userApplicationMapper;
     }
 
-	
-	@Override
-	public UserDTO addUser(UserDTO userDTO) {
+    @Override
+    public UserDTO addUser(UserDTO userDTO) {
         userRepository.findOneByUsername(userDTO.getUsername())
-                .ifPresent((user) -> {
-                    throw new CustomParameterizedException(
-                            "User already exists.",
-							new ImmutableMultimap.Builder<String, String>().
-                                    put("username", user.getUsername()).
-                                    build().asMap()
-                    );
-                });
+                    .ifPresent(user -> {
+                        throw new CustomParameterizedException("User already exists.",
+                                                                new ImmutableMultimap.Builder<String, String>()
+                                                                            .put("username", user.getUsername())
+                                                                            .build()
+                                                                            .asMap());
+        });
         UserEntity user = new UserEntity();
         BeanUtils.copyProperties(userDTO, user);
         UserEntity newUser = userRepository.save(user);
-	    return userMapper.entityToDto(newUser);
-	}
-	
-	
-	@Override
-	public UserDTO getUserById(Long userId) {
-		checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
+        return userMapper.entityToDto(newUser);
+    }
+
+    @Override
+    public UserDTO getUserById(Long userId) {
+        checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
         return Optional.ofNullable(userRepository.findOne(userId))
-                .map(userMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
-	}
+                                        .map(userMapper::entityToDto)
+                                        .orElseThrow(() -> new UnknownResourceException("User does not exist"));
+    }
 
+    @Override
+    public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO,
+                                                 UserDetailsDTO userDetails) {
+        userRepository.findOneByUsername(userRoleApplicationDTO.getUsername())
+                    .ifPresent(user -> {
+                        throw new CustomParameterizedException("User already exists.",
+                                                                new ImmutableMultimap.Builder<String, String>()
+                                                                            .put("username", user.getUsername())
+                                                                            .build()
+                                                                            .asMap());
+                    });
 
-	@Override
-	public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO, UserDetailsDTO userDetails) {
-		userRepository.findOneByUsername(userRoleApplicationDTO.getUsername())
-				.ifPresent((user) -> {
-					throw new CustomParameterizedException(
-							"User already exists.",
-							new ImmutableMultimap.Builder<String, String>().
-									put("username", user.getUsername()).
-									build().asMap()
-					);
-				});
+        UserEntity user = new UserEntity();
+        user.setUsername(userRoleApplicationDTO.getUsername());
+        user.setEmail(userRoleApplicationDTO.getEmail());
+        user.setPass(new BCryptPasswordEncoder().encode(userRoleApplicationDTO.getPass()));
+        user.setActive(true);
+        UserEntity newUser = userRepository.save(user);
 
-		UserEntity user = new UserEntity();
-		user.setUsername(userRoleApplicationDTO.getUsername());
-		user.setEmail(userRoleApplicationDTO.getEmail());
-		user.setPass(new BCryptPasswordEncoder().encode(userRoleApplicationDTO.getPass()));
-		user.setActive(true);
-		UserEntity newUser = userRepository.save(user);
+        if (userRoleApplicationDTO.getRole() != null) {
+            createUserRole(newUser, userRoleApplicationDTO.getRole());
+        }
 
-		if (userRoleApplicationDTO.getRole() != null) {
-			createUserRole(newUser, userRoleApplicationDTO.getRole());
-		}
+        if (userRoleApplicationDTO.getOrganizationId() != null) {
+            createUserOrganization(newUser, userRoleApplicationDTO);
+        } else if (userRoleApplicationDTO.getApplicationId() != null) {
+            createUserApplication(newUser, userRoleApplicationDTO);
+        }
 
-		if (userRoleApplicationDTO.getOrganizationId() != null) {
-			createUserOrganization(newUser, userRoleApplicationDTO);
-		}
-		else if (userRoleApplicationDTO.getApplicationId() != null) {
-			createUserApplication(newUser, userRoleApplicationDTO);
-		}
+        return userMapper.entityToDto(newUser);
+    }
 
-		return userMapper.entityToDto(newUser);
-	}
+    private UserRoleEntity createUserRole(UserEntity user, Role role) {
+        UserRoleEntity userRole = new UserRoleEntity();
+        userRole.setUser(user);
+        userRole.setRole(role);
+        return userRoleRepository.save(userRole);
+    }
 
-	private UserRoleEntity createUserRole(UserEntity user, Role role) {
-		UserRoleEntity userRole = new UserRoleEntity();
-		userRole.setUser(user);
-		userRole.setRole(role);
-		UserRoleEntity newUserRoleEntity = userRoleRepository.save(userRole);
-		return newUserRoleEntity;
-	}
+    private UserApplicationEntity createUserApplication(UserEntity user,
+                                                        UserRoleApplicationDTO userRoleApplicationDTO) {
+        UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+        userApplicationEntity.setUser(user);
+        ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplicationId());
+        userApplicationEntity.setApplication(application);
+        return userApplicationRepository.save(userApplicationEntity);
+    }
 
-	private UserApplicationEntity createUserApplication(UserEntity user , UserRoleApplicationDTO userRoleApplicationDTO) {
-		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-		userApplicationEntity.setUser(user);
-		ApplicationEntity application = applicationRepository.findById(userRoleApplicationDTO.getApplicationId());
-		userApplicationEntity.setApplication(application);
-		return userApplicationRepository.save(userApplicationEntity);
-	}
+    private UserApplicationEntity createUserOrganization(UserEntity user,
+                                                         UserRoleApplicationDTO userRoleApplicationDTO) {
+        UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
+        userApplicationEntity.setUser(user);
+        OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganizationId());
+        userApplicationEntity.setOrganization(organization);
+        userApplicationEntity.setApplication(organization.getApplication());
+        return userApplicationRepository.save(userApplicationEntity);
+    }
 
-	private UserApplicationEntity createUserOrganization(UserEntity user, UserRoleApplicationDTO userRoleApplicationDTO) {
-		UserApplicationEntity userApplicationEntity = new UserApplicationEntity();
-		userApplicationEntity.setUser(user);
-		OrganizationEntity organization = organizationRepository.findById(userRoleApplicationDTO.getOrganizationId());
-		userApplicationEntity.setOrganization(organization);
-		userApplicationEntity.setApplication(organization.getApplication());
-		return userApplicationRepository.save(userApplicationEntity);
-	}
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<UserEntity> users = userRepository.findAll();
+        return userMapper.entityListToDtoList(users);
+    }
 
-
-	@Override
-	public List<UserDTO> getAllUsers() {
-		List<UserEntity> users = userRepository.findAll();
-		return userMapper.entityListToDtoList(users);
-	}
-
-	
-	@Override
-	public void deleteUser(Long userId) {
+    @Override
+    public void deleteUser(Long userId) {
         checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
         Optional.ofNullable(userRepository.findOne(userId))
-                .ifPresent(user -> {
-                    userRepository.delete(user);
-                    LOG.debug("Deleted User: {}", user);
-                });
+                                .ifPresent(user -> {
+                                    userRepository.delete(user);
+                                    LOG.debug("Deleted User: {}", user);
+                                });
     }
 
-	
-	@Override
-	public UserDTO updateUser(Long userId, UserDTO userDTO) {
-		checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
+    @Override
+    public UserDTO updateUser(Long userId, UserDTO userDTO) {
+        checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
-		return Optional.ofNullable(userRepository.findOne(userId))
-                .map(user -> {
-                    BeanUtils.copyProperties(userDTO, user);
-                    LOG.debug("Changed Information for User: {}", user);
-                    return user;
-                })
-                .map(userMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
+        return Optional.ofNullable(userRepository.findOne(userId))
+                                        .map(user -> {
+                                            BeanUtils.copyProperties(userDTO, user);
+                                            LOG.debug("Changed Information for User: {}", user);
+                                            return user;
+                                        })
+                                        .map(userMapper::entityToDto)
+                                        .orElseThrow(() -> new UnknownResourceException("User does not exist"));
     }
 
+    @Override
+    public Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails) {
 
-	@Override
-	public Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails) {
+        pageRequest = new PageRequest(pageRequest.getPageNumber(),
+                                        pageRequest.getPageSize(),
+                                        pageRequest.getSort().iterator().next().getDirection(),
+                                        "user." + pageRequest.getSort().iterator().next().getProperty());
 
-		if (userHasRole(userDetails, Role.ROLE_ROOT)) {
-			Page<UserEntity> userPage = userRepository.findAll(pageRequest);
+        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
+                    Specifications.where(hasApplication(userDetails.getApplication()))
+                                    .and(hasOrganization(userDetails.getOrganization()))
+                                    .and(userIsActive()),
+                    pageRequest);
 
-			if (userPage != null)
-				return userPage.map((user) -> userMapper.entityToDto(user));
-
-		} else {
-			PageRequest pageRequestUserApplication = new PageRequest(pageRequest.getPageNumber(), pageRequest.getPageSize(),
-					pageRequest.getSort().iterator().next().getDirection(), "user." + pageRequest.getSort().iterator().next().getProperty());
-
-			if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
-				ApplicationEntity application = applicationRepository.findById(userDetails.getApplication().getId());
-				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByApplication(application, pageRequestUserApplication);
-
-				if (userApplicationPage != null)
-					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
-
-			} else if (userHasRole(userDetails, Role.ROLE_APP_ADMIN)) {
-				OrganizationEntity organization = organizationRepository.findById(userDetails.getOrganization().getId());
-				Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findByOrganization(organization, pageRequestUserApplication);
-
-				if (userApplicationPage != null)
-					return userApplicationPage.map((userApplication) -> userMapper.entityToDto(userApplication.getUser()));
-			}
-		}
-
-		return null;
-	}
-
-	private boolean userHasRole(UserDetailsDTO user, Role role) {
-		return user.getAuthorities()
-				.stream()
-				.filter(auth -> auth.toString().equals(role.name()))
-				.count() > 0;
-	}
+        return userApplicationPage.map(userApplicationMapper::entityToUserDto);
+    }
 }

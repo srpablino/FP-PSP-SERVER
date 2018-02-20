@@ -7,6 +7,8 @@ import java.util.Base64;
 
 public class ImageParser {
 
+    private ImageParser() {}
+
     public static ImageDTO parse(String fileString) throws IOException {
         ImageDTO image = null;
 
@@ -14,14 +16,17 @@ public class ImageParser {
         if (fileString != null) {
             String data = fileString.substring(0, fileString.indexOf(';'));
             String attribute = data.substring(0, data.indexOf(':'));
-            if (attribute.equals("data")) {
+            if ("data".equals(attribute)) {
                 String contentType = data.substring(data.indexOf(':') + 1);
-                String type = contentType.substring(0, contentType.indexOf('/'));
-                if (type.equals("image")) {
+                String type = contentType.substring(0,
+                                                    contentType.indexOf('/'));
+                if ("image".equals(type)) {
 
-                    String format = contentType.substring(contentType.indexOf('/') + 1);
+                    String format = contentType
+                            .substring(contentType.indexOf('/') + 1);
 
-                    String base64 = fileString.substring(fileString.indexOf(',') + 1);
+                    String base64 = fileString
+                            .substring(fileString.indexOf(',') + 1);
 
                     Base64.Decoder decoder = Base64.getDecoder();
                     byte[] fileBytes = decoder.decode(base64);
