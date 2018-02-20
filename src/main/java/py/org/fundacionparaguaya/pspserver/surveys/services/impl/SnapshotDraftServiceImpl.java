@@ -9,8 +9,11 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
@@ -41,14 +44,17 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     private final UserRepository userRepository;
 
+    private final MessageSource messageSource;
+
     private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
-                    SnapshotDraftRepository repository,
-                    UserRepository userRepository) {
+            SnapshotDraftRepository repository, UserRepository userRepository,
+            MessageSource messageSource) {
         this.mapper = mapper;
         this.repository = repository;
         this.userRepository = userRepository;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -60,22 +66,24 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public SnapshotDraft getSnapshotDraft(Long id) {
-
-       checkArgument(id!=null && id > 0, "Argument"
-               + " was %s but expected nonnegative", id);
-       return Optional.ofNullable(repository
-               .findOne(id))
-               .map(mapper::entityToDto)
-               .orElseThrow(() ->
-               new UnknownResourceException(
-                       "Temporal snapshot does not exist"));
+        Locale locale = LocaleContextHolder.getLocale();
+        checkArgument(id != null && id > 0,
+                messageSource.getMessage("argument.nonNegative", null, locale),
+                id);
+        return Optional.ofNullable(repository.findOne(id))
+                .map(mapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException(
+                        messageSource.getMessage("snapshotDraft.notExist",
+                                new Object[] { id }, locale)));
     }
 
     @Override
     public void deleteSnapshotDraft(Long id) {
 
-        checkArgument(id!=null && id > 0, "Argument"
-                + " was %s but expected nonnegative", id);
+        checkArgument(id != null && id > 0,
+                messageSource.getMessage("argument.nonNegative", null,
+                        LocaleContextHolder.getLocale()),
+                id);
 
         Optional.ofNullable(repository.findOne(id)).ifPresent(snapshot -> {
             repository.delete(snapshot);
@@ -83,28 +91,36 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     @Override
-
     public SnapshotDraft updateSnapshotDraft(Long id,
             SnapshotDraft snapshotDraft) {
-        checkArgument(id!=null && id > 0, "Argument"
-                + " was %s but expected nonnegative", id);
-        checkArgument(snapshotDraft!=null, "Argument"
-                + " was %s but expected non null", snapshotDraft);
+        Locale locale = LocaleContextHolder.getLocale();
+        checkArgument(id != null && id > 0,
+                messageSource.getMessage("argument.nonNegative", null, locale),
+                id);
+        checkArgument(snapshotDraft != null,
+                messageSource.getMessage("argument.notNull", null, locale),
+                snapshotDraft);
 
-        SnapshotDraftEntity snapshotEntity = Optional.ofNullable(repository
-                .findOne(id))
-                .orElseThrow(() ->
-                new CustomParameterizedException(
-                        "Snapshot draft does not exist"));
-
+        SnapshotDraftEntity snapshotEntity = Optional
+                .ofNullable(repository.findOne(id))
+                .orElseThrow(() -> new CustomParameterizedException(
+                        messageSource.getMessage("snapshotDraft.notExist",
+                                new Object[] { id }, locale)));
+        
+        if(snapshotEntity==null) {
+            return mapper.entityToDto(new SnapshotDraftEntity());
+        }
+        
         snapshotEntity.setStateDraft(snapshotDraft.getStateDraft());
 
-        if (snapshotDraft.getUserName()!=null) {
+        if (snapshotDraft.getUserName() != null) {
             snapshotEntity.setUser(userRepository
                     .findOneByUsername(snapshotDraft.getUserName())
-                    .orElseThrow(() ->
-                    new CustomParameterizedException(
-                            "User does not exist")));
+                    .orElseThrow(() -> new CustomParameterizedException(
+                            messageSource.getMessage("user.notExist",
+                                    new Object[] {
+                                            snapshotDraft.getUserName() },
+                                    locale))));
         }
 
         snapshotEntity = repository.save(snapshotEntity);
@@ -112,19 +128,18 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     }
 
     public List<SnapshotDraft> getSnapshotDraftByUser(UserDetailsDTO details,
-                    String familyName) {
+            String familyName) {
 
-        UserEntity user = userRepository.findOneByUsername(
-                details.getUsername()).orElse(null);
+        UserEntity user = userRepository
+                .findOneByUsername(details.getUsername()).orElse(null);
 
         if (user == null) {
             return Collections.emptyList();
         }
 
-        List<SnapshotDraftEntity> draftList = repository
-                  .findAll(where(userEquals(user.getId()))
-                  .and(likeFamilyName(familyName))
-                  .and(createdAtLessDays(SNAPSHOT_DRAFT_MAX_DAY)));
+        List<SnapshotDraftEntity> draftList = repository.findAll(
+                where(userEquals(user.getId())).and(likeFamilyName(familyName))
+                        .and(createdAtLessDays(SNAPSHOT_DRAFT_MAX_DAY)));
 
         return mapper.entityListToDtoList(draftList);
 

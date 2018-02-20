@@ -2,12 +2,12 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.IndicatorsPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
-import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorPriorityMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotIndicatorPriorityRepository;
@@ -16,6 +16,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPri
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -36,17 +37,23 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
     private final SnapshotIndicatorPriorityMapper snapshotPriorityMapper;
 
+    private final MessageSource messageSource;
+
     public SnapshotIndicatorPriorityServiceImpl(SnapshotIndicatorPriorityRepository snapshotPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository,
-            SnapshotIndicatorPriorityMapper snapshotPriorityMapper) {
+            SnapshotIndicatorPriorityMapper snapshotPriorityMapper, MessageSource messageSource) {
         this.snapshotPriorityRepository = snapshotPriorityRepository;
         this.snapshotIndicatorRepository = snapshotIndicatorRepository;
         this.snapshotPriorityMapper = snapshotPriorityMapper;
+        this.messageSource = messageSource;
     }
 
     @Override
     public List<SnapshotIndicatorPriority> getSnapshotIndicatorPriorityList(Long snapshotIndicatorId) {
-        checkArgument(snapshotIndicatorId > 0, "Argument was %s but expected nonnegative", snapshotIndicatorId);
+
+        checkArgument(snapshotIndicatorId > 0,
+                messageSource.getMessage("argument.nonNegative", null, LocaleContextHolder.getLocale()),
+                snapshotIndicatorId);
 
         List<SnapshotIndicatorPriorityEntity> priorities = snapshotPriorityRepository
                 .findBySnapshotIndicatorId(snapshotIndicatorId);
@@ -58,91 +65,32 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
     }
 
     @Override
-    public IndicatorsPriority addSnapshotIndicadorPriorityList(IndicatorsPriority priorities) {
-        checkArgument(priorities != null, "Argument was %s but expected not null", priorities);
-        checkArgument(priorities.getSnapshotIndicatorId() != null, "Argument was %s but expected not null",
-                priorities.getSnapshotIndicatorId());
-        checkArgument(priorities.getPriorities() != null && !priorities.getPriorities().isEmpty(),
-                "Argument was %s but expected not empty", priorities);
-
-        List<SnapshotIndicatorPriorityEntity> snapshotsPriorities = snapshotPriorityMapper
-                .dtoListToEntityList(priorities.getPriorities());
-        SnapshotIndicatorEntity indicator = snapshotIndicatorRepository.findOne(priorities.getSnapshotIndicatorId());
-
-        for (SnapshotIndicatorPriorityEntity s : snapshotsPriorities) {
-            s.setSnapshotIndicator(indicator);
-        }
-        snapshotsPriorities = snapshotPriorityRepository.save(snapshotsPriorities);
-
-        IndicatorsPriority toRet = new IndicatorsPriority();
-        toRet.setPriorities(snapshotPriorityMapper.entityListToDtoList(snapshotsPriorities));
-        toRet.setSnapshotIndicatorId(priorities.getSnapshotIndicatorId());
-
-        return toRet;
-    }
-
-    @Override
-    public IndicatorsPriority updateSnapshotIndicatorPriorityList(IndicatorsPriority priorities) {
-        checkArgument(priorities != null, "Argument was %s but expected not null", priorities);
-        checkArgument(priorities.getSnapshotIndicatorId() != null, "Argument was %s but expected not null",
-                priorities.getSnapshotIndicatorId());
-        checkArgument(priorities.getPriorities() != null && !priorities.getPriorities().isEmpty(),
-                "Argument was %s but expected not empty", priorities);
-
-        IndicatorsPriority toRet = new IndicatorsPriority();
-        List<SnapshotIndicatorPriority> indicartorsPriority = new ArrayList<>();
-
-        for (SnapshotIndicatorPriority s : priorities.getPriorities()) {
-            Optional<SnapshotIndicatorPriorityEntity> entity = snapshotPriorityRepository
-                    .findBySnapshotIndicatorIdAndId(priorities.getSnapshotIndicatorId(),
-                            s.getId());
-
-            if (entity.isPresent()) {
-                entity.get().setAction(s.getAction());
-                entity.get().setEstimatedDateAsISOString(s.getEstimatedDate());
-                entity.get().setReason(s.getReason());
-                snapshotPriorityRepository.save(entity.get());
-                indicartorsPriority.add(snapshotPriorityMapper.entityToDto(entity.get()));
-            } else {
-                throw new UnknownResourceException("Snapshot indicator priority with id "
-                        + s.getId() + " does not exist");
-            }
-
-            toRet.setPriorities(indicartorsPriority);
-            toRet.setSnapshotIndicatorId(priorities.getSnapshotIndicatorId());
-
-        }
-
-        return toRet;
-    }
-
-    @Override
     public SnapshotIndicatorPriority updateSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
-        checkArgument(priority.getId() > 0, "Argument was %s but expected nonnegative",
+        Locale locale = LocaleContextHolder.getLocale();
+        checkArgument(priority.getId() > 0, messageSource.getMessage("argument.nonNegative", null, locale),
                 priority.getId());
 
-        return Optional.ofNullable(snapshotPriorityRepository.findOne(priority.getId()))
-                .map(p -> {
-                    p.setAction(priority.getAction());
-                    p.setReason(priority.getReason());
-                    p.setEstimatedDateAsISOString(priority.getEstimatedDate());
-                    LOG.debug("Changed Information for Snapshot Indicator Priority: {}", p);
-                    return snapshotPriorityRepository.save(p);
-                }).map(snapshotPriorityMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Snapshot Indicator Priority does not exist"));
+        return Optional.ofNullable(snapshotPriorityRepository.findOne(priority.getId())).map(p -> {
+            p.setAction(priority.getAction());
+            p.setReason(priority.getReason());
+            p.setEstimatedDateAsISOString(priority.getEstimatedDate());
+            LOG.debug("Changed Information for Snapshot Indicator Priority: {}", p);
+            return snapshotPriorityRepository.save(p);
+        }).map(snapshotPriorityMapper::entityToDto).orElseThrow(() -> new UnknownResourceException(
+                messageSource.getMessage("snapshotPriority.notExist", new Object[] { priority.getId() }, locale)));
     }
 
     @Override
-    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority){
+    public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
 
-        checkArgument(priority != null, "Argument was %s but expected not null", priority);
-        checkArgument(priority.getSnapshotIndicatorId() > 0, "Argument was %s but expected nonnegative",
-                priority.getSnapshotIndicatorId());
-
-        if(snapshotPriorityRepository.countAllBySnapshotIndicatorId(priority.getSnapshotIndicatorId())>=5) {
-            throw new CustomParameterizedException("There are already five priorities");
-        }
+        Locale locale = LocaleContextHolder.getLocale();
+        checkArgument(priority != null, messageSource.getMessage("argument.notNull", null, locale), priority);
         
+        if (snapshotPriorityRepository.countAllBySnapshotIndicatorId(priority.getSnapshotIndicatorId()) >= 5) {
+            throw new CustomParameterizedException(
+                    messageSource.getMessage("snapshotPriority.onlyFivePriorities", null, locale));
+        }
+
         SnapshotIndicatorPriorityEntity entity = new SnapshotIndicatorPriorityEntity();
         entity.setReason(priority.getReason());
         entity.setAction(priority.getAction());
@@ -152,23 +100,24 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
         SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
         return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
+        
     }
 
     @Override
     public void deletePrioritiesByIndicator(Long snapshotIndicatorId) {
-            List<SnapshotIndicatorPriorityEntity> priorities =
-                    snapshotPriorityRepository
-                            .findBySnapshotIndicatorId(snapshotIndicatorId);
+        List<SnapshotIndicatorPriorityEntity> priorities = snapshotPriorityRepository
+                .findBySnapshotIndicatorId(snapshotIndicatorId);
 
-            if (priorities != null && !priorities.isEmpty()) {
-                snapshotPriorityRepository.delete(priorities);
-            }
+        if (priorities != null && !priorities.isEmpty()) {
+            snapshotPriorityRepository.delete(priorities);
+        }
 
     }
 
     @Override
     public void deleteSnapshotIndicatorPriority(Long snapshotIndicatorPriorityId) {
-        checkArgument(snapshotIndicatorPriorityId > 0, "Argument was %s but expected nonnegative",
+        checkArgument(snapshotIndicatorPriorityId > 0,
+                messageSource.getMessage("argument.nonNegative", null, LocaleContextHolder.getLocale()),
                 snapshotIndicatorPriorityId);
 
         Optional.ofNullable(snapshotPriorityRepository.findOne(snapshotIndicatorPriorityId)).ifPresent(priority -> {

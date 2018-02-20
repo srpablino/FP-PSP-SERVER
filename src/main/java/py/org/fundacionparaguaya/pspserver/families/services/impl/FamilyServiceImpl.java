@@ -39,8 +39,7 @@ import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     private static final Logger LOG = LoggerFactory
             .getLogger(FamilyServiceImpl.class);
@@ -64,13 +63,14 @@ public class FamilyServiceImpl implements FamilyService {
             FamilyMapper familyMapper, CountryRepository countryRepository,
             CityRepository cityRepository,
             OrganizationRepository organizationRepository,
-            ApplicationMapper applicationMapper) {
+            ApplicationMapper applicationMapper, MessageSource messageSource) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
+        this.messageSource = messageSource;
     }
 
     @Override
