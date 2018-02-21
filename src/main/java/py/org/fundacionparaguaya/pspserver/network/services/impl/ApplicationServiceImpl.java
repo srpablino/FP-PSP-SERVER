@@ -13,6 +13,7 @@ import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterized
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -50,14 +51,17 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ImageUploadService imageUploadService;
 
+    private final ApplicationProperties applicationProperties;
+
     public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper,
                                   FamilyService familyService, SnapshotService snapshotService,
-                                  ImageUploadService imageUploadService) {
+                                  ImageUploadService imageUploadService, ApplicationProperties applicationProperties) {
         this.applicationRepository = applicationRepository;
         this.applicationMapper = applicationMapper;
         this.familyService = familyService;
         this.snapshotService = snapshotService;
         this.imageUploadService = imageUploadService;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
@@ -77,13 +81,13 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ApplicationDTO addApplication(ApplicationDTO applicationDTO) throws IOException {
         applicationRepository.findOneByName(applicationDTO.getName())
-                .ifPresent((application) -> {
+                .ifPresent(application -> {
                     throw new CustomParameterizedException(
                             "Application already exists",
-                            new ImmutableMultimap.Builder<String, String>().
-                                    put("name", application.getName()).
-                                    build().asMap()
-                    );
+                            new ImmutableMultimap.Builder<String, String>()
+                                    .put("name", application.getName())
+                                    .build()
+                                    .asMap());
                 });
 
         // Save Application entity
@@ -94,8 +98,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         ApplicationEntity newApplication = applicationRepository.save(application);
 
         // Upload image to AWS S3 service
-        ImageDTO image = ImageParser.parse(applicationDTO.getFile());
-        String logoURL = imageUploadService.uploadImage(image, newApplication.getId());
+        ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile());
+        imageDTO.setImageDirectory(applicationProperties.getAws().getHubsImageDirectory());
+        imageDTO.setImageNamePrefix(applicationProperties.getAws().getHubsImageNamePrefix());
+
+        String logoURL = imageUploadService.uploadImage(imageDTO, newApplication.getId());
 
         if (logoURL != null) {
             // Update Application entity with image URL
