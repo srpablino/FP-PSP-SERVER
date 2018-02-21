@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 
+import java.util.List;
+
 /**
  * Created by rodrigovillalba on 8/27/17.
  */
@@ -13,6 +15,13 @@ public interface ApplicationRepository
 
     ApplicationEntity findById(Long id);
 
-    Page<ApplicationEntity> findAllByIsHub(boolean isHub, Pageable page);
+    List<ApplicationEntity> findByIsActive(boolean isActive);
 
+    List<ApplicationEntity> findByIsHubAndIsActive(boolean isHub,
+                                                   boolean isActive);
+
+    List<ApplicationEntity> findByIsPartnerAndIsActive(boolean isPartner,
+                                                       boolean isActive);
+
+    Page<ApplicationEntity> findAllByIsHub(boolean isHub, Pageable page);
 }
