@@ -222,6 +222,11 @@
         <sqlFile path="sql/2018-01-09T23:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add column email into users table-->
+    <changeSet id="2018-01-10T09:50" author="cbenitez">
+        <sqlFile path="sql/2018-01-10T09:50.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Add personal_information column into snapshots_economics table" -->
     <changeSet id="2018-01-11T14:00" author="mgonzalez">
         <sqlFile path="sql/2018-01-11T14:00.sql" relativeToChangelogFile="true"/>
@@ -245,6 +250,16 @@
     <!-- Change columns to NOT NULL in organizations table-->
     <changeSet id="2018-01-30T11:20" author="cbenitez">
         <sqlFile path="sql/2018-01-30T11:20.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Insert default email to default users -->
+    <changeSet id="2018-01-30T15:30" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Change columns to NOT NULL in users table -->
+    <changeSet id="2018-01-30T15:40" author="cbenitez">
+        <sqlFile path="sql/2018-01-30T15:40.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <!-- Add created_at column in survey table-->
