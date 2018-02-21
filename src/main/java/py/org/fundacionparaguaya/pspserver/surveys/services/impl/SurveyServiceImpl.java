@@ -3,6 +3,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.network.repositories.SurveyOrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightType;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
@@ -36,11 +40,20 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyMapper mapper;
 
-    public SurveyServiceImpl(SurveyRepository repo, PropertyAttributeSupport propertyAttributeSupport,
-                             SurveyMapper mapper) {
+    private final SurveyOrganizationRepository surveyOrganizationRepo;
+
+    private final OrganizationRepository organizationRepo;
+
+    public SurveyServiceImpl(SurveyRepository repo,
+            PropertyAttributeSupport propertyAttributeSupport,
+                             SurveyMapper mapper,
+                             SurveyOrganizationRepository surveyOrganizationRepo,
+                             OrganizationRepository organizationRepo) {
         this.repo = repo;
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.mapper = mapper;
+        this.surveyOrganizationRepo = surveyOrganizationRepo;
+        this.organizationRepo = organizationRepo;
     }
 
     @Override
@@ -55,6 +68,16 @@ public class SurveyServiceImpl implements SurveyService {
                 .save(SurveyEntity.of(surveyDefinition.getTitle(), surveyDefinition.getDescription(),
                         new SurveyDefinition().surveySchema(surveyDefinition.getSurveySchema())
                                 .surveyUISchema(surveyDefinition.getSurveyUISchema())));
+
+        if (surveyDefinition.getOrganizations() != null
+                && surveyDefinition.getOrganizations().size() > 0) {
+            for (OrganizationDTO organization : surveyDefinition.getOrganizations()) {
+                SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
+                surveyOrganization.setOrganization(organizationRepo.findById(organization.getId()));
+                surveyOrganization.setSurvey(entity);
+                surveyOrganizationRepo.save(surveyOrganization);
+            }
+        }
 
         return new SurveyDefinition().id(entity.getId()).title(entity.getTitle()).description(entity.getDescription())
                 .surveySchema(entity.getSurveyDefinition().getSurveySchema())
