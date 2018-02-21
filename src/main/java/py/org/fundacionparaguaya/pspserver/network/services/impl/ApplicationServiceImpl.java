@@ -68,7 +68,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationDTO updateApplication(Long applicationId, ApplicationDTO applicationDto) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        return Optional.ofNullable(applicationRepository.findOne(applicationId))
+        return Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
                 .map(application -> {
                     BeanUtils.copyProperties(applicationDto, application);
                     LOG.debug("Changed Information for Application: {}", application);
@@ -80,10 +81,10 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ApplicationDTO addApplication(ApplicationDTO applicationDTO) throws IOException {
-        applicationRepository.findOneByName(applicationDTO.getName())
+        applicationRepository
+                .findOneByName(applicationDTO.getName())
                 .ifPresent(application -> {
-                    throw new CustomParameterizedException(
-                            "Application already exists",
+                    throw new CustomParameterizedException("Application already exists",
                             new ImmutableMultimap.Builder<String, String>()
                                     .put("name", application.getName())
                                     .build()
@@ -98,13 +99,13 @@ public class ApplicationServiceImpl implements ApplicationService {
         ApplicationEntity newApplication = applicationRepository.save(application);
 
         // Upload image to AWS S3 service
-        ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile());
-        imageDTO.setImageDirectory(applicationProperties.getAws().getHubsImageDirectory());
-        imageDTO.setImageNamePrefix(applicationProperties.getAws().getHubsImageNamePrefix());
+        if (applicationDTO.getFile() != null) {
+            ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile(),
+                                                  applicationProperties.getAws().getHubsImageDirectory(),
+                                                  applicationProperties.getAws().getHubsImageNamePrefix());
 
-        String logoURL = imageUploadService.uploadImage(imageDTO, newApplication.getId());
+            String logoURL = imageUploadService.uploadImage(imageDTO, newApplication.getId());
 
-        if (logoURL != null) {
             // Update Application entity with image URL
             newApplication.setLogoUrl(logoURL);
             applicationRepository.save(newApplication);
@@ -117,7 +118,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationDTO getApplicationById(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        return Optional.ofNullable(applicationRepository.findOne(applicationId))
+        return Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
                 .map(applicationMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
     }
@@ -155,11 +157,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        Optional.ofNullable(applicationRepository.findOne(applicationId))
-                        .ifPresent(application -> {
-                            applicationRepository.delete(application);
-                            LOG.debug("Deleted Application: {}", application);
-                        });
+        Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
+                .ifPresent(application -> {
+                    applicationRepository.delete(application);
+                    LOG.debug("Deleted Application: {}", application);
+                });
     }
 
     @Override
