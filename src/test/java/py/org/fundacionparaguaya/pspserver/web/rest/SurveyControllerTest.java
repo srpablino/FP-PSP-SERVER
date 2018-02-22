@@ -1,26 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
-import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
-import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
-import py.org.fundacionparaguaya.pspserver.util.TestHelper;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -37,6 +16,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
+import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
+import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
 /**
  * Created by rodrigovillalba on 11/3/17.
@@ -65,25 +66,30 @@ public class SurveyControllerTest {
     @Test
     public void shouldGetAllSurveys() throws Exception {
         List<SurveyDefinition> surveyDefinitions = surveyList();
-        when(surveyService.getAll()).thenReturn(surveyDefinitions);
+        when(surveyService.listSurveys(anyObject()))
+                .thenReturn(surveyDefinitions);
 
-        this.mockMvc.perform(get("/api/v1/surveys"))
-                .andDo(print())
+        this.mockMvc.perform(get("/api/v1/surveys")).andDo(print())
                 .andExpect(status().isOk())
-                .andDo(document("surveys-list", preprocessResponse(prettyPrint()), responseFields(surveys)));
+                .andDo(document("surveys-list",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(surveys)));
     }
 
     @Test
     public void shouldGetSurveyById() throws Exception {
 
-        when(surveyService.getSurveyDefinition(eq(SURVEY_ID))).thenReturn(getDefinition());
+        when(surveyService.getSurveyDefinition(eq(SURVEY_ID)))
+                .thenReturn(getDefinition());
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/v1/surveys/{survey_id}", SURVEY_ID))
-                .andDo(print())
-                .andExpect(status().isOk())
+        this.mockMvc
+                .perform(RestDocumentationRequestBuilders
+                        .get("/api/v1/surveys/{survey_id}", SURVEY_ID))
+                .andDo(print()).andExpect(status().isOk())
                 .andDo(document("surveys-by-id",
                         preprocessResponse(prettyPrint()),
-                        pathParameters(parameterWithName("survey_id").description("The survey's id")),
+                        pathParameters(parameterWithName("survey_id")
+                                .description("The survey's id")),
                         responseFields(survey)));
     }
 
@@ -91,15 +97,14 @@ public class SurveyControllerTest {
     public void shouldPostToCreateSurvey() throws Exception {
         SurveyDefinition definition = getDefinition();
 
-        when(surveyService.addSurveyDefinition(anyObject())).thenReturn(definition);
+        when(surveyService.addSurveyDefinition(anyObject()))
+                .thenReturn(definition);
 
         String content = TestHelper.mapToJson(definition);
-        this.mockMvc.perform(
-                post("/api/v1/surveys")
-                        .content(content)
+        this.mockMvc
+                .perform(post("/api/v1/surveys").content(content)
                         .contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andDo(print())
-                .andExpect(status().isCreated())
+                .andDo(print()).andExpect(status().isCreated())
                 .andDo(document("surveys-post",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -110,19 +115,18 @@ public class SurveyControllerTest {
         return Arrays.asList(getDefinition());
     }
 
-
     public SurveyDefinition getDefinition() {
-        SurveyDefinition def = (SurveyDefinition) TestHelper.mapToObjectFromFile(SURVEY_DEFAULTS, SurveyDefinition.class);
+        SurveyDefinition def = (SurveyDefinition) TestHelper
+                .mapToObjectFromFile(SURVEY_DEFAULTS, SurveyDefinition.class);
 
-        return new SurveyDefinition()
-                .id(SURVEY_ID)
-                .title(def.getTitle())
+        return new SurveyDefinition().id(SURVEY_ID).title(def.getTitle())
                 .description(def.getDescription())
                 .surveySchema(def.getSurveySchema())
-                .surveyUISchema(def.getSurveyUISchema());
+                .surveyUISchema(def.getSurveyUISchema())
+                .organizations(def.getOrganizations());
     }
 
-    FieldDescriptor[] survey = new FieldDescriptor[]{
+    private FieldDescriptor[] survey = new FieldDescriptor[] {
             fieldWithPath("id").type(JsonFieldType.NUMBER)
                     .description("The survey's id"),
             fieldWithPath("title").type(JsonFieldType.STRING)
@@ -136,12 +140,18 @@ public class SurveyControllerTest {
             fieldWithPath("user_created").type(JsonFieldType.NULL)
                     .description("The user that created this survey"),
             fieldWithPath("survey_schema").type(JsonFieldType.OBJECT)
-                    .description("The schema of this survey. For each key/value pair, defines the type and other attributes"),
+                    .description(
+                            "The schema of this survey. For each key/value pair,"
+                            + "defines the type and other attributes"),
             fieldWithPath("survey_ui_schema").type(JsonFieldType.OBJECT)
-                    .description("The UI schema of this survey. Similar to survey_schema, this property describes the attributes of this survey that should be taken into consideration when rendering this survey."),
-    };
+                    .description(
+                            "The UI schema of this survey. Similar to survey_schema, this property"
+                            + "describes the attributes of this survey that should be taken into"
+                            + "consideration when rendering this survey."),
+            fieldWithPath("organizations").type(JsonFieldType.ARRAY)
+                    .description("The list of organizations"), };
 
-    FieldDescriptor[] surveys = new FieldDescriptor[]{
+    private FieldDescriptor[] surveys = new FieldDescriptor[] {
             fieldWithPath("[].id").type(JsonFieldType.NUMBER)
                     .description("The survey's id"),
             fieldWithPath("[].title").type(JsonFieldType.STRING)
@@ -155,8 +165,14 @@ public class SurveyControllerTest {
             fieldWithPath("[].user_created").type(JsonFieldType.NULL)
                     .description("The user that created this survey"),
             fieldWithPath("[].survey_schema").type(JsonFieldType.OBJECT)
-                    .description("The schema of this survey. For each key/value pair, defines the type and other attributes"),
+                    .description(
+                            "The schema of this survey. For each key/value pair,"
+                            + "defines the type and other attributes"),
             fieldWithPath("[].survey_ui_schema").type(JsonFieldType.OBJECT)
-                    .description("The UI schema of this survey. Similar to survey_schema, this property describes the attributes of this survey that should be taken into consideration when rendering this survey."),
-    };
+                    .description(
+                            "The UI schema of this survey. Similar to survey_schema,"
+                            + "this property describes the attributes of this survey"
+                            + "that should be taken into consideration when rendering this survey."),
+            fieldWithPath("[].organizations").type(JsonFieldType.ARRAY)
+                    .description("The list of organizations"), };
 }

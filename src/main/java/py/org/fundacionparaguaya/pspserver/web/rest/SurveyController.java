@@ -1,22 +1,30 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
-import io.swagger.annotations.ApiParam;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiParam;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.NotFoundException;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveySnapshotsManager;
-
-import javax.websocket.server.PathParam;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
 
 /**
  * Created by rodrigovillalba on 9/25/17.
@@ -42,8 +50,8 @@ public class SurveyController {
     @io.swagger.annotations.ApiResponses(value = {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys",
                     response = SurveyDefinition.class, responseContainer = "List")})
-    public ResponseEntity getDefinitions() {
-        List<SurveyDefinition> list = surveyService.getAll();
+    public ResponseEntity getDefinitions(@AuthenticationPrincipal UserDetailsDTO details) {
+        List<SurveyDefinition> list = surveyService.listSurveys(details);
         return ResponseEntity.ok(list);
     }
 
@@ -58,6 +66,18 @@ public class SurveyController {
         SurveyDefinition definition = surveyService.addSurveyDefinition(surveyDefinition);
         URI surveyLocation = new URI("/surveys/" + definition.getId());
         return ResponseEntity.created(surveyLocation).body(definition);
+    }
+
+    @PutMapping("/{surveyId}")
+    @io.swagger.annotations.ApiOperation(value = "Update Survey Definition", notes = "Updates a old survey definition",
+    response = SurveyDefinition.class, tags = {})
+    @io.swagger.annotations.ApiResponses(value = {
+    @io.swagger.annotations.ApiResponse(code = 200, message = "Update survey definition",
+            response = SurveyDefinition.class)})
+    public ResponseEntity<SurveyDefinition> updateOrganization(@PathVariable("surveyId") long surveyId,
+                                                              @RequestBody SurveyDefinition surveyDefinition) {
+        SurveyDefinition result = surveyService.updateSurvey(surveyId, surveyDefinition);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = "/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
