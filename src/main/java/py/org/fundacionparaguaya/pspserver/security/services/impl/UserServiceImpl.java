@@ -9,8 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
@@ -71,14 +73,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO addUser(UserDTO userDTO) {
-        userRepository.findOneByUsername(userDTO.getUsername())
-                    .ifPresent(user -> {
-                        throw new CustomParameterizedException("User already exists.",
-                                                                new ImmutableMultimap.Builder<String, String>()
-                                                                            .put("username", user.getUsername())
-                                                                            .build()
-                                                                            .asMap());
-        });
+        userRepository
+                .findOneByUsername(userDTO.getUsername())
+                .ifPresent(user -> {
+                    throw new CustomParameterizedException("User already exists.",
+                            new ImmutableMultimap.Builder<String, String>()
+                                    .put("username", user.getUsername())
+                                    .build()
+                                    .asMap());
+                });
         UserEntity user = new UserEntity();
         BeanUtils.copyProperties(userDTO, user);
         UserEntity newUser = userRepository.save(user);
@@ -89,22 +92,24 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long userId) {
         checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
-        return Optional.ofNullable(userRepository.findOne(userId))
-                                        .map(userMapper::entityToDto)
-                                        .orElseThrow(() -> new UnknownResourceException("User does not exist"));
+        return Optional.ofNullable(
+                userRepository.findOne(userId))
+                .map(userMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
     }
 
     @Override
     public UserDTO addUserWithRoleAndApplication(UserRoleApplicationDTO userRoleApplicationDTO,
                                                  UserDetailsDTO userDetails) {
-        userRepository.findOneByUsername(userRoleApplicationDTO.getUsername())
-                    .ifPresent(user -> {
-                        throw new CustomParameterizedException("User already exists.",
-                                                                new ImmutableMultimap.Builder<String, String>()
-                                                                            .put("username", user.getUsername())
-                                                                            .build()
-                                                                            .asMap());
-                    });
+        userRepository
+                .findOneByUsername(userRoleApplicationDTO.getUsername())
+                .ifPresent(user -> {
+                    throw new CustomParameterizedException("User already exists.",
+                            new ImmutableMultimap.Builder<String, String>()
+                                    .put("username", user.getUsername())
+                                    .build()
+                                    .asMap());
+                });
 
         UserEntity user = new UserEntity();
         user.setUsername(userRoleApplicationDTO.getUsername());
@@ -162,39 +167,37 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long userId) {
         checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
-        Optional.ofNullable(userRepository.findOne(userId))
-                                .ifPresent(user -> {
-                                    userRepository.delete(user);
-                                    LOG.debug("Deleted User: {}", user);
-                                });
+        Optional.ofNullable(
+                userRepository.findOne(userId))
+                .ifPresent(user -> {
+                    userRepository.delete(user);
+                    LOG.debug("Deleted User: {}", user);
+                });
     }
 
     @Override
     public UserDTO updateUser(Long userId, UserDTO userDTO) {
         checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
-        return Optional.ofNullable(userRepository.findOne(userId))
-                                        .map(user -> {
-                                            BeanUtils.copyProperties(userDTO, user);
-                                            LOG.debug("Changed Information for User: {}", user);
-                                            return user;
-                                        })
-                                        .map(userMapper::entityToDto)
-                                        .orElseThrow(() -> new UnknownResourceException("User does not exist"));
+        return Optional.ofNullable(
+                userRepository.findOne(userId))
+                .map(user -> {
+                    BeanUtils.copyProperties(userDTO, user);
+                    LOG.debug("Changed Information for User: {}", user);
+                    return user;
+                })
+                .map(userMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("User does not exist"));
     }
 
     @Override
-    public Page<UserDTO> listUsers(PageRequest pageRequest, UserDetailsDTO userDetails) {
-
-        pageRequest = new PageRequest(pageRequest.getPageNumber(),
-                                        pageRequest.getPageSize(),
-                                        pageRequest.getSort().iterator().next().getDirection(),
-                                        "user." + pageRequest.getSort().iterator().next().getProperty());
+    public Page<UserDTO> listUsers(int page, int perPage, String orderBy, String sortBy, UserDetailsDTO userDetails) {
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
 
         Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
                     Specifications.where(hasApplication(userDetails.getApplication()))
-                                    .and(hasOrganization(userDetails.getOrganization()))
-                                    .and(userIsActive()),
+                            .and(hasOrganization(userDetails.getOrganization()))
+                            .and(userIsActive()),
                     pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
