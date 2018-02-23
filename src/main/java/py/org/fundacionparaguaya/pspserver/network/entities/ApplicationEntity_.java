@@ -6,8 +6,11 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(ApplicationEntity.class)
 public class ApplicationEntity_ {
 
+    private static volatile SingularAttribute<ApplicationEntity, Long> id;
+
     private ApplicationEntity_() {}
 
-    public static volatile SingularAttribute<ApplicationEntity, Long> id;
-
+    public static SingularAttribute<ApplicationEntity, Long> getId() {
+        return id;
+    }
 }

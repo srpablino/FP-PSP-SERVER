@@ -6,15 +6,35 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(UserEntity.class)
 public class UserEntity_ {
 
+    private static volatile SingularAttribute<UserEntity, Long> id;
+
+    private static volatile SingularAttribute<UserEntity, String> username;
+
+    private static volatile SingularAttribute<UserEntity, String> email;
+
+    private static volatile SingularAttribute<UserEntity, String> pass;
+
+    private static volatile SingularAttribute<UserEntity, Boolean> active;
+
     private UserEntity_() {}
 
-    public static volatile SingularAttribute<UserEntity, Long> id;
+    public static SingularAttribute<UserEntity, Long> getId() {
+        return id;
+    }
 
-    public static volatile SingularAttribute<UserEntity, String> username;
+    public static SingularAttribute<UserEntity, String> getUsername() {
+        return username;
+    }
 
-    public static volatile SingularAttribute<UserEntity, String> email;
+    public static SingularAttribute<UserEntity, String> getEmail() {
+        return email;
+    }
 
-    public static volatile SingularAttribute<UserEntity, String> pass;
+    public static SingularAttribute<UserEntity, String> getPass() {
+        return pass;
+    }
 
-    public static volatile SingularAttribute<UserEntity, Boolean> active;
+    public static SingularAttribute<UserEntity, Boolean> getActive() {
+        return active;
+    }
 }

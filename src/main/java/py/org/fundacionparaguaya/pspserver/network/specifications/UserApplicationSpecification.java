@@ -29,8 +29,8 @@ public class UserApplicationSpecification {
             }
 
             Join<UserApplicationEntity, ApplicationEntity> applicationJoin =
-                                                                        root.join(UserApplicationEntity_.application);
-            Expression<Long> byApplicationId = applicationJoin.<Long>get(ApplicationEntity_.id);
+                                                                    root.join(UserApplicationEntity_.getApplication());
+            Expression<Long> byApplicationId = applicationJoin.<Long>get(ApplicationEntity_.getId());
 
             return builder.equal(byApplicationId, application.getId());
         };
@@ -43,8 +43,8 @@ public class UserApplicationSpecification {
             }
 
             Join<UserApplicationEntity, OrganizationEntity> organizationJoin =
-                                                                        root.join(UserApplicationEntity_.organization);
-            Expression<Long> byOrganizationId = organizationJoin.<Long>get(OrganizationEntity_.id);
+                                                                    root.join(UserApplicationEntity_.getOrganization());
+            Expression<Long> byOrganizationId = organizationJoin.<Long>get(OrganizationEntity_.getId());
 
             return builder.equal(byOrganizationId, organization.getId());
         };
@@ -53,8 +53,8 @@ public class UserApplicationSpecification {
     public static Specification<UserApplicationEntity> userIsActive() {
         return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
 
-            Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.user);
-            Expression<Boolean> active = userJoin.<Boolean>get(UserEntity_.active);
+            Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.getUser());
+            Expression<Boolean> active = userJoin.<Boolean>get(UserEntity_.getActive());
 
             return builder.isTrue(active);
         };
