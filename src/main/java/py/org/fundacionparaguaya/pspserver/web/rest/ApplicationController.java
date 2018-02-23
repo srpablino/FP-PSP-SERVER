@@ -68,6 +68,12 @@ public class ApplicationController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/hubsandpartners")
+    public ResponseEntity<List<ApplicationDTO>> getAllApplications() {
+        List<ApplicationDTO> applications = applicationService.getAllApplications();
+        return ResponseEntity.ok(applications);
+    }
+
     @GetMapping()
     public ResponseEntity<PaginableList<ApplicationDTO>> getPaginatedApplications(
                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,
