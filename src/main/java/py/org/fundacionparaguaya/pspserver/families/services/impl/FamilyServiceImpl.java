@@ -81,7 +81,7 @@ public class FamilyServiceImpl implements FamilyService {
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.userRepo = userRepo;
     }
- // CHECKSTYLE:ON
+    // CHECKSTYLE:ON
 
     @Override
     public FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO) {
@@ -163,43 +163,6 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot, String code, PersonEntity person) {
-
-        FamilyEntity newFamily = new FamilyEntity();
-        newFamily.setPerson(person);
-        newFamily.setCode(code);
-        newFamily.setName(person.getFirstName().concat(SPACE)
-                .concat(person.getLastName()));
-        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
-                .getAsString("familyUbication"));
-        if (details.getApplication() != null) {
-            newFamily.setApplication(
-                    applicationMapper.dtoToEntity(details.getApplication()));
-        }
-        newFamily.setActive(true);
-
-        Optional<CountryEntity> country = countryRepository.findByCountry(
-                snapshot.getEconomicSurveyData().getAsString("familyCountry"));
-        newFamily.setCountry(country.orElse(null));
-
-        Optional<CityEntity> city = cityRepository.findByCity(
-                snapshot.getEconomicSurveyData().getAsString("familyCity"));
-        newFamily.setCity(city.orElse(null));
-
-        if (snapshot.getOrganizationId() != null) {
-            OrganizationEntity organization = organizationRepository
-                    .findOne(snapshot.getOrganizationId());
-            newFamily.setOrganization(organization);
-            newFamily.setApplication(organization.getApplication());
-        }
-
-        newFamily = familyRepository.save(newFamily);
-
-        return newFamily;
-    }
-
-    @Override
     public Long countFamiliesByDetails(UserDetailsDTO userDetails) {
         return familyRepository
                 .count(byFilter(buildFilterByDetails(userDetails)));
@@ -240,10 +203,50 @@ public class FamilyServiceImpl implements FamilyService {
             NewSnapshot snapshot, PersonEntity personEntity) {
         String code = this.generateFamilyCode(personEntity);
 
-        return familyRepository.findByCode(code)
-                .orElse(this.createFamilyFromSnapshot(details, snapshot, code,
-                        personEntity));
+        return createOrReturnFamilyFromSnapshot(details, snapshot, code,
+               personEntity);
 
+    }
+
+    @Override
+    public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
+            NewSnapshot snapshot, String code, PersonEntity person) {
+
+        if (familyRepository.findByCode(code) != null) {
+            return familyRepository.findByCode(code).get();
+        }
+
+        FamilyEntity newFamily = new FamilyEntity();
+        newFamily.setPerson(person);
+        newFamily.setCode(code);
+        newFamily.setName(person.getFirstName().concat(SPACE)
+                .concat(person.getLastName()));
+        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
+                .getAsString("familyUbication"));
+        if (details.getApplication() != null) {
+            newFamily.setApplication(
+                    applicationMapper.dtoToEntity(details.getApplication()));
+        }
+        newFamily.setActive(true);
+
+        Optional<CountryEntity> country = countryRepository.findByCountry(
+                snapshot.getEconomicSurveyData().getAsString("familyCountry"));
+        newFamily.setCountry(country.orElse(null));
+
+        Optional<CityEntity> city = cityRepository.findByCity(
+                snapshot.getEconomicSurveyData().getAsString("familyCity"));
+        newFamily.setCity(city.orElse(null));
+
+        if (snapshot.getOrganizationId() != null) {
+            OrganizationEntity organization = organizationRepository
+                    .findOne(snapshot.getOrganizationId());
+            newFamily.setOrganization(organization);
+            newFamily.setApplication(organization.getApplication());
+        }
+
+        newFamily = familyRepository.save(newFamily);
+
+        return newFamily;
     }
 
     @Override
