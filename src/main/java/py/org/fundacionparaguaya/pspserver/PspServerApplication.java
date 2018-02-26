@@ -13,7 +13,8 @@ import java.util.Locale;
 @SpringBootApplication
 public class PspServerApplication extends SpringBootServletInitializer {
 
-    private static final String DEFAULT_LOCALE = "es";
+    private static final String DEFAULT_LANGUAGE = "es";
+    private static final String DEFAULT_COUNTRY = "PY";
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -23,7 +24,7 @@ public class PspServerApplication extends SpringBootServletInitializer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.forLanguageTag(DEFAULT_LOCALE));
+        slr.setDefaultLocale(new Locale(DEFAULT_LANGUAGE, DEFAULT_COUNTRY));
         return slr;
     }
 
