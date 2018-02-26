@@ -11,12 +11,17 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @author mgonzalez
  *
  */
-public class LocaleAwareMessageInterpolator implements MessageInterpolator {
+
+public class I18n implements MessageInterpolator {
 
     private MessageSource messageSource;
 
-    public LocaleAwareMessageInterpolator(MessageSource messageSource) {
+    public I18n(MessageSource messageSource) {
         this.messageSource = messageSource;
+    }
+
+    public String translate(final String key, final Object... params) {
+        return messageSource.getMessage(key, params, LocaleContextHolder.getLocale());
     }
 
     @Override
