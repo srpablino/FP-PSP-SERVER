@@ -22,7 +22,7 @@ public class FamilyDTO implements Serializable {
 
     @NotNull(message="{familyDTO.name.notNull}")
     private String name;
-	
+
     @NotNull(message="{familyDTO.code.notNull}")
     private String code;
 

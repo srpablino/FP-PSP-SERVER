@@ -3,12 +3,11 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
@@ -62,7 +61,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final FamilyService familyService;
 
-    private final MessageSource messageSource;
+    private final I18n i18n;
 
     private static final String INDICATOR_NAME = "name";
 
@@ -74,7 +73,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService,
             PersonMapper personMapper, FamilyService familyService,
-            MessageSource messageSource) {
+            I18n i18n) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -82,7 +81,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.priorityService = priorityService;
         this.personMapper = personMapper;
         this.familyService = familyService;
-        this.messageSource = messageSource;
+        this.i18n = i18n;
     }
     // CHECKSTYLE:ON
 
@@ -96,8 +95,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                 .checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
             throw new CustomParameterizedException(
-                    messageSource.getMessage("snapshot.invalid", null,
-                            LocaleContextHolder.getLocale()),
+                    i18n.translate("snapshot.invalid"),
                     results.asMap());
         }
 
@@ -257,9 +255,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             });
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            throw new UnknownResourceException(messageSource.getMessage(
-                    "snapshot.invalid", new Object[] { snapshot.getId() },
-                    LocaleContextHolder.getLocale()));
+            throw new UnknownResourceException(i18n.translate(
+                    "snapshot.invalid", snapshot.getId()));
         }
         return indicators;
     }

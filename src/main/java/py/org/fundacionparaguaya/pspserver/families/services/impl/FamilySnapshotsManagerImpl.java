@@ -4,16 +4,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
 import py.org.fundacionparaguaya.pspserver.families.mapper.FamilyMapper;
@@ -28,8 +25,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 @Service
 public class FamilySnapshotsManagerImpl implements FamilySnapshotsManager {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final I18n i18n;
 
     private final FamilyMapper familyMapper;
 
@@ -49,22 +45,21 @@ public class FamilySnapshotsManagerImpl implements FamilySnapshotsManager {
             FamilyMapper familyMapper, SnapshotService snapshotService,
             SnapshotIndicatorPriorityRepository snapshotIndicatorPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository,
-            SnapshotEconomicRepository economicRepository) {
+            SnapshotEconomicRepository economicRepository,
+            I18n i18n) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.snapshotService = snapshotService;
         this.snapshotIndicatorPriorityRepository = snapshotIndicatorPriorityRepository;
         this.snapshotIndicatorRepository = snapshotIndicatorRepository;
         this.economicRepository = economicRepository;
+        this.i18n = i18n;
     }
 
     @Override
     public FamilyMapDTO getFamilyMapById(Long familyId) {
-        Locale locale =  LocaleContextHolder.getLocale();
 
-        checkArgument(familyId > 0, messageSource.getMessage("argument.nonNegative", null,
-                locale),
-                familyId);
+        checkArgument(familyId > 0, i18n.translate("argument.nonNegative", familyId));
 
         FamilyMapDTO familyFile = new FamilyMapDTO();
 
@@ -72,8 +67,7 @@ public class FamilySnapshotsManagerImpl implements FamilySnapshotsManager {
                 .ofNullable(familyRepository.findOne(familyId))
                 .map(familyMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
-                        messageSource.getMessage("family.notExist", null,
-                                locale)));
+                        i18n.translate("family.notExist")));
 
         BeanUtils.copyProperties(family, familyFile);
 
@@ -84,11 +78,8 @@ public class FamilySnapshotsManagerImpl implements FamilySnapshotsManager {
 
     @Override
     public void deleteSnapshotByFamily(Long familyId) {
-        Locale locale =  LocaleContextHolder.getLocale();
-        
-        checkArgument(familyId > 0, messageSource.getMessage("argument.nonNegative", null,
-                locale),
-                familyId);
+
+        checkArgument(familyId > 0, i18n.translate("argument.nonNegative", familyId));
 
         Optional.ofNullable(familyRepository.findOne(familyId))
                 .ifPresent(family -> {

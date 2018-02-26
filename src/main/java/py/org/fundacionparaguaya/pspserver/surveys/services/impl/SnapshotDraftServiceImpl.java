@@ -9,16 +9,13 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
@@ -44,17 +41,17 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     private final UserRepository userRepository;
 
-    private final MessageSource messageSource;
+    private final I18n i18n;
 
     private static final long SNAPSHOT_DRAFT_MAX_DAY = 8;
 
     public SnapshotDraftServiceImpl(SnapshotDraftMapper mapper,
             SnapshotDraftRepository repository, UserRepository userRepository,
-            MessageSource messageSource) {
+            I18n i18n) {
         this.mapper = mapper;
         this.repository = repository;
         this.userRepository = userRepository;
-        this.messageSource = messageSource;
+        this.i18n = i18n;
     }
 
     @Override
@@ -66,24 +63,20 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
 
     @Override
     public SnapshotDraft getSnapshotDraft(Long id) {
-        Locale locale = LocaleContextHolder.getLocale();
+
         checkArgument(id != null && id > 0,
-                messageSource.getMessage("argument.nonNegative", null, locale),
-                id);
+                i18n.translate("argument.nonNegative", id));
         return Optional.ofNullable(repository.findOne(id))
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
-                        messageSource.getMessage("snapshotDraft.notExist",
-                                new Object[] { id }, locale)));
+                        i18n.translate("snapshotDraft.notExist", id)));
     }
 
     @Override
     public void deleteSnapshotDraft(Long id) {
 
         checkArgument(id != null && id > 0,
-                messageSource.getMessage("argument.nonNegative", null,
-                        LocaleContextHolder.getLocale()),
-                id);
+                i18n.translate("argument.nonNegative", id));
 
         Optional.ofNullable(repository.findOne(id)).ifPresent(snapshot -> {
             repository.delete(snapshot);
@@ -93,34 +86,29 @@ public class SnapshotDraftServiceImpl implements SnapshotDraftService {
     @Override
     public SnapshotDraft updateSnapshotDraft(Long id,
             SnapshotDraft snapshotDraft) {
-        Locale locale = LocaleContextHolder.getLocale();
+
         checkArgument(id != null && id > 0,
-                messageSource.getMessage("argument.nonNegative", null, locale),
-                id);
+                i18n.translate("argument.nonNegative", id));
         checkArgument(snapshotDraft != null,
-                messageSource.getMessage("argument.notNull", null, locale),
-                snapshotDraft);
+                i18n.translate("argument.notNull", snapshotDraft));
 
         SnapshotDraftEntity snapshotEntity = Optional
                 .ofNullable(repository.findOne(id))
                 .orElseThrow(() -> new CustomParameterizedException(
-                        messageSource.getMessage("snapshotDraft.notExist",
-                                new Object[] { id }, locale)));
-        
-        if(snapshotEntity==null) {
+                        i18n.translate("snapshotDraft.notExist", id)));
+
+        if (snapshotEntity==null) {
             return mapper.entityToDto(new SnapshotDraftEntity());
         }
-        
+
         snapshotEntity.setStateDraft(snapshotDraft.getStateDraft());
 
         if (snapshotDraft.getUserName() != null) {
             snapshotEntity.setUser(userRepository
                     .findOneByUsername(snapshotDraft.getUserName())
                     .orElseThrow(() -> new CustomParameterizedException(
-                            messageSource.getMessage("user.notExist",
-                                    new Object[] {
-                                            snapshotDraft.getUserName() },
-                                    locale))));
+                            i18n.translate("user.notExist",
+                                            snapshotDraft.getUserName()))));
         }
 
         snapshotEntity = repository.save(snapshotEntity);

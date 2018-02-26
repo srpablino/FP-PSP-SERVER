@@ -6,17 +6,15 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
@@ -39,7 +37,7 @@ import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository
 @Service
 public class FamilyServiceImpl implements FamilyService {
 
-    private final MessageSource messageSource;
+    private final I18n i18n;
 
     private static final Logger LOG = LoggerFactory
             .getLogger(FamilyServiceImpl.class);
@@ -63,23 +61,22 @@ public class FamilyServiceImpl implements FamilyService {
             FamilyMapper familyMapper, CountryRepository countryRepository,
             CityRepository cityRepository,
             OrganizationRepository organizationRepository,
-            ApplicationMapper applicationMapper, MessageSource messageSource) {
+            ApplicationMapper applicationMapper, I18n i18n) {
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
-        this.messageSource = messageSource;
+        this.i18n = i18n;
     }
 
     @Override
     public FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO) {
-        Locale locale = LocaleContextHolder.getLocale();
 
         checkArgument(familyId > 0,
-                messageSource.getMessage("argument.nonNegative", null, locale),
-                familyId);
+                i18n.translate("argument.nonNegative", familyId)
+                );
 
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(family -> {
@@ -87,8 +84,8 @@ public class FamilyServiceImpl implements FamilyService {
                     LOG.debug("Changed Information for Family: {}", family);
                     return family;
                 }).map(familyMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException(messageSource
-                        .getMessage("family.notExist", null, locale)));
+                .orElseThrow(() -> new UnknownResourceException(i18n
+                        .translate("family.notExist")));
     }
 
     @Override
@@ -101,17 +98,15 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public FamilyDTO getFamilyById(Long familyId) {
-        Locale locale = LocaleContextHolder.getLocale();
 
         checkArgument(familyId > 0,
-                messageSource.getMessage("argument.nonNegative", null, locale),
-                familyId);
+                i18n.translate("argument.nonNegative", familyId));
 
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(familyMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
-                        messageSource
-                        .getMessage("family.notExist", null, locale)));
+                        i18n
+                        .translate("family.notExist")));
     }
 
     @Override
@@ -122,11 +117,9 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void deleteFamily(Long familyId) {
-        Locale locale = LocaleContextHolder.getLocale();
 
         checkArgument(familyId > 0,
-                messageSource.getMessage("argument.nonNegative", null, locale),
-                familyId);
+                i18n.translate("argument.nonNegative", familyId));
 
         Optional.ofNullable(familyRepository.findOne(familyId))
                 .ifPresent(family -> {

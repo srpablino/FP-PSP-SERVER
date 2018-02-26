@@ -2,11 +2,10 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorPriorityEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorPriorityMapper;
@@ -16,20 +15,19 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPri
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 /**
- * 
+ *
  * @author mgonzalez
  *
  */
 @Service
 public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPriorityService {
 
-    private Logger LOG = LoggerFactory.getLogger(SnapshotIndicatorPriorityServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SnapshotIndicatorPriorityServiceImpl.class);
 
     private SnapshotIndicatorPriorityRepository snapshotPriorityRepository;
 
@@ -37,23 +35,22 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
     private final SnapshotIndicatorPriorityMapper snapshotPriorityMapper;
 
-    private final MessageSource messageSource;
+    private final I18n i18n;
 
     public SnapshotIndicatorPriorityServiceImpl(SnapshotIndicatorPriorityRepository snapshotPriorityRepository,
             SnapshotIndicatorRepository snapshotIndicatorRepository,
-            SnapshotIndicatorPriorityMapper snapshotPriorityMapper, MessageSource messageSource) {
+            SnapshotIndicatorPriorityMapper snapshotPriorityMapper, I18n i18n) {
         this.snapshotPriorityRepository = snapshotPriorityRepository;
         this.snapshotIndicatorRepository = snapshotIndicatorRepository;
         this.snapshotPriorityMapper = snapshotPriorityMapper;
-        this.messageSource = messageSource;
+        this.i18n = i18n;
     }
 
     @Override
     public List<SnapshotIndicatorPriority> getSnapshotIndicatorPriorityList(Long snapshotIndicatorId) {
 
         checkArgument(snapshotIndicatorId > 0,
-                messageSource.getMessage("argument.nonNegative", null, LocaleContextHolder.getLocale()),
-                snapshotIndicatorId);
+                i18n.translate("argument.nonNegative", snapshotIndicatorId));
 
         List<SnapshotIndicatorPriorityEntity> priorities = snapshotPriorityRepository
                 .findBySnapshotIndicatorId(snapshotIndicatorId);
@@ -66,9 +63,8 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
     @Override
     public SnapshotIndicatorPriority updateSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
-        Locale locale = LocaleContextHolder.getLocale();
-        checkArgument(priority.getId() > 0, messageSource.getMessage("argument.nonNegative", null, locale),
-                priority.getId());
+
+        checkArgument(priority.getId() > 0, i18n.translate("argument.nonNegative", priority.getId()));
 
         return Optional.ofNullable(snapshotPriorityRepository.findOne(priority.getId())).map(p -> {
             p.setAction(priority.getAction());
@@ -77,18 +73,17 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
             LOG.debug("Changed Information for Snapshot Indicator Priority: {}", p);
             return snapshotPriorityRepository.save(p);
         }).map(snapshotPriorityMapper::entityToDto).orElseThrow(() -> new UnknownResourceException(
-                messageSource.getMessage("snapshotPriority.notExist", new Object[] { priority.getId() }, locale)));
+                i18n.translate("snapshotPriority.notExist", priority.getId())));
     }
 
     @Override
     public SnapshotIndicatorPriority addSnapshotIndicatorPriority(SnapshotIndicatorPriority priority) {
 
-        Locale locale = LocaleContextHolder.getLocale();
-        checkArgument(priority != null, messageSource.getMessage("argument.notNull", null, locale), priority);
-        
+        checkArgument(priority != null, i18n.translate("argument.notNull", priority));
+
         if (snapshotPriorityRepository.countAllBySnapshotIndicatorId(priority.getSnapshotIndicatorId()) >= 5) {
             throw new CustomParameterizedException(
-                    messageSource.getMessage("snapshotPriority.onlyFivePriorities", null, locale));
+                    i18n.translate("snapshotPriority.onlyFivePriorities"));
         }
 
         SnapshotIndicatorPriorityEntity entity = new SnapshotIndicatorPriorityEntity();
@@ -100,7 +95,7 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
 
         SnapshotIndicatorPriorityEntity newSnapshotIndicatorPriority = snapshotPriorityRepository.save(entity);
         return snapshotPriorityMapper.entityToDto(newSnapshotIndicatorPriority);
-        
+
     }
 
     @Override
@@ -117,8 +112,7 @@ public class SnapshotIndicatorPriorityServiceImpl implements SnapshotIndicatorPr
     @Override
     public void deleteSnapshotIndicatorPriority(Long snapshotIndicatorPriorityId) {
         checkArgument(snapshotIndicatorPriorityId > 0,
-                messageSource.getMessage("argument.nonNegative", null, LocaleContextHolder.getLocale()),
-                snapshotIndicatorPriorityId);
+                i18n.translate("argument.nonNegative", snapshotIndicatorPriorityId));
 
         Optional.ofNullable(snapshotPriorityRepository.findOne(snapshotIndicatorPriorityId)).ifPresent(priority -> {
             snapshotPriorityRepository.delete(priority);
