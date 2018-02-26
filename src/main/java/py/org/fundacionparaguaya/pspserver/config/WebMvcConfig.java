@@ -3,7 +3,6 @@ package py.org.fundacionparaguaya.pspserver.config;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.MessageInterpolator;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -34,11 +33,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public I18n i18n () {
+        return new I18n(messageSource());
+    }
+
+    @Bean
     public LocalValidatorFactoryBean validator() {
         LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-        factory.setMessageInterpolator(
-                (MessageInterpolator) new LocaleAwareMessageInterpolator(
-                        messageSource()));
+        factory.setMessageInterpolator(i18n());
         factory.setValidationMessageSource(messageSource());
 
         return factory;
