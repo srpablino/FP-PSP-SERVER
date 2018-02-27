@@ -2,6 +2,8 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
+import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
@@ -23,6 +26,7 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -44,7 +48,7 @@ public class ApplicationController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDto)
-                                                                                throws URISyntaxException {
+                                                                                throws URISyntaxException, IOException {
         ApplicationDTO result = applicationService.addApplication(applicationDto);
         return ResponseEntity
                 .created(new URI("/api/v1/applications/" + result.getId()))
@@ -64,10 +68,23 @@ public class ApplicationController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping()
+    @GetMapping("/hubsandpartners")
     public ResponseEntity<List<ApplicationDTO>> getAllApplications() {
         List<ApplicationDTO> applications = applicationService.getAllApplications();
         return ResponseEntity.ok(applications);
+    }
+
+    @GetMapping()
+    public ResponseEntity<PaginableList<ApplicationDTO>> getPaginatedApplications(
+                                @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+                                @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
+                                @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+                                @AuthenticationPrincipal UserDetailsDTO details) {
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+        Page<ApplicationDTO> pageProperties = applicationService.getPaginatedApplications(pageRequest, details);
+        PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/partners")
@@ -85,7 +102,7 @@ public class ApplicationController {
 
     @GetMapping("/{applicationId}/organizations")
     public ResponseEntity<List<OrganizationDTO>> getOrganizationsByApplicationId(
-                                                                @PathVariable("applicationId") Long applicationId) {
+                                                                    @PathVariable("applicationId") Long applicationId) {
         List<OrganizationDTO> organizationsByLoggedUser =
                                                     organizationService.getOrganizationsByApplicationId(applicationId);
         return ResponseEntity.ok(organizationsByLoggedUser);
@@ -93,8 +110,8 @@ public class ApplicationController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<ApplicationDTO> getApplicationDashboard(
-            @RequestParam(value = "applicationId", required = false) Long applicationId,
-            @AuthenticationPrincipal UserDetailsDTO details) {
+                                            @RequestParam(value = "applicationId", required = false) Long applicationId,
+                                            @AuthenticationPrincipal UserDetailsDTO details) {
         ApplicationDTO dto = applicationService.getApplicationDashboard(applicationId, details);
         return ResponseEntity.ok(dto);
     }

@@ -97,8 +97,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO) {
         checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
 
-        return Optional
-                .ofNullable(organizationRepository.findOne(organizationId))
+        return Optional.ofNullable(
+                organizationRepository.findOne(organizationId))
                 .map(organization -> {
                     organization.setName(organizationDTO.getName());
                     organization.setDescription(organizationDTO.getDescription());
@@ -113,8 +113,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationDTO getOrganizationById(Long organizationId) {
         checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
 
-        return Optional
-                .ofNullable(organizationRepository.findOne(organizationId))
+        return Optional.ofNullable(
+                organizationRepository.findOne(organizationId))
                 .map(organizationMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
     }
@@ -227,12 +227,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public OrganizationDTO addOrganization(OrganizationDTO organizationDTO)
-                                                        throws IOException {
-        organizationRepository.findOneByName(organizationDTO.getName())
+    public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException {
+        organizationRepository
+                .findOneByName(organizationDTO.getName())
                 .ifPresent(organization -> {
-                    throw new CustomParameterizedException(
-                            "Organisation already exists",
+                    throw new CustomParameterizedException("Organisation already exists",
                             new ImmutableMultimap.Builder<String, String>()
                                     .put("name", organization.getName())
                                     .build()
@@ -248,13 +247,13 @@ public class OrganizationServiceImpl implements OrganizationService {
         OrganizationEntity newOrganization = organizationRepository.save(organization);
 
         // Upload image to AWS S3 service
-        ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile());
-        imageDTO.setImageDirectory(applicationProperties.getAws().getOrgsImageDirectory());
-        imageDTO.setImageNamePrefix(applicationProperties.getAws().getOrgsImageNamePrefix());
+        if (organizationDTO.getFile() != null) {
+            ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
+                                                  applicationProperties.getAws().getOrgsImageDirectory(),
+                                                  applicationProperties.getAws().getOrgsImageNamePrefix());
 
-        String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
+            String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
 
-        if (logoURL != null) {
             // Update Organization entity with image URL
             newOrganization.setLogoUrl(logoURL);
             organizationRepository.save(newOrganization);
@@ -267,7 +266,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void deleteOrganization(Long organizationId) {
         checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
 
-        Optional.ofNullable(organizationRepository.findOne(organizationId))
+        Optional.ofNullable(
+                organizationRepository.findOne(organizationId))
                 .ifPresent(organization -> {
                     organizationRepository.delete(organization);
                     LOG.debug("Deleted Organization: {}", organization);

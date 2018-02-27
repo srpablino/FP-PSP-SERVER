@@ -33,8 +33,8 @@ public class SnapshotIndicatorPriority implements Serializable {
     @JsonProperty("estimated_date")
     private String estimatedDate;
 
-    @JsonProperty("is_success")
-    private Boolean isSuccess;
+    @JsonProperty("is_attainment")
+    private Boolean isAttainment;
 
     @ApiModelProperty(value = "Snapshot Indicator Priority's id")
     public Long getId() {
@@ -121,12 +121,12 @@ public class SnapshotIndicatorPriority implements Serializable {
         return this;
     }
 
-    public Boolean getIsSuccess() {
-        return isSuccess;
+    public Boolean getIsAttainment() {
+        return isAttainment;
     }
 
-    public void setIsSuccess(Boolean isSuccess) {
-        this.isSuccess = isSuccess;
+    public void setIsAttainment(Boolean isAttainment) {
+        this.isAttainment = isAttainment;
     }
 
     @Override
@@ -143,7 +143,7 @@ public class SnapshotIndicatorPriority implements Serializable {
         sb.append("    action: ").append(toIndentedString(action)).append("\n");
         sb.append("    estimatedDate: ").append(toIndentedString(estimatedDate))
                 .append("\n");
-        sb.append("    isSuccess: ").append(toIndentedString(isSuccess))
+        sb.append("    isAttainment: ").append(toIndentedString(isAttainment))
                 .append("\n");
         sb.append("}");
         return sb.toString();
@@ -178,13 +178,13 @@ public class SnapshotIndicatorPriority implements Serializable {
                         that.action)
                 && com.google.common.base.Objects.equal(this.estimatedDate,
                         that.estimatedDate)
-                && com.google.common.base.Objects.equal(this.isSuccess,
-                        that.isSuccess);
+                && com.google.common.base.Objects.equal(this.isAttainment,
+                        that.isAttainment);
     }
 
     @Override
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(id, snapshotIndicatorId,
-                indicator, reason, action, estimatedDate, isSuccess);
+                indicator, reason, action, estimatedDate, isAttainment);
     }
 }

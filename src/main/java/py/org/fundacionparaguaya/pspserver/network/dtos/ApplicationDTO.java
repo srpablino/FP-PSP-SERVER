@@ -34,14 +34,15 @@ public class ApplicationDTO implements Serializable {
 
     private DashboardDTO dashboard;
 
+    private String logoUrl;
+
+    private String file;
+
     public ApplicationDTO() {}
 
-    //CHECKSTYLE:OFF
-    private ApplicationDTO(
-                        Long id, String name, String code, String description,
-                        boolean isActive, CountryDTO country, CityDTO city,
-                        String information, boolean isHub, boolean isPartner,
-                        DashboardDTO dashboard) {
+    private ApplicationDTO(Long id, String name, String code, String description, boolean isActive,
+                           CountryDTO country, CityDTO city, String information, boolean isHub,
+                           boolean isPartner, DashboardDTO dashboard, String logoUrl, String file) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -53,8 +54,9 @@ public class ApplicationDTO implements Serializable {
         this.isHub = isHub;
         this.isPartner = isPartner;
         this.dashboard = dashboard;
+        this.logoUrl = logoUrl;
+        this.file = file;
     }
-    //CHECKSTYLE:ON
 
     public static class Builder {
         private Long applicationId;
@@ -68,6 +70,8 @@ public class ApplicationDTO implements Serializable {
         private boolean isHub;
         private boolean isPartner;
         private DashboardDTO dashboard;
+        private String logoUrl;
+        private String file;
 
         public Builder applicationId(Long applicationId) {
             this.applicationId = applicationId;
@@ -124,10 +128,19 @@ public class ApplicationDTO implements Serializable {
             return this;
         }
 
+        public Builder logoUrl(String logoUrl) {
+            this.logoUrl = logoUrl;
+            return this;
+        }
+
+        public Builder file(String file) {
+            this.file = file;
+            return this;
+        }
+
         public ApplicationDTO build() {
-            return new ApplicationDTO(applicationId, name, code, description,
-                                        isActive, country, city, information,
-                                        isHub, isPartner, dashboard);
+            return new ApplicationDTO(applicationId, name, code, description, isActive, country, city,
+                                        information, isHub, isPartner, dashboard, logoUrl, file);
         }
     }
 
@@ -224,6 +237,25 @@ public class ApplicationDTO implements Serializable {
         this.dashboard = dashboard;
     }
 
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+
+    public String getFile() {
+        return file;
+    }
+
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -238,6 +270,7 @@ public class ApplicationDTO implements Serializable {
                 .add("isHub", isHub)
                 .add("isPartner", isPartner)
                 .add("dashboard", dashboard.toString())
+                .add("logoUrl", logoUrl)
                 .toString();
     }
 }
