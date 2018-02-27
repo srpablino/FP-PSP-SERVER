@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
+import com.google.common.collect.ImmutableMultimap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -8,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PaginableList;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -22,7 +25,11 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepos
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
+import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -42,20 +49,27 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final SnapshotService snapshotService;
 
-    public ApplicationServiceImpl(ApplicationRepository applicationRepository,
-            ApplicationMapper applicationMapper, FamilyService familyService,
-            SnapshotService snapshotService) {
+    private final ImageUploadService imageUploadService;
+
+    private final ApplicationProperties applicationProperties;
+
+    public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper,
+                                  FamilyService familyService, SnapshotService snapshotService,
+                                  ImageUploadService imageUploadService, ApplicationProperties applicationProperties) {
         this.applicationRepository = applicationRepository;
         this.applicationMapper = applicationMapper;
         this.familyService = familyService;
         this.snapshotService = snapshotService;
+        this.imageUploadService = imageUploadService;
+        this.applicationProperties = applicationProperties;
     }
 
     @Override
     public ApplicationDTO updateApplication(Long applicationId, ApplicationDTO applicationDto) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        return Optional.ofNullable(applicationRepository.findOne(applicationId))
+        return Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
                 .map(application -> {
                     BeanUtils.copyProperties(applicationDto, application);
                     LOG.debug("Changed Information for Application: {}", application);
@@ -66,10 +80,37 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDTO addApplication(ApplicationDTO applicationDTO) {
+    public ApplicationDTO addApplication(ApplicationDTO applicationDTO) throws IOException {
+        applicationRepository
+                .findOneByName(applicationDTO.getName())
+                .ifPresent(application -> {
+                    throw new CustomParameterizedException("Application already exists",
+                            new ImmutableMultimap.Builder<String, String>()
+                                    .put("name", application.getName())
+                                    .build()
+                                    .asMap());
+                });
+
+        // Save Application entity
         ApplicationEntity application = new ApplicationEntity();
         BeanUtils.copyProperties(applicationDTO, application);
+        application.setHub(true);
+        application.setActive(true);
         ApplicationEntity newApplication = applicationRepository.save(application);
+
+        // Upload image to AWS S3 service
+        if (applicationDTO.getFile() != null) {
+            ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile(),
+                                                  applicationProperties.getAws().getHubsImageDirectory(),
+                                                  applicationProperties.getAws().getHubsImageNamePrefix());
+
+            String logoURL = imageUploadService.uploadImage(imageDTO, newApplication.getId());
+
+            // Update Application entity with image URL
+            newApplication.setLogoUrl(logoURL);
+            applicationRepository.save(newApplication);
+        }
+
         return applicationMapper.entityToDto(newApplication);
     }
 
@@ -77,7 +118,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationDTO getApplicationById(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        return Optional.ofNullable(applicationRepository.findOne(applicationId))
+        return Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
                 .map(applicationMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
     }
@@ -86,6 +128,17 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<ApplicationDTO> getAllApplications() {
         List<ApplicationEntity> applications = applicationRepository.findByIsActive(true);
         return applicationMapper.entityListToDtoList(applications);
+    }
+
+    @Override
+    public Page<ApplicationDTO> getPaginatedApplications(PageRequest pageRequest, UserDetailsDTO userDetails) {
+        Page<ApplicationEntity> applicationsPage = applicationRepository.findAll(pageRequest);
+
+        if (applicationsPage != null) {
+            return applicationsPage.map(applicationMapper::entityToDto);
+        }
+
+        return null;
     }
 
     @Override
@@ -104,11 +157,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     public void deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        Optional.ofNullable(applicationRepository.findOne(applicationId))
-                        .ifPresent(application -> {
-                            applicationRepository.delete(application);
-                            LOG.debug("Deleted Application: {}", application);
-                        });
+        Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
+                .ifPresent(application -> {
+                    applicationRepository.delete(application);
+                    LOG.debug("Deleted Application: {}", application);
+                });
     }
 
     @Override
