@@ -1,6 +1,6 @@
 --Add email column in security.users 
---ALTER TABLE security.users
---    ADD COLUMN email text;
+ALTER TABLE security.users
+    ADD COLUMN email text;
     
 --Create table to store reset password user
 CREATE TABLE security.password_reset_token
