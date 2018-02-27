@@ -33,7 +33,7 @@ public class SnapshotIndicatorPriorityController {
             @io.swagger.annotations.ApiResponse(code = 200, message = "List of available surveys", response = IndicatorsPriority.class, responseContainer = "List") })
     public ResponseEntity getSnapshotIndicatorPriorityList( @RequestParam("snapshotIndicatorId")
             Long snapshotIndicatorId) {
-        
+
         List<SnapshotIndicatorPriority> snapshotsPriority = snapshotPriorityService
                 .getSnapshotIndicatorPriorityList(snapshotIndicatorId);
         return ResponseEntity.ok(snapshotsPriority);
