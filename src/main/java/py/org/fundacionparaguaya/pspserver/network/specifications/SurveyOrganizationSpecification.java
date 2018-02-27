@@ -57,49 +57,4 @@ public class SurveyOrganizationSpecification {
         };
     }
 
-    public static Specification<SurveyOrganizationEntity> hasOrganization(
-            Long organizationId) {
-        return new Specification<SurveyOrganizationEntity>() {
-            @Override
-            public Predicate toPredicate(Root<SurveyOrganizationEntity> root,
-                    CriteriaQuery<?> query, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-
-                if (organizationId != null) {
-                    Join<SurveyOrganizationEntity, OrganizationEntity> joinSurveyOrganization = root
-                            .join(SurveyOrganizationEntity_.getOrganization());
-                    Expression<Long> byOrganizationId = joinSurveyOrganization
-                            .<Long>get("id");
-                    predicates.add(cb.equal(byOrganizationId, organizationId));
-                }
-                return cb.and(
-                        predicates.toArray(new Predicate[predicates.size()]));
-            }
-        };
-    }
-
-    public static Specification<SurveyOrganizationEntity> hasApplication(
-            Long applicationId) {
-        return new Specification<SurveyOrganizationEntity>() {
-            @Override
-            public Predicate toPredicate(Root<SurveyOrganizationEntity> root,
-                    CriteriaQuery<?> query, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
-
-                if (applicationId != null) {
-                    Join<SurveyOrganizationEntity, OrganizationEntity> joinSurveyOrganization = root
-                            .join(SurveyOrganizationEntity_.getOrganization());
-
-                    Expression<Long> byApplicationId = joinSurveyOrganization
-                            .get("application").<Long>get("id");
-
-                    predicates.add(cb.equal(byApplicationId, applicationId));
-
-                }
-                return cb.and(
-                        predicates.toArray(new Predicate[predicates.size()]));
-            }
-        };
-    }
-
 }
