@@ -3,7 +3,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SurveySpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byFilter;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
 import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
@@ -18,10 +18,12 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.SurveyOrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSurveyDefinition;
@@ -224,13 +226,22 @@ public class SurveyServiceImpl implements SurveyService {
         Long organizationId = Optional.ofNullable(userDetails.getOrganization())
                 .orElse(new OrganizationDTO()).getId();
 
-        if (organizationId != null) {
-            return mapper.entityListToDtoList(surveyOrganizationRepo
-                    .findAll(where(byFilter(organizationId))).stream()
-                    .map(e -> e.getSurvey()).collect(Collectors.toList()));
-        } else {
+        Long applicationId = Optional.ofNullable(userDetails.getApplication())
+                .orElse(new ApplicationDTO()).getId();
+
+        if (userHasRole(userDetails, Role.ROLE_ROOT)) {
             return mapper.entityListToDtoList(repo.findAll());
         }
+
+        return mapper.entityListToDtoList(surveyOrganizationRepo
+                .findAll(where(byFilter(applicationId, organizationId)))
+                .stream().map(e -> e.getSurvey()).collect(Collectors.toList()));
+    }
+
+    private boolean userHasRole(UserDetailsDTO user, Role role) {
+        return user.getAuthorities().stream()
+                .filter(auth -> auth.toString().equals(role.name()))
+                .count() > 0;
     }
 
 }
