@@ -26,7 +26,6 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -48,7 +47,7 @@ public class ApplicationController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ApplicationDTO> addApplication(@Valid @RequestBody ApplicationDTO applicationDto)
-                                                                                throws URISyntaxException, IOException {
+                                                                                            throws URISyntaxException {
         ApplicationDTO result = applicationService.addApplication(applicationDto);
         return ResponseEntity
                 .created(new URI("/api/v1/applications/" + result.getId()))

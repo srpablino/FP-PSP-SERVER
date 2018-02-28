@@ -1,5 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,9 +10,11 @@ import java.util.Base64;
 
 public class ImageParser {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ImageParser.class);
+
     private ImageParser() {}
 
-    public static ImageDTO parse(String fileString, String imageDirectory, String imageNamePrefix) throws IOException {
+    public static ImageDTO parse(String fileString, String imageDirectory, String imageNamePrefix) {
         ImageDTO image = null;
 
         // Image format validation (MIME type: image/jpeg, image/png, image/bmp, ...)
@@ -25,10 +30,16 @@ public class ImageParser {
                 Base64.Decoder decoder = Base64.getDecoder();
                 byte[] fileBytes = decoder.decode(base64);
 
-                File file = File.createTempFile("file", ".tmp");
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(fileBytes);
-                fos.close();
+                File file;
+                try {
+                    file = File.createTempFile("file", ".tmp");
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(fileBytes);
+                    fos.close();
+                } catch (IOException ioException) {
+                    LOG.error(ioException.getMessage(), ioException);
+                    throw new RuntimeException(ioException);
+                }
 
                 image = new ImageDTO();
                 image.setFile(file);

@@ -39,7 +39,6 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -94,6 +93,42 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) {
+        organizationRepository
+                .findOneByName(organizationDTO.getName())
+                .ifPresent(organization -> {
+                    throw new CustomParameterizedException("Organisation already exists",
+                            new ImmutableMultimap.Builder<String, String>()
+                                    .put("name", organization.getName())
+                                    .build()
+                                    .asMap());
+                });
+
+        // Save Organization entity
+        OrganizationEntity organization = new OrganizationEntity();
+        BeanUtils.copyProperties(organizationDTO, organization);
+        ApplicationEntity application = applicationRepository.findById(organizationDTO.getApplication().getId());
+        organization.setApplication(application);
+        organization.setActive(true);
+        OrganizationEntity newOrganization = organizationRepository.save(organization);
+
+        // Upload image to AWS S3 service
+        if (organizationDTO.getFile() != null) {
+            ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
+                    applicationProperties.getAws().getOrgsImageDirectory(),
+                    applicationProperties.getAws().getOrgsImageNamePrefix());
+
+            String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
+
+            // Update Organization entity with image URL
+            newOrganization.setLogoUrl(logoURL);
+            organizationRepository.save(newOrganization);
+        }
+
+        return organizationMapper.entityToDto(newOrganization);
+    }
+
+    @Override
     public OrganizationDTO updateOrganization(Long organizationId, OrganizationDTO organizationDTO) {
         checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
 
@@ -102,6 +137,15 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .map(organization -> {
                     organization.setName(organizationDTO.getName());
                     organization.setDescription(organizationDTO.getDescription());
+                    organization.setInformation(organizationDTO.getInformation());
+
+                    if (organizationDTO.getFile() != null) {
+                        ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
+                                applicationProperties.getAws().getOrgsImageDirectory(),
+                                applicationProperties.getAws().getOrgsImageNamePrefix());
+                        String logoURL = imageUploadService.uploadImage(imageDTO, organizationId);
+                        organization.setLogoUrl(logoURL);
+                    }
                     LOG.debug("Changed Information for Organization: {}", organization);
                     return organizationRepository.save(organization);
                 })
@@ -224,42 +268,6 @@ public class OrganizationServiceImpl implements OrganizationService {
         }
 
         return response;
-    }
-
-    @Override
-    public OrganizationDTO addOrganization(OrganizationDTO organizationDTO) throws IOException {
-        organizationRepository
-                .findOneByName(organizationDTO.getName())
-                .ifPresent(organization -> {
-                    throw new CustomParameterizedException("Organisation already exists",
-                            new ImmutableMultimap.Builder<String, String>()
-                                    .put("name", organization.getName())
-                                    .build()
-                                    .asMap());
-                });
-
-        // Save Organization entity
-        OrganizationEntity organization = new OrganizationEntity();
-        BeanUtils.copyProperties(organizationDTO, organization);
-        ApplicationEntity application = applicationRepository.findById(organizationDTO.getApplication().getId());
-        organization.setApplication(application);
-        organization.setActive(true);
-        OrganizationEntity newOrganization = organizationRepository.save(organization);
-
-        // Upload image to AWS S3 service
-        if (organizationDTO.getFile() != null) {
-            ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
-                                                  applicationProperties.getAws().getOrgsImageDirectory(),
-                                                  applicationProperties.getAws().getOrgsImageNamePrefix());
-
-            String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
-
-            // Update Organization entity with image URL
-            newOrganization.setLogoUrl(logoURL);
-            organizationRepository.save(newOrganization);
-        }
-
-        return organizationMapper.entityToDto(newOrganization);
     }
 
     @Override

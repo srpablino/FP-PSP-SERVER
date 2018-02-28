@@ -23,7 +23,6 @@ import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -41,7 +40,7 @@ public class OrganizationController {
 
     @PostMapping()
     public ResponseEntity<OrganizationDTO> addOrganization(@Valid @RequestBody OrganizationDTO organizationDTO)
-                                                                        throws URISyntaxException, IOException {
+                                                                                    throws URISyntaxException {
         OrganizationDTO result = organizationService.addOrganization(organizationDTO);
         return ResponseEntity
                 .created(new URI("/api/v1/organizations/" + result.getId()))

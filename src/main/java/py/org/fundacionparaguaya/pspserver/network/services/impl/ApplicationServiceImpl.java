@@ -29,7 +29,6 @@ import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +79,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDTO addApplication(ApplicationDTO applicationDTO) throws IOException {
+    public ApplicationDTO addApplication(ApplicationDTO applicationDTO) {
         applicationRepository
                 .findOneByName(applicationDTO.getName())
                 .ifPresent(application -> {
