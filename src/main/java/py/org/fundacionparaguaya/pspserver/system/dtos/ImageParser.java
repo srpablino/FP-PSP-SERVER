@@ -14,7 +14,7 @@ public class ImageParser {
 
     private ImageParser() {}
 
-    public static ImageDTO parse(String fileString, String imageDirectory, String imageNamePrefix) {
+    public static ImageDTO parse(String fileString, String imageDirectory) {
         ImageDTO image = null;
 
         // Image format validation (MIME type: image/jpeg, image/png, image/bmp, ...)
@@ -45,7 +45,6 @@ public class ImageParser {
                 image.setFile(file);
                 image.setFormat(format);
                 image.setImageDirectory(imageDirectory);
-                image.setImageNamePrefix(imageNamePrefix);
             }
         }
 

@@ -18,6 +18,9 @@ import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class ImageUploadServiceImpl implements ImageUploadService {
 
@@ -51,8 +54,8 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                         .getBucketName();
 
                 String imageDirectory = imageDTO.getImageDirectory();
-                String imageNamePrefix = imageDTO.getImageNamePrefix();
-                String fileName = imageNamePrefix + entityId + "." + imageDTO.getFormat();
+                String imageName = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").format(LocalDateTime.now());
+                String fileName = imageName + "." + imageDTO.getFormat();
                 String keyName = imageDirectory + fileName;
 
                 s3Client.putObject(new PutObjectRequest(bucketName, keyName, imageDTO.getFile())

@@ -71,16 +71,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final ApplicationProperties applicationProperties;
 
-    public OrganizationServiceImpl(
-            OrganizationRepository organizationRepository,
-            ApplicationRepository applicationRepository,
-            OrganizationMapper organizationMapper,
-            FamilyService familyService,
-            SnapshotEconomicRepository snapshotEconomicRepo,
-            SnapshotIndicatorMapper indicatorMapper,
-            SnapshotServiceImpl snapshotServiceImpl,
-            ImageUploadService imageUploadService,
-            ApplicationProperties applicationProperties) {
+    public OrganizationServiceImpl(OrganizationRepository organizationRepository,
+                                   ApplicationRepository applicationRepository, OrganizationMapper organizationMapper,
+                                   FamilyService familyService, SnapshotEconomicRepository snapshotEconomicRepo,
+                                   SnapshotIndicatorMapper indicatorMapper, SnapshotServiceImpl snapshotServiceImpl,
+                                   ImageUploadService imageUploadService, ApplicationProperties applicationProperties) {
         this.organizationRepository = organizationRepository;
         this.applicationRepository = applicationRepository;
         this.organizationMapper = organizationMapper;
@@ -115,8 +110,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         // Upload image to AWS S3 service
         if (organizationDTO.getFile() != null) {
             ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
-                    applicationProperties.getAws().getOrgsImageDirectory(),
-                    applicationProperties.getAws().getOrgsImageNamePrefix());
+                                                    applicationProperties.getAws().getOrgsImageDirectory());
 
             String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
 
@@ -141,8 +135,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
                     if (organizationDTO.getFile() != null) {
                         ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
-                                applicationProperties.getAws().getOrgsImageDirectory(),
-                                applicationProperties.getAws().getOrgsImageNamePrefix());
+                                                                applicationProperties.getAws().getOrgsImageDirectory());
                         String logoURL = imageUploadService.uploadImage(imageDTO, organizationId);
                         organization.setLogoUrl(logoURL);
                     }
