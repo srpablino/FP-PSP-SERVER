@@ -210,7 +210,7 @@ public class FamilyServiceImpl implements FamilyService {
     public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, String code, PersonEntity person) {
 
-        if (familyRepository.findByCode(code) != null) {
+        if (familyRepository.findByCode(code).isPresent()) {
             return familyRepository.findByCode(code).get();
         }
 
