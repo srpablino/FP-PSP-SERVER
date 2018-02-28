@@ -1,11 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 import org.slf4j.Logger;
@@ -35,43 +35,71 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
     @Override
     public String uploadImage(ImageDTO imageDTO, Long entityId) {
+        if (imageDTO == null) {
+            return null;
+        }
 
-        String url = null;
+        String url;
+        try {
+            String strRegion = applicationProperties
+                    .getAws()
+                    .getStrRegion();
+            Regions region = Regions.valueOf(strRegion);
 
-        if (imageDTO != null) {
-            try {
-                String strRegion = applicationProperties
-                        .getAws()
-                        .getStrRegion();
-                Regions region = Regions.valueOf(strRegion);
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(region)
+                    .build();
 
-                AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                        .withRegion(region)
-                        .build();
+            String bucketName = applicationProperties
+                    .getAws()
+                    .getBucketName();
 
-                String bucketName = applicationProperties
-                        .getAws()
-                        .getBucketName();
+            String imageDirectory = imageDTO.getImageDirectory();
+            String imageName = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").format(LocalDateTime.now());
+            String fileName = imageName + "." + imageDTO.getFormat();
+            String keyName = imageDirectory + fileName;
 
-                String imageDirectory = imageDTO.getImageDirectory();
-                String imageName = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").format(LocalDateTime.now());
-                String fileName = imageName + "." + imageDTO.getFormat();
-                String keyName = imageDirectory + fileName;
+            s3Client.putObject(new PutObjectRequest(bucketName, keyName, imageDTO.getFile())
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
 
-                s3Client.putObject(new PutObjectRequest(bucketName, keyName, imageDTO.getFile())
-                                            .withCannedAcl(CannedAccessControlList.PublicRead));
+            url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
 
-                url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
-
-            } catch (AmazonServiceException ase) {
-                LOG.error(ase.getMessage(), ase);
-                throw new AWSS3RuntimeException(ase);
-            } catch (AmazonClientException ace) {
-                LOG.error(ace.getMessage(), ace);
-                throw new AWSS3RuntimeException(ace);
-            }
+        } catch (SdkClientException sdkClientExc) {
+            LOG.error(sdkClientExc.getMessage(), sdkClientExc);
+            throw new AWSS3RuntimeException(sdkClientExc);
         }
 
         return url;
+    }
+
+    @Override
+    public void deleteImage(String logoUrl, String imageDirectory) {
+        if (logoUrl == null) {
+            return;
+        }
+
+        try {
+            String strRegion = applicationProperties
+                    .getAws()
+                    .getStrRegion();
+            Regions region = Regions.valueOf(strRegion);
+
+            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+                    .withRegion(region)
+                    .build();
+
+            String bucketName = applicationProperties
+                    .getAws()
+                    .getBucketName();
+
+            String fileName = logoUrl.substring(logoUrl.lastIndexOf('/') + 1);
+            String keyName = imageDirectory + fileName;
+
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, keyName));
+
+        } catch (SdkClientException sdkClientExc) {
+            LOG.error(sdkClientExc.getMessage(), sdkClientExc);
+            throw new AWSS3RuntimeException(sdkClientExc);
+        }
     }
 }

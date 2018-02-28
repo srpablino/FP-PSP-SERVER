@@ -136,6 +136,8 @@ public class OrganizationServiceImpl implements OrganizationService {
                     if (organizationDTO.getFile() != null) {
                         ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
                                                                 applicationProperties.getAws().getOrgsImageDirectory());
+                        imageUploadService.deleteImage(organization.getLogoUrl(),
+                                                                applicationProperties.getAws().getOrgsImageDirectory());
                         String logoURL = imageUploadService.uploadImage(imageDTO, organizationId);
                         organization.setLogoUrl(logoURL);
                     }
