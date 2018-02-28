@@ -98,7 +98,8 @@ public class NewSurveyDefinition  implements StoreableDefinition {
         }
         NewSurveyDefinition newSurveyDefinition = (NewSurveyDefinition) o;
         return Objects.equals(this.surveySchema, newSurveyDefinition.surveySchema)
-                && Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema);
+                && Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema)
+                && Objects.equals(this.organizations, newSurveyDefinition.organizations);
     }
 
     @Override

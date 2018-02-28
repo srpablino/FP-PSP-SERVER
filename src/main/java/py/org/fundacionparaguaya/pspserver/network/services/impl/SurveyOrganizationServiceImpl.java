@@ -20,16 +20,16 @@ public class SurveyOrganizationServiceImpl
 
     private SurveyOrganizationMapper mapper;
 
-    private SurveyRepository surveRepo;
+    private SurveyRepository surveyRepo;
 
     private OrganizationRepository organizationRepo;
 
     public SurveyOrganizationServiceImpl(SurveyOrganizationRepository repo,
-            SurveyOrganizationMapper mapper, SurveyRepository surveRepo,
+            SurveyOrganizationMapper mapper, SurveyRepository surveyRepo,
             OrganizationRepository organizationRepo) {
         this.repo = repo;
         this.mapper = mapper;
-        this.surveRepo = surveRepo;
+        this.surveyRepo = surveyRepo;
         this.organizationRepo = organizationRepo;
     }
 
@@ -43,7 +43,7 @@ public class SurveyOrganizationServiceImpl
             SurveyOrganizationDTO surveyOrganization) {
         SurveyOrganizationEntity entity = new SurveyOrganizationEntity();
         entity.setSurvey(
-                surveRepo.findOne(surveyOrganization.getSurvey().getId()));
+                surveyRepo.findOne(surveyOrganization.getSurvey().getId()));
         entity.setOrganization(organizationRepo
                 .findOne(surveyOrganization.getOrganization().getId()));
         return mapper.entityToDto(repo.save(entity));

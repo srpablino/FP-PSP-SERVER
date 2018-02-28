@@ -26,8 +26,8 @@ public class SurveyOrganizationSpecification {
     private SurveyOrganizationSpecification() {
     }
 
-    public static Specification<SurveyOrganizationEntity> byFilter(
-            Long applicationId, Long organizationId) {
+    public static Specification<SurveyOrganizationEntity> byApplication(
+            Long applicationId) {
         return new Specification<SurveyOrganizationEntity>() {
             @Override
             public Predicate toPredicate(Root<SurveyOrganizationEntity> root,
@@ -44,6 +44,20 @@ public class SurveyOrganizationSpecification {
                     predicates.add(cb.equal(byApplicationId, applicationId));
 
                 }
+                return cb.and(
+                        predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+    }
+
+    public static Specification<SurveyOrganizationEntity> byOrganization(
+            Long organizationId) {
+        return new Specification<SurveyOrganizationEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SurveyOrganizationEntity> root,
+                    CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+
                 if (organizationId != null) {
                     Join<SurveyOrganizationEntity, OrganizationEntity> joinSurveyOrganization = root
                             .join(SurveyOrganizationEntity_.getOrganization());

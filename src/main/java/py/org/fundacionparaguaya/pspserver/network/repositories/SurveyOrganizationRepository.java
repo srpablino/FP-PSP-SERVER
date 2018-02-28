@@ -1,5 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.network.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -11,5 +13,7 @@ public interface SurveyOrganizationRepository
 
     SurveyOrganizationEntity findBySurveyIdAndOrganizationId(Long surveyId,
             Long organizationId);
+
+    List<SurveyOrganizationEntity> findBySurveyId(Long surveyId);
 
 }

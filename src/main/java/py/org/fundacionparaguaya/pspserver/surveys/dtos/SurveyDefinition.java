@@ -174,7 +174,8 @@ public class SurveyDefinition implements StoreableDefinition, Serializable {
                 && Objects.equals(this.surveyUISchema, surveyDefinition.surveyUISchema)
                 && Objects.equals(this.createdAt, surveyDefinition.createdAt)
                 && Objects.equals(this.lastModifiedAt, surveyDefinition.lastModifiedAt)
-                && Objects.equals(this.userCreated, surveyDefinition.userCreated);
+                && Objects.equals(this.userCreated, surveyDefinition.userCreated)
+                && Objects.equals(this.organizations, surveyDefinition.organizations);
     }
 
     @Override
