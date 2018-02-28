@@ -63,7 +63,6 @@ public class FamilyServiceImpl implements FamilyService {
 
     private static final String SPACE = " ";
 
-    // CHECKSTYLE:OFF
     @Autowired
     public FamilyServiceImpl(FamilyRepository familyRepository,
             FamilyMapper familyMapper, CountryRepository countryRepository,
@@ -81,7 +80,6 @@ public class FamilyServiceImpl implements FamilyService {
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.userRepo = userRepo;
     }
-    // CHECKSTYLE:ON
 
     @Override
     public FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO) {
