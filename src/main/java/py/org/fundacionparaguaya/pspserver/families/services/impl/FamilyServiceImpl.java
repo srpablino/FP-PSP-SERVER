@@ -260,6 +260,7 @@ public class FamilyServiceImpl implements FamilyService {
                 .map(s -> new FamilyEntity(s.getFamily()))
                 .filter(s -> StringUtils.containsIgnoreCase(s.getName(), name)
                         || StringUtils.containsIgnoreCase(s.getCode(), name))
+                .distinct()
                 .collect(Collectors.toList());
 
         return familyMapper.entityListToDtoList(families);
