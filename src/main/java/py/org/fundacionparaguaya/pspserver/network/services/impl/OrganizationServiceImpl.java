@@ -99,27 +99,20 @@ public class OrganizationServiceImpl implements OrganizationService {
                                     .asMap());
                 });
 
-        // Save Organization entity
         OrganizationEntity organization = new OrganizationEntity();
         BeanUtils.copyProperties(organizationDTO, organization);
         ApplicationEntity application = applicationRepository.findById(organizationDTO.getApplication().getId());
         organization.setApplication(application);
         organization.setActive(true);
-        OrganizationEntity newOrganization = organizationRepository.save(organization);
 
-        // Upload image to AWS S3 service
         if (organizationDTO.getFile() != null) {
             ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
                                                     applicationProperties.getAws().getOrgsImageDirectory());
-
-            String logoURL = imageUploadService.uploadImage(imageDTO, newOrganization.getId());
-
-            // Update Organization entity with image URL
-            newOrganization.setLogoUrl(logoURL);
-            organizationRepository.save(newOrganization);
+            String logoURL = imageUploadService.uploadImage(imageDTO);
+            organization.setLogoUrl(logoURL);
         }
 
-        return organizationMapper.entityToDto(newOrganization);
+        return organizationMapper.entityToDto(organizationRepository.save(organization));
     }
 
     @Override
@@ -138,7 +131,7 @@ public class OrganizationServiceImpl implements OrganizationService {
                                                                 applicationProperties.getAws().getOrgsImageDirectory());
                         imageUploadService.deleteImage(organization.getLogoUrl(),
                                                                 applicationProperties.getAws().getOrgsImageDirectory());
-                        String logoURL = imageUploadService.uploadImage(imageDTO, organizationId);
+                        String logoURL = imageUploadService.uploadImage(imageDTO);
                         organization.setLogoUrl(logoURL);
                     }
                     LOG.debug("Changed Information for Organization: {}", organization);

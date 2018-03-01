@@ -101,7 +101,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         if (applicationDTO.getFile() != null) {
             ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile(),
                                                     applicationProperties.getAws().getHubsImageDirectory());
-            String logoURL = imageUploadService.uploadImage(imageDTO, newApplication.getId());
+            String logoURL = imageUploadService.uploadImage(imageDTO);
 
             // Update Application entity with image URL
             newApplication.setLogoUrl(logoURL);

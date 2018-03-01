@@ -34,7 +34,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
     @Override
-    public String uploadImage(ImageDTO imageDTO, Long entityId) {
+    public String uploadImage(ImageDTO imageDTO) {
         if (imageDTO == null) {
             return null;
         }
