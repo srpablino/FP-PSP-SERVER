@@ -15,6 +15,7 @@ package py.org.fundacionparaguaya.pspserver.surveys.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,7 @@ public class NewSurveyDefinition  implements StoreableDefinition {
     private SurveyUISchema surveyUISchema = new SurveyUISchema();
 
     private List<OrganizationDTO> organizations;
+    private List<ApplicationDTO> applications;
 
     public NewSurveyDefinition() {
     }
@@ -99,7 +101,8 @@ public class NewSurveyDefinition  implements StoreableDefinition {
         NewSurveyDefinition newSurveyDefinition = (NewSurveyDefinition) o;
         return Objects.equals(this.surveySchema, newSurveyDefinition.surveySchema)
                 && Objects.equals(this.surveyUISchema, newSurveyDefinition.surveyUISchema)
-                && Objects.equals(this.organizations, newSurveyDefinition.organizations);
+                && Objects.equals(this.organizations, newSurveyDefinition.organizations)
+                && Objects.equals(this.applications, newSurveyDefinition.applications);
     }
 
     @Override
@@ -151,6 +154,14 @@ public class NewSurveyDefinition  implements StoreableDefinition {
 
     public void setOrganizations(List<OrganizationDTO> organizations) {
         this.organizations = organizations;
+    }
+
+    public List<ApplicationDTO> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<ApplicationDTO> applications) {
+        this.applications = applications;
     }
 
 }

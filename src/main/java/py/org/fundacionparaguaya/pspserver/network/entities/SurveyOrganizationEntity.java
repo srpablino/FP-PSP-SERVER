@@ -43,6 +43,10 @@ public class SurveyOrganizationEntity extends BaseEntity {
     @JoinColumn(name = "organization_id")
     private OrganizationEntity organization;
 
+    @ManyToOne(targetEntity = ApplicationEntity.class)
+    @JoinColumn(name = "application_id")
+    private ApplicationEntity application;
+
     public Long getId() {
         return id;
     }
@@ -67,11 +71,20 @@ public class SurveyOrganizationEntity extends BaseEntity {
         this.organization = organization;
     }
 
+    public ApplicationEntity getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationEntity application) {
+        this.application = application;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).add("id", id)
                 .add("survey", survey)
                 .add("organization", organization)
+                .add("application", application)
                 .toString();
     }
 

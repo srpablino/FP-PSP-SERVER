@@ -23,7 +23,9 @@ import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceExce
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
+import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.SurveyOrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
@@ -62,18 +64,26 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final OrganizationMapper organizationMapper;
 
+    private final ApplicationRepository applicationRepo;
+
+    private final ApplicationMapper applicationMapper;
+
     public SurveyServiceImpl(SurveyRepository repo,
             PropertyAttributeSupport propertyAttributeSupport,
             SurveyMapper mapper,
             SurveyOrganizationRepository surveyOrganizationRepo,
             OrganizationRepository organizationRepo,
-            OrganizationMapper organizationMapper) {
+            OrganizationMapper organizationMapper,
+            ApplicationRepository applicationRepo,
+            ApplicationMapper applicationMapper) {
         this.repo = repo;
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.mapper = mapper;
         this.surveyOrganizationRepo = surveyOrganizationRepo;
         this.organizationRepo = organizationRepo;
         this.organizationMapper = organizationMapper;
+        this.applicationRepo = applicationRepo;
+        this.applicationMapper = applicationMapper;
     }
 
     @Override
@@ -96,10 +106,29 @@ public class SurveyServiceImpl implements SurveyService {
                 && surveyDefinition.getOrganizations().size() > 0) {
             for (OrganizationDTO organization : surveyDefinition
                     .getOrganizations()) {
+
+                if (surveyOrganizationRepo
+                        .findBySurveyIdAndApplicationIdAndOrganizationId(
+                                entity.getId(),
+                                organization.getApplication().getId(),
+                                organization.getId()) == null){
+                    SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
+                    surveyOrganization.setSurvey(entity);
+                    surveyOrganization.setApplication(applicationRepo
+                            .findById(organization.getApplication().getId()));
+                    surveyOrganization.setOrganization(
+                            organizationRepo.findById(organization.getId()));
+                    surveyOrganizationRepo.save(surveyOrganization);
+                }
+            }
+        }
+        if (surveyDefinition.getApplications() != null) {
+            for (ApplicationDTO application : surveyDefinition
+                    .getApplications()) {
                 SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                surveyOrganization.setOrganization(
-                        organizationRepo.findById(organization.getId()));
                 surveyOrganization.setSurvey(entity);
+                surveyOrganization.setApplication(
+                        applicationRepo.findById(application.getId()));
                 surveyOrganizationRepo.save(surveyOrganization);
             }
         }
@@ -147,7 +176,14 @@ public class SurveyServiceImpl implements SurveyService {
                                 .entityListToDtoList(surveyOrganizationRepo
                                         .findBySurveyId(entity.getId()).stream()
                                         .map(o -> o.getOrganization())
+                                        .collect(Collectors.toList())))
+                        .applications(applicationMapper
+                                .entityListToDtoList(surveyOrganizationRepo
+                                        .findBySurveyId(
+                                                entity.getId())
+                                        .stream().map(o -> o.getApplication())
                                         .collect(Collectors.toList()))))
+
                 .orElseThrow(() -> new UnknownResourceException(
                         "Survey definition does not exist"));
 
@@ -211,18 +247,35 @@ public class SurveyServiceImpl implements SurveyService {
             survey.setTitle(surveyDefinition.getTitle());
             survey.setSurveyDefinition(surveyDefinition);
 
-            surveyOrganizationRepo.findBySurveyId(surveyId)
-                    .forEach(old -> surveyOrganizationRepo.delete(old.getId()));
-            surveyOrganizationRepo.flush();
-
             if (surveyDefinition.getOrganizations() != null
                     && surveyDefinition.getOrganizations().size() > 0) {
                 for (OrganizationDTO organization : surveyDefinition
                         .getOrganizations()) {
+
+                    if (surveyOrganizationRepo
+                            .findBySurveyIdAndApplicationIdAndOrganizationId(
+                                    surveyId,
+                                    organization.getApplication().getId(),
+                                    organization.getId()).isEmpty()) {
+                        SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
+                        surveyOrganization.setSurvey(survey);
+                        surveyOrganization
+                                .setApplication(applicationRepo.findById(
+                                        organization.getApplication().getId()));
+                        surveyOrganization.setOrganization(organizationRepo
+                                .findById(organization.getId()));
+                        surveyOrganizationRepo.save(surveyOrganization);
+                    }
+                }
+            }
+
+            if (surveyDefinition.getApplications() != null) {
+                for (ApplicationDTO application : surveyDefinition
+                        .getApplications()) {
                     SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                    surveyOrganization.setOrganization(
-                            organizationRepo.findById(organization.getId()));
                     surveyOrganization.setSurvey(survey);
+                    surveyOrganization.setApplication(
+                            applicationRepo.findById(application.getId()));
                     surveyOrganizationRepo.save(surveyOrganization);
                 }
             }

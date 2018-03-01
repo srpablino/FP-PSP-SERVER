@@ -14,6 +14,8 @@ public class SurveyOrganizationEntity_ {
 
     private static volatile SingularAttribute<SurveyOrganizationEntity, SurveyEntity> survey;
 
+    private static volatile SingularAttribute<SurveyOrganizationEntity, ApplicationEntity> application;
+
     private SurveyOrganizationEntity_() {
     }
 
@@ -27,6 +29,10 @@ public class SurveyOrganizationEntity_ {
 
     public static SingularAttribute<SurveyOrganizationEntity, SurveyEntity> getSurvey() {
         return survey;
+    }
+
+    public static SingularAttribute<SurveyOrganizationEntity, ApplicationEntity> getApplication(){
+        return application;
     }
 
 }

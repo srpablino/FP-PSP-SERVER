@@ -12,13 +12,17 @@ public class SurveyOrganizationDTO {
 
     private OrganizationDTO organization;
 
-    public SurveyOrganizationDTO(){};
+    private ApplicationDTO application;
+
+    public SurveyOrganizationDTO() {
+    };
 
     private SurveyOrganizationDTO(Long id, SurveyDefinition survey,
-            OrganizationDTO organization) {
+            OrganizationDTO organization, ApplicationDTO application) {
         this.id = id;
         this.survey = survey;
         this.organization = organization;
+        this.application = application;
     }
 
     public static class Builder {
@@ -26,6 +30,7 @@ public class SurveyOrganizationDTO {
         private Long surveyOrganizationid;
         private SurveyDefinition survey;
         private OrganizationDTO organization;
+        private ApplicationDTO application;
 
         public Builder surveyOrganizationId(Long surveyOrganizationid) {
             this.surveyOrganizationid = surveyOrganizationid;
@@ -42,9 +47,14 @@ public class SurveyOrganizationDTO {
             return this;
         }
 
+        public Builder application(ApplicationDTO application) {
+            this.application = application;
+            return this;
+        }
+
         public SurveyOrganizationDTO build() {
             return new SurveyOrganizationDTO(surveyOrganizationid, survey,
-                    organization);
+                    organization, application);
         }
     }
 
@@ -72,11 +82,19 @@ public class SurveyOrganizationDTO {
         this.organization = organization;
     }
 
+    public ApplicationDTO getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationDTO application) {
+        this.application = application;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).add("id", id)
                 .add("survey", survey).add("organization", organization)
-                .toString();
+                .add("application", application).toString();
     }
 
 }

@@ -16,4 +16,7 @@ public interface SurveyOrganizationRepository
 
     List<SurveyOrganizationEntity> findBySurveyId(Long surveyId);
 
+    List<SurveyOrganizationEntity> findBySurveyIdAndApplicationIdAndOrganizationId(
+            Long surveyId, Long applicationId, Long organizationId);
+
 }
