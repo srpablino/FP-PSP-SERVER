@@ -100,7 +100,9 @@ public class SnapshotIndicatorPriorityServiceImpl
                 "Argument was %s but expected nonnegative",
                 priority.getSnapshotIndicatorId());
 
-        if (snapshotPriorityRepository.countAllBySnapshotIndicatorId(
+        if (!priority.getIsAttainment()
+                && snapshotPriorityRepository.
+                countAllBySnapshotIndicatorIdAndIsAttainmentFalse(
                 priority.getSnapshotIndicatorId()) >= 5) {
             throw new CustomParameterizedException(
                     i18n.translate("snapshotPriority.onlyFivePriorities"));
@@ -111,7 +113,7 @@ public class SnapshotIndicatorPriorityServiceImpl
         entity.setReason(priority.getReason());
         entity.setAction(priority.getAction());
         entity.setIndicator(priority.getIndicator());
-        entity.setIsSuccess(priority.getIsAttainment());
+        entity.setIsAttainment(priority.getIsAttainment());
         entity.setEstimatedDateAsISOString(priority.getEstimatedDate());
 
         entity.setSnapshotIndicator(snapshotIndicatorRepository
