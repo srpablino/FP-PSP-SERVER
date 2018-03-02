@@ -123,7 +123,8 @@ public class SurveyControllerTest {
                 .description(def.getDescription())
                 .surveySchema(def.getSurveySchema())
                 .surveyUISchema(def.getSurveyUISchema())
-                .organizations(def.getOrganizations());
+                .organizations(def.getOrganizations())
+                .applications(def.getApplications());
     }
 
     private FieldDescriptor[] survey = new FieldDescriptor[] {
@@ -149,7 +150,9 @@ public class SurveyControllerTest {
                             + "describes the attributes of this survey that should be taken into"
                             + "consideration when rendering this survey."),
             fieldWithPath("organizations").type(JsonFieldType.ARRAY)
-                    .description("The list of organizations"), };
+                    .description("The list of organizations"),
+            fieldWithPath("applications").type(JsonFieldType.ARRAY)
+                    .description("The list of applications"), };
 
     private FieldDescriptor[] surveys = new FieldDescriptor[] {
             fieldWithPath("[].id").type(JsonFieldType.NUMBER)
@@ -174,5 +177,7 @@ public class SurveyControllerTest {
                             + "this property describes the attributes of this survey"
                             + "that should be taken into consideration when rendering this survey."),
             fieldWithPath("[].organizations").type(JsonFieldType.ARRAY)
-                    .description("The list of organizations"), };
+                    .description("The list of organizations"),
+            fieldWithPath("[].applications").type(JsonFieldType.ARRAY)
+                    .description("The list of applications"), };
 }
