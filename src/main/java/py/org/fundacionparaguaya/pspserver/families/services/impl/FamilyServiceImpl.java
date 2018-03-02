@@ -74,8 +74,7 @@ public class FamilyServiceImpl implements FamilyService {
             OrganizationRepository organizationRepository,
             ApplicationMapper applicationMapper,
             SnapshotEconomicRepository snapshotEconomicRepo,
-            UserRepository userRepo,
-	    I18n i18n) {
+            UserRepository userRepo, I18n i18n) {
 
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
@@ -83,9 +82,9 @@ public class FamilyServiceImpl implements FamilyService {
         this.cityRepository = cityRepository;
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
-        this.i18n = i18n;
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.userRepo = userRepo;
+        this.i18n = i18n;
     }
 
     @Override
