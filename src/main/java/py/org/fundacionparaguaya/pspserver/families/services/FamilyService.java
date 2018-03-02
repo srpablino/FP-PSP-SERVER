@@ -23,7 +23,7 @@ public interface FamilyService {
 
     String generateFamilyCode(PersonEntity person);
 
-    FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details,
+    FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
             NewSnapshot snapshot, String code, PersonEntity person);
 
     List<FamilyDTO> listFamilies(FamilyFilterDTO filter,
@@ -35,6 +35,10 @@ public interface FamilyService {
 
     List<FamilyEntity> findByOrganizationId(Long organizationId);
 
-    FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot, PersonEntity personEntity);
+    FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details,
+            NewSnapshot snapshot, PersonEntity personEntity);
+
+    List<FamilyDTO> listDistinctFamiliesSnapshotByUser(UserDetailsDTO details,
+            String name);
 
 }

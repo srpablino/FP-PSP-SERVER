@@ -7,12 +7,16 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
@@ -28,7 +32,10 @@ import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
@@ -54,6 +61,10 @@ public class FamilyServiceImpl implements FamilyService {
 
     private final ApplicationMapper applicationMapper;
 
+    private final SnapshotEconomicRepository snapshotEconomicRepo;
+
+    private final UserRepository userRepo;
+
     private static final String SPACE = " ";
 
     @Autowired
@@ -61,7 +72,11 @@ public class FamilyServiceImpl implements FamilyService {
             FamilyMapper familyMapper, CountryRepository countryRepository,
             CityRepository cityRepository,
             OrganizationRepository organizationRepository,
-            ApplicationMapper applicationMapper, I18n i18n) {
+            ApplicationMapper applicationMapper,
+            SnapshotEconomicRepository snapshotEconomicRepo,
+            UserRepository userRepo,
+	    I18n i18n) {
+
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
@@ -69,6 +84,8 @@ public class FamilyServiceImpl implements FamilyService {
         this.organizationRepository = organizationRepository;
         this.applicationMapper = applicationMapper;
         this.i18n = i18n;
+        this.snapshotEconomicRepo = snapshotEconomicRepo;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -156,43 +173,6 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public FamilyEntity createFamilyFromSnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot, String code, PersonEntity person) {
-
-        FamilyEntity newFamily = new FamilyEntity();
-        newFamily.setPerson(person);
-        newFamily.setCode(code);
-        newFamily.setName(person.getFirstName().concat(SPACE)
-                .concat(person.getLastName()));
-        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
-                .getAsString("familyUbication"));
-        if (details.getApplication() != null) {
-            newFamily.setApplication(
-                    applicationMapper.dtoToEntity(details.getApplication()));
-        }
-        newFamily.setActive(true);
-
-        Optional<CountryEntity> country = countryRepository.findByCountry(
-                snapshot.getEconomicSurveyData().getAsString("familyCountry"));
-        newFamily.setCountry(country.orElse(null));
-
-        Optional<CityEntity> city = cityRepository.findByCity(
-                snapshot.getEconomicSurveyData().getAsString("familyCity"));
-        newFamily.setCity(city.orElse(null));
-
-        if (snapshot.getOrganizationId() != null) {
-            OrganizationEntity organization = organizationRepository
-                    .findOne(snapshot.getOrganizationId());
-            newFamily.setOrganization(organization);
-            newFamily.setApplication(organization.getApplication());
-        }
-
-        newFamily = familyRepository.save(newFamily);
-
-        return newFamily;
-    }
-
-    @Override
     public Long countFamiliesByDetails(UserDetailsDTO userDetails) {
         return familyRepository
                 .count(byFilter(buildFilterByDetails(userDetails)));
@@ -229,13 +209,72 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details, NewSnapshot snapshot,
-                                                      PersonEntity personEntity) {
+    public FamilyEntity getOrCreateFamilyFromSnapshot(UserDetailsDTO details,
+            NewSnapshot snapshot, PersonEntity personEntity) {
         String code = this.generateFamilyCode(personEntity);
 
-        return familyRepository.findByCode(code)
-                .orElse(this.createFamilyFromSnapshot(
-                        details, snapshot, code, personEntity));
+        return createOrReturnFamilyFromSnapshot(details, snapshot, code,
+               personEntity);
 
+    }
+
+    @Override
+    public FamilyEntity createOrReturnFamilyFromSnapshot(UserDetailsDTO details,
+            NewSnapshot snapshot, String code, PersonEntity person) {
+
+        if (familyRepository.findByCode(code).isPresent()) {
+            return familyRepository.findByCode(code).get();
+        }
+
+        FamilyEntity newFamily = new FamilyEntity();
+        newFamily.setPerson(person);
+        newFamily.setCode(code);
+        newFamily.setName(person.getFirstName().concat(SPACE)
+                .concat(person.getLastName()));
+        newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
+                .getAsString("familyUbication"));
+        if (details.getApplication() != null) {
+            newFamily.setApplication(
+                    applicationMapper.dtoToEntity(details.getApplication()));
+        }
+        newFamily.setActive(true);
+
+        Optional<CountryEntity> country = countryRepository.findByCountry(
+                snapshot.getEconomicSurveyData().getAsString("familyCountry"));
+        newFamily.setCountry(country.orElse(null));
+
+        Optional<CityEntity> city = cityRepository.findByCity(
+                snapshot.getEconomicSurveyData().getAsString("familyCity"));
+        newFamily.setCity(city.orElse(null));
+
+        if (snapshot.getOrganizationId() != null) {
+            OrganizationEntity organization = organizationRepository
+                    .findOne(snapshot.getOrganizationId());
+            newFamily.setOrganization(organization);
+            newFamily.setApplication(organization.getApplication());
+        }
+
+        newFamily = familyRepository.save(newFamily);
+
+        return newFamily;
+    }
+
+    @Override
+    public List<FamilyDTO> listDistinctFamiliesSnapshotByUser(
+            UserDetailsDTO details, String name) {
+
+        List<SnapshotEconomicEntity> listSnapshots = snapshotEconomicRepo
+                .findDistinctFamilyByUserId(
+                        userRepo.findOneByUsername(details.getUsername()).get()
+                                .getId());
+
+        List<FamilyEntity> families = listSnapshots.stream()
+                .map(s -> new FamilyEntity(s.getFamily()))
+                .filter(s -> StringUtils.containsIgnoreCase(s.getName(), name)
+                        || StringUtils.containsIgnoreCase(s.getCode(), name))
+                .distinct()
+                .collect(Collectors.toList());
+
+        return familyMapper.entityListToDtoList(families);
     }
 }
