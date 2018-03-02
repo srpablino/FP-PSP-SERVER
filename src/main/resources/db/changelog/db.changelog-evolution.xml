@@ -266,10 +266,17 @@
     <changeSet id="2018-02-14T13:00" author="mcespedes">
         <sqlFile path="sql/2018-02-14T13:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <changeSet id="2018-02-27T16:17" author="mgonzalez">
         <sqlFile path="sql/2018-02-27T16:17.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+
+    <!-- Add is_success column in indicator snapshot_indicator_priorities table-->
+    <changeSet id="2018-02-20T11:30" author="jferreira">
+        <sqlFile path="sql/2018-02-20T11:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
      <!-- Create survey organization table-->
     <changeSet id="2018-02-20T09:15" author="mcespedes">
@@ -277,3 +284,4 @@
     </changeSet>
 
 </databaseChangeLog>
+
