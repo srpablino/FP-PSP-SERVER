@@ -62,8 +62,8 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
     @Convert(converter = LocalDateConverter.class)
     private LocalDate estimatedDate;
 
-    @Column(name = "isSuccess")
-    private Boolean isSuccess;
+    @Column(name="is_attainment")
+    private Boolean isAttainment;
 
     @ManyToOne(targetEntity = SnapshotIndicatorEntity.class)
     @JoinColumn(name = "snapshot_indicator")
@@ -118,12 +118,12 @@ public class SnapshotIndicatorPriorityEntity implements Serializable {
         this.snapshotIndicator = snapshotIndicator;
     }
 
-    public Boolean getIsSuccess() {
-        return isSuccess;
+    public Boolean getIsAttainment() {
+        return isAttainment;
     }
 
-    public void setIsSuccess(Boolean isSuccess) {
-        this.isSuccess = isSuccess;
+    public void setIsAttainment(Boolean isAttainment) {
+        this.isAttainment = isAttainment;
     }
 
     public SnapshotIndicatorPriorityEntity staticProperties(
