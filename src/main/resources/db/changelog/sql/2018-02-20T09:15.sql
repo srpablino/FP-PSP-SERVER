@@ -15,6 +15,6 @@ CREATE TABLE ps_network.surveys_organizations
       ON UPDATE NO ACTION ON DELETE NO ACTION,
 
   CONSTRAINT fk_surveys_x_organizations_application_application_id FOREIGN KEY (application_id)
-      REFERENCES ps_network.organizations (application_id) MATCH SIMPLE
+      REFERENCES ps_network.applications (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
