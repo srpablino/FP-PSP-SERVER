@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
@@ -41,6 +43,8 @@ import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
+
+    private final I18n i18n;
 
     private static final Logger LOG = LoggerFactory
             .getLogger(FamilyServiceImpl.class);
@@ -70,7 +74,8 @@ public class FamilyServiceImpl implements FamilyService {
             OrganizationRepository organizationRepository,
             ApplicationMapper applicationMapper,
             SnapshotEconomicRepository snapshotEconomicRepo,
-            UserRepository userRepo) {
+            UserRepository userRepo, I18n i18n) {
+
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
         this.countryRepository = countryRepository;
@@ -79,12 +84,15 @@ public class FamilyServiceImpl implements FamilyService {
         this.applicationMapper = applicationMapper;
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.userRepo = userRepo;
+        this.i18n = i18n;
     }
 
     @Override
     public FamilyDTO updateFamily(Long familyId, FamilyDTO familyDTO) {
-        checkArgument(familyId > 0, "Argument was %s but expected nonnegative",
-                familyId);
+
+        checkArgument(familyId > 0,
+                i18n.translate("argument.nonNegative", familyId)
+                );
 
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(family -> {
@@ -92,8 +100,8 @@ public class FamilyServiceImpl implements FamilyService {
                     LOG.debug("Changed Information for Family: {}", family);
                     return family;
                 }).map(familyMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException(
-                        "Family does not exist"));
+                .orElseThrow(() -> new UnknownResourceException(i18n
+                        .translate("family.notExist")));
     }
 
     @Override
@@ -106,13 +114,15 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public FamilyDTO getFamilyById(Long familyId) {
-        checkArgument(familyId > 0, "Argument was %s but expected nonnegative",
-                familyId);
+
+        checkArgument(familyId > 0,
+                i18n.translate("argument.nonNegative", familyId));
 
         return Optional.ofNullable(familyRepository.findOne(familyId))
                 .map(familyMapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
-                        "Family does not exist"));
+                        i18n
+                        .translate("family.notExist")));
     }
 
     @Override
@@ -123,8 +133,9 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void deleteFamily(Long familyId) {
-        checkArgument(familyId > 0, "Argument was %s but expected nonnegative",
-                familyId);
+
+        checkArgument(familyId > 0,
+                i18n.translate("argument.nonNegative", familyId));
 
         Optional.ofNullable(familyRepository.findOne(familyId))
                 .ifPresent(family -> {

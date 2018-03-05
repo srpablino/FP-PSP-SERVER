@@ -132,6 +132,8 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>1.4.3.RELEASE</version>
         </dependency>
+        
+        
 
 		<dependency>
 			<groupId>com.amazonaws</groupId>
