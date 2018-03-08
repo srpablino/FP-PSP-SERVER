@@ -108,8 +108,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (organizationDTO.getFile() != null) {
             ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
                                                     applicationProperties.getAws().getOrgsImageDirectory());
-            String logoURL = imageUploadService.uploadImage(imageDTO);
-            organization.setLogoUrl(logoURL);
+            String generatedURL = imageUploadService.uploadImage(imageDTO);
+            organization.setLogoUrl(generatedURL);
         }
 
         return organizationMapper.entityToDto(organizationRepository.save(organization));
@@ -129,10 +129,12 @@ public class OrganizationServiceImpl implements OrganizationService {
                     if (organizationDTO.getFile() != null) {
                         ImageDTO imageDTO = ImageParser.parse(organizationDTO.getFile(),
                                                                 applicationProperties.getAws().getOrgsImageDirectory());
-                        imageUploadService.deleteImage(organization.getLogoUrl(),
-                                                                applicationProperties.getAws().getOrgsImageDirectory());
-                        String logoURL = imageUploadService.uploadImage(imageDTO);
-                        organization.setLogoUrl(logoURL);
+                        String generatedURL = imageUploadService.uploadImage(imageDTO);
+                        if (generatedURL != null) {
+                            imageUploadService.deleteImage(organization.getLogoUrl(),
+                                                            applicationProperties.getAws().getOrgsImageDirectory());
+                            organization.setLogoUrl(generatedURL);
+                        }
                     }
                     LOG.debug("Changed Information for Organization: {}", organization);
                     return organizationRepository.save(organization);

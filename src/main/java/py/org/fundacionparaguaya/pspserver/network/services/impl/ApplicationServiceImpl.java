@@ -64,21 +64,6 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDTO updateApplication(Long applicationId, ApplicationDTO applicationDto) {
-        checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
-
-        return Optional.ofNullable(
-                applicationRepository.findOne(applicationId))
-                .map(application -> {
-                    BeanUtils.copyProperties(applicationDto, application);
-                    LOG.debug("Changed Information for Application: {}", application);
-                    return application;
-                })
-                .map(applicationMapper::entityToDto)
-                .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
-    }
-
-    @Override
     public ApplicationDTO addApplication(ApplicationDTO applicationDTO) {
         applicationRepository
                 .findOneByName(applicationDTO.getName())
@@ -90,25 +75,47 @@ public class ApplicationServiceImpl implements ApplicationService {
                                     .asMap());
                 });
 
-        // Save Application entity
         ApplicationEntity application = new ApplicationEntity();
         BeanUtils.copyProperties(applicationDTO, application);
         application.setHub(true);
         application.setActive(true);
-        ApplicationEntity newApplication = applicationRepository.save(application);
 
-        // Upload image to AWS S3 service
         if (applicationDTO.getFile() != null) {
             ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile(),
                                                     applicationProperties.getAws().getHubsImageDirectory());
-            String logoURL = imageUploadService.uploadImage(imageDTO);
-
-            // Update Application entity with image URL
-            newApplication.setLogoUrl(logoURL);
-            applicationRepository.save(newApplication);
+            String generatedURL = imageUploadService.uploadImage(imageDTO);
+            application.setLogoUrl(generatedURL);
         }
 
-        return applicationMapper.entityToDto(newApplication);
+        return applicationMapper.entityToDto(applicationRepository.save(application));
+    }
+
+    @Override
+    public ApplicationDTO updateApplication(Long applicationId, ApplicationDTO applicationDTO) {
+        checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
+
+        return Optional.ofNullable(
+                applicationRepository.findOne(applicationId))
+                .map(application -> {
+                    application.setName(applicationDTO.getName());
+                    application.setDescription(applicationDTO.getDescription());
+                    application.setInformation(applicationDTO.getInformation());
+
+                    if (applicationDTO.getFile() != null) {
+                        ImageDTO imageDTO = ImageParser.parse(applicationDTO.getFile(),
+                                                                applicationProperties.getAws().getOrgsImageDirectory());
+                        String generatedURL = imageUploadService.uploadImage(imageDTO);
+                        if (generatedURL != null) {
+                            imageUploadService.deleteImage(application.getLogoUrl(),
+                                                            applicationProperties.getAws().getOrgsImageDirectory());
+                            application.setLogoUrl(generatedURL);
+                        }
+                    }
+                    LOG.debug("Changed Information for Application: {}", application);
+                    return applicationRepository.save(application);
+                })
+                .map(applicationMapper::entityToDto)
+                .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
     }
 
     @Override
