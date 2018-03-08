@@ -65,9 +65,11 @@ public class PasswordResetTokenServiceImpl
     UserEntity user = null;
 
     try {
-      user = userRepository.findUserByEmail(userEmail).get();
+        user = userRepository.findUserByEmail(userEmail).get();
     } catch (NoSuchElementException e) {
-      throw new CustomParameterizedException(i18n.translate("email.emailUserNotFound"));
+        throw new CustomParameterizedException(i18n.translate("email.emailUserNotFound"));
+    } catch (Exception ex){
+        throw new CustomParameterizedException(i18n.translate("email.errorResetMail"));
     }
 
     if (user == null) {
