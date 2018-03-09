@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
-
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 
 /**
@@ -20,12 +19,14 @@ public interface SnapshotEconomicRepository
     Collection<SnapshotEconomicEntity> findBySurveyDefinitionId(Long surveyId);
 
     Optional<SnapshotEconomicEntity>
-            findFirstByFamilyFamilyIdOrderByCreatedAtDesc(
-            Long familyId);
+    findFirstByFamilyFamilyIdOrderByCreatedAtDesc(Long familyId);
 
     List<SnapshotEconomicEntity> findByFamilyFamilyId(Long familyId);
 
     SnapshotEconomicEntity findTopByFamilyFamilyIdOrderByIdDesc(Long familyID);
 
     List<SnapshotEconomicEntity> findByFamilyIn(List<FamilyEntity> families);
+
+    List<SnapshotEconomicEntity> findDistinctFamilyByUserId(Long userId);
+
 }

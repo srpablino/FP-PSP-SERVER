@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+//import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -19,10 +20,10 @@ public class FamilyDTO implements Serializable {
 
     private Long familyId;
 
-    @NotNull
+    @NotNull(message="{familyDTO.name.notNull}")
     private String name;
 
-    @NotNull
+    @NotNull(message="{familyDTO.code.notNull}")
     private String code;
 
     private CountryDTO country;
