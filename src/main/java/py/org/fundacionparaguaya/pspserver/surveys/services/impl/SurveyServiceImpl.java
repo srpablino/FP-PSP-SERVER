@@ -227,6 +227,7 @@ public class SurveyServiceImpl implements SurveyService {
         try {
 
             Optional.ofNullable(repo.findOne(surveyId)).ifPresent(survey -> {
+                surveyOrganizationRepo.deleteBySurveyId(survey.getId());
                 repo.delete(survey);
             });
 
