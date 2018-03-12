@@ -24,6 +24,7 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.ApplicationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.ApplicationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
@@ -52,15 +53,19 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private final ApplicationProperties applicationProperties;
 
+    private final UserService userService;
+
     public ApplicationServiceImpl(ApplicationRepository applicationRepository, ApplicationMapper applicationMapper,
                                   FamilyService familyService, SnapshotService snapshotService,
-                                  ImageUploadService imageUploadService, ApplicationProperties applicationProperties) {
+                                  ImageUploadService imageUploadService, ApplicationProperties applicationProperties,
+                                  UserService userService) {
         this.applicationRepository = applicationRepository;
         this.applicationMapper = applicationMapper;
         this.familyService = familyService;
         this.snapshotService = snapshotService;
         this.imageUploadService = imageUploadService;
         this.applicationProperties = applicationProperties;
+        this.userService = userService;
     }
 
     @Override
@@ -158,15 +163,19 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void deleteApplication(Long applicationId) {
+    public ApplicationDTO deleteApplication(Long applicationId) {
         checkArgument(applicationId > 0, "Argument was %s but expected nonnegative", applicationId);
 
-        Optional.ofNullable(
+        return Optional.ofNullable(
                 applicationRepository.findOne(applicationId))
-                .ifPresent(application -> {
-                    applicationRepository.delete(application);
-                    LOG.debug("Deleted Application: {}", application);
-                });
+                .map(application -> {
+                    application.setActive(false);
+                    applicationRepository.save(application);
+                    userService.listUsers(application).forEach(user -> userService.deleteUser(user.getUserId()));
+                    LOG.debug("Deleted User: {}", application);
+                    return applicationMapper.entityToDto(application);
+                })
+                .orElseThrow(() -> new UnknownResourceException("Application does not exist"));
     }
 
     @Override

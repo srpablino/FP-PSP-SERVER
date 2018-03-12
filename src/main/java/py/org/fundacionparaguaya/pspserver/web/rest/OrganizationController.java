@@ -86,10 +86,10 @@ public class OrganizationController {
     }
 
     @DeleteMapping("/{organizationId}")
-    public ResponseEntity<Void> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
+    public ResponseEntity<OrganizationDTO> deleteOrganization(@PathVariable("organizationId") Long organizationId) {
         LOG.debug("REST request to delete Organization: {}", organizationId);
-        organizationService.deleteOrganization(organizationId);
-        return ResponseEntity.ok().build();
+        OrganizationDTO dto = organizationService.deleteOrganization(organizationId);
+        return ResponseEntity.accepted().body(dto);
     }
 
     @GetMapping("/dashboard")

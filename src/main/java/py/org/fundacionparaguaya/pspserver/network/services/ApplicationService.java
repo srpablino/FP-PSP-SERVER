@@ -23,7 +23,7 @@ public interface ApplicationService {
 
     List<ApplicationDTO> getAllPartners();
 
-    void deleteApplication(Long applicationId);
+    ApplicationDTO deleteApplication(Long applicationId);
 
     ApplicationDTO getApplicationDashboard(Long applicationId, UserDetailsDTO details);
 

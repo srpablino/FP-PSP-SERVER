@@ -27,6 +27,7 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepos
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.services.OrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
@@ -71,11 +72,14 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final ApplicationProperties applicationProperties;
 
+    private final UserService userService;
+
     public OrganizationServiceImpl(OrganizationRepository organizationRepository,
                                    ApplicationRepository applicationRepository, OrganizationMapper organizationMapper,
                                    FamilyService familyService, SnapshotEconomicRepository snapshotEconomicRepo,
                                    SnapshotIndicatorMapper indicatorMapper, SnapshotServiceImpl snapshotServiceImpl,
-                                   ImageUploadService imageUploadService, ApplicationProperties applicationProperties) {
+                                   ImageUploadService imageUploadService, ApplicationProperties applicationProperties,
+                                   UserService userService) {
         this.organizationRepository = organizationRepository;
         this.applicationRepository = applicationRepository;
         this.organizationMapper = organizationMapper;
@@ -85,6 +89,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.snapshotServiceImpl = snapshotServiceImpl;
         this.imageUploadService = imageUploadService;
         this.applicationProperties = applicationProperties;
+        this.userService = userService;
     }
 
     @Override
@@ -261,15 +266,19 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public void deleteOrganization(Long organizationId) {
+    public OrganizationDTO deleteOrganization(Long organizationId) {
         checkArgument(organizationId > 0, "Argument was %s but expected nonnegative", organizationId);
 
-        Optional.ofNullable(
+        return Optional.ofNullable(
                 organizationRepository.findOne(organizationId))
-                .ifPresent(organization -> {
-                    organizationRepository.delete(organization);
-                    LOG.debug("Deleted Organization: {}", organization);
-                });
+                .map(organization -> {
+                    organization.setActive(false);
+                    organizationRepository.save(organization);
+                    userService.listUsers(organization).forEach(user -> userService.deleteUser(user.getUserId()));
+                    LOG.debug("Deleted User: {}", organization);
+                    return organizationMapper.entityToDto(organization);
+                })
+                .orElseThrow(() -> new UnknownResourceException("Organization does not exist"));
     }
 
     @Override

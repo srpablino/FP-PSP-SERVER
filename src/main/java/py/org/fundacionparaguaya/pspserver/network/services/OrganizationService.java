@@ -20,7 +20,7 @@ public interface OrganizationService {
 
     List<OrganizationDTO> getOrganizationsByApplicationId(Long applicationId);
 
-    void deleteOrganization(Long organizationId);
+    OrganizationDTO deleteOrganization(Long organizationId);
 
     Page<OrganizationDTO> listOrganizations(PageRequest pageRequest, UserDetailsDTO userDetails);
 

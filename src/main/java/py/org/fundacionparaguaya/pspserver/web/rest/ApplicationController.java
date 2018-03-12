@@ -93,10 +93,10 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/{applicationId}")
-    public ResponseEntity<Void> deleteApplication(@PathVariable("applicationId") Long applicationId) {
+    public ResponseEntity<ApplicationDTO> deleteApplication(@PathVariable("applicationId") Long applicationId) {
         LOG.debug("REST request to delete Application: {}", applicationId);
-        applicationService.deleteApplication(applicationId);
-        return ResponseEntity.ok().build();
+        ApplicationDTO dto = applicationService.deleteApplication(applicationId);
+        return ResponseEntity.accepted().body(dto);
     }
 
     @GetMapping("/{applicationId}/organizations")
