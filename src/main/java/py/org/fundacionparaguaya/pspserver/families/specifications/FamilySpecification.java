@@ -25,6 +25,7 @@ import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity_;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity_;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
@@ -35,6 +36,8 @@ import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 public class FamilySpecification {
 
     private static final String ID_ATTRIBUTE = "id";
+    private static final String ID_FAMILY = "familyId";
+    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
     public static Specification<FamilyEntity> byFilter(FamilyFilterDTO filter) {
         return new Specification<FamilyEntity>() {
@@ -113,29 +116,28 @@ public class FamilySpecification {
         };
     }
 
-    public static Specification<FamilyEntity> byCreatedAt(String from, String to) {
+    public static Specification<FamilyEntity> byCreatedAt(String dateFrom, String dateTo) {
         return new Specification<FamilyEntity>() {
             @Override
             public Predicate toPredicate(Root<FamilyEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                // ver aca https://wiki.ssdt-ohio.org/display/~springer/2014/04/14/JPA+Criteria+Queries+-+Predicates+and+Subqueries
-                if (from != null && to != null) {
+                if (dateFrom != null && dateTo != null) {
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
                     Subquery<SnapshotEconomicEntity> subquery = query.subquery(SnapshotEconomicEntity.class);
                     Root<SnapshotEconomicEntity> fromSnapshot = subquery.from(SnapshotEconomicEntity.class);
-                    subquery.select(fromSnapshot.get("family").get("familyId"));
-                    
-                 
-                    subquery.where(cb.between(fromSnapshot.get("createdAt"), LocalDateTime.parse(from, formatter),
-                            LocalDateTime.parse(to, formatter)));
+                    subquery.select(fromSnapshot.get(SnapshotEconomicEntity_.getFamily()).get(ID_FAMILY));
 
-                    CriteriaQuery<Object> criteriaQuery = cb.createQuery();
-                    Root<FamilyEntity> from = criteriaQuery.from(FamilyEntity.class);
+                    predicates.add(cb.greaterThanOrEqualTo(fromSnapshot.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDateTime.parse(dateFrom, formatter)));
+                    predicates.add(cb.lessThan(fromSnapshot.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDateTime.parse(dateTo, formatter).plusDays(1)));
 
-                    predicates.add(cb.in(from.get("familyId")).value(subquery));
+                    subquery.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+
+                    return cb.in(root.get(ID_FAMILY)).value(subquery);
 
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));

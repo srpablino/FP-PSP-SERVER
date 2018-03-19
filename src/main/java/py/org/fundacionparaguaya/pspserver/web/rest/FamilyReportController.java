@@ -1,5 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import java.util.List;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +28,8 @@ public class FamilyReportController {
         this.familyReportService = familyReportService;
     }
 
-    @GetMapping("/byOrganization")
-    public ResponseEntity<FamilyOrganizationReportDTO> getFamiliesByOrganization(
+    @GetMapping(path ="/byOrganization", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<FamilyOrganizationReportDTO>> getFamiliesByOrganization(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = false) Long familyId,
@@ -36,9 +39,9 @@ public class FamilyReportController {
         FamilyReportFilterDTO filters = new FamilyReportFilterDTO(applicationId, organizationId, familyId, dateFrom,
                 dateTo);
 
-       FamilyOrganizationReportDTO families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
-       families.getFamilyByOrganization().forEach((k,v) -> System.out.println("Key: " + k.getName() + ": Value: " + v.get(0).getName()));
-       
-        return ResponseEntity.ok(new FamilyOrganizationReportDTO(null) );
+       List<FamilyOrganizationReportDTO> families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
+
+       System.out.println(families);
+        return ResponseEntity.ok(families);
     }
 }

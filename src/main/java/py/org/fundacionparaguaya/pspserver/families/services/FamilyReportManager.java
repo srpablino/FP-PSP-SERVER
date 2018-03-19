@@ -13,7 +13,7 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.FamilySnapshotReportDTO
 
 public interface FamilyReportManager {
 
-    FamilyOrganizationReportDTO listFamilyByOrganizationAndCreatedDate(FamilyReportFilterDTO filters);
+    List<FamilyOrganizationReportDTO> listFamilyByOrganizationAndCreatedDate(FamilyReportFilterDTO filters);
     List<FamilySnapshotReportDTO> listSnapshotByFamily(FamilyReportFilterDTO filters);
 
 }

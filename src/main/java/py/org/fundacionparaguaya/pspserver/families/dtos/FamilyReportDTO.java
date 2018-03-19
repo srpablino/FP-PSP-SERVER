@@ -18,6 +18,9 @@ public class FamilyReportDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "{familyDTO.name.notNull}")
+    private Long id;
+    
+    @NotNull(message = "{familyDTO.name.notNull}")
     private String name;
 
     @NotNull(message = "{familyDTO.code.notNull}")
@@ -28,6 +31,14 @@ public class FamilyReportDTO implements Serializable {
     private String country;
 
     private String city;
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
