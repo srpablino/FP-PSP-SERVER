@@ -41,4 +41,5 @@ public interface FamilyService {
     List<FamilyDTO> listDistinctFamiliesSnapshotByUser(UserDetailsDTO details,
             String name);
 
+    FamilyDTO updateFamily(Long familyId);
 }
