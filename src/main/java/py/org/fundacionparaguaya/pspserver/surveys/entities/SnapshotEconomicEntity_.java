@@ -16,6 +16,7 @@ public class SnapshotEconomicEntity_ {
 
     private static volatile SingularAttribute<SnapshotEconomicEntity, LocalDateTime> createdAt;
     private static volatile SingularAttribute<SnapshotEconomicEntity, FamilyEntity> family;
+    private static volatile SingularAttribute<SnapshotEconomicEntity, SnapshotIndicatorEntity> snapshotIndicator;
 
     private SnapshotEconomicEntity_() {
     }
@@ -26,6 +27,10 @@ public class SnapshotEconomicEntity_ {
 
     public static SingularAttribute<SnapshotEconomicEntity, FamilyEntity> getFamily() {
         return family;
+    }
+
+    public static SingularAttribute<SnapshotEconomicEntity, SnapshotIndicatorEntity> getSnapshotIndicator() {
+        return snapshotIndicator;
     }
 
 }
