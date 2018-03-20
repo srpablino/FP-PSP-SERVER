@@ -2,6 +2,7 @@ package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import py.org.fundacionparaguaya.pspserver.common.exceptions.InternalServerErrorException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,9 +37,9 @@ public class ImageParser {
                     FileOutputStream fos = new FileOutputStream(file);
                     fos.write(fileBytes);
                     fos.close();
-                } catch (IOException ioException) {
-                    LOG.error(ioException.getMessage(), ioException);
-                    throw new RuntimeException(ioException);
+                } catch (IOException e) {
+                    LOG.error(e.getMessage(), e);
+                    throw new InternalServerErrorException(e);
                 }
 
                 image = new ImageDTO();

@@ -55,7 +55,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                     .getBucketName();
 
             String imageDirectory = imageDTO.getImageDirectory();
-            String imageName = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS").format(LocalDateTime.now());
+            String imageName = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             String fileName = imageName + "." + imageDTO.getFormat();
             String keyName = imageDirectory + fileName;
 
