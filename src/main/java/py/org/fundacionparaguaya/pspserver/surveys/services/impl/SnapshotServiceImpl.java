@@ -278,6 +278,10 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setFamilyId(os.getFamily().getFamilyId());
             snapshotIndicators.setSnapshotEconomicId(os.getId());
             snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
+            snapshotIndicators.setFamily(familyService.getFamilyById(familyId));
+            snapshotIndicators.setUser(os.getUser());
+            snapshotIndicators.setIndicatorsSurveyData(getIndicatorsValue(os, snapshotIndicators));
+
 
             toRet.add(snapshotIndicators);
         }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 public class SnapshotIndicators implements Serializable {
 
@@ -41,6 +42,9 @@ public class SnapshotIndicators implements Serializable {
 
     @JsonProperty("family")
     private FamilyDTO family;
+
+    @JsonProperty("user")
+    private UserEntity user;
 
     @JsonProperty("survey_id")
     private Long surveyId;
@@ -180,6 +184,15 @@ public class SnapshotIndicators implements Serializable {
 
     public void setSurveyId(Long surveyId) {
         this.surveyId = surveyId;
+    }
+
+    @ApiModelProperty(value = "User")
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
