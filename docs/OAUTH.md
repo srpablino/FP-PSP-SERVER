@@ -76,3 +76,17 @@ These are default users with their roles provided by the application.
 | app_admin | ROLE_APP_ADMIN | Can manage everything related to an organization or partner |
 | user | ROLE_USER | Can see information about his/her organization: famliies, indicators |
 | survey_user | ROLE_SURVEY_USER | Can fill surveys and visualize its state |
+
+
+# Adding a new OAuth client Dynimcally
+
+```
+--oauth_client_details table
+INSERT INTO oauth_client_details
+	(client_id, client_secret, scope, authorized_grant_types,
+	web_server_redirect_uri, authorities, access_token_validity,
+	refresh_token_validity, additional_information, autoapprove)
+VALUES
+	('barClientIdPassword', 'secret', 'bar,read,write',
+	'password,authorization_code,refresh_token', null, null, 36000, 36000, null, true);
+```
