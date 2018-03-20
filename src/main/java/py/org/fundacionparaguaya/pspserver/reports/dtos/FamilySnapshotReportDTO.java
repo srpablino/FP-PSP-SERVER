@@ -1,9 +1,9 @@
-package py.org.fundacionparaguaya.pspserver.families.dtos;
+package py.org.fundacionparaguaya.pspserver.reports.dtos;
 
 import java.io.Serializable;
 import java.util.List;
 
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
 
 /**
  *
@@ -16,7 +16,7 @@ public class FamilySnapshotReportDTO implements Serializable {
 
     private Long id;
 
-    private List<SurveyData> snapshots;
+    private List<SnapshotIndicators> snapshots;
 
     public Long getId() {
         return id;
@@ -26,11 +26,11 @@ public class FamilySnapshotReportDTO implements Serializable {
         this.id = id;
     }
 
-    public List<SurveyData> getSnapshots() {
+    public List<SnapshotIndicators> getSnapshots() {
         return snapshots;
     }
 
-    public void setSnapshots(List<SurveyData> snapshots) {
+    public void setSnapshots(List<SnapshotIndicators>snapshots) {
         this.snapshots = snapshots;
     }
 

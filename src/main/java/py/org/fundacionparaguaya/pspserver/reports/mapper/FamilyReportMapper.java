@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.families.mapper;
+package py.org.fundacionparaguaya.pspserver.reports.mapper;
 
 import java.util.List;
 import java.util.Objects;
@@ -6,9 +6,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyReportDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyReportDTO;
 
+/**
+ *
+ * @author mgonzalez
+ *
+ */
 @Component
 public class FamilyReportMapper {
     

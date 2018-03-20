@@ -1,4 +1,4 @@
-package py.org.fundacionparaguaya.pspserver.families.dtos;
+package py.org.fundacionparaguaya.pspserver.reports.dtos;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
