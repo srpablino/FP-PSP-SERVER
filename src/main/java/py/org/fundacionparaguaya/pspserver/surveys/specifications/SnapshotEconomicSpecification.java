@@ -1,6 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.specifications;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,9 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
  *
  */
 public class SnapshotEconomicSpecification {
-
+    
+    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
+    
     private static final long MONTH_AGO = 2;
 
     private SnapshotEconomicSpecification() {
@@ -60,6 +63,27 @@ public class SnapshotEconomicSpecification {
                                 SnapshotEconomicEntity_.getCreatedAt()),
                         limit));
 
+            }
+        };
+    }
+
+    
+    public static Specification<SnapshotEconomicEntity> byCreatedAt(String dateFrom, String dateTo) {
+        return new Specification<SnapshotEconomicEntity>() {
+            @Override
+            public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+
+                if (dateFrom != null && dateTo != null) {
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
+                    predicates.add(cb.greaterThanOrEqualTo(root.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDateTime.parse(dateFrom, formatter)));
+                    predicates.add(cb.lessThan(root.get(SnapshotEconomicEntity_.getCreatedAt()),
+                            LocalDateTime.parse(dateTo, formatter).plusDays(1)));
+                }
+                return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
     }
