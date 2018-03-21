@@ -45,7 +45,7 @@ public class FamilyReportController {
     }
     
     @GetMapping(path="/indicators/family", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<FamilySnapshotReportDTO> getSnapshotsIndicatorsByFamily(
+    public ResponseEntity<List<FamilySnapshotReportDTO>> getSnapshotsIndicatorsByFamily(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = true) Long familyId,
@@ -54,7 +54,7 @@ public class FamilyReportController {
        
         FamilyReportFilterDTO filters = new FamilyReportFilterDTO(applicationId, organizationId, familyId, dateFrom,
                 dateTo);
-        FamilySnapshotReportDTO snapshots = familyReportService.listSnapshotByFamily(filters);
+        List<FamilySnapshotReportDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
         
         return ResponseEntity.ok(snapshots);
     }
