@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,28 +12,30 @@ import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightGroup;
+import py.org.fundacionparaguaya.pspserver.utils.ConverterString;
+
 /**
  * 
  * @author mgonzalez
  *
  */
 @Component
-public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEntity, SurveyData>{
+public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEntity, SurveyData> {
 
     private final PropertyAttributeSupport propertyAttributeSupport;
     private final SnapshotEconomicMapper snapshotEconomicMapper;
+    private ConverterString stringConverter;
 
-    public SnapshotIndicatorMapper(PropertyAttributeSupport propertyAttributeSupport, SnapshotEconomicMapper snapshotEconomicMapper) {
+    public SnapshotIndicatorMapper(PropertyAttributeSupport propertyAttributeSupport,
+            SnapshotEconomicMapper snapshotEconomicMapper, ConverterString stringConverter) {
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.snapshotEconomicMapper = snapshotEconomicMapper;
+        this.stringConverter = stringConverter;
     }
 
     @Override
     public List<SurveyData> entityListToDtoList(List<SnapshotIndicatorEntity> entityList) {
-        return entityList.stream()
-                        .filter(Objects::nonNull)
-                        .map(this::entityToDto)
-                        .collect(Collectors.toList());
+        return entityList.stream().filter(Objects::nonNull).map(this::entityToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -48,5 +51,14 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
         return null;
     }
 
-   
+    public List<String> getStaticPropertiesNames() {
+
+        List<String> propertiesNames = new ArrayList<>();
+        propertyAttributeSupport.getPropertyAttributesByGroup(StopLightGroup.INDICATOR).forEach(p -> {
+            propertiesNames.add(stringConverter.getNameFromCamelCase(p.getPropertySchemaName()));
+        });
+
+        return propertiesNames;
+    }
+
 }
