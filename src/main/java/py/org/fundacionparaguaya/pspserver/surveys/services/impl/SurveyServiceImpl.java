@@ -1,6 +1,8 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
@@ -239,53 +241,83 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public SurveyDefinition updateSurvey(Long surveyId,
+    @Transactional
+    public SurveyDefinition updateSurvey(UserDetailsDTO userDetails, Long surveyId,
             SurveyDefinition surveyDefinition) {
-        checkArgument(surveyId > 0, "Argument was %s but expected nonnegative",
-                surveyId);
 
-        return Optional.ofNullable(repo.findOne(surveyId)).map(survey -> {
-            survey.setDescription(surveyDefinition.getDescription());
-            survey.setTitle(surveyDefinition.getTitle());
-            survey.setSurveyDefinition(surveyDefinition);
+        try {
+            checkArgument(surveyId > 0, "Argument was %s but expected nonnegative",
+                    surveyId);
 
-            if (surveyDefinition.getOrganizations() != null
-                    && surveyDefinition.getOrganizations().size() > 0) {
-                for (OrganizationDTO organization : surveyDefinition
-                        .getOrganizations()) {
+            return Optional.ofNullable(repo.findOne(surveyId)).map(survey -> {
+                survey.setDescription(surveyDefinition.getDescription());
+                survey.setTitle(surveyDefinition.getTitle());
+                survey.setSurveyDefinition(surveyDefinition);
 
-                    if (surveyOrganizationRepo
-                            .findBySurveyIdAndApplicationIdAndOrganizationId(
-                                    surveyId,
-                                    organization.getApplication().getId(),
-                                    organization.getId()).isEmpty()) {
-                        SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                        surveyOrganization.setSurvey(survey);
-                        surveyOrganization
-                                .setApplication(applicationRepo.findById(
-                                        organization.getApplication().getId()));
-                        surveyOrganization.setOrganization(organizationRepo
-                                .findById(organization.getId()));
-                        surveyOrganizationRepo.save(surveyOrganization);
+                if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
+                    if (surveyDefinition.getOrganizations() != null
+                            && surveyDefinition.getOrganizations().size() > 0) {
+
+                        surveyDefinition.getOrganizations()
+                        .forEach(organization -> surveyOrganizationRepo.delete(
+                                surveyOrganizationRepo
+                                .findBySurveyIdAndApplicationIdAndOrganizationId(
+                                        surveyId, organization.getApplication().getId(),
+                                        organization.getId())));
+
+                        for (OrganizationDTO organization : surveyDefinition
+                                .getOrganizations()) {
+
+                            SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
+                            surveyOrganization.setSurvey(survey);
+                            surveyOrganization
+                            .setApplication(applicationRepo.findById(
+                                    organization.getApplication().getId()));
+                            surveyOrganization.setOrganization(organizationRepo
+                                    .findById(organization.getId()));
+                            surveyOrganizationRepo.save(surveyOrganization);
+
+                        }
+                    }else {
+                        surveyOrganizationRepo.deleteBySurveyIdAndOrganizationIsNotNull(surveyId);
                     }
                 }
-            }
 
-            if (surveyDefinition.getApplications() != null) {
-                for (ApplicationDTO application : surveyDefinition
-                        .getApplications()) {
-                    SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                    surveyOrganization.setSurvey(survey);
-                    surveyOrganization.setApplication(
-                            applicationRepo.findById(application.getId()));
-                    surveyOrganizationRepo.save(surveyOrganization);
+                if (userHasRole(userDetails, Role.ROLE_ROOT)) {
+
+                    if (surveyDefinition.getApplications() != null
+                            && surveyDefinition.getApplications().size() > 0) {
+
+                        surveyDefinition.getApplications()
+                        .forEach(application -> surveyOrganizationRepo.delete(
+                                surveyOrganizationRepo
+                                .findBySurveyIdAndApplicationId(
+                                        surveyId, application.getId())));
+
+                        for (ApplicationDTO application : surveyDefinition
+                                .getApplications()) {
+                            SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
+                            surveyOrganization.setSurvey(survey);
+                            surveyOrganization.setApplication(
+                                    applicationRepo.findById(application.getId()));
+                            surveyOrganizationRepo.save(surveyOrganization);
+                        }
+                    }else {
+
+                        surveyOrganizationRepo.findBySurveyId(surveyId)
+                        .forEach(so -> surveyOrganizationRepo.deleteBySurveyId(so.getSurvey().getId()));
+                    }
                 }
-            }
 
-            survey.setLastModifiedAt(LocalDateTime.now());
-            return repo.save(survey);
-        }).map(mapper::entityToDto).orElseThrow(
-                () -> new UnknownResourceException("Survey does not exist"));
+                survey.setLastModifiedAt(LocalDateTime.now());
+                return repo.save(survey);
+            }).map(mapper::entityToDto).orElseThrow(
+                    () -> new UnknownResourceException("Survey does not exist"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return surveyDefinition;
+
 
     }
 

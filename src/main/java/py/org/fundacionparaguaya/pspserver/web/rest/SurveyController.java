@@ -76,8 +76,9 @@ public class SurveyController {
     @io.swagger.annotations.ApiResponse(code = 200, message = "Update survey definition",
             response = SurveyDefinition.class)})
     public ResponseEntity<SurveyDefinition> updateOrganization(@PathVariable("surveyId") long surveyId,
-                                                              @RequestBody SurveyDefinition surveyDefinition) {
-        SurveyDefinition result = surveyService.updateSurvey(surveyId, surveyDefinition);
+                                                              @RequestBody SurveyDefinition surveyDefinition,
+                                                              @AuthenticationPrincipal UserDetailsDTO userDetails) {
+        SurveyDefinition result = surveyService.updateSurvey(userDetails, surveyId, surveyDefinition);
         return ResponseEntity.ok(result);
     }
 

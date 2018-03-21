@@ -23,7 +23,7 @@ public interface SurveyService {
 
     void deleteSurvey(Long surveyId);
 
-    SurveyDefinition updateSurvey(Long surveyId,
+    SurveyDefinition updateSurvey(UserDetailsDTO userDetails, Long surveyId,
             SurveyDefinition surveyDefinition);
 
     List<SurveyDefinition> listSurveys(UserDetailsDTO details, String lastModifiedGt);
