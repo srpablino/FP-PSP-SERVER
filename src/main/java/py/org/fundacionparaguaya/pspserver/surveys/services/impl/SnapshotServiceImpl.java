@@ -213,7 +213,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         indicators.forEach((k, v) -> {
             SurveyData indicator = new SurveyData();
             indicator.put(INDICATOR_NAME, getNameFromCamelCase(k));
-            indicator.put(INDICATOR_VALUE, StringUtils.lowerCase(v.toString()));
+            indicator.put(INDICATOR_VALUE, v!=null? StringUtils.lowerCase(v.toString()):"none");
             toRet.add(indicator);
         });
         return toRet;
