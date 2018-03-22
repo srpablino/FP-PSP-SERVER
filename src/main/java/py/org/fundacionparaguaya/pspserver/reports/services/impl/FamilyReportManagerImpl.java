@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
@@ -71,15 +73,19 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
 
             List<FamilyEntity> families = new ArrayList<>();
 
+            Sort sort = new Sort(new Sort.Order(Direction.ASC, "organization.name"));
+
             if (filters.getOrganizationId() != null) {
-                families = familyRepository
-                        .findAll(where(byOrganization(filters.getOrganizationId())).and(FamilySpecification.byCreatedAt(
-                                getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))));
+                families = familyRepository.findAll(
+                        where(byOrganization(filters.getOrganizationId())).and(FamilySpecification
+                                .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                        sort);
 
             } else if (filters.getApplicationId() != null) {
-                families = familyRepository
-                        .findAll(where(byApplication(filters.getApplicationId())).and(FamilySpecification.byCreatedAt(
-                                getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))));
+                families = familyRepository.findAll(
+                        where(byApplication(filters.getApplicationId())).and(FamilySpecification
+                                .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                        sort);
             }
 
             Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families.stream()
@@ -109,11 +115,14 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
 
         List<FamilySnapshotReportDTO> toRet = new ArrayList<>();
 
+        Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.name"), new Sort.Order(Direction.ASC, "createdAt"));
+
         if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getFamilyId() != null) {
 
-            List<SnapshotEconomicEntity> snapshots = snapshotRepository
-                    .findAll(where(forFamily(filters.getFamilyId())).and(SnapshotEconomicSpecification
-                            .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))));
+            List<SnapshotEconomicEntity> snapshots = snapshotRepository.findAll(
+                    where(forFamily(filters.getFamilyId())).and(SnapshotEconomicSpecification
+                            .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                    sort);
 
             Map<SurveyEntity, List<SnapshotEconomicEntity>> groupBySurvey = snapshots.stream()
                     .collect(Collectors.groupingBy(s -> s.getSurveyDefinition()));
@@ -235,12 +244,15 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
     public CsvDTO generateCSVSnapshotByOrganizationAndCreatedDate(FamilyReportFilterDTO filters) {
         List<SnapshotEconomicEntity> snapshots = new ArrayList<>();
 
+        Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.organization.name"),
+                new Sort.Order(Direction.ASC, "family.name"), new Sort.Order(Direction.ASC, "createdAt"));
+
         if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getApplicationId() != null) {
 
             snapshots = snapshotRepository
                     .findAll(where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId()))
                             .and(SnapshotEconomicSpecification.byCreatedAt(getDateFormat(filters.getDateFrom()),
-                                    getDateFormat(filters.getDateTo()))));
+                                    getDateFormat(filters.getDateTo()))), sort);
 
         } else if (filters.getDateFrom() != null && filters.getDateTo() != null
                 && filters.getOrganizationId() != null) {
@@ -248,7 +260,7 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
             snapshots = snapshotRepository
                     .findAll(where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId()))
                             .and(SnapshotEconomicSpecification.byCreatedAt(getDateFormat(filters.getDateFrom()),
-                                    getDateFormat(filters.getDateTo()))));
+                                    getDateFormat(filters.getDateTo()))), sort);
         }
 
         ReportDTO report = new ReportDTO();
@@ -258,7 +270,6 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
         report.getHeaders().stream().forEachOrdered((h) -> buffer.write(h + ","));
         buffer.append('\n');
 
-     
         for (List<String> row : report.getRows()) {
             row.stream().forEachOrdered((h) -> buffer.write(h + ","));
             buffer.append('\n');
@@ -266,7 +277,7 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
 
         CsvDTO csv = new CsvDTO();
         csv.setCsv(buffer.toString());
-        
+
         return csv;
     }
 }

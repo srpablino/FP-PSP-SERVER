@@ -41,12 +41,7 @@ public class SnapshotEconomicSpecification {
                     predicates.add(cb.equal(
                             root.join("family").join("application").get("id"),
                             applicationId));
-                    
-                    query.orderBy(cb.asc(root.join("family").join("application").get("name")));
-                    
-                    query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-                    
-                    return query.getRestriction();
+
                 }
 
                 return cb.and(
@@ -67,12 +62,6 @@ public class SnapshotEconomicSpecification {
                     predicates.add(cb.equal(
                             root.join("family").join("organization").get("id"),
                             organizationId));
-                    
-                    query.orderBy(cb.asc(root.join("family").join("organization").get("name")));
-                    
-                    query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-                    
-                    return query.getRestriction();
                 }
 
                 return cb.and(
@@ -114,12 +103,6 @@ public class SnapshotEconomicSpecification {
                             LocalDateTime.parse(dateFrom, formatter)));
                     predicates.add(cb.lessThan(root.get(SnapshotEconomicEntity_.getCreatedAt()),
                             LocalDateTime.parse(dateTo, formatter).plusDays(1)));
-                    
-                    query.orderBy(cb.asc(root.get(SnapshotEconomicEntity_.getCreatedAt())));
-                    
-                    query.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
-                    
-                    return query.getRestriction();
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
