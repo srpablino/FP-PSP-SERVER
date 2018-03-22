@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.reports.dtos.CsvDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyOrganizationReportDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyReportFilterDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotReportDTO;
-import py.org.fundacionparaguaya.pspserver.reports.services.FamilyReportManager;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
+import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManager;
 
 /**
  *
@@ -22,54 +22,51 @@ import py.org.fundacionparaguaya.pspserver.reports.services.FamilyReportManager;
  */
 @RestController
 @RequestMapping(value = "/api/v1/families/reports")
-public class FamilyReportController {
+public class SnapshotReportController {
 
-    private FamilyReportManager familyReportService;
+    private SnapshotReportManager familyReportService;
 
-    public FamilyReportController(FamilyReportManager familyReportService) {
+    public SnapshotReportController(SnapshotReportManager familyReportService) {
         this.familyReportService = familyReportService;
     }
 
-    @GetMapping(path ="/byOrganization", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<FamilyOrganizationReportDTO>> getFamiliesByOrganization(
+    @GetMapping(path = "/byOrganization", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<OrganizationFamilyDTO>> getFamiliesByOrganization(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = false) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
 
-        FamilyReportFilterDTO filters = new FamilyReportFilterDTO(applicationId, organizationId, familyId, dateFrom,
-                dateTo);
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
 
-       List<FamilyOrganizationReportDTO> families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
-       return ResponseEntity.ok(families);
+        List<OrganizationFamilyDTO> families = familyReportService.listFamilyByOrganizationAndCreatedDate(filters);
+        return ResponseEntity.ok(families);
     }
-    
-    @GetMapping(path="/indicators/family", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<FamilySnapshotReportDTO>> getSnapshotsIndicatorsByFamily(
+
+    @GetMapping(path = "/indicators/family", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<FamilySnapshotDTO>> getSnapshotsIndicatorsByFamily(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
-       
-        FamilyReportFilterDTO filters = new FamilyReportFilterDTO(applicationId, organizationId, familyId, dateFrom,
-                dateTo);
-        List<FamilySnapshotReportDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
-        
+
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
+        List<FamilySnapshotDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
+
         return ResponseEntity.ok(snapshots);
     }
-    
-    @GetMapping(path="/indicators/csv", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+    @GetMapping(path = "/indicators/csv", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<CsvDTO> generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
-       
-        FamilyReportFilterDTO filters = new FamilyReportFilterDTO(applicationId, organizationId, familyId, dateFrom,
-                dateTo);
+
+        SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
         CsvDTO csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
         return ResponseEntity.ok(csv);
     }

@@ -16,24 +16,24 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import py.org.fundacionparaguaya.pspserver.common.utils.ConverterString;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.CsvDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyOrganizationReportDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyReportFilterDTO;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotReportDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.ReportDTO;
-import py.org.fundacionparaguaya.pspserver.reports.mapper.FamilyReportMapper;
-import py.org.fundacionparaguaya.pspserver.reports.services.FamilyReportManager;
+import py.org.fundacionparaguaya.pspserver.reports.mapper.OrganizationFamilyDetMapper;
+import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManager;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
-import py.org.fundacionparaguaya.pspserver.utils.ConverterString;
 
 /**
  *
@@ -41,14 +41,14 @@ import py.org.fundacionparaguaya.pspserver.utils.ConverterString;
  *
  */
 @Service
-public class FamilyReportManagerImpl implements FamilyReportManager {
+public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
     private static final List<String> DEFAULT_HEADRES = Arrays.asList("Organization Code", "Organization Name",
             "Organization Status", "Family Code", "Family Name", "Family Status", "Snapshot Created At");
 
     private FamilyRepository familyRepository;
 
-    private FamilyReportMapper familyReportMapper;
+    private OrganizationFamilyDetMapper familyReportMapper;
 
     private SnapshotEconomicRepository snapshotRepository;
 
@@ -56,7 +56,7 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
 
     private ConverterString stringConverter;
 
-    public FamilyReportManagerImpl(FamilyRepository familyRepository, FamilyReportMapper familyReportMapper,
+    public SnapshotReportManagerImpl(FamilyRepository familyRepository, OrganizationFamilyDetMapper familyReportMapper,
             SnapshotEconomicRepository snapshotRepository, SnapshotIndicatorMapper snapshotMapper,
             ConverterString stringConverter) {
         this.familyRepository = familyRepository;
@@ -67,35 +67,35 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
     }
 
     @Override
-    public List<FamilyOrganizationReportDTO> listFamilyByOrganizationAndCreatedDate(FamilyReportFilterDTO filters) {
+    public List<OrganizationFamilyDTO> listFamilyByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
 
         try {
 
             List<FamilyEntity> families = new ArrayList<>();
 
-            Sort sort = new Sort(new Sort.Order(Direction.ASC, "organization.name"));
+            Sort sort = new Sort(new Sort.Order(Direction.ASC, "organization.name"), new Sort.Order(Direction.ASC, "name"));
 
             if (filters.getOrganizationId() != null) {
                 families = familyRepository.findAll(
                         where(byOrganization(filters.getOrganizationId())).and(FamilySpecification
-                                .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                                .createdAtBetween2Dates(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
                         sort);
 
             } else if (filters.getApplicationId() != null) {
                 families = familyRepository.findAll(
                         where(byApplication(filters.getApplicationId())).and(FamilySpecification
-                                .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                                .createdAtBetween2Dates(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
                         sort);
             }
 
             Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families.stream()
                     .collect(Collectors.groupingBy(f -> f.getOrganization()));
 
-            List<FamilyOrganizationReportDTO> toRet = new ArrayList<>();
+            List<OrganizationFamilyDTO> toRet = new ArrayList<>();
 
             groupByOrganization.forEach((k, v) -> {
-                FamilyOrganizationReportDTO fa = new FamilyOrganizationReportDTO(k.getName(), k.getCode(),
-                        k.getDescription(), k.isActive());
+                OrganizationFamilyDTO fa = new OrganizationFamilyDTO(k.getName(), k.getCode(), k.getDescription(),
+                        k.isActive());
                 fa.setFamilies(familyReportMapper.entityListToDtoList(v));
 
                 toRet.add(fa);
@@ -111,26 +111,27 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
     }
 
     @Override
-    public List<FamilySnapshotReportDTO> listSnapshotByFamily(FamilyReportFilterDTO filters) {
+    public List<FamilySnapshotDTO> listSnapshotByFamily(SnapshotFilterDTO filters) {
 
-        List<FamilySnapshotReportDTO> toRet = new ArrayList<>();
+        List<FamilySnapshotDTO> toRet = new ArrayList<>();
 
-        Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.name"), new Sort.Order(Direction.ASC, "createdAt"));
+        Sort sort = new Sort(new Sort.Order(Direction.ASC, "createdAt"));
 
         if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getFamilyId() != null) {
 
-            List<SnapshotEconomicEntity> snapshots = snapshotRepository.findAll(
-                    where(forFamily(filters.getFamilyId())).and(SnapshotEconomicSpecification
-                            .byCreatedAt(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                    sort);
+            List<SnapshotEconomicEntity> snapshots = snapshotRepository
+                    .findAll(
+                            where(forFamily(filters.getFamilyId()))
+                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
+                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                            sort);
 
             Map<SurveyEntity, List<SnapshotEconomicEntity>> groupBySurvey = snapshots.stream()
                     .collect(Collectors.groupingBy(s -> s.getSurveyDefinition()));
 
             groupBySurvey.forEach((k, v) -> {
 
-                FamilySnapshotReportDTO familySnapshots = new FamilySnapshotReportDTO(filters.getFamilyId(),
-                        k.getTitle());
+                FamilySnapshotDTO familySnapshots = new FamilySnapshotDTO(filters.getFamilyId(), k.getTitle());
                 familySnapshots.setSnapshots(getSnasphots(v));
                 toRet.add(familySnapshots);
 
@@ -155,7 +156,6 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
         report.getHeaders().add("Created At");
 
         List<SurveyData> rows = new ArrayList<>();
-        List<List<String>> rowsValues = new ArrayList<>();
 
         report.getHeaders().addAll(snapshotMapper.getStaticPropertiesNames());
 
@@ -171,22 +171,7 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
             rows.add(data);
         }
 
-        for (SurveyData data : rows) {
-
-            List<String> row = new ArrayList<>();
-
-            for (String header : report.getHeaders()) {
-
-                if (data.containsKey(stringConverter.getCamelCaseFromName(header))) {
-                    row.add(data.getAsString(stringConverter.getCamelCaseFromName(header)));
-                } else {
-                    row.add("");
-                }
-            }
-            rowsValues.add(row);
-        }
-
-        report.setRows(rowsValues);
+        report.setRows(generateRows(rows, report.getHeaders()));
         return report;
 
     }
@@ -198,7 +183,6 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
         report.getHeaders().addAll(DEFAULT_HEADRES);
 
         List<SurveyData> rows = new ArrayList<>();
-        List<List<String>> rowsValues = new ArrayList<>();
 
         report.getHeaders().addAll(snapshotMapper.getStaticPropertiesNames());
 
@@ -210,38 +194,51 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
                 }
             });
             SurveyData data = snapshotMapper.entityToDto(s.getSnapshotIndicator());
-            data.put("snapshotCreatedAt", s.getCreatedAtLocalDateString());
             data.put("organizationCode", s.getFamily().getOrganization().getCode());
             data.put("organizationName", s.getFamily().getOrganization().getName());
-            data.put("organizationStatus", s.getFamily().getOrganization().isActive() ? "Active" : "Inactive");
+            data.put("organizationStatus", s.getFamily().getOrganization().isActive() ? "A" : "I");
             data.put("familyCode", s.getFamily().getCode());
             data.put("familyName", s.getFamily().getName());
-            data.put("familyStatus", s.getFamily().isActive() ? "Active" : "Inactive");
+            data.put("familyStatus", s.getFamily().isActive() ? "A" : "I");
+            data.put("snapshotCreatedAt", s.getCreatedAtLocalDateString());
             rows.add(data);
         }
 
-        for (SurveyData data : rows) {
-
-            List<String> row = new ArrayList<>();
-
-            for (String header : report.getHeaders()) {
-
-                if (data.containsKey(stringConverter.getCamelCaseFromName(header))) {
-                    row.add(data.getAsString(stringConverter.getCamelCaseFromName(header)));
-                } else {
-                    row.add("");
-                }
-            }
-            rowsValues.add(row);
-        }
-
-        report.setRows(rowsValues);
+        report.setRows(generateRows(rows, report.getHeaders()));
         return report;
 
     }
 
+    private List<List<String>> generateRows(List<SurveyData> rowsValue, List<String> headers) {
+
+        List<List<String>> rows = new ArrayList<>();
+
+        for (SurveyData data : rowsValue) {
+
+            List<String> row = new ArrayList<>();
+
+            for (String header : headers) {
+                
+                String key = stringConverter.getCamelCaseFromName(header);
+                
+                if (data.containsKey(key)) {
+                    if(data.getAsString(key)==null) {
+                        row.add("");
+                    }else {
+                        row.add(data.getAsString(key));
+                    }
+                } else {
+                    row.add("");
+                }
+            }
+            rows.add(row);
+        }
+
+        return rows;
+    }
+
     @Override
-    public CsvDTO generateCSVSnapshotByOrganizationAndCreatedDate(FamilyReportFilterDTO filters) {
+    public CsvDTO generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
         List<SnapshotEconomicEntity> snapshots = new ArrayList<>();
 
         Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.organization.name"),
@@ -250,17 +247,21 @@ public class FamilyReportManagerImpl implements FamilyReportManager {
         if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getApplicationId() != null) {
 
             snapshots = snapshotRepository
-                    .findAll(where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId()))
-                            .and(SnapshotEconomicSpecification.byCreatedAt(getDateFormat(filters.getDateFrom()),
-                                    getDateFormat(filters.getDateTo()))), sort);
+                    .findAll(
+                            where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId()))
+                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
+                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                            sort);
 
         } else if (filters.getDateFrom() != null && filters.getDateTo() != null
                 && filters.getOrganizationId() != null) {
 
             snapshots = snapshotRepository
-                    .findAll(where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId()))
-                            .and(SnapshotEconomicSpecification.byCreatedAt(getDateFormat(filters.getDateFrom()),
-                                    getDateFormat(filters.getDateTo()))), sort);
+                    .findAll(
+                            where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId()))
+                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
+                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
+                            sort);
         }
 
         ReportDTO report = new ReportDTO();

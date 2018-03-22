@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author mgonzalez
  *
  */
-public class FamilySnapshotReportDTO implements Serializable {
+public class FamilySnapshotDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,15 +15,13 @@ public class FamilySnapshotReportDTO implements Serializable {
 
     private String surveyName;
 
-    //private String snapshotCreatedAt;
-
     private ReportDTO snapshots;
 
-    public FamilySnapshotReportDTO() {
+    public FamilySnapshotDTO() {
         super();
     }
 
-    public FamilySnapshotReportDTO(Long familyId, String surveyName) {
+    public FamilySnapshotDTO(Long familyId, String surveyName) {
         this.familyId = familyId;
         this.surveyName = surveyName;
     }

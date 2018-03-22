@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author mgonzalez
  *
  */
-public class FamilyReportFilterDTO {
+public class SnapshotFilterDTO {
 
     private Long applicationId;
     private Long organizationId;
@@ -15,11 +15,11 @@ public class FamilyReportFilterDTO {
     private String dateTo;
     private Long familyId;
 
-    public FamilyReportFilterDTO() {
+    public SnapshotFilterDTO() {
         super();
     }
 
-    public FamilyReportFilterDTO(Long applicationId, Long organizationId, Long familyId, String dateFrom,
+    public SnapshotFilterDTO(Long applicationId, Long organizationId, Long familyId, String dateFrom,
             String dateTo) {
         this.applicationId = applicationId;
         this.organizationId = organizationId;

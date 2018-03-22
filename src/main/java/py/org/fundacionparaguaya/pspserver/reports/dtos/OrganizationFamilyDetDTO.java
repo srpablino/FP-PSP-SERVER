@@ -2,36 +2,30 @@ package py.org.fundacionparaguaya.pspserver.reports.dtos;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO.Builder;
+
 /**
  *
  * @author mgonzalez
  *
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class FamilyReportDTO implements Serializable {
+
+public class OrganizationFamilyDetDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "{familyDTO.name.notNull}")
     private Long id;
-    
-    @NotNull(message = "{familyDTO.name.notNull}")
+
     private String name;
 
-    @NotNull(message = "{familyDTO.code.notNull}")
     private String code;
 
-    private boolean isActive;
+    private String status;
 
     private String country;
 
     private String city;
-    
+
     public Long getId() {
         return id;
     }
@@ -56,12 +50,12 @@ public class FamilyReportDTO implements Serializable {
         this.code = code;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getStatus() {
+        return status;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getCountry() {
