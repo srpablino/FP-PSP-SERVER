@@ -15,7 +15,6 @@ import javax.persistence.criteria.Subquery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
-
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity_;
@@ -25,6 +24,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity_;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
+
 
 /**
  * @author bsandoval
@@ -45,36 +45,51 @@ public class FamilySpecification {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (filter.getApplicationId() != null) {
-                    Join<FamilyEntity, ApplicationEntity> joinApplication = root.join(FamilyEntity_.application);
+
+                    Join<FamilyEntity, ApplicationEntity> joinApplication = root.join(FamilyEntity_.getApplication());
+
                     Expression<Long> byApplicationId = joinApplication.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byApplicationId, filter.getApplicationId()));
                 }
 
                 if (filter.getOrganizationId() != null) {
-                    Join<FamilyEntity, OrganizationEntity> joinOrganization = root.join(FamilyEntity_.organization);
-                    Expression<Long> byOrganizationId = joinOrganization.<Long>get(ID_ATTRIBUTE);
+
+                    Expression<Long> byOrganizationId = root
+                            .join(FamilyEntity_.getOrganization())
+                            .<Long>get(ID_ATTRIBUTE);
+
                     predicates.add(cb.equal(byOrganizationId, filter.getOrganizationId()));
                 }
 
                 if (filter.getCountryId() != null) {
-                    Join<FamilyEntity, CountryEntity> joinCountry = root.join(FamilyEntity_.country);
+
+                    Join<FamilyEntity, CountryEntity> joinCountry = root.join(FamilyEntity_.getCountry());
+
                     Expression<Long> byCountryId = joinCountry.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byCountryId, filter.getCountryId()));
                 }
 
                 if (filter.getCityId() != null) {
-                    Join<FamilyEntity, CityEntity> joinCity = root.join(FamilyEntity_.city);
+
+                    Join<FamilyEntity, CityEntity> joinCity = root.join(FamilyEntity_.getCity());
+
                     Expression<Long> byCityId = joinCity.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byCityId, filter.getCityId()));
                 }
 
                 if (StringUtils.isNotEmpty(filter.getName())) {
                     String nameParamQuery = "%" + filter.getName().toLowerCase().replaceAll("\\s", "%") + "%";
-                    Expression<String> likeName = cb.lower(root.get(FamilyEntity_.name));
+                    Expression<String> likeName = cb.lower(root.get(FamilyEntity_.getName()));
                     predicates.add(cb.like(likeName, nameParamQuery));
                 }
 
-                predicates.add(cb.isTrue(root.get(FamilyEntity_.isActive)));
+		if (filter.getLastModifiedGt() != null) {
+                    LocalDateTime dateTimeParam = LocalDateTime.parse(filter.getLastModifiedGt());
+                    Predicate predicate = cb.greaterThan(root.get(FamilyEntity_.getLastModifiedAt()), dateTimeParam);
+                    predicates.add(predicate);
+                }
+
+                predicates.add(cb.isTrue(root.get(FamilyEntity_.getIsActive())));
 
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
 
@@ -90,10 +105,11 @@ public class FamilySpecification {
 
                 if (organizationId != null) {
                     Join<FamilyEntity, OrganizationEntity> joinfamilyOrganization = root
-                            .join(FamilyEntity_.organization);
+                            .join(FamilyEntity_.getOrganization());
                     Expression<Long> byOrganizationId = joinfamilyOrganization.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byOrganizationId, organizationId));
                 }
+
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
@@ -106,7 +122,7 @@ public class FamilySpecification {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (applicationId != null) {
-                    Join<FamilyEntity, ApplicationEntity> joinfamilyApplication = root.join(FamilyEntity_.application);
+                    Join<FamilyEntity, ApplicationEntity> joinfamilyApplication = root.join(FamilyEntity_.getApplication());
                     Expression<Long> byApplicationId = joinfamilyApplication.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byApplicationId, applicationId));
                 }
