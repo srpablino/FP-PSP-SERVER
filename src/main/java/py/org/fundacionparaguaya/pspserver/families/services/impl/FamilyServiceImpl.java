@@ -157,15 +157,15 @@ public class FamilyServiceImpl implements FamilyService {
         String fileFormat = multipartFile.getContentType();
         ImageDTO image  = new ImageDTO();
         image.setFile(file);
-        image.setFormat(fileFormat.substring(fileFormat.indexOf('/')+1,fileFormat.length()));
+        image.setFormat(fileFormat.substring(fileFormat.indexOf('/')+1, fileFormat.length()));
         image.setImageDirectory(this.applicationProperties.getAws().getFamiliesImageDirectory());
         image.setImageNamePrefix(this.applicationProperties.getAws().getFamiliesImageNamePrefix());
 
-        String URL=imageUploadService.uploadImage(image,familyEntity.getFamilyId());
-        familyEntity.setImageURL(URL);
+        String url=imageUploadService.uploadImage(image, familyEntity.getFamilyId());
+        familyEntity.setImageURL(url);
         familyRepository.save(familyEntity);
 
-        return URL;
+        return url;
     }
 
     @Override

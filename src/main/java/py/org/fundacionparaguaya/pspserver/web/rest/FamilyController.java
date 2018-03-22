@@ -57,7 +57,7 @@ public class FamilyController {
     public String uploadFamilyPhoto(@PathVariable("familyId") Long familyId,
                                     @RequestParam("file") MultipartFile file) throws IOException {
 
-        String url=familyService.imageUpload(familyId,file);
+        String url=familyService.imageUpload(familyId, file);
         return url;
     }
 
