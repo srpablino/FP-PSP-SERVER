@@ -1,6 +1,3 @@
-/**
- * 
- */
 package py.org.fundacionparaguaya.pspserver.families.specifications;
 
 import java.time.LocalDateTime;
@@ -39,6 +36,8 @@ public class FamilySpecification {
     private static final String ID_FAMILY = "familyId";
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
+    private FamilySpecification() {}
+
     public static Specification<FamilyEntity> byFilter(FamilyFilterDTO filter) {
         return new Specification<FamilyEntity>() {
             @Override
@@ -47,25 +46,25 @@ public class FamilySpecification {
 
                 if (filter.getApplicationId() != null) {
                     Join<FamilyEntity, ApplicationEntity> joinApplication = root.join(FamilyEntity_.application);
-                    Expression<Long> byApplicationId = joinApplication.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byApplicationId = joinApplication.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byApplicationId, filter.getApplicationId()));
                 }
 
                 if (filter.getOrganizationId() != null) {
                     Join<FamilyEntity, OrganizationEntity> joinOrganization = root.join(FamilyEntity_.organization);
-                    Expression<Long> byOrganizationId = joinOrganization.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byOrganizationId = joinOrganization.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byOrganizationId, filter.getOrganizationId()));
                 }
 
                 if (filter.getCountryId() != null) {
                     Join<FamilyEntity, CountryEntity> joinCountry = root.join(FamilyEntity_.country);
-                    Expression<Long> byCountryId = joinCountry.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byCountryId = joinCountry.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byCountryId, filter.getCountryId()));
                 }
 
                 if (filter.getCityId() != null) {
                     Join<FamilyEntity, CityEntity> joinCity = root.join(FamilyEntity_.city);
-                    Expression<Long> byCityId = joinCity.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byCityId = joinCity.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byCityId, filter.getCityId()));
                 }
 
@@ -92,7 +91,7 @@ public class FamilySpecification {
                 if (organizationId != null) {
                     Join<FamilyEntity, OrganizationEntity> joinfamilyOrganization = root
                             .join(FamilyEntity_.organization);
-                    Expression<Long> byOrganizationId = joinfamilyOrganization.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byOrganizationId = joinfamilyOrganization.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byOrganizationId, organizationId));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -108,7 +107,7 @@ public class FamilySpecification {
 
                 if (applicationId != null) {
                     Join<FamilyEntity, ApplicationEntity> joinfamilyApplication = root.join(FamilyEntity_.application);
-                    Expression<Long> byApplicationId = joinfamilyApplication.<Long> get(ID_ATTRIBUTE);
+                    Expression<Long> byApplicationId = joinfamilyApplication.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byApplicationId, applicationId));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -116,7 +115,7 @@ public class FamilySpecification {
         };
     }
 
-    public static Specification<FamilyEntity> byCreatedAt(String dateFrom, String dateTo) {
+    public static Specification<FamilyEntity> createdAtBetween2Dates(String dateFrom, String dateTo) {
         return new Specification<FamilyEntity>() {
             @Override
             public Predicate toPredicate(Root<FamilyEntity> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
