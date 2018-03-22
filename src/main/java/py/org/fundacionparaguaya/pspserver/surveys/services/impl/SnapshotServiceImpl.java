@@ -198,7 +198,12 @@ public class SnapshotServiceImpl implements SnapshotService {
             order.forEach(indicator -> {
                 if (indicators.containsKey(indicator)) {
                     SurveyData sd = new SurveyData();
-                    sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    try {
+                        sd.put(INDICATOR_NAME, survey.getSurveySchema()
+                                .getProperties().get(indicator).getDescription().get("es"));
+                    } catch (NullPointerException nullExcept) {
+                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    }
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
