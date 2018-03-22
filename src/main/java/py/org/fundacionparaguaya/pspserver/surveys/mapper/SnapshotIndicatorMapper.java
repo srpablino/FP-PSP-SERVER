@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
+import py.org.fundacionparaguaya.pspserver.common.utils.ConverterString;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightGroup;
-import py.org.fundacionparaguaya.pspserver.utils.ConverterString;
 
 /**
  * 
