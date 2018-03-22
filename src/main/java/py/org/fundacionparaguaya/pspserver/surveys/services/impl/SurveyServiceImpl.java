@@ -285,14 +285,11 @@ public class SurveyServiceImpl implements SurveyService {
 
                 if (userHasRole(userDetails, Role.ROLE_ROOT)) {
 
+                    surveyOrganizationRepo.findBySurveyId(surveyId)
+                    .forEach(so -> surveyOrganizationRepo.deleteBySurveyId(so.getSurvey().getId()));
+
                     if (surveyDefinition.getApplications() != null
                             && surveyDefinition.getApplications().size() > 0) {
-
-                        surveyDefinition.getApplications()
-                        .forEach(application -> surveyOrganizationRepo.delete(
-                                surveyOrganizationRepo
-                                .findBySurveyIdAndApplicationId(
-                                        surveyId, application.getId())));
 
                         for (ApplicationDTO application : surveyDefinition
                                 .getApplications()) {
@@ -302,10 +299,6 @@ public class SurveyServiceImpl implements SurveyService {
                                     applicationRepo.findById(application.getId()));
                             surveyOrganizationRepo.save(surveyOrganization);
                         }
-                    }else {
-
-                        surveyOrganizationRepo.findBySurveyId(surveyId)
-                        .forEach(so -> surveyOrganizationRepo.deleteBySurveyId(so.getSurvey().getId()));
                     }
                 }
 
@@ -361,6 +354,14 @@ public class SurveyServiceImpl implements SurveyService {
         return user.getAuthorities().stream()
                 .filter(auth -> auth.toString().equals(role.name()))
                 .count() > 0;
+    }
+
+    @Override
+    public String getSurveyDefinitionByPropertyKey(String key) {
+        
+        
+        
+        return null;
     }
 
 }
