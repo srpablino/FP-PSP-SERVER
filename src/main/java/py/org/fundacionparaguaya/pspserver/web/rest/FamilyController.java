@@ -2,7 +2,6 @@ package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +20,6 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyMapDTO;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilySnapshotsManager;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -32,9 +30,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/families")
 public class FamilyController {
-
-    @Autowired
-    private ImageUploadService imageUploadService;
 
     private static final Logger LOG = LoggerFactory
             .getLogger(FamilyController.class);
