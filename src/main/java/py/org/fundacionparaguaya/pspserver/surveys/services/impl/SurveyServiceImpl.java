@@ -356,12 +356,4 @@ public class SurveyServiceImpl implements SurveyService {
                 .count() > 0;
     }
 
-    @Override
-    public String getSurveyDefinitionByPropertyKey(String key) {
-        
-        
-        
-        return null;
-    }
-
 }
