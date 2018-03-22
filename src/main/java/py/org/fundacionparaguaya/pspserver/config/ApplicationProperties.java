@@ -25,6 +25,9 @@ public class ApplicationProperties {
         private String orgsImageNamePrefix;
         private String hubsImageDirectory;
         private String hubsImageNamePrefix;
+        private String familiesImageDirectory;
+        private String familiesImageNamePrefix;
+
 
         public String getStrRegion() {
             return strRegion;
@@ -72,6 +75,22 @@ public class ApplicationProperties {
 
         public void setHubsImageNamePrefix(String hubsImageNamePrefix) {
             this.hubsImageNamePrefix = hubsImageNamePrefix;
+        }
+
+        public String getFamiliesImageDirectory() {
+            return familiesImageDirectory;
+        }
+
+        public void setFamiliesImageDirectory(String familiesImageDirectory) {
+            this.familiesImageDirectory = familiesImageDirectory;
+        }
+
+        public String getFamiliesImageNamePrefix() {
+            return familiesImageNamePrefix;
+        }
+
+        public void setFamiliesImageNamePrefix(String familiesImageNamePrefix) {
+            this.familiesImageNamePrefix = familiesImageNamePrefix;
         }
     }
 

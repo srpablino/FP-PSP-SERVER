@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
+import py.org.fundacionparaguaya.pspserver.config.ApplicationProperties;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
@@ -27,11 +29,16 @@ import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
+import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -44,6 +51,10 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 
 @Service
 public class FamilyServiceImpl implements FamilyService {
+
+    private final ApplicationProperties applicationProperties;
+
+    private final ImageUploadService imageUploadService;
 
     private final I18n i18n;
 
@@ -75,7 +86,8 @@ public class FamilyServiceImpl implements FamilyService {
             OrganizationRepository organizationRepository,
             ApplicationMapper applicationMapper,
             SnapshotEconomicRepository snapshotEconomicRepo,
-            UserRepository userRepo, I18n i18n) {
+            UserRepository userRepo, I18n i18n, ApplicationProperties applicationProperties,
+            ImageUploadService imageUploadService) {
 
         this.familyRepository = familyRepository;
         this.familyMapper = familyMapper;
@@ -86,6 +98,8 @@ public class FamilyServiceImpl implements FamilyService {
         this.snapshotEconomicRepo = snapshotEconomicRepo;
         this.userRepo = userRepo;
         this.i18n = i18n;
+        this.applicationProperties=applicationProperties;
+        this.imageUploadService = imageUploadService;
     }
 
     @Override
@@ -124,6 +138,34 @@ public class FamilyServiceImpl implements FamilyService {
                 .map(familyMapper::entityToDto)
                 .orElseThrow(() ->
                         new UnknownResourceException(i18n.translate("family.notExist")));
+    }
+
+    @Override
+    public String imageUpload(Long idFamily, MultipartFile multipartFile) throws IOException {
+
+        FamilyEntity familyEntity= familyRepository.findOne(idFamily);
+
+        if (familyEntity==null){
+            throw new UnknownResourceException("Family does not exist");
+        }
+
+        File file = File.createTempFile("file", ".tmp");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(multipartFile.getBytes());
+        fos.close();
+
+        String fileFormat = multipartFile.getContentType();
+        ImageDTO image  = new ImageDTO();
+        image.setFile(file);
+        image.setFormat(fileFormat.substring(fileFormat.indexOf('/')+1,fileFormat.length()));
+        image.setImageDirectory(this.applicationProperties.getAws().getFamiliesImageDirectory());
+        image.setImageNamePrefix(this.applicationProperties.getAws().getFamiliesImageNamePrefix());
+
+        String URL=imageUploadService.uploadImage(image,familyEntity.getFamilyId());
+        familyEntity.setImageURL(URL);
+        familyRepository.save(familyEntity);
+
+        return URL;
     }
 
     @Override
