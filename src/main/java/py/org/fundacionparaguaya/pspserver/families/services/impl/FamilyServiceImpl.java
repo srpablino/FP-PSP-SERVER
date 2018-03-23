@@ -163,8 +163,11 @@ public class FamilyServiceImpl implements FamilyService {
 
         String url=imageUploadService.uploadImage(image, familyEntity.getFamilyId());
         familyEntity.setImageURL(url);
-        familyRepository.save(familyEntity);
 
+        LOG.debug("Updating family {} with image {}", familyEntity.getFamilyId(),
+                familyEntity.getImageURL());
+
+        familyRepository.save(familyEntity);
         return url;
     }
 
