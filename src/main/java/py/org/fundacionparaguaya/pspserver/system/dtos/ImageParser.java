@@ -31,12 +31,9 @@ public class ImageParser {
                 Base64.Decoder decoder = Base64.getDecoder();
                 byte[] fileBytes = decoder.decode(base64);
 
-                File file;
-                try {
-                    file = File.createTempFile("file", ".tmp");
-                    FileOutputStream fos = new FileOutputStream(file);
+                File file = new File("file.tmp");
+                try (FileOutputStream fos = new FileOutputStream(file)) {
                     fos.write(fileBytes);
-                    fos.close();
                 } catch (IOException e) {
                     LOG.error(e.getMessage(), e);
                     throw new InternalServerErrorException(e);
