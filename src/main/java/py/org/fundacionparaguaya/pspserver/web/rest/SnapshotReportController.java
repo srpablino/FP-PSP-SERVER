@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import py.org.fundacionparaguaya.pspserver.reports.dtos.CsvDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
@@ -71,10 +70,10 @@ public class SnapshotReportController {
             HttpServletResponse response) throws IOException {
 
         SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
-        CsvDTO csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
+        String csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"indicators.csv\"");
-        response.getWriter().write(csv.getCsv());
+        response.getWriter().write(csv);
         response.getWriter().close();
     }
 }

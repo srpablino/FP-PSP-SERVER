@@ -2,7 +2,6 @@ package py.org.fundacionparaguaya.pspserver.reports.services;
 
 import java.util.List;
 
-import py.org.fundacionparaguaya.pspserver.reports.dtos.CsvDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
@@ -19,6 +18,6 @@ public interface SnapshotReportManager {
 
     List<FamilySnapshotDTO> listSnapshotByFamily(SnapshotFilterDTO filters);
 
-    CsvDTO generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters);
+    String generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters);
 
 }

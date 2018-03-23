@@ -21,7 +21,6 @@ import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.CsvDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
@@ -220,7 +219,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     }
 
     @Override
-    public CsvDTO generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
+    public String generateCSVSnapshotByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
         List<SnapshotEconomicEntity> snapshots = new ArrayList<>();
 
         Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.organization.name"),
@@ -257,9 +256,6 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
             buffer.append('\n');
         }
 
-        CsvDTO csv = new CsvDTO();
-        csv.setCsv(buffer.toString());
-
-        return csv;
+        return buffer.toString();
     }
 }
