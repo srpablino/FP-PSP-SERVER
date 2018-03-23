@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class ConverterString {
+public class StringConverter {
 
-    public ConverterString() {
+    public StringConverter() {
         super();
     }
 
@@ -22,6 +22,9 @@ public class ConverterString {
     public String getCamelCaseFromName(String name) {
 
         String[] parts = name.split(" ");
+        if (parts.length == 0) {
+            return "";
+        }
         String camelCaseString = "";
         for (String part : parts) {
             camelCaseString = camelCaseString + toProperCase(part);
