@@ -1,14 +1,16 @@
-DELETE FROM security.users_roles where user_id in (select id from security.users where username <> 'admin')
+DELETE FROM security.users_roles where user_id in 
+(select id from security.users where username in ('hub_admin', 'app_admin', 'user', 'survey_user', 'partner_admin'))
 and user_id not in ( select distinct user_id FROM data_collect.snapshot_draft) 
 and user_id not in (select distinct user_id FROM data_collect.snapshots_economics) 
 and user_id not in (select distinct user_id FROM security.password_reset_token); 
 
-DELETE FROM ps_network.users_applications where user_id in (select id from security.users where username <> 'admin')
+DELETE FROM ps_network.users_applications where user_id 
+in (select id from security.users where username in ('hub_admin', 'app_admin', 'user', 'survey_user', 'partner_admin'))
 and user_id not in ( select distinct user_id FROM data_collect.snapshot_draft) 
 and user_id not in (select distinct user_id FROM data_collect.snapshots_economics) 
 and user_id not in (select distinct user_id FROM security.password_reset_token); 
 
-DELETE FROM security.users where username <> 'admin' 
+DELETE FROM security.users where username in ('hub_admin', 'app_admin', 'user', 'survey_user', 'partner_admin') 
 and id not in ( select distinct user_id FROM data_collect.snapshot_draft) 
 and id not in (select distinct user_id FROM data_collect.snapshots_economics) 
 and id not in (select distinct user_id FROM security.password_reset_token); 
