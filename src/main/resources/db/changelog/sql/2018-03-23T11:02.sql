@@ -17,9 +17,11 @@ and id not in (select distinct user_id FROM security.password_reset_token);
 
 DELETE FROM ps_network.organizations where id not in (select distinct organization_id from ps_families.family) 
 and id not in (select distinct organization_id from ps_network.surveys_organizations where organization_id is not null)
-and id not in (select distinct organization_id from ps_network.users_applications);
+and id in (select distinct organization_id from ps_network.users_applications where user_id in (
+select id from security.users where username in ('hub_admin', 'app_admin', 'user', 'survey_user', 'partner_admin')));
 
 DELETE FROM ps_network.applications where id not in (select distinct application_id from ps_families.family)
 and id not in (select distinct application_id from ps_network.organizations)
 and id not in (select distinct application_id from ps_network.surveys_organizations where application_id is not null)
-and id not in (select distinct application_id from ps_network.users_applications);
+and id in (select distinct application_id from ps_network.users_applications where user_id in (
+select id from security.users where username in ('hub_admin', 'app_admin', 'user', 'survey_user', 'partner_admin')));
