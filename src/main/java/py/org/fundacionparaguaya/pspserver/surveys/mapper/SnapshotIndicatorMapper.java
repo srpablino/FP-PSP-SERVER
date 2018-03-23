@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
-import py.org.fundacionparaguaya.pspserver.common.utils.ConverterString;
+import py.org.fundacionparaguaya.pspserver.common.utils.StringConverter;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.StopLightGroup;
 
 /**
- * 
+ *
  * @author mgonzalez
  *
  */
@@ -24,10 +24,10 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
 
     private final PropertyAttributeSupport propertyAttributeSupport;
     private final SnapshotEconomicMapper snapshotEconomicMapper;
-    private ConverterString stringConverter;
+    private final StringConverter stringConverter;
 
     public SnapshotIndicatorMapper(PropertyAttributeSupport propertyAttributeSupport,
-            SnapshotEconomicMapper snapshotEconomicMapper, ConverterString stringConverter) {
+            SnapshotEconomicMapper snapshotEconomicMapper, StringConverter stringConverter) {
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.snapshotEconomicMapper = snapshotEconomicMapper;
         this.stringConverter = stringConverter;
@@ -35,7 +35,10 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
 
     @Override
     public List<SurveyData> entityListToDtoList(List<SnapshotIndicatorEntity> entityList) {
-        return entityList.stream().filter(Objects::nonNull).map(this::entityToDto).collect(Collectors.toList());
+        return entityList.stream()
+                .filter(Objects::nonNull)
+                .map(this::entityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
