@@ -1,11 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
+import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.InternalServerErrorException;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -31,9 +31,10 @@ public class ImageParser {
                 Base64.Decoder decoder = Base64.getDecoder();
                 byte[] fileBytes = decoder.decode(base64);
 
-                File file = new File("file.tmp");
-                try (FileOutputStream fos = new FileOutputStream(file)) {
-                    fos.write(fileBytes);
+                File file;
+                try {
+                    file = File.createTempFile("file", ".tmp");
+                    Files.write(fileBytes, file);
                 } catch (IOException e) {
                     LOG.error(e.getMessage(), e);
                     throw new InternalServerErrorException(e);
