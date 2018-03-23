@@ -146,13 +146,14 @@ public class FamilyServiceImpl implements FamilyService {
         FamilyEntity familyEntity= familyRepository.findOne(idFamily);
 
         if (familyEntity==null){
-            throw new UnknownResourceException("Family does not exist");
+            throw new UnknownResourceException(i18n.translate("family.notExist"));
         }
 
         File file = File.createTempFile("file", ".tmp");
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(multipartFile.getBytes());
-        fos.close();
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(multipartFile.getBytes());
+        }
 
         String fileFormat = multipartFile.getContentType();
         ImageDTO image  = new ImageDTO();
