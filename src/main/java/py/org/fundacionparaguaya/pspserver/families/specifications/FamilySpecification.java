@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.families.specifications;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 
-
 /**
  * @author bsandoval
  *
@@ -34,9 +34,10 @@ public class FamilySpecification {
 
     private static final String ID_ATTRIBUTE = "id";
     private static final String ID_FAMILY = "familyId";
-    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
+    private static final String SHORT_DATE_FORMAT = "dd/MM/yyyy";
 
-    private FamilySpecification() {}
+    private FamilySpecification() {
+    }
 
     public static Specification<FamilyEntity> byFilter(FamilyFilterDTO filter) {
         return new Specification<FamilyEntity>() {
@@ -54,8 +55,7 @@ public class FamilySpecification {
 
                 if (filter.getOrganizationId() != null) {
 
-                    Expression<Long> byOrganizationId = root
-                            .join(FamilyEntity_.getOrganization())
+                    Expression<Long> byOrganizationId = root.join(FamilyEntity_.getOrganization())
                             .<Long>get(ID_ATTRIBUTE);
 
                     predicates.add(cb.equal(byOrganizationId, filter.getOrganizationId()));
@@ -83,7 +83,7 @@ public class FamilySpecification {
                     predicates.add(cb.like(likeName, nameParamQuery));
                 }
 
-		if (filter.getLastModifiedGt() != null) {
+                if (filter.getLastModifiedGt() != null) {
                     LocalDateTime dateTimeParam = LocalDateTime.parse(filter.getLastModifiedGt());
                     Predicate predicate = cb.greaterThan(root.get(FamilyEntity_.getLastModifiedAt()), dateTimeParam);
                     predicates.add(predicate);
@@ -122,7 +122,8 @@ public class FamilySpecification {
                 List<Predicate> predicates = new ArrayList<>();
 
                 if (applicationId != null) {
-                    Join<FamilyEntity, ApplicationEntity> joinfamilyApplication = root.join(FamilyEntity_.getApplication());
+                    Join<FamilyEntity, ApplicationEntity> joinfamilyApplication = root
+                            .join(FamilyEntity_.getApplication());
                     Expression<Long> byApplicationId = joinfamilyApplication.<Long>get(ID_ATTRIBUTE);
                     predicates.add(cb.equal(byApplicationId, applicationId));
                 }
@@ -139,16 +140,16 @@ public class FamilySpecification {
 
                 if (dateFrom != null && dateTo != null) {
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SHORT_DATE_FORMAT);
 
                     Subquery<SnapshotEconomicEntity> subquery = query.subquery(SnapshotEconomicEntity.class);
                     Root<SnapshotEconomicEntity> fromSnapshot = subquery.from(SnapshotEconomicEntity.class);
                     subquery.select(fromSnapshot.get(SnapshotEconomicEntity_.getFamily()).get(ID_FAMILY));
 
                     predicates.add(cb.greaterThanOrEqualTo(fromSnapshot.get(SnapshotEconomicEntity_.getCreatedAt()),
-                            LocalDateTime.parse(dateFrom, formatter)));
+                            LocalDate.parse(dateFrom, formatter).atStartOfDay()));
                     predicates.add(cb.lessThan(fromSnapshot.get(SnapshotEconomicEntity_.getCreatedAt()),
-                            LocalDateTime.parse(dateTo, formatter).plusDays(1)));
+                            LocalDate.parse(dateTo, formatter).plusDays(1).atStartOfDay()));
 
                     subquery.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 

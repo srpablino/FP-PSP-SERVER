@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.surveys.specifications;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEnti
  */
 public class SnapshotEconomicSpecification {
 
-    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
+    private static final String SHORT_DATE_FORMAT = "dd/MM/yyyy";
 
     private static final long MONTH_AGO = 2;
 
@@ -86,12 +87,12 @@ public class SnapshotEconomicSpecification {
 
                 if (dateFrom != null && dateTo != null) {
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SHORT_DATE_FORMAT);
 
                     predicates.add(cb.greaterThanOrEqualTo(root.get(SnapshotEconomicEntity_.getCreatedAt()),
-                            LocalDateTime.parse(dateFrom, formatter)));
+                            LocalDate.parse(dateFrom, formatter).atStartOfDay()));
                     predicates.add(cb.lessThan(root.get(SnapshotEconomicEntity_.getCreatedAt()),
-                            LocalDateTime.parse(dateTo, formatter).plusDays(1)));
+                            LocalDate.parse(dateTo, formatter).plusDays(1).atStartOfDay()));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
