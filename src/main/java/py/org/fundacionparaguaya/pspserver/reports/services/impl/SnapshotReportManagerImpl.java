@@ -5,7 +5,6 @@ import static py.org.fundacionparaguaya.pspserver.families.specifications.Family
 import static py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification.byApplication;
 import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.forFamily;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,9 +13,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import py.org.fundacionparaguaya.pspserver.common.utils.ConverterString;
+import py.org.fundacionparaguaya.pspserver.common.utils.StringConverter;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
 import py.org.fundacionparaguaya.pspserver.families.specifications.FamilySpecification;
@@ -46,19 +46,19 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     private static final List<String> DEFAULT_HEADRES = Arrays.asList("Organization Code", "Organization Name",
             "Organization Status", "Family Code", "Family Name", "Family Status", "Snapshot Created At");
 
-    private FamilyRepository familyRepository;
+    private final FamilyRepository familyRepository;
 
-    private OrganizationFamilyDetMapper familyReportMapper;
+    private final OrganizationFamilyDetMapper familyReportMapper;
 
-    private SnapshotEconomicRepository snapshotRepository;
+    private final SnapshotEconomicRepository snapshotRepository;
 
-    private SnapshotIndicatorMapper snapshotMapper;
+    private final SnapshotIndicatorMapper snapshotMapper;
 
-    private ConverterString stringConverter;
+    private final StringConverter stringConverter;
 
     public SnapshotReportManagerImpl(FamilyRepository familyRepository, OrganizationFamilyDetMapper familyReportMapper,
             SnapshotEconomicRepository snapshotRepository, SnapshotIndicatorMapper snapshotMapper,
-            ConverterString stringConverter) {
+            StringConverter stringConverter) {
         this.familyRepository = familyRepository;
         this.familyReportMapper = familyReportMapper;
         this.snapshotRepository = snapshotRepository;
@@ -69,44 +69,36 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     @Override
     public List<OrganizationFamilyDTO> listFamilyByOrganizationAndCreatedDate(SnapshotFilterDTO filters) {
 
-        try {
+        List<FamilyEntity> families = new ArrayList<>();
 
-            List<FamilyEntity> families = new ArrayList<>();
+        Sort sort = new Sort(new Sort.Order(Direction.ASC, "organization.name"), new Sort.Order(Direction.ASC, "name"));
 
-            Sort sort = new Sort(new Sort.Order(Direction.ASC, "organization.name"), new Sort.Order(Direction.ASC, "name"));
+        Specification<FamilyEntity> dateRange = FamilySpecification.createdAtBetween2Dates(filters.getDateFrom(),
+                filters.getDateTo());
 
-            if (filters.getOrganizationId() != null) {
-                families = familyRepository.findAll(
-                        where(byOrganization(filters.getOrganizationId())).and(FamilySpecification
-                                .createdAtBetween2Dates(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                        sort);
+        if (filters.getOrganizationId() != null) {
+            families = familyRepository.findAll(where(byOrganization(filters.getOrganizationId())).and(dateRange),
+                    sort);
 
-            } else if (filters.getApplicationId() != null) {
-                families = familyRepository.findAll(
-                        where(byApplication(filters.getApplicationId())).and(FamilySpecification
-                                .createdAtBetween2Dates(getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                        sort);
-            }
-
-            Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families.stream()
-                    .collect(Collectors.groupingBy(f -> f.getOrganization()));
-
-            List<OrganizationFamilyDTO> toRet = new ArrayList<>();
-
-            groupByOrganization.forEach((k, v) -> {
-                OrganizationFamilyDTO fa = new OrganizationFamilyDTO(k.getName(), k.getCode(), k.getDescription(),
-                        k.isActive());
-                fa.setFamilies(familyReportMapper.entityListToDtoList(v));
-
-                toRet.add(fa);
-
-            });
-
-            return toRet;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+        } else if (filters.getApplicationId() != null) {
+            families = familyRepository.findAll(where(byApplication(filters.getApplicationId())).and(dateRange), sort);
         }
+
+        Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families.stream()
+                .collect(Collectors.groupingBy(f -> f.getOrganization()));
+
+        List<OrganizationFamilyDTO> toRet = new ArrayList<>();
+
+        groupByOrganization.forEach((k, v) -> {
+            OrganizationFamilyDTO fa = new OrganizationFamilyDTO(k.getName(), k.getCode(), k.getDescription(),
+                    k.isActive());
+            fa.setFamilies(familyReportMapper.entityListToDtoList(v));
+
+            toRet.add(fa);
+
+        });
+
+        return toRet;
 
     }
 
@@ -120,11 +112,8 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getFamilyId() != null) {
 
             List<SnapshotEconomicEntity> snapshots = snapshotRepository
-                    .findAll(
-                            where(forFamily(filters.getFamilyId()))
-                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
-                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                            sort);
+                    .findAll(where(forFamily(filters.getFamilyId())).and(SnapshotEconomicSpecification
+                            .createdAtBetween2Dates(filters.getDateFrom(), filters.getDateTo())), sort);
 
             Map<SurveyEntity, List<SnapshotEconomicEntity>> groupBySurvey = snapshots.stream()
                     .collect(Collectors.groupingBy(s -> s.getSurveyDefinition()));
@@ -142,13 +131,6 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         return toRet;
     }
 
-    private String getDateFormat(String date) {
-        date = date.replace("/", "-");
-        date = date + " 00:00:00";
-
-        return date;
-    }
-
     private ReportDTO getSnasphots(List<SnapshotEconomicEntity> snapshots) {
 
         ReportDTO report = new ReportDTO();
@@ -162,7 +144,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         for (SnapshotEconomicEntity s : snapshots) {
 
             s.getSnapshotIndicator().getAdditionalProperties().forEach((k, v) -> {
-                if (!report.getHeaders().contains(k)) {
+                if (!report.getHeaders().contains(stringConverter.getNameFromCamelCase(k))) {
                     report.getHeaders().add(stringConverter.getNameFromCamelCase(k));
                 }
             });
@@ -218,13 +200,13 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
             List<String> row = new ArrayList<>();
 
             for (String header : headers) {
-                
+
                 String key = stringConverter.getCamelCaseFromName(header);
-                
+
                 if (data.containsKey(key)) {
-                    if(data.getAsString(key)==null) {
+                    if (data.getAsString(key) == null) {
                         row.add("");
-                    }else {
+                    } else {
                         row.add(data.getAsString(key));
                     }
                 } else {
@@ -244,35 +226,34 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         Sort sort = new Sort(new Sort.Order(Direction.ASC, "family.organization.name"),
                 new Sort.Order(Direction.ASC, "family.name"), new Sort.Order(Direction.ASC, "createdAt"));
 
-        if (filters.getDateFrom() != null && filters.getDateTo() != null && filters.getApplicationId() != null) {
+        if (filters.getDateFrom() != null && filters.getDateTo() != null) {
+            Specification<SnapshotEconomicEntity> dateRange = SnapshotEconomicSpecification
+                    .createdAtBetween2Dates(filters.getDateFrom(), filters.getDateTo());
 
-            snapshots = snapshotRepository
-                    .findAll(
-                            where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId()))
-                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
-                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                            sort);
+            if (filters.getApplicationId() != null) {
 
-        } else if (filters.getDateFrom() != null && filters.getDateTo() != null
-                && filters.getOrganizationId() != null) {
+                snapshots = snapshotRepository.findAll(
+                        where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId())).and(dateRange),
+                        sort);
 
-            snapshots = snapshotRepository
-                    .findAll(
-                            where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId()))
-                                    .and(SnapshotEconomicSpecification.createdAtBetween2Dates(
-                                            getDateFormat(filters.getDateFrom()), getDateFormat(filters.getDateTo()))),
-                            sort);
+            }
+
+            if (filters.getOrganizationId() != null) {
+
+                snapshots = snapshotRepository.findAll(
+                        where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId())).and(dateRange),
+                        sort);
+            }
         }
 
-        ReportDTO report = new ReportDTO();
-        report = getOrganizationAndFamilyData(snapshots);
+        ReportDTO report = getOrganizationAndFamilyData(snapshots);
 
-        StringWriter buffer = new StringWriter();
-        report.getHeaders().stream().forEachOrdered((h) -> buffer.write(h + ","));
+        StringBuffer buffer = new StringBuffer();
+        report.getHeaders().stream().forEachOrdered((h) -> buffer.append(h).append(","));
         buffer.append('\n');
 
         for (List<String> row : report.getRows()) {
-            row.stream().forEachOrdered((h) -> buffer.write(h + ","));
+            row.stream().forEachOrdered((h) -> buffer.append(h).append(","));
             buffer.append('\n');
         }
 

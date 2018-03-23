@@ -1,6 +1,9 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,16 +61,20 @@ public class SnapshotReportController {
         return ResponseEntity.ok(snapshots);
     }
 
-    @GetMapping(path = "/indicators/csv", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<CsvDTO> generateCSVSnapshotByOrganizationAndCreatedDate(
+    @GetMapping(path = "/indicators/csv", produces = "text/csv")
+    public void generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
-            @RequestParam(value = "date_to", required = true) String dateTo) {
+            @RequestParam(value = "date_to", required = true) String dateTo,
+            HttpServletResponse response) throws IOException {
 
         SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
         CsvDTO csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
-        return ResponseEntity.ok(csv);
+        response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=\"indicators.csv\"");
+        response.getWriter().write(csv.getCsv());
+        response.getWriter().close();
     }
 }
