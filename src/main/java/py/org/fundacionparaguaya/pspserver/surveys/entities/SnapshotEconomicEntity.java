@@ -478,7 +478,7 @@ public class SnapshotEconomicEntity implements StoreableSnapshot {
         }
         return null;
     }
-    
+
     @Transient
     public String getCreatedAtLocalDateString() {
         if (this.createdAt != null) {

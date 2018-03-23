@@ -208,12 +208,12 @@ public class SnapshotServiceImpl implements SnapshotService {
         }
         return indicatorsToRet;
     }
-    
+
     @Override
     public List<SurveyData> getIndicatorsValue(SurveyData indicators) {
- 
+
         List<SurveyData> toRet = new ArrayList<>();
-        
+
         indicators.forEach((k, v) -> {
             SurveyData indicator = new SurveyData();
             indicator.put(INDICATOR_NAME, getNameFromCamelCase(k));
@@ -221,7 +221,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             toRet.add(indicator);
         });
         return toRet;
-    } 
+    }
 
     @Override
     public SnapshotIndicators getLastSnapshotIndicatorsByFamily(Long familyId) {

@@ -34,6 +34,6 @@ public interface SnapshotService {
     List<TopOfIndicators> getTopOfIndicators(Long organizationId);
 
     void deleteSnapshotsBySurvey(UserDetailsDTO user, Long surveyId);
-    
+
     List<SurveyData> getIndicatorsValue(SurveyData indicators);
 }
