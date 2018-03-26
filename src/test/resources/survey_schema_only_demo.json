@@ -595,7 +595,7 @@
 				"es": "Cuál es su nivel de ingreso?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos ingresos suficientes"
 			},
 			"items": {
 				"type": "object",
@@ -630,7 +630,7 @@
 				"es": "Cuenta con documentación"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos cédula"
 			},
 			"items": {
 				"type": "object",
@@ -666,7 +666,7 @@
 				"es": "Cuenta con acceso a agua potable?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos canilla"
 			},
 			"items": {
 				"type": "object",
@@ -703,7 +703,7 @@
 				"es": "Cuenta con posibilidad de deshacerse de la basura?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Manejamos bien nuestra basura"
 			},
 			"items": {
 				"type": "object",
@@ -737,7 +737,7 @@
 				"es": "Cuenta con una casa segura?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Nuestra casa es segura"
 			},
 			"items": {
 				"type": "object",
@@ -771,7 +771,7 @@
 				"es": "Cuenta con baño seguro?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos baño moderno"
 			},
 			"items": {
 				"type": "object",
@@ -807,7 +807,7 @@
 				"es": "Cuenta con camas separadas?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Dormimos en piezas separadas"
 			},
 			"items": {
 				"type": "object",
@@ -843,7 +843,7 @@
 				"es": "Cuenta con teléfono o celular?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos teléfono"
 			},
 			"items": {
 				"type": "object",
@@ -878,7 +878,7 @@
 				"es": "Cuenta con seguridad?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Mi familia no fue robada"
 			},
 			"items": {
 				"type": "object",
@@ -913,7 +913,7 @@
 				"es": "Puede leer, escribir y comprender en español?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Sabemos leer y escribir"
 			},
 			"items": {
 				"type": "object",
@@ -949,7 +949,7 @@
 				"es": "Puede planificar y presupuestar a futuro?"
 			},
 			"description": {
-				"es": "Description demo"
+				"es": "Tenemos presupuesto"
 			},
 			"items": {
 				"type": "object",
