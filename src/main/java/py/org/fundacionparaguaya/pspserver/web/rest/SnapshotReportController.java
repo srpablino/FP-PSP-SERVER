@@ -23,7 +23,7 @@ import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManage
  *
  */
 @RestController
-@RequestMapping(value = "/api/v1/families/reports")
+@RequestMapping(value = "/api/v1/reports")
 public class SnapshotReportController {
 
     private SnapshotReportManager familyReportService;
@@ -32,7 +32,7 @@ public class SnapshotReportController {
         this.familyReportService = familyReportService;
     }
 
-    @GetMapping(path = "/byOrganization", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/family/organizations", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<OrganizationFamilyDTO>> getFamiliesByOrganization(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
@@ -46,7 +46,7 @@ public class SnapshotReportController {
         return ResponseEntity.ok(families);
     }
 
-    @GetMapping(path = "/indicators/family", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(path = "/family/indicators", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<FamilySnapshotDTO>> getSnapshotsIndicatorsByFamily(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
@@ -60,7 +60,7 @@ public class SnapshotReportController {
         return ResponseEntity.ok(snapshots);
     }
 
-    @GetMapping(path = "/indicators/csv", produces = "text/csv")
+    @GetMapping(path = "/family/indicators/csv", produces = "text/csv")
     public void generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
