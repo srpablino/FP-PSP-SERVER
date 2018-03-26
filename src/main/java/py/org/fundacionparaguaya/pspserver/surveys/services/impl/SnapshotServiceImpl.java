@@ -294,9 +294,11 @@ public class SnapshotServiceImpl implements SnapshotService {
                     organizationMapper.entityToDto(organizationRepository
                             .findOne(familyDto.getOrganization().getId())));
             snapshotIndicators.setFamily(familyDto);
-            snapshotIndicators.setUser(userMapper
-                    .dtoToEntity(UserDTO.builder().userId(os.getUser().getId())
-                            .username(os.getUser().getUsername()).build()));
+            if (os.getUser() != null) {
+                snapshotIndicators.setUser(userMapper
+                        .dtoToEntity(UserDTO.builder().userId(os.getUser().getId())
+                                .username(os.getUser().getUsername()).build()));
+            }
             snapshotIndicators.setIndicatorsSurveyData(
                     getIndicatorsValue(os, snapshotIndicators));
 
