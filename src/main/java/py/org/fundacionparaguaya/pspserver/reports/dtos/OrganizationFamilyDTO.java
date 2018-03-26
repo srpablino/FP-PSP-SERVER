@@ -21,7 +21,7 @@ public class OrganizationFamilyDTO implements Serializable {
 
     private String status;
 
-    private List<OrganizationFamilyDetDTO> families;
+    private List<FamilyDTO> families;
 
     public OrganizationFamilyDTO(String name, String code, String descripcion, boolean isActive) {
         this.name = name;
@@ -62,11 +62,11 @@ public class OrganizationFamilyDTO implements Serializable {
         this.status = status;
     }
 
-    public List<OrganizationFamilyDetDTO> getFamilies() {
+    public List<FamilyDTO> getFamilies() {
         return families;
     }
 
-    public void setFamilies(List<OrganizationFamilyDetDTO> families) {
+    public void setFamilies(List<FamilyDTO> families) {
         this.families = families;
     }
 

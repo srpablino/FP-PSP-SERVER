@@ -25,7 +25,7 @@ import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.SnapshotFilterDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilySnapshotDTO;
 import py.org.fundacionparaguaya.pspserver.reports.dtos.ReportDTO;
-import py.org.fundacionparaguaya.pspserver.reports.mapper.OrganizationFamilyDetMapper;
+import py.org.fundacionparaguaya.pspserver.reports.mapper.FamilyDTOMapper;
 import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManager;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
@@ -45,24 +45,22 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     private static final List<String> DEFAULT_HEADRES = Arrays.asList("Organization Code", "Organization Name",
             "Organization Status", "Family Code", "Family Name", "Family Status", "Snapshot Created At");
 
+    private static final String CSV_DELIMITER = ",";
+
     private final FamilyRepository familyRepository;
 
-    private final OrganizationFamilyDetMapper familyReportMapper;
+    private final FamilyDTOMapper familyReportMapper;
 
     private final SnapshotEconomicRepository snapshotRepository;
 
     private final SnapshotIndicatorMapper snapshotMapper;
 
-    private final StringConverter stringConverter;
-
-    public SnapshotReportManagerImpl(FamilyRepository familyRepository, OrganizationFamilyDetMapper familyReportMapper,
-            SnapshotEconomicRepository snapshotRepository, SnapshotIndicatorMapper snapshotMapper,
-            StringConverter stringConverter) {
+    public SnapshotReportManagerImpl(FamilyRepository familyRepository, FamilyDTOMapper familyReportMapper,
+            SnapshotEconomicRepository snapshotRepository, SnapshotIndicatorMapper snapshotMapper) {
         this.familyRepository = familyRepository;
         this.familyReportMapper = familyReportMapper;
         this.snapshotRepository = snapshotRepository;
         this.snapshotMapper = snapshotMapper;
-        this.stringConverter = stringConverter;
     }
 
     @Override
@@ -75,13 +73,8 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         Specification<FamilyEntity> dateRange = FamilySpecification.createdAtBetween2Dates(filters.getDateFrom(),
                 filters.getDateTo());
 
-        if (filters.getOrganizationId() != null) {
-            families = familyRepository.findAll(where(byOrganization(filters.getOrganizationId())).and(dateRange),
-                    sort);
-
-        } else if (filters.getApplicationId() != null) {
-            families = familyRepository.findAll(where(byApplication(filters.getApplicationId())).and(dateRange), sort);
-        }
+        families = familyRepository.findAll(where(byOrganization(filters.getOrganizationId())).and(dateRange)
+                .and(byApplication(filters.getApplicationId())).and(dateRange), sort);
 
         Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families.stream()
                 .collect(Collectors.groupingBy(f -> f.getOrganization()));
@@ -143,8 +136,8 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
         for (SnapshotEconomicEntity s : snapshots) {
 
             s.getSnapshotIndicator().getAdditionalProperties().forEach((k, v) -> {
-                if (!report.getHeaders().contains(stringConverter.getNameFromCamelCase(k))) {
-                    report.getHeaders().add(stringConverter.getNameFromCamelCase(k));
+                if (!report.getHeaders().contains(StringConverter.getNameFromCamelCase(k))) {
+                    report.getHeaders().add(StringConverter.getNameFromCamelCase(k));
                 }
             });
             SurveyData data = snapshotMapper.entityToDto(s.getSnapshotIndicator());
@@ -171,16 +164,16 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
             s.getSnapshotIndicator().getAdditionalProperties().forEach((k, v) -> {
                 if (!report.getHeaders().contains(k)) {
-                    report.getHeaders().add(stringConverter.getNameFromCamelCase(k));
+                    report.getHeaders().add(StringConverter.getNameFromCamelCase(k));
                 }
             });
             SurveyData data = snapshotMapper.entityToDto(s.getSnapshotIndicator());
             data.put("organizationCode", s.getFamily().getOrganization().getCode());
             data.put("organizationName", s.getFamily().getOrganization().getName());
-            data.put("organizationStatus", s.getFamily().getOrganization().isActive() ? "A" : "I");
+            data.put("organizationStatus", s.getFamily().getOrganization().getStatus().toString());
             data.put("familyCode", s.getFamily().getCode());
             data.put("familyName", s.getFamily().getName());
-            data.put("familyStatus", s.getFamily().isActive() ? "A" : "I");
+            data.put("familyStatus", s.getFamily().getStatus().toString());
             data.put("snapshotCreatedAt", s.getCreatedAtLocalDateString());
             rows.add(data);
         }
@@ -200,7 +193,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
             for (String header : headers) {
 
-                String key = stringConverter.getCamelCaseFromName(header);
+                String key = StringConverter.getCamelCaseFromName(header);
 
                 if (data.containsKey(key)) {
                     if (data.getAsString(key) == null) {
@@ -229,33 +222,27 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
             Specification<SnapshotEconomicEntity> dateRange = SnapshotEconomicSpecification
                     .createdAtBetween2Dates(filters.getDateFrom(), filters.getDateTo());
 
-            if (filters.getApplicationId() != null) {
+            snapshots = snapshotRepository.findAll(
+                    where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId())).and(dateRange)
+                            .and(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId())),
+                    sort);
 
-                snapshots = snapshotRepository.findAll(
-                        where(SnapshotEconomicSpecification.byApplication(filters.getApplicationId())).and(dateRange),
-                        sort);
-
-            }
-
-            if (filters.getOrganizationId() != null) {
-
-                snapshots = snapshotRepository.findAll(
-                        where(SnapshotEconomicSpecification.byOrganization(filters.getOrganizationId())).and(dateRange),
-                        sort);
-            }
         }
 
         ReportDTO report = getOrganizationAndFamilyData(snapshots);
+        return reportToCsv(report);
+    }
 
-        StringBuffer buffer = new StringBuffer();
-        report.getHeaders().stream().forEachOrdered((h) -> buffer.append(h).append(","));
-        buffer.append('\n');
+    private String reportToCsv(ReportDTO report) {
+
+        String toRet = report.getHeaders().stream().map(Object::toString).collect(Collectors.joining(CSV_DELIMITER))
+                .concat("\n");
 
         for (List<String> row : report.getRows()) {
-            row.stream().forEachOrdered((h) -> buffer.append(h).append(","));
-            buffer.append('\n');
+            toRet = toRet
+                    + (row.stream().map(Object::toString).collect(Collectors.joining(CSV_DELIMITER))).concat("\n");
         }
 
-        return buffer.toString();
+        return toRet;
     }
 }
