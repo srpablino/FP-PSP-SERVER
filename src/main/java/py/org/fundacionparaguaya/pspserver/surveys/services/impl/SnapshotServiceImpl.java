@@ -34,7 +34,6 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepo
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.security.mapper.UserMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -76,8 +75,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final PersonMapper personMapper;
 
-    private final UserMapper userMapper;
-
     private final OrganizationMapper organizationMapper;
 
     private final FamilyService familyService;
@@ -95,8 +92,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService,
             PersonMapper personMapper, FamilyService familyService,
-            UserMapper userMapper, OrganizationMapper organizationMapper,
-            I18n i18n, OrganizationRepository organizationRepository) {
+            OrganizationMapper organizationMapper, I18n i18n,
+            OrganizationRepository organizationRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -104,7 +101,6 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.priorityService = priorityService;
         this.personMapper = personMapper;
         this.familyService = familyService;
-        this.userMapper = userMapper;
         this.organizationMapper = organizationMapper;
         this.i18n = i18n;
         this.organizationRepository = organizationRepository;
@@ -295,9 +291,9 @@ public class SnapshotServiceImpl implements SnapshotService {
                             .findOne(familyDto.getOrganization().getId())));
             snapshotIndicators.setFamily(familyDto);
             if (os.getUser() != null) {
-                snapshotIndicators.setUser(userMapper
-                        .dtoToEntity(UserDTO.builder().userId(os.getUser().getId())
-                                .username(os.getUser().getUsername()).build()));
+                snapshotIndicators
+                        .setUser(UserDTO.builder().userId(os.getUser().getId())
+                                .username(os.getUser().getUsername()).build());
             }
             snapshotIndicators.setIndicatorsSurveyData(
                     getIndicatorsValue(os, snapshotIndicators));

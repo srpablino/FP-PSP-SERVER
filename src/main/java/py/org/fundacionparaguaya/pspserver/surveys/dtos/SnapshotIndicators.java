@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
-import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 
 public class SnapshotIndicators implements Serializable {
 
@@ -44,7 +44,7 @@ public class SnapshotIndicators implements Serializable {
     private FamilyDTO family;
 
     @JsonProperty("user")
-    private UserEntity user;
+    private UserDTO user;
 
     @JsonProperty("survey_id")
     private Long surveyId;
@@ -187,11 +187,11 @@ public class SnapshotIndicators implements Serializable {
     }
 
     @ApiModelProperty(value = "User")
-    public UserEntity getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
@@ -229,10 +229,10 @@ public class SnapshotIndicators implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
