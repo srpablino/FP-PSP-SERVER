@@ -8,7 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 /*
@@ -28,9 +32,9 @@ import java.util.function.Function;
  */
 @ApiModel(description = "Holds info representing the definition of the field")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Property  implements Serializable {
+public class Property implements Serializable {
 
-	@JsonProperty("type")
+    @JsonProperty("type")
     private TypeEnum type = null;
 
     @JsonProperty("title")
@@ -47,7 +51,7 @@ public class Property  implements Serializable {
 
     @JsonProperty("enumNames")
     private List<Object> enumNames = null;
-    
+
     @JsonProperty("items")
     private Items items = null;
 
@@ -69,13 +73,15 @@ public class Property  implements Serializable {
     public static List<Object> getDefaultEnumValues() {
         return Arrays.asList("red", "blue", "green");
     }
-    
+
     public Property itemsValue(Items items) {
         this.items = items;
         return this;
     }
+
     /**
      * The type of this field
+     *
      * @return type
      **/
     @JsonProperty("type")
@@ -95,6 +101,7 @@ public class Property  implements Serializable {
 
     /**
      * The title of this field
+     *
      * @return title
      **/
     @JsonProperty("title")
@@ -106,7 +113,7 @@ public class Property  implements Serializable {
     public void setTitle(PropertyTitle title) {
         this.title = title;
     }
-    
+
     @JsonProperty("items")
     public Items getItems() {
         return items;
@@ -131,15 +138,15 @@ public class Property  implements Serializable {
         STRING("string") {
             @Override
             public Boolean apply(Object value) {
-                return value instanceof  String;
+                return value instanceof String;
             }
         },
         NUMBER("number") {
             @Override
             public Boolean apply(Object value) {
                 return value instanceof Float
-                		|| value instanceof Double
-                		|| value instanceof Integer;
+                        || value instanceof Double
+                        || value instanceof Integer;
             }
         },
         BOOLEAN("boolean") {
@@ -157,7 +164,7 @@ public class Property  implements Serializable {
         INTEGER("integer") {
             @Override
             public Boolean apply(Object value) {
-                return value instanceof  Integer;
+                return value instanceof Integer;
             }
         },
         ARRAY("array") {
@@ -196,7 +203,7 @@ public class Property  implements Serializable {
      * The type of this field
      */
     public enum FormatEnum {
-        DATA_URL("data-url"), DATE("date");
+        DATA_URL("data-url"), DATE("date"), EMAIL("email");
 
         private String value;
 
@@ -236,7 +243,6 @@ public class Property  implements Serializable {
         }
     }
 
-    
 
     @Override
     public boolean equals(java.lang.Object o) {
@@ -247,8 +253,8 @@ public class Property  implements Serializable {
             return false;
         }
         Property property = (Property) o;
-        return Objects.equals(this.type, property.type) &&
-                Objects.equals(this.title, property.title);
+        return Objects.equals(this.type, property.type)
+                && Objects.equals(this.title, property.title);
     }
 
     @Override
@@ -278,43 +284,44 @@ public class Property  implements Serializable {
         }
         return o.toString().replace("\n", "\n    ");
     }
-    
+
     public class Items implements Serializable {
         @JsonProperty("type")
         private TypeEnum type = null;
-        
+
         @JsonProperty("enum")
         private List<Object> enumValues = null;
-        
+
         public TypeEnum getType() {
             return this.type;
         }
-        
-        public List<Object> getEnumValues(){
+
+        public List<Object> getEnumValues() {
             return this.enumValues;
         }
-        
+
         /**
          * Valid if enumValues contains "value"
+         *
          * @param value
          * @return true(contains), false(not contain)
          */
         public boolean validateContent(Object value) {
-           //Case: the enumValues are json or map, the value is in the property "value"
-           if(TypeEnum.OBJECT.equals(this.type) && this.enumValues!=null 
-                   && !this.enumValues.isEmpty() && this.enumValues.get(0) instanceof Map) {
-               for(Object o : this.enumValues) {
-                   Map<?, ?> json = (Map<?, ?>) o;
-                   if(json.get("value").equals(value)) {
-                       return true;
-                   }
-               }
-           } else {
-               if(this.enumValues.contains(value)) {
-                   return true;
-               }
-           }
-           return false;
+            //Case: the enumValues are json or map, the value is in the property "value"
+            if (TypeEnum.OBJECT.equals(this.type) && this.enumValues != null
+                    && !this.enumValues.isEmpty() && this.enumValues.get(0) instanceof Map) {
+                for (Object o : this.enumValues) {
+                    Map<?, ?> json = (Map<?, ?>) o;
+                    if (json.get("value").equals(value)) {
+                        return true;
+                    }
+                }
+            } else {
+                if (this.enumValues.contains(value)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
