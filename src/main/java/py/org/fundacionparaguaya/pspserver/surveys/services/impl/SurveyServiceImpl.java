@@ -1,5 +1,23 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byOrganization;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.lastModifiedGt;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.presentInSchema;
+import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.requiredValue;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +31,7 @@ import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.network.repositories.SurveyOrganizationRepository;
+import py.org.fundacionparaguaya.pspserver.network.services.SurveyOrganizationService;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
@@ -30,24 +49,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaVali
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResult;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationSupport;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.byOrganization;
-import static py.org.fundacionparaguaya.pspserver.network.specifications.SurveyOrganizationSpecification.lastModifiedGt;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.MultipleSchemaValidator.all;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.PropertyValidator.validType;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.markedAsRequired;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.presentInSchema;
-import static py.org.fundacionparaguaya.pspserver.surveys.validation.SchemaValidator.requiredValue;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -71,6 +72,8 @@ public class SurveyServiceImpl implements SurveyService {
 
     private final ApplicationMapper applicationMapper;
 
+    private final SurveyOrganizationService surveyOrganizationService;
+
     public SurveyServiceImpl(SurveyRepository repo,
             PropertyAttributeSupport propertyAttributeSupport,
             SurveyMapper mapper,
@@ -78,7 +81,8 @@ public class SurveyServiceImpl implements SurveyService {
             OrganizationRepository organizationRepo,
             OrganizationMapper organizationMapper,
             ApplicationRepository applicationRepo,
-            ApplicationMapper applicationMapper) {
+            ApplicationMapper applicationMapper,
+            SurveyOrganizationService surveyOrganizationService) {
         this.repo = repo;
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.mapper = mapper;
@@ -87,6 +91,7 @@ public class SurveyServiceImpl implements SurveyService {
         this.organizationMapper = organizationMapper;
         this.applicationRepo = applicationRepo;
         this.applicationMapper = applicationMapper;
+        this.surveyOrganizationService = surveyOrganizationService;
     }
 
     @Override
@@ -114,7 +119,7 @@ public class SurveyServiceImpl implements SurveyService {
                         .findBySurveyIdAndApplicationIdAndOrganizationId(
                                 entity.getId(),
                                 organization.getApplication().getId(),
-                                organization.getId()) == null){
+                                organization.getId()) == null) {
                     SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
                     surveyOrganization.setSurvey(entity);
                     surveyOrganization.setApplication(applicationRepo
@@ -242,80 +247,29 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     @Transactional
-    public SurveyDefinition updateSurvey(UserDetailsDTO userDetails, Long surveyId,
+    public SurveyDefinition updateSurvey(UserDetailsDTO details, Long surveyId,
             SurveyDefinition surveyDefinition) {
 
-        try {
-            checkArgument(surveyId > 0, "Argument was %s but expected nonnegative",
-                    surveyId);
+        checkArgument(surveyId > 0, "Argument was %s but expected nonnegative",
+                surveyId);
 
-            return Optional.ofNullable(repo.findOne(surveyId)).map(survey -> {
-                survey.setDescription(surveyDefinition.getDescription());
-                survey.setTitle(surveyDefinition.getTitle());
-                survey.setSurveyDefinition(surveyDefinition);
+        return Optional.ofNullable(repo.findOne(surveyId)).map(survey -> {
+            survey.setDescription(surveyDefinition.getDescription());
+            survey.setTitle(surveyDefinition.getTitle());
+            survey.setSurveyDefinition(surveyDefinition);
 
-                if (userHasRole(userDetails, Role.ROLE_HUB_ADMIN)) {
-                    if (surveyDefinition.getOrganizations() != null
-                            && surveyDefinition.getOrganizations().size() > 0) {
+            surveyOrganizationService.crudSurveyOrganization(details, surveyId,
+                    surveyDefinition, survey);
 
-                        surveyDefinition.getOrganizations()
-                        .forEach(organization -> surveyOrganizationRepo.delete(
-                                surveyOrganizationRepo
-                                .findBySurveyIdAndApplicationIdAndOrganizationId(
-                                        surveyId, organization.getApplication().getId(),
-                                        organization.getId())));
-
-                        for (OrganizationDTO organization : surveyDefinition
-                                .getOrganizations()) {
-
-                            SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                            surveyOrganization.setSurvey(survey);
-                            surveyOrganization
-                            .setApplication(applicationRepo.findById(
-                                    organization.getApplication().getId()));
-                            surveyOrganization.setOrganization(organizationRepo
-                                    .findById(organization.getId()));
-                            surveyOrganizationRepo.save(surveyOrganization);
-
-                        }
-                    }else {
-                        surveyOrganizationRepo.deleteBySurveyIdAndOrganizationIsNotNull(surveyId);
-                    }
-                }
-
-                if (userHasRole(userDetails, Role.ROLE_ROOT)) {
-
-                    surveyOrganizationRepo.findBySurveyId(surveyId)
-                    .forEach(so -> surveyOrganizationRepo.deleteBySurveyId(so.getSurvey().getId()));
-
-                    if (surveyDefinition.getApplications() != null
-                            && surveyDefinition.getApplications().size() > 0) {
-
-                        for (ApplicationDTO application : surveyDefinition
-                                .getApplications()) {
-                            SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                            surveyOrganization.setSurvey(survey);
-                            surveyOrganization.setApplication(
-                                    applicationRepo.findById(application.getId()));
-                            surveyOrganizationRepo.save(surveyOrganization);
-                        }
-                    }
-                }
-
-                survey.setLastModifiedAt(LocalDateTime.now());
-                return repo.save(survey);
-            }).map(mapper::entityToDto).orElseThrow(
-                    () -> new UnknownResourceException("Survey does not exist"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return surveyDefinition;
-
-
+            survey.setLastModifiedAt(LocalDateTime.now());
+            return repo.save(survey);
+        }).map(mapper::entityToDto).orElseThrow(
+                () -> new UnknownResourceException("Survey does not exist"));
     }
 
     @Override
-    public List<SurveyDefinition> listSurveys(UserDetailsDTO userDetails, String lastModifiedGt) {
+    public List<SurveyDefinition> listSurveys(UserDetailsDTO userDetails,
+            String lastModifiedGt) {
 
         Long organizationId = Optional.ofNullable(userDetails.getOrganization())
                 .orElse(new OrganizationDTO()).getId();
@@ -328,13 +282,13 @@ public class SurveyServiceImpl implements SurveyService {
         }
 
         List<SurveyDefinition> lista = mapper
-                .entityListToDtoList(surveyOrganizationRepo
-                        .findAll(where(byApplication(applicationId))
-                                .and(byOrganization(organizationId))
-                                .and(lastModifiedGt(lastModifiedGt))
-                        )
-                        .stream().map(e -> e.getSurvey())
-                        .collect(Collectors.toList()));
+                .entityListToDtoList(
+                        surveyOrganizationRepo
+                                .findAll(where(byApplication(applicationId))
+                                        .and(byOrganization(organizationId))
+                                        .and(lastModifiedGt(lastModifiedGt)))
+                                .stream().map(e -> e.getSurvey())
+                                .collect(Collectors.toList()));
 
         List<SurveyDefinition> toRet = new ArrayList<>();
 

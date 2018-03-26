@@ -20,6 +20,9 @@ public interface SurveyOrganizationRepository
 
     void deleteBySurveyId(Long surveyId);
 
-    void deleteBySurveyIdAndOrganizationIsNotNull(Long surveyId);
+    void deleteBySurveyIdAndApplicationIdAndOrganizationIsNotNull(Long surveyId, Long applicationId);
+
+    List<SurveyOrganizationEntity>
+    findBySurveyIdAndApplicationIdAndOrganizationIsNotNull(Long surveyId, Long applicationId);
 
 }
