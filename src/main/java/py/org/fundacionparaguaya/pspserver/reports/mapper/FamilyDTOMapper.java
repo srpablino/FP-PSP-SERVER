@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
-import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDetDTO;
+import py.org.fundacionparaguaya.pspserver.reports.dtos.FamilyDTO;
 
 /**
  *
@@ -15,16 +15,16 @@ import py.org.fundacionparaguaya.pspserver.reports.dtos.OrganizationFamilyDetDTO
  *
  */
 @Component
-public class OrganizationFamilyDetMapper {
+public class FamilyDTOMapper {
 
-    public OrganizationFamilyDetDTO entityToDto(FamilyEntity family) {
-        OrganizationFamilyDetDTO toRet = new OrganizationFamilyDetDTO();
+    public FamilyDTO entityToDto(FamilyEntity family) {
+        FamilyDTO toRet = new FamilyDTO();
         if (family == null) {
             return toRet;
         }
 
         toRet.setId(family.getFamilyId());
-        toRet.setStatus(family.isActive() ? "A" : "I");
+        toRet.setStatus(family.getStatus().toString());
         toRet.setCity(family.getCity() != null ? family.getCity().getCity() : "");
         toRet.setCode(family.getCode());
         toRet.setName(family.getName());
@@ -33,7 +33,7 @@ public class OrganizationFamilyDetMapper {
         return toRet;
     }
 
-    public List<OrganizationFamilyDetDTO> entityListToDtoList(List<FamilyEntity> entityList) {
+    public List<FamilyDTO> entityListToDtoList(List<FamilyEntity> entityList) {
         return entityList.stream().filter(Objects::nonNull).map(this::entityToDto).collect(Collectors.toList());
     }
 }

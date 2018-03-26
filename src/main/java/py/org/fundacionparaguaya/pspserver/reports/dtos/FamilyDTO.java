@@ -10,7 +10,7 @@ import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO.Builder;
  *
  */
 
-public class OrganizationFamilyDetDTO implements Serializable {
+public class FamilyDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
