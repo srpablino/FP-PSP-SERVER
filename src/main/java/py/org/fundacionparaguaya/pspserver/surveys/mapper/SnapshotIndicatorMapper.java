@@ -24,13 +24,11 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
 
     private final PropertyAttributeSupport propertyAttributeSupport;
     private final SnapshotEconomicMapper snapshotEconomicMapper;
-    private final StringConverter stringConverter;
 
     public SnapshotIndicatorMapper(PropertyAttributeSupport propertyAttributeSupport,
-            SnapshotEconomicMapper snapshotEconomicMapper, StringConverter stringConverter) {
+            SnapshotEconomicMapper snapshotEconomicMapper) {
         this.propertyAttributeSupport = propertyAttributeSupport;
         this.snapshotEconomicMapper = snapshotEconomicMapper;
-        this.stringConverter = stringConverter;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class SnapshotIndicatorMapper implements BaseMapper<SnapshotIndicatorEnti
 
         List<String> propertiesNames = new ArrayList<>();
         propertyAttributeSupport.getPropertyAttributesByGroup(StopLightGroup.INDICATOR).forEach(p -> {
-            propertiesNames.add(stringConverter.getNameFromCamelCase(p.getPropertySchemaName()));
+            propertiesNames.add(StringConverter.getNameFromCamelCase(p.getPropertySchemaName()));
         });
 
         return propertiesNames;

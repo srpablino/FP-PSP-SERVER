@@ -1,40 +1,28 @@
 package py.org.fundacionparaguaya.pspserver.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+
+import com.google.common.base.CaseFormat;
 
 /**
  *
  * @author mgonzalez
  *
  */
-@Component
+
 public class StringConverter {
 
-    public StringConverter() {
+    private StringConverter() {
         super();
     }
 
-    public String getNameFromCamelCase(String name) {
+    public static String getNameFromCamelCase(String name) {
         return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name), " "));
     }
 
-    public String getCamelCaseFromName(String name) {
+    public static String getCamelCaseFromName(String name) {
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name.replace(" ", "_"));
 
-        String[] parts = name.split(" ");
-        if (parts.length == 0) {
-            return "";
-        }
-        String camelCaseString = "";
-        for (String part : parts) {
-            camelCaseString = camelCaseString + toProperCase(part);
-        }
-        return camelCaseString.substring(0, 1).toLowerCase() + camelCaseString.substring(1);
-
-    }
-
-    public String toProperCase(String s) {
-        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 
 }
