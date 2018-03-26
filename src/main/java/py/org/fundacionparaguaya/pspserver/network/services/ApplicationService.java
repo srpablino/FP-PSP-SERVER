@@ -29,5 +29,5 @@ public interface ApplicationService {
 
     PaginableList<ApplicationDTO> listApplicationsHubs(int page, int perPage, String orderBy, String sortBy);
 
-    Page<ApplicationDTO> getPaginatedApplications(PageRequest pageRequest, UserDetailsDTO details);
+    Page<ApplicationDTO> getPaginatedApplications(UserDetailsDTO userDetails, String filter, PageRequest pageRequest);
 }
