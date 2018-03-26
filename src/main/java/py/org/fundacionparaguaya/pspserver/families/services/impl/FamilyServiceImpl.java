@@ -151,7 +151,7 @@ public class FamilyServiceImpl implements FamilyService {
         String familiesImageDirectory = this.applicationProperties.getAws().getFamiliesImageDirectory();
         String familiesImageNamePrefix = this.applicationProperties.getAws().getFamiliesImageNamePrefix();
 
-        ImageDTO image = ImageParser.parse(multipartFile,familiesImageDirectory,familiesImageNamePrefix);
+        ImageDTO image = ImageParser.parse(multipartFile,familiesImageDirectory, familiesImageNamePrefix);
 
         String url=imageUploadService.uploadImage(image, familyEntity.getFamilyId());
         familyEntity.setImageURL(url);
