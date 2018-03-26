@@ -30,14 +30,13 @@ import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ImageDTO;
+import py.org.fundacionparaguaya.pspserver.system.dtos.ImageParser;
 import py.org.fundacionparaguaya.pspserver.system.entities.CityEntity;
 import py.org.fundacionparaguaya.pspserver.system.entities.CountryEntity;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CityRepository;
 import py.org.fundacionparaguaya.pspserver.system.repositories.CountryRepository;
 import py.org.fundacionparaguaya.pspserver.system.services.ImageUploadService;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -149,18 +148,10 @@ public class FamilyServiceImpl implements FamilyService {
             throw new UnknownResourceException(i18n.translate("family.notExist"));
         }
 
-        File file = File.createTempFile("file", ".tmp");
+        String familiesImageDirectory = this.applicationProperties.getAws().getFamiliesImageDirectory();
+        String familiesImageNamePrefix = this.applicationProperties.getAws().getFamiliesImageNamePrefix();
 
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(multipartFile.getBytes());
-        }
-
-        String fileFormat = multipartFile.getContentType();
-        ImageDTO image  = new ImageDTO();
-        image.setFile(file);
-        image.setFormat(fileFormat.substring(fileFormat.indexOf('/')+1, fileFormat.length()));
-        image.setImageDirectory(this.applicationProperties.getAws().getFamiliesImageDirectory());
-        image.setImageNamePrefix(this.applicationProperties.getAws().getFamiliesImageNamePrefix());
+        ImageDTO image = ImageParser.parse(multipartFile,familiesImageDirectory,familiesImageNamePrefix);
 
         String url=imageUploadService.uploadImage(image, familyEntity.getFamilyId());
         familyEntity.setImageURL(url);
