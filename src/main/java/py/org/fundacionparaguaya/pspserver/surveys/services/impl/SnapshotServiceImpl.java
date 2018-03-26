@@ -23,13 +23,18 @@ import org.springframework.transaction.annotation.Transactional;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
 import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyFilterDTO;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.families.entities.PersonEntity;
 import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
+import py.org.fundacionparaguaya.pspserver.network.mapper.OrganizationMapper;
+import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
+import py.org.fundacionparaguaya.pspserver.security.mapper.UserMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
@@ -71,7 +76,13 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final PersonMapper personMapper;
 
+    private final UserMapper userMapper;
+
+    private final OrganizationMapper organizationMapper;
+
     private final FamilyService familyService;
+
+    private final OrganizationRepository organizationRepository;
 
     private final I18n i18n;
 
@@ -84,7 +95,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             SnapshotIndicatorMapper indicatorMapper,
             SnapshotIndicatorPriorityService priorityService,
             PersonMapper personMapper, FamilyService familyService,
-            I18n i18n) {
+            UserMapper userMapper, OrganizationMapper organizationMapper,
+            I18n i18n, OrganizationRepository organizationRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -92,7 +104,10 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.priorityService = priorityService;
         this.personMapper = personMapper;
         this.familyService = familyService;
+        this.userMapper = userMapper;
+        this.organizationMapper = organizationMapper;
         this.i18n = i18n;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
@@ -105,8 +120,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                 .checkSchemaCompliance(snapshot);
         if (!results.isValid()) {
             throw new CustomParameterizedException(
-                    i18n.translate("snapshot.invalid"),
-                    results.asMap());
+                    i18n.translate("snapshot.invalid"), results.asMap());
         }
 
         SnapshotIndicatorEntity indicatorEntity = economicMapper
@@ -120,7 +134,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
                 indicatorEntity, family);
-
 
         familyService.updateFamily(family.getFamilyId());
 
@@ -143,8 +156,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         return economicRepository.findAll(
                 where(SnapshotEconomicSpecification.forSurvey(surveyId))
                         .and(SnapshotEconomicSpecification.forFamily(familyId)))
-                .stream()
-                .map(economicMapper::entityToDto)
+                .stream().map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -261,8 +273,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             Long familyId) {
         List<SnapshotIndicators> toRet = new ArrayList<>();
         List<SnapshotEconomicEntity> originalSnapshots = economicRepository
-                .findByFamilyFamilyId(familyId)
-                .stream()
+                .findByFamilyFamilyId(familyId).stream()
                 .collect(Collectors.toList());
 
         for (SnapshotEconomicEntity os : originalSnapshots) {
@@ -278,10 +289,16 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setFamilyId(os.getFamily().getFamilyId());
             snapshotIndicators.setSnapshotEconomicId(os.getId());
             snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
-            snapshotIndicators.setFamily(familyService.getFamilyById(familyId));
-            snapshotIndicators.setUser(os.getUser());
-            snapshotIndicators.setIndicatorsSurveyData(getIndicatorsValue(os, snapshotIndicators));
-
+            FamilyDTO familyDto = familyService.getFamilyById(familyId);
+            familyDto.setOrganizationId(
+                    organizationMapper.entityToDto(organizationRepository
+                            .findOne(familyDto.getOrganization().getId())));
+            snapshotIndicators.setFamily(familyDto);
+            snapshotIndicators.setUser(userMapper
+                    .dtoToEntity(UserDTO.builder().userId(os.getUser().getId())
+                            .username(os.getUser().getUsername()).build()));
+            snapshotIndicators.setIndicatorsSurveyData(
+                    getIndicatorsValue(os, snapshotIndicators));
 
             toRet.add(snapshotIndicators);
         }
@@ -299,8 +316,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             });
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-            throw new UnknownResourceException(i18n.translate(
-                    "snapshot.invalid", snapshot.getId()));
+            throw new UnknownResourceException(
+                    i18n.translate("snapshot.invalid", snapshot.getId()));
         }
         return indicators;
     }
