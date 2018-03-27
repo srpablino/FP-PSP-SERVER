@@ -79,8 +79,8 @@ public class SurveyController {
             response = SurveyDefinition.class)})
     public ResponseEntity<SurveyDefinition> updateOrganization(@PathVariable("surveyId") long surveyId,
                                                               @RequestBody SurveyDefinition surveyDefinition,
-                                                              @AuthenticationPrincipal UserDetailsDTO details) {
-        SurveyDefinition result = surveyService.updateSurvey(details, surveyId, surveyDefinition);
+                                                              @AuthenticationPrincipal UserDetailsDTO userDetails) {
+        SurveyDefinition result = surveyService.updateSurvey(userDetails, surveyId, surveyDefinition);
         return ResponseEntity.ok(result);
     }
 

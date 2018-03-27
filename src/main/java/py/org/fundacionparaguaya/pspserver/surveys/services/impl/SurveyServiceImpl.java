@@ -254,15 +254,30 @@ public class SurveyServiceImpl implements SurveyService {
                 surveyId);
 
         return Optional.ofNullable(repo.findOne(surveyId)).map(survey -> {
+
             survey.setDescription(surveyDefinition.getDescription());
             survey.setTitle(surveyDefinition.getTitle());
             survey.setSurveyDefinition(surveyDefinition);
-
-            surveyOrganizationService.crudSurveyOrganization(details, surveyId,
-                    surveyDefinition, survey);
-
             survey.setLastModifiedAt(LocalDateTime.now());
-            return repo.save(survey);
+
+            //SurveysOrganizations is the owner of the relationship
+            surveyOrganizationRepo.delete(survey.getSurveysOrganizations());
+
+            List<SurveyOrganizationEntity> surveyOrganizationEntityList;
+            surveyOrganizationEntityList = surveyOrganizationService
+                    .crudSurveyOrganization(details, surveyId, surveyDefinition, survey);
+            survey.setSurveysOrganizations(surveyOrganizationEntityList);
+
+            for (SurveyOrganizationEntity surveyOrganizationEntity : surveyOrganizationEntityList){
+                //the owner of the relation is SurveyOrganization
+                surveyOrganizationEntity.setSurvey(survey);
+            }
+
+            surveyOrganizationRepo.save(surveyOrganizationEntityList);
+            repo.save(survey);
+
+            return survey;
+
         }).map(mapper::entityToDto).orElseThrow(
                 () -> new UnknownResourceException("Survey does not exist"));
     }
