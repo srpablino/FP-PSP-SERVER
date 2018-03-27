@@ -36,11 +36,11 @@ public class FamilyEntity extends BaseEntity {
                     @Parameter(name = SequenceStyleGenerator.SCHEMA,
                             value = "ps_families"),
                     @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
-                    value = "family_family_id_seq"),
+                            value = "family_family_id_seq"),
                     @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
-                    value = "1"),
+                            value = "1"),
                     @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
-                    value = "1") })
+                            value = "1") })
     @GeneratedValue(generator = "familySequenceGenerator")
     @Column(name = "family_id")
     private Long familyId;
@@ -79,6 +79,8 @@ public class FamilyEntity extends BaseEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModifiedAt;
 
+    @Column(name = "image_url")
+    private String imageURL;
 
     public FamilyEntity() {
     };
@@ -184,6 +186,14 @@ public class FamilyEntity extends BaseEntity {
 
     public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
         this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @PrePersist

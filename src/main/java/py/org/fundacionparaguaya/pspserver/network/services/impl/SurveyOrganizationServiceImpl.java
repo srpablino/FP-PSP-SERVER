@@ -2,13 +2,14 @@ package py.org.fundacionparaguaya.pspserver.network.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.SurveyOrganizationDTO;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.SurveyOrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.mapper.SurveyOrganizationMapper;
 import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
@@ -62,71 +63,34 @@ public class SurveyOrganizationServiceImpl
     }
 
     @Override
-    public void crudSurveyOrganization(UserDetailsDTO details,
+    public List<SurveyOrganizationEntity> crudSurveyOrganization(UserDetailsDTO details,
             Long surveyId, SurveyDefinition surveyDefinition,
             SurveyEntity surveyEntity) {
 
-        Long applicationId = Optional.ofNullable(details.getApplication())
-                .orElse(new ApplicationDTO())
-                .getId();
+        OrganizationEntity organizationEntity;
+        ApplicationEntity applicationEntity;
+        SurveyOrganizationEntity surveyOrganizationEntity;
 
-        List<SurveyOrganizationEntity> listSurveyOrganizations= null;
+        List<SurveyOrganizationEntity> surveyOrganizationEntityList =
+                new ArrayList<SurveyOrganizationEntity>();
 
-        if (surveyDefinition.getOrganizations() != null
-                && surveyDefinition.getOrganizations().size() > 0) {
-
-            //repo.deleteBySurveyIdAndApplicationIdAndOrganizationIsNotNull(surveyId, applicationId);
-
-            surveyEntity.getSurveysOrganizations()
-            .removeAll(
-                    repo.findBySurveyIdAndApplicationIdAndOrganizationIsNotNull(surveyId, applicationId));
-
-           listSurveyOrganizations
-            = new ArrayList<SurveyOrganizationEntity>();
-
-            for (OrganizationDTO organization : surveyDefinition
-                    .getOrganizations()) {
-                SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                surveyOrganization.setSurvey(surveyEntity);
-                surveyOrganization.setApplication(applicationRepo
-                        .findById(organization.getApplication().getId()));
-                surveyOrganization.setOrganization(
-                        organizationRepo.findById(organization.getId()));
-                //repo.save(surveyOrganization);
-                listSurveyOrganizations.add(surveyOrganization);
-            }
-            surveyEntity.getSurveysOrganizations().addAll(listSurveyOrganizations);
-
-        } else {
-            surveyEntity.getSurveysOrganizations()
-            .removeAll(
-                    repo.findBySurveyIdAndApplicationIdAndOrganizationIsNotNull(surveyId, applicationId));
-        }
-
-        if (surveyDefinition.getApplications() != null
-                && surveyDefinition.getApplications().size() > 0) {
-
-            surveyEntity.getSurveysOrganizations().removeAll(repo.findBySurveyId(surveyId));
-
-            listSurveyOrganizations
-            = new ArrayList<SurveyOrganizationEntity>();
-
-//            repo.findBySurveyId(surveyId).forEach(
-//                    so -> repo.deleteBySurveyId(so.getSurvey().getId()));
-
-            for (ApplicationDTO application : surveyDefinition
-                    .getApplications()) {
-                SurveyOrganizationEntity surveyOrganization = new SurveyOrganizationEntity();
-                surveyOrganization.setSurvey(surveyEntity);
-                surveyOrganization.setApplication(
-                        applicationRepo.findById(application.getId()));
-                //repo.save(surveyOrganization);
-                listSurveyOrganizations.add(surveyOrganization);
-            }
-
-            surveyEntity.getSurveysOrganizations().addAll(listSurveyOrganizations);
+        for (OrganizationDTO organizationDTO : surveyDefinition.getOrganizations()){
+            surveyOrganizationEntity = new SurveyOrganizationEntity();
+            organizationEntity = organizationRepo.findById(organizationDTO.getId());
+            surveyOrganizationEntity.setOrganization(organizationEntity);
+            surveyOrganizationEntity.setApplication(organizationEntity.getApplication());
+            surveyOrganizationEntityList.add(surveyOrganizationEntity);
 
         }
+
+        for (ApplicationDTO applicationDTO : surveyDefinition.getApplications()){
+            applicationEntity = applicationRepo.findById(applicationDTO.getId());
+            surveyOrganizationEntity = new SurveyOrganizationEntity();
+            surveyOrganizationEntity.setApplication(applicationEntity);
+            surveyOrganizationEntityList.add(surveyOrganizationEntity);
+        }
+
+        return surveyOrganizationEntityList;
     }
 
 }
