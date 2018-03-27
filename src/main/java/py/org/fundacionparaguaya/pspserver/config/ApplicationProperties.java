@@ -22,9 +22,7 @@ public class ApplicationProperties {
         private String bucketName;
 
         private String orgsImageDirectory;
-        private String orgsImageNamePrefix;
         private String hubsImageDirectory;
-        private String hubsImageNamePrefix;
 
         public String getStrRegion() {
             return strRegion;
@@ -50,28 +48,12 @@ public class ApplicationProperties {
             this.orgsImageDirectory = orgsImageDirectory;
         }
 
-        public String getOrgsImageNamePrefix() {
-            return orgsImageNamePrefix;
-        }
-
-        public void setOrgsImageNamePrefix(String orgsImageNamePrefix) {
-            this.orgsImageNamePrefix = orgsImageNamePrefix;
-        }
-
         public String getHubsImageDirectory() {
             return hubsImageDirectory;
         }
 
         public void setHubsImageDirectory(String hubsImageDirectory) {
             this.hubsImageDirectory = hubsImageDirectory;
-        }
-
-        public String getHubsImageNamePrefix() {
-            return hubsImageNamePrefix;
-        }
-
-        public void setHubsImageNamePrefix(String hubsImageNamePrefix) {
-            this.hubsImageNamePrefix = hubsImageNamePrefix;
         }
     }
 
