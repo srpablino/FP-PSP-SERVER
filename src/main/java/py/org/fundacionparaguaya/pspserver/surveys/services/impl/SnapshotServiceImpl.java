@@ -208,12 +208,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             order.forEach(indicator -> {
                 if (indicators.containsKey(indicator)) {
                     SurveyData sd = new SurveyData();
-                    try {
-                        sd.put(INDICATOR_NAME, survey.getSurveySchema()
-                                .getProperties().get(indicator).getDescription().get("es"));
-                    } catch (NullPointerException nullExcept) {
-                        sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
-                    }
+                    sd.put(INDICATOR_NAME, getDescriptionOpt(survey, indicator)
+                            .orElse(getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
@@ -222,6 +218,16 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         }
         return indicatorsToRet;
+    }
+
+    private Optional<String> getDescriptionOpt(SurveyDefinition survey, String indicator){
+        return Optional
+                .ofNullable(survey
+                        .getSurveySchema()
+                        .getProperties()
+                        .get(indicator)
+                        .getDescription()
+                        .get("es"));
     }
 
     @Override
