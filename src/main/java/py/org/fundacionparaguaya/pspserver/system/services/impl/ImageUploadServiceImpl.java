@@ -62,7 +62,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
             s3Client.putObject(new PutObjectRequest(bucketName, keyName, imageDTO.getFile())
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
-            url = "https://s3-" + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
+            url = "https://s3." + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + keyName;
 
         } catch (SdkClientException sdkClientExc) {
             LOG.error(sdkClientExc.getMessage(), sdkClientExc);
