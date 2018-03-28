@@ -60,7 +60,7 @@ public class SnapshotReportController {
         return ResponseEntity.ok(snapshots);
     }
 
-    @GetMapping(path = "/family/indicators/csv", produces = "text/csv")
+    @GetMapping(path = "/family/indicators/csv", produces = "application/octet-stream")
     public void generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
             @RequestParam(value = "organization_id", required = false) Long organizationId,
@@ -71,8 +71,8 @@ public class SnapshotReportController {
 
         SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizationId, familyId, dateFrom, dateTo);
         String csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=\"indicators.csv\"");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=\"snapshots.csv\"");
         response.getWriter().write(csv);
         response.getWriter().close();
     }
