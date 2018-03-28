@@ -8,7 +8,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 /*
@@ -163,7 +167,8 @@ public class Property implements Serializable {
         NUMBER("number") {
             @Override
             public Boolean apply(Object value) {
-                return value instanceof Float || value instanceof Double
+                return value instanceof Float
+                        || value instanceof Double
                         || value instanceof Integer;
             }
         },
@@ -221,7 +226,7 @@ public class Property implements Serializable {
      * The type of this field
      */
     public enum FormatEnum {
-        DATA_URL("data-url"), DATE("date");
+        DATA_URL("data-url"), DATE("date"), EMAIL("email");
 
         private String value;
 
@@ -324,11 +329,9 @@ public class Property implements Serializable {
          * @return true(contains), false(not contain)
          */
         public boolean validateContent(Object value) {
-            // Case: the enumValues are json or map, the value is in the
-            // property "value"
+            //Case: the enumValues are json or map, the value is in the property "value"
             if (TypeEnum.OBJECT.equals(this.type) && this.enumValues != null
-                    && !this.enumValues.isEmpty()
-                    && this.enumValues.get(0) instanceof Map) {
+                    && !this.enumValues.isEmpty() && this.enumValues.get(0) instanceof Map) {
                 for (Object o : this.enumValues) {
                     Map<?, ?> json = (Map<?, ?>) o;
                     if (json.get("value").equals(value)) {

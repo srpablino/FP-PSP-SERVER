@@ -588,7 +588,8 @@
 			"type": "string",
 			"title": {
 				"es": "Email address"
-			}
+			},
+            "format": "email"
 		},
 
 		"postCode": {
