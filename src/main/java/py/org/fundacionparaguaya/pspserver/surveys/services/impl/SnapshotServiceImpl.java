@@ -35,6 +35,7 @@ import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.PropertyTitle;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
@@ -216,7 +217,9 @@ public class SnapshotServiceImpl implements SnapshotService {
             order.forEach(indicator -> {
                 if (indicators.containsKey(indicator)) {
                     SurveyData sd = new SurveyData();
-                    sd.put(INDICATOR_NAME, getDescriptionOpt(survey, indicator)
+                    sd.put(INDICATOR_NAME,
+                            getDescriptionOpt(survey, indicator)
+                            .map(e -> e.get("es"))
                             .orElse(getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
@@ -228,14 +231,13 @@ public class SnapshotServiceImpl implements SnapshotService {
         return indicatorsToRet;
     }
 
-    private Optional<String> getDescriptionOpt(SurveyDefinition survey, String indicator){
+    private Optional<PropertyTitle> getDescriptionOpt(SurveyDefinition survey, String indicator){
         return Optional
                 .ofNullable(survey
                         .getSurveySchema()
                         .getProperties()
                         .get(indicator)
-                        .getDescription()
-                        .get("es"));
+                        .getDescription());
     }
 
     @Override
