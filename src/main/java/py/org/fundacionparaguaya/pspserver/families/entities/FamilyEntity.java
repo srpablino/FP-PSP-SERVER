@@ -75,6 +75,9 @@ public class FamilyEntity extends BaseEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModifiedAt;
 
+    @Column(name = "image_url")
+    private String imageURL;
+
     public FamilyEntity() {
     };
 
@@ -179,6 +182,14 @@ public class FamilyEntity extends BaseEntity {
 
     public void setLastModifiedAt(LocalDateTime lastModifiedAt) {
         this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @PrePersist

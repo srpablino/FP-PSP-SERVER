@@ -1,11 +1,14 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.common.io.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.InternalServerErrorException;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -48,5 +51,23 @@ public class ImageParser {
         }
 
         return image;
+    }
+
+    public static ImageDTO parse(MultipartFile multipartFile, String imageDirectory)
+            throws IOException {
+
+        File file = File.createTempFile("file", ".tmp");
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(multipartFile.getBytes());
+        }
+
+        String fileFormat = multipartFile.getContentType();
+        ImageDTO image  = new ImageDTO();
+        image.setFile(file);
+        image.setFormat(fileFormat.substring(fileFormat.indexOf('/')+1, fileFormat.length()));
+        image.setImageDirectory(imageDirectory);
+
+        return  image;
     }
 }

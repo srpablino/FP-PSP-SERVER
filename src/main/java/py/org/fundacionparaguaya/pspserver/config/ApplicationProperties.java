@@ -23,6 +23,8 @@ public class ApplicationProperties {
 
         private String orgsImageDirectory;
         private String hubsImageDirectory;
+        private String familiesImageDirectory;
+
 
         public String getStrRegion() {
             return strRegion;
@@ -54,6 +56,14 @@ public class ApplicationProperties {
 
         public void setHubsImageDirectory(String hubsImageDirectory) {
             this.hubsImageDirectory = hubsImageDirectory;
+        }
+
+        public String getFamiliesImageDirectory() {
+            return familiesImageDirectory;
+        }
+
+        public void setFamiliesImageDirectory(String familiesImageDirectory) {
+            this.familiesImageDirectory = familiesImageDirectory;
         }
     }
 
