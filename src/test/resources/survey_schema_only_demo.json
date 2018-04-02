@@ -613,7 +613,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/1-1.jpg",
 						"description": "Los ingresos de la familia son inferiores a la línea de pobreza extrema.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -648,7 +653,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/6-1.jpg",
 						"description": "Más de un miembro de mi familia mayor a 12 años de edad no tiene cédula de identidad.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -684,7 +694,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/7-1.jpg",
 						"description": "El agua que bebe mi familia no es potable y/o tiene que carrearla desde un punto a más de 30 minutos de caminata ida y vuelta.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -721,7 +736,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/13-1.jpg",
 						"description": "La familia dispone de sus basuras de manera inadecuada provocando contaminación y problemas de salud: las quema, o las tira a cielo abierto en su terreno y/o creca de viviendas, fuentes de agua o campos cultivados.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 				]
 			},
 			"uniqueItems": true,
@@ -755,7 +775,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/16-1.jpg",
 						"description": "La vivienda no cuenta con alguno de los componentes descriptos en las demás opciones.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 				]
 			},
 			"uniqueItems": true,
@@ -789,7 +814,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/17-1.jpg",
 						"description": "La familia no cuenta con letrina ni baño con las características mencionadas en las demás opciones, o comparte con otra familia.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 				]
 			},
 			"uniqueItems": true,
@@ -825,7 +855,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/20-1.jpg",
 						"description": "La familia vive en condiciones de hacinamiento, es decir que en promedio, tres personas o más comparten un mismo dormitorio.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 				]
 			},
 			"uniqueItems": true,
@@ -861,7 +896,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/25-1.jpg",
 						"description": "La familia no cuenta con servicio de telefonía (ni celular ni fija).",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -896,7 +936,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/26-1.jpg",
 						"description": "Alguien en la familia sufrió un acto de violencia contra su persona en los últimos 12 meses y como resultado no pudo trabajar por un día entero o más o fue causa de muerte.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -931,7 +976,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/28-1.jpg",
 						"description": "Al menos un miembro adulto de la familia (15 años o más) no puede leer y/o escribir.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
@@ -967,7 +1017,12 @@
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/31-1.jpg",
 						"description": "La familia no planifica su futuro económico ni tiene un presupuesto familiar.",
 						"value": "RED"
-					}
+					},
+					{
+						"url": "NONE",
+		  				"description": "",
+		  				"value": "NONE"
+		  			}
 
 				]
 			},
