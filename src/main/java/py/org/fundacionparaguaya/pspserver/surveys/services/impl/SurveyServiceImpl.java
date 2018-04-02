@@ -260,22 +260,9 @@ public class SurveyServiceImpl implements SurveyService {
             survey.setSurveyDefinition(surveyDefinition);
             survey.setLastModifiedAt(LocalDateTime.now());
 
-            //SurveysOrganizations is the owner of the relationship
-            surveyOrganizationRepo.delete(survey.getSurveysOrganizations());
-
-            List<SurveyOrganizationEntity> surveyOrganizationEntityList;
-            surveyOrganizationEntityList = surveyOrganizationService
+            surveyOrganizationService
                     .crudSurveyOrganization(details, surveyId, surveyDefinition, survey);
-            survey.setSurveysOrganizations(surveyOrganizationEntityList);
-
-            for (SurveyOrganizationEntity surveyOrganizationEntity : surveyOrganizationEntityList){
-                //the owner of the relation is SurveyOrganization
-                surveyOrganizationEntity.setSurvey(survey);
-            }
-
-            surveyOrganizationRepo.save(surveyOrganizationEntityList);
             repo.save(survey);
-
             return survey;
 
         }).map(mapper::entityToDto).orElseThrow(

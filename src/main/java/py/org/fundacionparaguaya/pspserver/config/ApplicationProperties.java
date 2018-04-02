@@ -22,11 +22,8 @@ public class ApplicationProperties {
         private String bucketName;
 
         private String orgsImageDirectory;
-        private String orgsImageNamePrefix;
         private String hubsImageDirectory;
-        private String hubsImageNamePrefix;
         private String familiesImageDirectory;
-        private String familiesImageNamePrefix;
 
 
         public String getStrRegion() {
@@ -53,14 +50,6 @@ public class ApplicationProperties {
             this.orgsImageDirectory = orgsImageDirectory;
         }
 
-        public String getOrgsImageNamePrefix() {
-            return orgsImageNamePrefix;
-        }
-
-        public void setOrgsImageNamePrefix(String orgsImageNamePrefix) {
-            this.orgsImageNamePrefix = orgsImageNamePrefix;
-        }
-
         public String getHubsImageDirectory() {
             return hubsImageDirectory;
         }
@@ -69,28 +58,12 @@ public class ApplicationProperties {
             this.hubsImageDirectory = hubsImageDirectory;
         }
 
-        public String getHubsImageNamePrefix() {
-            return hubsImageNamePrefix;
-        }
-
-        public void setHubsImageNamePrefix(String hubsImageNamePrefix) {
-            this.hubsImageNamePrefix = hubsImageNamePrefix;
-        }
-
         public String getFamiliesImageDirectory() {
             return familiesImageDirectory;
         }
 
         public void setFamiliesImageDirectory(String familiesImageDirectory) {
             this.familiesImageDirectory = familiesImageDirectory;
-        }
-
-        public String getFamiliesImageNamePrefix() {
-            return familiesImageNamePrefix;
-        }
-
-        public void setFamiliesImageNamePrefix(String familiesImageNamePrefix) {
-            this.familiesImageNamePrefix = familiesImageNamePrefix;
         }
     }
 
