@@ -149,11 +149,16 @@ public class FamilyServiceImpl implements FamilyService {
         }
 
         String familiesImageDirectory = this.applicationProperties.getAws().getFamiliesImageDirectory();
-        String familiesImageNamePrefix = this.applicationProperties.getAws().getFamiliesImageNamePrefix();
 
-        ImageDTO image = ImageParser.parse(multipartFile, familiesImageDirectory, familiesImageNamePrefix);
+        ImageDTO image = ImageParser.parse(multipartFile, familiesImageDirectory);
 
-        String url=imageUploadService.uploadImage(image, familyEntity.getFamilyId());
+        //control if image already exists: if so, deletes the old image
+        if (familyEntity.getImageURL()!= null){
+            imageUploadService.deleteImage(familyEntity.getImageURL(), familiesImageDirectory);
+        }
+
+        //uploads the image and obtains its URL
+        String url = imageUploadService.uploadImage(image);
         familyEntity.setImageURL(url);
 
         LOG.debug("Updating family {} with image {}", familyEntity.getFamilyId(),
