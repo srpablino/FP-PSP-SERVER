@@ -40,6 +40,9 @@ public class Property implements Serializable {
     @JsonProperty("title")
     private PropertyTitle title = null;
 
+    @JsonProperty("description")
+    private PropertyTitle description = null;
+
     @JsonProperty("default")
     private Object defaultValue;
 
@@ -99,6 +102,11 @@ public class Property implements Serializable {
         return this;
     }
 
+    public Property description(PropertyTitle description) {
+        this.description = description;
+        return this;
+    }
+
     /**
      * The title of this field
      *
@@ -112,6 +120,21 @@ public class Property implements Serializable {
 
     public void setTitle(PropertyTitle title) {
         this.title = title;
+    }
+
+    /**
+     * The title of this field
+     *
+     * @return title
+     **/
+    @JsonProperty("description")
+    @ApiModelProperty(value = "The description of this field")
+    public PropertyTitle getDescription() {
+        return description;
+    }
+
+    public void setDescription(PropertyTitle description) {
+        this.description = description;
     }
 
     @JsonProperty("items")
@@ -211,7 +234,8 @@ public class Property implements Serializable {
             this.value = value;
         }
 
-        public static final List<String> FILE_TYPES = Arrays.asList("video", "image");
+        public static final List<String> FILE_TYPES = Arrays.asList("video",
+                "image");
 
         @Override
         @JsonValue
@@ -243,7 +267,6 @@ public class Property implements Serializable {
         }
     }
 
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -261,7 +284,6 @@ public class Property implements Serializable {
     public int hashCode() {
         return Objects.hash(type, title);
     }
-
 
     @Override
     public String toString() {
@@ -325,4 +347,3 @@ public class Property implements Serializable {
         }
     }
 }
-

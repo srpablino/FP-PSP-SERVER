@@ -800,6 +800,9 @@
 			"title": {
 				"es": "Income Above the Poverty Line"
 			},
+			"description": {
+				"es": "We have enough income"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -835,6 +838,9 @@
 			"type": "array",
 			"title": {
 				"es": "Stable Income"
+			},
+			"description": {
+				"es": "We have a stable income"
 			},
 			"items": {
 				"type": "object",
@@ -872,6 +878,9 @@
 			"title": {
 				"es": "Access to Credit"
 			},
+			"description": {
+				"es": "We have access to credit"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -907,6 +916,9 @@
 			"type": "array",
 			"title": {
 				"es": "Family Savings"
+			},
+			"description": {
+				"es": "We have savings"
 			},
 			"items": {
 				"type": "object",
@@ -944,6 +956,9 @@
 			"title": {
 				"es": "Diversified Sources of Income"
 			},
+			"description": {
+				"es": "We have different sources of income"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -979,6 +994,9 @@
 			"type": "array",
 			"title": {
 				"es": "Personal Identification"
+			},
+			"description": {
+				"es": "We have forms of ID"
 			},
 			"items": {
 				"type": "object",
@@ -1017,6 +1035,9 @@
 			"title": {
 				"es": "Stable Housing"
 			},
+			"description": {
+				"es": "We have stable housing"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1053,6 +1074,9 @@
 			"type": "array",
 			"title": {
 				"es": "Household Appliances"
+			},
+			"description": {
+				"es": "We have the household appliances we need"
 			},
 			"items": {
 				"type": "object",
@@ -1091,6 +1115,9 @@
 			"title": {
 				"es": "Cooking Facilities"
 			},
+			"description": {
+				"es": "We have a modern kitchen"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1127,6 +1154,9 @@
 			"type": "array",
 			"title": {
 				"es": "Access to Gas/Electricity"
+			},
+			"description": {
+				"es": "We have electricity"
 			},
 			"items": {
 				"type": "object",
@@ -1165,6 +1195,9 @@
 			"title": {
 				"es": "Safe Home"
 			},
+			"description": {
+				"es": "We have a safe house"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1201,6 +1234,9 @@
 			"type": "array",
 			"title": {
 				"es": "Sanitation and Sewage"
+			},
+			"description": {
+				"es": "We have a modern bathroom"
 			},
 			"items": {
 				"type": "object",
@@ -1239,6 +1275,9 @@
 			"title": {
 				"es": "Separate Bedrooms"
 			},
+			"description": {
+				"es": "We have separate bedrooms"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1274,6 +1313,9 @@
 			"type": "array",
 			"title": {
 				"es": "Comfort of the Home"
+			},
+			"description": {
+				"es": "We have enough furniture and ammenities"
 			},
 			"items": {
 				"type": "object",
@@ -1311,6 +1353,9 @@
 			"title": {
 				"es": "Regular Means of Transportation"
 			},
+			"description": {
+				"es": "We have regular transportation"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1347,6 +1392,9 @@
 			"title": {
 				"es": "Access to Shops and Services"
 			},
+			"description": {
+				"es": "We have access to shops and services"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1382,6 +1430,9 @@
 			"type": "array",
 			"title": {
 				"es": "Communication"
+			},
+			"description": {
+				"es": "We have a phone and access to internet"
 			},
 			"items": {
 				"type": "object",
@@ -1420,6 +1471,9 @@
 			"title": {
 				"es": "Security"
 			},
+			"description": {
+				"es": "We feel safe"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1456,6 +1510,9 @@
 			"type": "array",
 			"title": {
 				"es": "Clothing and Footwear"
+			},
+			"description": {
+				"es": "We have clothes to change into every day"
 			},
 			"items": {
 				"type": "object",
@@ -1494,6 +1551,9 @@
 			"title": {
 				"es": "Insurance"
 			},
+			"description": {
+				"es": "We have insurance "
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1530,6 +1590,9 @@
 			"type": "array",
 			"title": {
 				"es": "Regularity of Meals"
+			},
+			"description": {
+				"es": "We do not miss meals"
 			},
 			"items": {
 				"type": "object",
@@ -1568,6 +1631,9 @@
 			"title": {
 				"es": "Eating a Nutritious Diet"
 			},
+			"description": {
+				"es": "We have good nutrition"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1603,6 +1669,9 @@
 			"type": "array",
 			"title": {
 				"es": "Access to Health Care"
+			},
+			"description": {
+				"es": "We can access health services"
 			},
 			"items": {
 				"type": "object",
@@ -1640,6 +1709,9 @@
 			"title": {
 				"es": "Personal Hygiene"
 			},
+			"description": {
+				"es": "We have good hygiene"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1675,6 +1747,9 @@
 			"type": "array",
 			"title": {
 				"es": "Sexual Health"
+			},
+			"description": {
+				"es": "We get tested as needed"
 			},
 			"items": {
 				"type": "object",
@@ -1712,6 +1787,9 @@
 			"title": {
 				"es": "Eyesight"
 			},
+			"description": {
+				"es": "We have healthy vision"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1747,6 +1825,9 @@
 			"type": "array",
 			"title": {
 				"es": "Dental Care"
+			},
+			"description": {
+				"es": "We have healthy teeth "
 			},
 			"items": {
 				"type": "object",
@@ -1784,6 +1865,9 @@
 			"title": {
 				"es": "Vaccinations"
 			},
+			"description": {
+				"es": "We are vaccinated"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1819,6 +1903,9 @@
 			"type": "array",
 			"title": {
 				"es": "Rubbish Disposal"
+			},
+			"description": {
+				"es": "We dispose of our rubbish well"
 			},
 			"items": {
 				"type": "object",
@@ -1856,6 +1943,9 @@
 			"title": {
 				"es": "Unpolluted Environment"
 			},
+			"description": {
+				"es": "We live in a healthy environment"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1891,6 +1981,9 @@
 			"type": "array",
 			"title": {
 				"es": "Literacy"
+			},
+			"description": {
+				"es": "We know how to read and write"
 			},
 			"items": {
 				"type": "object",
@@ -1929,6 +2022,9 @@
 			"title": {
 				"es": "Children Enrolled and Attend School"
 			},
+			"description": {
+				"es": "Our children go to school"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -1965,6 +2061,9 @@
 			"type": "array",
 			"title": {
 				"es": "Knowledge and Skills to Generate Income"
+			},
+			"description": {
+				"es": "We know how to make an income"
 			},
 			"items": {
 				"type": "object",
@@ -2003,6 +2102,9 @@
 			"title": {
 				"es": "Capacity to Plan and Budget"
 			},
+			"description": {
+				"es": "We have a budget"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2039,6 +2141,9 @@
 			"type": "array",
 			"title": {
 				"es": "Communication and Social Capital"
+			},
+			"description": {
+				"es": "We have broad social networks"
 			},
 			"items": {
 				"type": "object",
@@ -2077,6 +2182,9 @@
 			"title": {
 				"es": "School Supplies and Books"
 			},
+			"description": {
+				"es": "We have school supplies"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2113,6 +2221,9 @@
 			"type": "array",
 			"title": {
 				"es": "Access to Information"
+			},
+			"description": {
+				"es": "We have access to information"
 			},
 			"items": {
 				"type": "object",
@@ -2151,6 +2262,9 @@
 			"title": {
 				"es": "Entertainment and Recreation"
 			},
+			"description": {
+				"es": "We have access to entertainment"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2187,6 +2301,9 @@
 			"type": "array",
 			"title": {
 				"es": "Cultural Traditions and Heritage"
+			},
+			"description": {
+				"es": "We value cultural traditions"
 			},
 			"items": {
 				"type": "object",
@@ -2225,6 +2342,9 @@
 			"title": {
 				"es": "Respect for Diversity"
 			},
+			"description": {
+				"es": "We respect differences"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2261,6 +2381,9 @@
 			"type": "array",
 			"title": {
 				"es": "Awareness of Human Rights"
+			},
+			"description": {
+				"es": "We respect human rights"
 			},
 			"items": {
 				"type": "object",
@@ -2299,6 +2422,9 @@
 			"title": {
 				"es": "Part of Group Activities"
 			},
+			"description": {
+				"es": "We are part of a group"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2335,6 +2461,9 @@
 			"type": "array",
 			"title": {
 				"es": "Influence on the Public Sector"
+			},
+			"description": {
+				"es": "We know how to petition authorities"
 			},
 			"items": {
 				"type": "object",
@@ -2373,6 +2502,9 @@
 			"title": {
 				"es": "Registered to Vote and Votes in Elections"
 			},
+			"description": {
+				"es": "We vote in elections"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2409,6 +2541,9 @@
 			"type": "array",
 			"title": {
 				"es": "Ability to Solve Problems and Conflicts"
+			},
+			"description": {
+				"es": "We solve our own problems"
 			},
 			"items": {
 				"type": "object",
@@ -2447,6 +2582,9 @@
 			"title": {
 				"es": "Awareness of Needs - Life Map"
 			},
+			"description": {
+				"es": "We have a family life plan"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2483,6 +2621,9 @@
 			"type": "array",
 			"title": {
 				"es": "Self Confidence and Self Esteem"
+			},
+			"description": {
+				"es": "I trust in my abilities and achievements"
 			},
 			"items": {
 				"type": "object",
@@ -2521,6 +2662,9 @@
 			"title": {
 				"es": "Moral Conscience"
 			},
+			"description": {
+				"es": "We condiser others in decision-making"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2557,6 +2701,9 @@
 			"type": "array",
 			"title": {
 				"es": "Emotional Intelligence"
+			},
+			"description": {
+				"es": "We control our emotions"
 			},
 			"items": {
 				"type": "object",
@@ -2595,6 +2742,9 @@
 			"title": {
 				"es": "Self Expression"
 			},
+			"description": {
+				"es": "We present ourselves well"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2631,6 +2781,9 @@
 			"type": "array",
 			"title": {
 				"es": "Willingness/Desire to Develop Skills and Knowledge"
+			},
+			"description": {
+				"es": "We value self-improvement"
 			},
 			"items": {
 				"type": "object",
@@ -2669,6 +2822,9 @@
 			"title": {
 				"es": "Household Violence"
 			},
+			"description": {
+				"es": "We have no violence in our family"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2706,6 +2862,9 @@
 			"title": {
 				"es": "Entrepreneurial Spirit"
 			},
+			"description": {
+				"es": "We have a entrepreneurial spirit"
+			},
 			"items": {
 				"type": "object",
 				"enum": [{
@@ -2742,6 +2901,9 @@
 			"type": "array",
 			"title": {
 				"es": "Autonomy"
+			},
+			"description": {
+				"es": "I have control over my life decisions"
 			},
 			"items": {
 				"type": "object",
