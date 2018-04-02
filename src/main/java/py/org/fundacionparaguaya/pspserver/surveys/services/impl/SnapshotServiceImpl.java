@@ -1,10 +1,25 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
+
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
@@ -15,7 +30,14 @@ import py.org.fundacionparaguaya.pspserver.families.mapper.PersonMapper;
 import py.org.fundacionparaguaya.pspserver.families.services.FamilyService;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
@@ -27,16 +49,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
-
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -67,7 +79,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
-    // CHECKSTYLE:OFF
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
             SnapshotEconomicMapper economicMapper, SurveyService surveyService,
             SnapshotIndicatorMapper indicatorMapper,
@@ -83,7 +94,6 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.familyService = familyService;
         this.i18n = i18n;
     }
-    // CHECKSTYLE:ON
 
     @Override
     @Transactional
@@ -198,7 +208,8 @@ public class SnapshotServiceImpl implements SnapshotService {
             order.forEach(indicator -> {
                 if (indicators.containsKey(indicator)) {
                     SurveyData sd = new SurveyData();
-                    sd.put(INDICATOR_NAME, getNameFromCamelCase(indicator));
+                    sd.put(INDICATOR_NAME, getDescriptionOpt(survey, indicator)
+                            .orElse(getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
@@ -207,6 +218,30 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         }
         return indicatorsToRet;
+    }
+
+    private Optional<String> getDescriptionOpt(SurveyDefinition survey, String indicator){
+        return Optional
+                .ofNullable(survey
+                        .getSurveySchema()
+                        .getProperties()
+                        .get(indicator)
+                        .getDescription()
+                        .get("es"));
+    }
+
+    @Override
+    public List<SurveyData> getIndicatorsValue(SurveyData indicators) {
+
+        List<SurveyData> toRet = new ArrayList<>();
+
+        indicators.forEach((k, v) -> {
+            SurveyData indicator = new SurveyData();
+            indicator.put(INDICATOR_NAME, getNameFromCamelCase(k));
+            indicator.put(INDICATOR_VALUE, v!=null? StringUtils.lowerCase(v.toString()):"none");
+            toRet.add(indicator);
+        });
+        return toRet;
     }
 
     @Override
@@ -351,7 +386,6 @@ public class SnapshotServiceImpl implements SnapshotService {
                 economicRepository.findByFamilyIn(families).stream()
                         .map(economic -> economic.getSnapshotIndicator())
                         .collect(Collectors.toList()));
-
         Map<String, TopOfIndicators> topOfIndicatorMap = new HashMap<String, TopOfIndicators>();
 
         for (SurveyData surveyData : propertiesList) {
