@@ -81,7 +81,7 @@ public class SurveyOrganizationServiceImpl
 
             //deletes former organizations assigned to a survey
             repo.deleteBySurveyIdAndApplicationIdAndOrganizationIsNotNull(
-                    surveyId,applicationDTOCheck.getId());
+                    surveyId, applicationDTOCheck.getId());
 
             for (OrganizationDTO organizationDTO : surveyDefinition.getOrganizations()){
                 surveyOrganizationEntity = new SurveyOrganizationEntity();
@@ -105,8 +105,7 @@ public class SurveyOrganizationServiceImpl
                 tempSurveyOrganizationEntityList =
                         repo.findBySurveyIdAndApplicationId(surveyId, applicationDTO.getId());
 
-                if (tempSurveyOrganizationEntityList !=null &&
-                        tempSurveyOrganizationEntityList.size() > 0) {
+                if (tempSurveyOrganizationEntityList !=null && tempSurveyOrganizationEntityList.size() > 0) {
                     surveyOrganizationEntityList.addAll(tempSurveyOrganizationEntityList);
                 } else {
                     applicationEntity = applicationRepo.findById(applicationDTO.getId());
