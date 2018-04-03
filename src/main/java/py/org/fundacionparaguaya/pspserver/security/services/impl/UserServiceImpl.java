@@ -180,13 +180,101 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO updateUserByRequest(Long userTargetId, UserDTO userTargetDTO, String requesterUserName) {
+        checkArgument(userTargetId > 0, "Argument was %s but expected nonnegative", userTargetId);
+
+        UserEntity userTarget = userRepository.findOne(userTargetId);
+
+        //check if logged user can perform the update over the targeted user.
+        UserEntity responsibleUser = userRepository.findByUsername(requesterUserName);
+        if (canPerformUpdateOverUser(userTarget,responsibleUser)){
+            userTarget.setEmail(userTargetDTO.getEmail());
+            userTarget.setActive(userTargetDTO.isActive());
+            userRepository.save(userTarget);
+            LOG.debug("Changed Information for User: {}", userTarget);
+        }else{
+            throw new RuntimeException("Sorry, you are not allowed to update this user");
+        }
+        return userMapper.entityToDto(userTarget);
+    }
+
+    private boolean canPerformUpdateOverUser(UserEntity targetUser, UserEntity responsibleUser){
+
+        List<UserRoleEntity> targetUserRoleEntityList = userRoleRepository.findByUser(targetUser);
+
+        if (targetUserRoleEntityList == null){
+            throw  new RuntimeException("Currently, only users with 1 rol can be updated. " +
+                    "No role were found for this user");
+        }
+
+        if (targetUserRoleEntityList.size()>1){
+            throw  new RuntimeException("Only users with one rol can be updated. " +
+                    "There are more than 1 rol for this user");
+        }
+
+        String roleUserTarget = targetUserRoleEntityList.get(0).getRole().getSecurityName();
+        boolean targetIsHubAdmin = roleUserTarget.equals(Role.ROLE_HUB_ADMIN.getSecurityName());
+        boolean targetIsOrgAdmin = roleUserTarget.equals(Role.ROLE_APP_ADMIN.getSecurityName());
+        boolean targetIsUser = roleUserTarget.equals(Role.ROLE_USER.getSecurityName()) ||
+                roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName());
+        boolean updatePossible = false;
+
+        String roleResponsible;
+        List<UserRoleEntity> roleResponsibleUserList =
+                this.userRoleRepository.findByUser(responsibleUser);
+
+        Optional<UserApplicationEntity> op1 = userApplicationRepository.findByUser(targetUser);
+        Optional<UserApplicationEntity> op2  = userApplicationRepository.findByUser(responsibleUser);
+        UserApplicationEntity userTargetApplicationEntity = null;
+        UserApplicationEntity userResponsibleApplicationEntity = null;
+
+        if (op1.isPresent()) userTargetApplicationEntity = op1.get();
+        if (op2.isPresent()) userResponsibleApplicationEntity = op2.get();
+
+        for (UserRoleEntity userRoleEntity : roleResponsibleUserList){
+            roleResponsible = userRoleEntity.getRole().getSecurityName();
+
+            //only HUB_Users can be modified
+            if (roleResponsible.equals(Role.ROLE_ROOT.getSecurityName()) && targetIsHubAdmin){
+
+                //if responsible is root, any hubAdmin can be updated
+                updatePossible = true;
+
+            }
+
+            //only Organizations_users related to the responsible_user hub can be modified
+            if (roleResponsible.equals(Role.ROLE_HUB_ADMIN.getSecurityName()) && targetIsOrgAdmin){
+
+                //the target is under the level of responsible
+                long idHubTarget = userTargetApplicationEntity.getApplication().getId();
+                long idHubResponsible = userResponsibleApplicationEntity.getApplication().getId();
+
+                //if besides, they are related to the same hub, the update is posiible
+                updatePossible = idHubResponsible == idHubTarget;
+
+            }
+
+            //only users related to the responsible organization can be modified
+            if (roleResponsible.equals(Role.ROLE_APP_ADMIN.getSecurityName()) && targetIsUser){
+                long idOrgTarget = userTargetApplicationEntity.getOrganization().getId();
+                long idOrgResponsible = userResponsibleApplicationEntity.getOrganization().getId();
+
+                //if besides, they are related to the same organization, the update is possible
+                updatePossible = idOrgResponsible == idOrgTarget;
+            }
+        }
+
+        return updatePossible;
+    }
+
+    @Override
     public UserDTO updateUser(Long userId, UserDTO userDTO) {
         checkArgument(userId > 0, "Argument was %s but expected nonnegative", userId);
 
         return Optional.ofNullable(
                 userRepository.findOne(userId))
                 .map(user -> {
-                    BeanUtils.copyProperties(userDTO, user);
+                    //perform some basic update
                     LOG.debug("Changed Information for User: {}", user);
                     return user;
                 })
