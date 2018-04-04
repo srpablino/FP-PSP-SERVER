@@ -16,10 +16,13 @@ public enum SurveyStoplightEnum {
     private final Integer code;
 
 	SurveyStoplightEnum (Integer code){
-	    this.code = code;
+
+		this.code = code;
     }
 
-    public Integer getCode(){return this.code;}
+    public Integer getCode(){
+		return this.code;
+	}
 
 	public static SurveyStoplightEnum fromValue(String value) {
 		SurveyStoplightEnum[] values = SurveyStoplightEnum.values();
