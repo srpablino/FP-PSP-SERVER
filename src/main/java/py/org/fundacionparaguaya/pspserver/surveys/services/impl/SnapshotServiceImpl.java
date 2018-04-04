@@ -156,48 +156,66 @@ public class SnapshotServiceImpl implements SnapshotService {
     @Override
     public List<SurveyData> findBySurveyId(Long surveyId){
 
-        List<Snapshot> snapshotList = economicRepository.findBySurveyDefinitionId(surveyId)
-                .stream().map(economicMapper::entityToDto)
+        List<SurveyData> surveyDataList = economicRepository.findBySurveyDefinitionId(surveyId)
+                .stream()
+                .map(economicMapper::entityToDto)
+                .map((snap) -> getSurveyDataFromSnapShot(snap))
+                .map(surveyData-> mapToNumericIndicators(surveyData))
                 .collect(Collectors.toList());
 
-        List<SurveyData> surveyDataList = new ArrayList<SurveyData>();
+        return surveyDataList;
+    }
 
+    public SurveyData getSurveyDataFromSnapShot(Snapshot snapshot){
+
+        SurveyData surveyData;
         String lat = null;
         String lonG = null;
 
-        for (Snapshot snapshot : snapshotList){
-
-            try {
-                String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
-                String[] ubicationCoord = ubication.split(",");
-                lat = ubicationCoord[0];
-                lonG= ubicationCoord[1];
-            }catch (RuntimeException e){
-                LOG.warn("Unknow ubication format. Mapping continues anyway", e);
-            }
-
-            snapshot.getIndicatorSurveyData().put("lat", lat);
-            snapshot.getIndicatorSurveyData().put("lonG", lonG);
-            surveyDataList.add(snapshot.getIndicatorSurveyData());
+        try {
+            String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
+            String[] ubicationCoord = ubication.split(",");
+            lat = ubicationCoord[0];
+            lonG= ubicationCoord[1];
+        }catch (RuntimeException e){
+            LOG.warn("Unknow ubication format. Mapping continues anyway", e);
         }
 
-        SurveyStoplightEnum surveyStoplightEnum;
-        for (SurveyData surveyData : surveyDataList){
-            for (Map.Entry entry : surveyData.entrySet()){
+        surveyData = new SurveyData();
+        surveyData.putAll(snapshot.getIndicatorSurveyData());
 
-                surveyStoplightEnum = null;
+        surveyData.put("lat", lat);
+        surveyData.put("lonG", lonG);
 
-                if (entry.getValue() instanceof String){
-                    surveyStoplightEnum = SurveyStoplightEnum.fromValue((String) entry.getValue());
+        return  surveyData;
+    }
+
+    public SurveyData mapToNumericIndicators(SurveyData surveyData){
+
+        SurveyData outSurveyData = new SurveyData();
+        outSurveyData.putAll(surveyData);
+
+        Integer colorCode;
+
+        for (Map.Entry entry : outSurveyData.entrySet()){
+            colorCode = null;
+
+            if (entry.getValue() instanceof String){
+                SurveyStoplightEnum surveyStoplightEnum =
+                        SurveyStoplightEnum.fromValue((String) entry.getValue());
+                if (surveyStoplightEnum!=null){
+                    colorCode = surveyStoplightEnum.getCode();
                 }
 
-                if (surveyStoplightEnum != null){
-                    entry.setValue(surveyStoplightEnum.ordinal());
-                }
+            }
+
+            if (colorCode != null){
+                //it is an indicator, we return the value coded as number: RED 0, YELLOW 1, GREEN 2
+                entry.setValue(colorCode);
             }
         }
 
-        return surveyDataList;
+        return outSurveyData;
     }
 
     @Override
