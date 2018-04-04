@@ -7,11 +7,7 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -155,6 +151,37 @@ public class SnapshotServiceImpl implements SnapshotService {
                         .and(SnapshotEconomicSpecification.forFamily(familyId)))
                 .stream().map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SurveyData> findBySurveyId(Long surveyId){
+
+        List<Snapshot> snapshotList = economicRepository.findBySurveyDefinitionId(surveyId)
+                .stream().map(economicMapper::entityToDto)
+                .collect(Collectors.toList());
+
+        List<SurveyData> surveyDataList = new ArrayList<SurveyData>();
+
+        Double lat = null;
+        Double lonG = null;
+
+        for (Snapshot snapshot : snapshotList){
+
+            try {
+                String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
+                String [] ubicationCoord = ubication.split(",");
+                lat = Double.parseDouble(ubicationCoord[0]);
+                lonG= Double.parseDouble(ubicationCoord[1]);
+            }catch (RuntimeException e){
+                LOG.warn("Unknow ubication format. Mapping continues anyway", e);
+            }
+
+            snapshot.getIndicatorSurveyData().put("lat",lat);
+            snapshot.getIndicatorSurveyData().put("lonG",lonG);
+            surveyDataList.add(snapshot.getIndicatorSurveyData());
+        }
+
+        return surveyDataList;
     }
 
     @Override
