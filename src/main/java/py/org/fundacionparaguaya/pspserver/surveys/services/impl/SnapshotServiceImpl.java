@@ -162,16 +162,16 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         List<SurveyData> surveyDataList = new ArrayList<SurveyData>();
 
-        Double lat = null;
-        Double lonG = null;
+        String lat = null;
+        String lonG = null;
 
         for (Snapshot snapshot : snapshotList){
 
             try {
                 String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
                 String[] ubicationCoord = ubication.split(",");
-                lat = Double.parseDouble(ubicationCoord[0]);
-                lonG= Double.parseDouble(ubicationCoord[1]);
+                lat = ubicationCoord[0];
+                lonG= ubicationCoord[1];
             }catch (RuntimeException e){
                 LOG.warn("Unknow ubication format. Mapping continues anyway", e);
             }
@@ -179,6 +179,20 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshot.getIndicatorSurveyData().put("lat", lat);
             snapshot.getIndicatorSurveyData().put("lonG", lonG);
             surveyDataList.add(snapshot.getIndicatorSurveyData());
+        }
+
+        SurveyStoplightEnum surveyStoplightEnum;
+        for (SurveyData surveyData : surveyDataList){
+            for (Map.Entry entry : surveyData.entrySet()){
+
+                surveyStoplightEnum = null;
+
+                if (entry.getValue() instanceof String)
+                    surveyStoplightEnum = SurveyStoplightEnum.fromValue((String)entry.getValue());
+
+                if (surveyStoplightEnum != null)
+                    entry.setValue(surveyStoplightEnum.ordinal());
+            }
         }
 
         return surveyDataList;
