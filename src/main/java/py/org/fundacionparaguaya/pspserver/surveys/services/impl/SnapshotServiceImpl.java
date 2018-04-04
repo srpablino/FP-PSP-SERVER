@@ -187,11 +187,13 @@ public class SnapshotServiceImpl implements SnapshotService {
 
                 surveyStoplightEnum = null;
 
-                if (entry.getValue() instanceof String)
-                    surveyStoplightEnum = SurveyStoplightEnum.fromValue((String)entry.getValue());
+                if (entry.getValue() instanceof String){
+                    surveyStoplightEnum = SurveyStoplightEnum.fromValue((String) entry.getValue());
+                }
 
-                if (surveyStoplightEnum != null)
+                if (surveyStoplightEnum != null){
                     entry.setValue(surveyStoplightEnum.ordinal());
+                }
             }
         }
 
