@@ -169,15 +169,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
             try {
                 String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
-                String [] ubicationCoord = ubication.split(",");
+                String[] ubicationCoord = ubication.split(",");
                 lat = Double.parseDouble(ubicationCoord[0]);
                 lonG= Double.parseDouble(ubicationCoord[1]);
             }catch (RuntimeException e){
                 LOG.warn("Unknow ubication format. Mapping continues anyway", e);
             }
 
-            snapshot.getIndicatorSurveyData().put("lat",lat);
-            snapshot.getIndicatorSurveyData().put("lonG",lonG);
+            snapshot.getIndicatorSurveyData().put("lat", lat);
+            snapshot.getIndicatorSurveyData().put("lonG", lonG);
             surveyDataList.add(snapshot.getIndicatorSurveyData());
         }
 

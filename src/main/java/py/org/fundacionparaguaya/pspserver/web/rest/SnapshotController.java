@@ -53,7 +53,7 @@ public class SnapshotController {
         return ResponseEntity.ok(snapshots);
     }
 
-    @GetMapping(value = "/survey/{survey_id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/survey/{survey_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity getSnapshotsBySurvey(@PathVariable("survey_id") Long surveyId){
         List<SurveyData> surveyDataList = snapshotService.findBySurveyId(surveyId);
         return ResponseEntity.ok(surveyDataList);
