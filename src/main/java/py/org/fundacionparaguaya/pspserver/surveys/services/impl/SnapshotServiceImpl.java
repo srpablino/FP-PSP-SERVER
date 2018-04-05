@@ -175,8 +175,8 @@ public class SnapshotServiceImpl implements SnapshotService {
         try {
             String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
             String[] ubicationCoord = ubication.split(",");
-            lat = ubicationCoord[0];
-            lonG= ubicationCoord[1];
+            lat = ubicationCoord[0].trim();
+            lonG= ubicationCoord[1].trim();
         }catch (RuntimeException e){
             LOG.warn("Unknow ubication format. Mapping continues anyway", e);
         }
