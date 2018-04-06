@@ -207,30 +207,36 @@ public class UserServiceImpl implements UserService {
                     "No role were found for this user");
         }
 
+        //there is not a predefined behavior in case the targetUser has more than 1 role for now
         if (targetUserRoleEntityList.size()>1){
-            throw  new RuntimeException("Only users with one rol can be updated. " +
+            throw  new RuntimeException("Currently only users with 1 rol can be updated. " +
                     "There are more than 1 rol for this user");
         }
 
+        //We are sure the first item is present, since the targetUserRoleEntityList is != null
         String roleUserTarget = targetUserRoleEntityList.get(0).getRole().getSecurityName();
+
+        //find out what kind of role our targetUser has
         boolean targetIsHubAdmin = roleUserTarget.equals(Role.ROLE_HUB_ADMIN.getSecurityName());
         boolean targetIsOrgAdmin = roleUserTarget.equals(Role.ROLE_APP_ADMIN.getSecurityName());
-        boolean targetIsUser = roleUserTarget.equals(Role.ROLE_USER.getSecurityName()) ||
-                roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName());
-        boolean updatePossible = false;
+        boolean targetIsUser = roleUserTarget
+                .equals(roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName()));
 
-        String roleResponsible;
+        //The UserApplicationEntities help to determine if the targetUser depends on the responsibleUser
+        UserApplicationEntity userTargetApplicationEntity =
+                userApplicationRepository.findByUser(targetUser).orElse(null);
+        UserApplicationEntity userResponsibleApplicationEntity =
+                userApplicationRepository
+                        .findByUser(responsibleUser).orElse(null);
+
+        //get the roles of the user responsible of the update
         List<UserRoleEntity> roleResponsibleUserList =
                 this.userRoleRepository.findByUser(responsibleUser);
+        String roleResponsible;
 
-        Optional<UserApplicationEntity> op1 = userApplicationRepository.findByUser(targetUser);
-        Optional<UserApplicationEntity> op2  = userApplicationRepository.findByUser(responsibleUser);
-        UserApplicationEntity userTargetApplicationEntity = null;
-        UserApplicationEntity userResponsibleApplicationEntity = null;
+        boolean updatePossible = false;
 
-        if (op1.isPresent()) userTargetApplicationEntity = op1.get();
-        if (op2.isPresent()) userResponsibleApplicationEntity = op2.get();
-
+        //One of the roles of the responsibleUser may allow him to update the targetUser
         for (UserRoleEntity userRoleEntity : roleResponsibleUserList){
             roleResponsible = userRoleEntity.getRole().getSecurityName();
 
@@ -242,29 +248,32 @@ public class UserServiceImpl implements UserService {
 
             }
 
-            //only Organizations_users related to the responsible_user hub can be modified
+            //Check if the UserTarget role is inmmediatly under the level of the responsibleUser role
             if (roleResponsible.equals(Role.ROLE_HUB_ADMIN.getSecurityName()) && targetIsOrgAdmin){
 
-                //the target is under the level of responsible
                 long idHubTarget = userTargetApplicationEntity.getApplication().getId();
                 long idHubResponsible = userResponsibleApplicationEntity.getApplication().getId();
 
-                //if besides, they are related to the same hub, the update is posiible
+                //Only if they are related to the same hub, the update is posiible
                 updatePossible = idHubResponsible == idHubTarget;
 
             }
 
-            //only users related to the responsible organization can be modified
+            //Check if the UserTarget role is inmmediatly under the level of the responsibleUser role
             if (roleResponsible.equals(Role.ROLE_APP_ADMIN.getSecurityName()) && targetIsUser){
                 long idOrgTarget = userTargetApplicationEntity.getOrganization().getId();
                 long idOrgResponsible = userResponsibleApplicationEntity.getOrganization().getId();
 
-                //if besides, they are related to the same organization, the update is possible
+                //Only if they are related to the same organization, the update is possible
                 updatePossible = idOrgResponsible == idOrgTarget;
             }
         }
 
         return updatePossible;
+    }
+
+    public UserApplicationEntity returnFromOptional(Optional<UserApplicationEntity> optional){
+        return optional.get();
     }
 
     @Override
@@ -274,7 +283,7 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(
                 userRepository.findOne(userId))
                 .map(user -> {
-                    //perform some basic update
+                    BeanUtils.copyProperties(userDTO, user);
                     LOG.debug("Changed Information for User: {}", user);
                     return user;
                 })
