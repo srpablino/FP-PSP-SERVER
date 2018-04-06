@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.config.I18n;
 import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
@@ -61,10 +62,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserApplicationMapper userApplicationMapper;
 
+    private final I18n i18n;
+
     public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository,
                            ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
                            UserApplicationRepository userApplicationRepository, UserMapper userMapper,
-                           UserApplicationMapper userApplicationMapper) {
+                           UserApplicationMapper userApplicationMapper, I18n i18n) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.applicationRepository = applicationRepository;
@@ -72,6 +75,8 @@ public class UserServiceImpl implements UserService {
         this.userApplicationRepository = userApplicationRepository;
         this.userMapper = userMapper;
         this.userApplicationMapper = userApplicationMapper;
+        this.i18n = i18n;
+
     }
 
     @Override
@@ -193,24 +198,28 @@ public class UserServiceImpl implements UserService {
             userRepository.save(userTarget);
             LOG.debug("Changed Information for User: {}", userTarget);
         }else{
-            throw new RuntimeException("Sorry, you are not allowed to update this user");
+            throw new RuntimeException(i18n.translate("user.updateNotAllowed"));
         }
         return userMapper.entityToDto(userTarget);
     }
 
     private boolean canPerformUpdateOverUser(UserEntity targetUser, UserEntity responsibleUser){
 
+        boolean updatePossible = false;
+
         List<UserRoleEntity> targetUserRoleEntityList = userRoleRepository.findByUser(targetUser);
 
         if (targetUserRoleEntityList == null){
-            throw  new RuntimeException("Currently, only users with 1 rol can be updated. " +
+            LOG.warn("Currently, only users with 1 rol can be updated. " +
                     "No role were found for this user");
+            return updatePossible;
         }
 
         //there is not a predefined behavior in case the targetUser has more than 1 role for now
         if (targetUserRoleEntityList.size()>1){
-            throw  new RuntimeException("Currently only users with 1 rol can be updated. " +
+            LOG.warn("Currently only users with 1 rol can be updated. " +
                     "There are more than 1 rol for this user");
+            return updatePossible;
         }
 
         //We are sure the first item is present, since the targetUserRoleEntityList is != null
@@ -219,8 +228,7 @@ public class UserServiceImpl implements UserService {
         //find out what kind of role our targetUser has
         boolean targetIsHubAdmin = roleUserTarget.equals(Role.ROLE_HUB_ADMIN.getSecurityName());
         boolean targetIsOrgAdmin = roleUserTarget.equals(Role.ROLE_APP_ADMIN.getSecurityName());
-        boolean targetIsUser = roleUserTarget
-                .equals(roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName()));
+        boolean targetIsUser = roleUserTarget.equals(Role.ROLE_SURVEY_USER.getSecurityName());
 
         //The UserApplicationEntities help to determine if the targetUser depends on the responsibleUser
         UserApplicationEntity userTargetApplicationEntity =
@@ -233,8 +241,6 @@ public class UserServiceImpl implements UserService {
         List<UserRoleEntity> roleResponsibleUserList =
                 this.userRoleRepository.findByUser(responsibleUser);
         String roleResponsible;
-
-        boolean updatePossible = false;
 
         //One of the roles of the responsibleUser may allow him to update the targetUser
         for (UserRoleEntity userRoleEntity : roleResponsibleUserList){
@@ -270,10 +276,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return updatePossible;
-    }
-
-    public UserApplicationEntity returnFromOptional(Optional<UserApplicationEntity> optional){
-        return optional.get();
     }
 
     @Override
