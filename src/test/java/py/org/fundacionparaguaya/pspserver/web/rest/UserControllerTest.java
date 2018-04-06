@@ -14,9 +14,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
+import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +53,9 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    UserRepository userRepository;
+
     private UserDTO mockUser;
 
     @Before
@@ -78,11 +83,18 @@ public class UserControllerTest {
     @Test
     public void requestingPostUserShouldUpdateUser() throws Exception {
         Long userId = 999L;
-        when(userService.updateUser(eq(userId), anyObject()))
+        String principalUserName = "RequesterUserName";
+        when(userService.updateUserByRequest(eq(userId), anyObject(),principalUserName))
                 .thenReturn(mockUser);
 
         String json = TestHelper.mapToJson(mockUser);
         mockMvc.perform(put("/api/v1/users/{userId}", userId)
+                .principal(new Principal() {
+                    @Override
+                    public String getName() {
+                        return principalUserName;
+                    }
+                })
                 .content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
