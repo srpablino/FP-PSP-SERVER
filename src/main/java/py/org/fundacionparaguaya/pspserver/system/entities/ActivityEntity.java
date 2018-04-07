@@ -1,70 +1,170 @@
 package py.org.fundacionparaguaya.pspserver.system.entities;
 
+import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
+import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
+import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "activity", schema = "system")
 public class ActivityEntity extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "system.activity_activity_id_seq")
-    @SequenceGenerator(name="system.activity_activity_id_seq", sequenceName="system.activity_activity_id_seq", allocationSize=1)
-    @Column(name = "activity_id")
+    @GenericGenerator(name = "activityFeedSequenceGenerator",
+        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+        @org.hibernate.annotations.Parameter(name =
+                SequenceStyleGenerator.SCHEMA, value = "system"),
+        @org.hibernate.annotations.Parameter(name =
+                SequenceStyleGenerator.SEQUENCE_PARAM, value = "activity_activity_id_seq"),
+        @org.hibernate.annotations.Parameter(name =
+                SequenceStyleGenerator.INITIAL_PARAM, value = "1"),
+        @org.hibernate.annotations.Parameter(name =
+                SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
+    @GeneratedValue(generator = "activityFeedSequenceGenerator")
+    @Column(name = "id")
+    private Long id;
 
-    private Long activityId;
-    private Long userId;
-    private String activityType;
-    private String description;
-    private Long organizationId;
-    private Long applicationId;
-    private String createAt;
+    @NotNull
+    @Column(name = "activity_key")
+    private String activityKey;
 
-    public Long getActivityId () { return activityId; }
-    public void setActivityId (Long activityId) { this.activityId = activityId; }
+    @Column(name = "activity_params")
+    private String activityParams;
 
-    public Long getUserId() {return userId;}
-    public void setUserId(Long userId) { this.userId = userId; }
+    @ManyToOne(targetEntity = FamilyEntity.class)
+    @JoinColumn(name = "family_id")
+    private FamilyEntity family;
 
-    public String getActivityType() { return activityType; }
-    public void setActivityType(String activityType) { this.activityType = activityType; }
+    @ManyToOne(targetEntity = OrganizationEntity.class)
+    @JoinColumn(name = "organization_id")
+    private OrganizationEntity organization;
 
-    public String getDescription(){ return description; }
-    public void setDescription(String description) { this.description = description; }
+    @ManyToOne(targetEntity = ApplicationEntity.class)
+    @JoinColumn(name = "application_id")
+    private ApplicationEntity application;
 
-    public Long getOrganizationId() { return organizationId; }
-    public void setOrganizationId(Long organizationId) { this.organizationId = organizationId; }
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    public Long getApplicationId() { return applicationId; }
-    public void setApplicationId(Long applicationId) { this.applicationId = applicationId; }
+    @Column(name = "created_at")
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime createdAt;
 
-    public String getCreateAt() { return createAt; }
-    public void setCreateAt(String createAt) { this.createAt = createAt; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getActivityKey() {
+        return activityKey;
+    }
+
+    public void setActivityKey(String activityKey) {
+        this.activityKey = activityKey;
+    }
+
+    public String getActivityParams() {
+        return activityParams;
+    }
+
+    public void setActivityParams(String activityParams) {
+        this.activityParams = activityParams;
+    }
+
+    public FamilyEntity getFamily() {
+        return family;
+    }
+
+    public void setFamily(FamilyEntity family) {
+        this.family = family;
+    }
+
+    public OrganizationEntity getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(OrganizationEntity organization) {
+        this.organization = organization;
+    }
+
+    public ApplicationEntity getApplication() {
+        return application;
+    }
+
+    public void setApplication(ApplicationEntity application) {
+        this.application = application;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    public void preSave() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @Transient
+    public String getCreatedAtAsISOString() {
+        if (this.createdAt != null) {
+            return createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        }
+        return null;
+    }
 
     @Override
     public String toString() {
-        return "Activity [activityId=" + activityId + ", userId=" + userId + ", activityType=" + activityType + ", description=" + description +
-                ", organizationId=" + organizationId + ", applicationId=" + applicationId + ", createAt=" + createAt + "]";
+        return MoreObjects.toStringHelper(this).add("id", id)
+                .add("activityKey", activityKey)
+                .add("activityParams", activityParams)
+                .add("family", family)
+                .add("organization", organization)
+                .add("application", application)
+                .add("user", user)
+                .add("createdAt", createdAt)
+                .toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (activityId == null || obj == null || getClass() != obj.getClass())
+        }
+        if (id == null || obj == null || getClass() != obj.getClass()) {
             return false;
+        }
         ActivityEntity toCompare = (ActivityEntity) obj;
-        return activityId.equals(toCompare.activityId);
+        return id.equals(toCompare.id);
     }
 
     @Override
     public int hashCode() {
-        return activityId == null ? 0 : activityId.hashCode();
+        return id == null ? 0 : id.hashCode();
     }
 }

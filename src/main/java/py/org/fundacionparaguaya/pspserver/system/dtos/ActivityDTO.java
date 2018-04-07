@@ -1,83 +1,35 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
-import java.io.Serializable;
-
 import com.google.common.base.MoreObjects;
+
+import java.io.Serializable;
 
 public class ActivityDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private Long activityId;
     private Long userId;
-    private String activityType;
-    private String description;
-    private Long organizationId;
     private Long applicationId;
+    private Long organizationId;
+    private Long familyId;
+    private String activityKey;
+    private String activityParams;
     private String createAt;
 
     public ActivityDTO() {
     }
 
-    private ActivityDTO(Long activityId, Long userId, String activityType,
-            String description, Long organizationId, Long applicationId,
-            String createAt) {
+    public ActivityDTO(Long activityId, Long userId, Long applicationId, Long organizationId, Long familyId,
+            String activityKey, String activityParams, String createAt) {
         this.activityId = activityId;
         this.userId = userId;
-        this.activityType = activityType;
-        this.description = description;
-        this.organizationId = organizationId;
         this.applicationId = applicationId;
+        this.organizationId = organizationId;
+        this.familyId = familyId;
+        this.activityKey = activityKey;
+        this.activityParams = activityParams;
         this.createAt = createAt;
-    }
-
-    public static class Builder {
-        private Long activityId;
-        private Long userId;
-        private String activityType;
-        private String description;
-        private Long organizationId;
-        private Long applicationId;
-        private String createAt;
-
-        public Builder activityId(Long activityId) {
-            this.activityId = activityId;
-            return this;
-        }
-
-        public Builder userId(Long userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Builder activityType(String activityType) {
-            this.activityType = activityType;
-            return this;
-        }
-
-        public Builder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Builder organizationId(Long organizationId) {
-            this.organizationId = organizationId;
-            return this;
-        }
-
-        public Builder applicationId(Long applicationId) {
-            this.applicationId = applicationId;
-            return this;
-        }
-
-        public Builder createAt(String createAt) {
-            this.createAt = createAt;
-            return this;
-        }
-
-        public ActivityDTO build() {
-            return new ActivityDTO(activityId, userId, activityType,
-                    description, organizationId, applicationId, createAt);
-        }
     }
 
     public Long getActivityId() {
@@ -96,20 +48,12 @@ public class ActivityDTO implements Serializable {
         this.userId = userId;
     }
 
-    public String getActivityType() {
-        return activityType;
+    public Long getApplicationId() {
+        return applicationId;
     }
 
-    public void setActivityType(String activityType) {
-        this.activityType = activityType;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public Long getOrganizationId() {
@@ -120,12 +64,28 @@ public class ActivityDTO implements Serializable {
         this.organizationId = organizationId;
     }
 
-    public Long getApplicationId() {
-        return applicationId;
+    public Long getFamilyId() {
+        return familyId;
     }
 
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
+    }
+
+    public String getActivityKey() {
+        return activityKey;
+    }
+
+    public void setActivityKey(String activityKey) {
+        this.activityKey = activityKey;
+    }
+
+    public String getActivityParams() {
+        return activityParams;
+    }
+
+    public void setActivityParams(String activityParams) {
+        this.activityParams = activityParams;
     }
 
     public String getCreateAt() {
@@ -136,13 +96,71 @@ public class ActivityDTO implements Serializable {
         this.createAt = createAt;
     }
 
+    public static class Builder {
+        private Long activityId;
+        private Long userId;
+        private Long applicationId;
+        private Long organizationId;
+        private Long familyId;
+        private String activityKey;
+        private String activityParams;
+        private String createAt;
+
+        public Builder activityId(Long activityId) {
+            this.activityId = activityId;
+            return this;
+        }
+
+        public Builder userId(Long userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder applicationId(Long applicationId) {
+            this.applicationId = applicationId;
+            return this;
+        }
+
+        public Builder organizationId(Long organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        public Builder familyId(Long familyId) {
+            this.familyId = familyId;
+            return this;
+        }
+
+        public Builder activityKey(String activityKey) {
+            this.activityKey = activityKey;
+            return this;
+        }
+
+        public Builder activityParams(String activityParams) {
+            this.activityParams = activityParams;
+            return this;
+        }
+
+        public Builder createAt(String createAt) {
+            this.createAt = createAt;
+            return this;
+        }
+
+        public ActivityDTO build() {
+            return new ActivityDTO(activityId, userId, applicationId, organizationId,
+                    familyId, activityKey, activityParams, createAt);
+        }
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this).add("activityId", activityId)
-                .add("userId", userId).add("activityType", activityType)
-                .add("description", description)
+                .add("applicationId", applicationId)
                 .add("organizationId", organizationId)
-                .add("applicationId", applicationId).add("createAt", createAt)
+                .add("familyId", familyId)
+                .add("activityKey", activityKey)
+                .add("activityParams", activityParams)
+                .add("createAt", createAt)
                 .toString();
     }
 }
