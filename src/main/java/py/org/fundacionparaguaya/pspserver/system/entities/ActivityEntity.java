@@ -5,9 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
-import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
+import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 import javax.persistence.*;
@@ -41,9 +41,10 @@ public class ActivityEntity extends BaseEntity {
     @Column(name = "activity_params")
     private String activityParams;
 
-    @ManyToOne(targetEntity = FamilyEntity.class)
-    @JoinColumn(name = "family_id")
-    private FamilyEntity family;
+    @Column(name = "activity_role")
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role activityRole;
 
     @ManyToOne(targetEntity = OrganizationEntity.class)
     @JoinColumn(name = "organization_id")
@@ -85,12 +86,12 @@ public class ActivityEntity extends BaseEntity {
         this.activityParams = activityParams;
     }
 
-    public FamilyEntity getFamily() {
-        return family;
+    public Role getActivityRole() {
+        return activityRole;
     }
 
-    public void setFamily(FamilyEntity family) {
-        this.family = family;
+    public void setActivityRole(Role activityRole) {
+        this.activityRole = activityRole;
     }
 
     public OrganizationEntity getOrganization() {
@@ -143,7 +144,7 @@ public class ActivityEntity extends BaseEntity {
         return MoreObjects.toStringHelper(this).add("id", id)
                 .add("activityKey", activityKey)
                 .add("activityParams", activityParams)
-                .add("family", family)
+                .add("activityRole", activityRole)
                 .add("organization", organization)
                 .add("application", application)
                 .add("user", user)

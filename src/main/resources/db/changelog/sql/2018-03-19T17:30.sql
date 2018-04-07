@@ -1,14 +1,9 @@
 --Adds activity message
 ALTER TABLE system.activity
-  ADD COLUMN family_id bigint,
   ADD COLUMN activity_key character varying(200) NOT NULL,
-  ADD COLUMN activity_params character varying(200) NOT NULL;
-
---Add activity with family relationships
-ALTER TABLE system.activity
-  ADD CONSTRAINT fk_activity_feed_family_family_id FOREIGN KEY (family_id)
-  REFERENCES ps_families.family (family_id) MATCH SIMPLE
-  ON UPDATE NO ACTION ON DELETE NO ACTION;
+  ADD COLUMN activity_params character varying(200) NOT NULL,
+  ADD COLUMN activity_role character varying(200) NOT NULL
+;
 
 --Deletes unused columns of activity
 ALTER TABLE system.activity
