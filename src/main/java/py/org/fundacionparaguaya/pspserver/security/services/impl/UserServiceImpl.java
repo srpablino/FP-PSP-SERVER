@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
-import py.org.fundacionparaguaya.pspserver.common.pagination.PspPageRequest;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.UserApplicationEntity;
@@ -33,8 +34,11 @@ import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.byFilter;
+import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.byLoggedUser;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasApplication;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.hasOrganization;
 import static py.org.fundacionparaguaya.pspserver.network.specifications.UserApplicationSpecification.userIsActive;
@@ -170,7 +174,8 @@ public class UserServiceImpl implements UserService {
         Optional.ofNullable(
                 userRepository.findOne(userId))
                 .ifPresent(user -> {
-                    userRepository.delete(user);
+                    user.setActive(false);
+                    userRepository.save(user);
                     LOG.debug("Deleted User: {}", user);
                 });
     }
@@ -191,15 +196,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDTO> listUsers(int page, int perPage, String orderBy, String sortBy, UserDetailsDTO userDetails) {
-        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
-
+    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
         Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
-                    Specifications.where(hasApplication(userDetails.getApplication()))
-                            .and(hasOrganization(userDetails.getOrganization()))
-                            .and(userIsActive()),
-                    pageRequest);
+                Specifications
+                        .where(byLoggedUser(userDetails))
+                        .and(userIsActive())
+                        .and(byFilter(filter)),
+                pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
+    }
+
+    @Override
+    public List<UserDTO> listUsers(ApplicationDTO application, OrganizationDTO organization) {
+
+        List<UserApplicationEntity> userApplications = userApplicationRepository.findAll(
+                Specifications
+                        .where(hasApplication(application))
+                        .and(hasOrganization(organization))
+                        .and(userIsActive()));
+
+        return userApplications.stream().map(userApplicationMapper::entityToUserDto).collect(Collectors.toList());
     }
 }
