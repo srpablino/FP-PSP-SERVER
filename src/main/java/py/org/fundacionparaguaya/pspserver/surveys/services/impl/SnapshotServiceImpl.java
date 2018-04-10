@@ -7,11 +7,7 @@ import static py.org.fundacionparaguaya.pspserver.surveys.specifications.Snapsho
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -155,6 +151,71 @@ public class SnapshotServiceImpl implements SnapshotService {
                         .and(SnapshotEconomicSpecification.forFamily(familyId)))
                 .stream().map(economicMapper::entityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SurveyData> findBySurveyId(Long surveyId){
+
+        List<SurveyData> surveyDataList = economicRepository.findBySurveyDefinitionId(surveyId)
+                .stream()
+                .map(economicMapper::entityToDto)
+                .map((snap) -> getSurveyDataFromSnapShot(snap))
+                .map(surveyData-> mapToNumericIndicators(surveyData))
+                .collect(Collectors.toList());
+
+        return surveyDataList;
+    }
+
+    public SurveyData getSurveyDataFromSnapShot(Snapshot snapshot){
+
+        SurveyData surveyData;
+        String lat = null;
+        String lonG = null;
+
+        try {
+            String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
+            String[] ubicationCoord = ubication.split(",");
+            lat = ubicationCoord[0].trim();
+            lonG= ubicationCoord[1].trim();
+        }catch (RuntimeException e){
+            LOG.warn("Unknow ubication format. Mapping continues anyway", e);
+        }
+
+        surveyData = new SurveyData();
+        surveyData.putAll(snapshot.getIndicatorSurveyData());
+
+        surveyData.put("lat", lat);
+        surveyData.put("lonG", lonG);
+
+        return  surveyData;
+    }
+
+    public SurveyData mapToNumericIndicators(SurveyData surveyData){
+
+        SurveyData outSurveyData = new SurveyData();
+        outSurveyData.putAll(surveyData);
+
+        Integer colorCode;
+
+        for (Map.Entry entry : outSurveyData.entrySet()){
+            colorCode = null;
+
+            if (entry.getValue() instanceof String){
+                SurveyStoplightEnum surveyStoplightEnum =
+                        SurveyStoplightEnum.fromValue((String) entry.getValue());
+                if (surveyStoplightEnum!=null){
+                    colorCode = surveyStoplightEnum.getCode();
+                }
+
+            }
+
+            if (colorCode != null){
+                //it is an indicator, we return the value coded as number: RED 0, YELLOW 1, GREEN 2
+                entry.setValue(colorCode);
+            }
+        }
+
+        return outSurveyData;
     }
 
     @Override

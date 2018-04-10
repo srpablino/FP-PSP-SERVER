@@ -21,6 +21,8 @@ public interface SnapshotService {
 
     List<Snapshot> find(Long surveyId, Long familiyId);
 
+    List<SurveyData> findBySurveyId(Long surveyId);
+
     SnapshotIndicators getSnapshotIndicators(Long snapshotId);
 
     List<SnapshotIndicators> getSnapshotIndicatorsByFamily(Long familyId);
