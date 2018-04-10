@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import py.org.fundacionparaguaya.pspserver.common.constants.ErrorCodes;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
-import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.UserService;
 import py.org.fundacionparaguaya.pspserver.util.TestHelper;
 
@@ -53,9 +52,6 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    UserRepository userRepository;
-
     private UserDTO mockUser;
 
     @Before
@@ -64,6 +60,7 @@ public class UserControllerTest {
                 .username("foo.user")
                 .email("foo@bar")
                 .pass("123")
+                .active(true)
                 .build();
     }
 
@@ -83,8 +80,8 @@ public class UserControllerTest {
     @Test
     public void requestingPostUserShouldUpdateUser() throws Exception {
         Long userId = 999L;
-        String principalUserName = "RequesterUserName";
-        when(userService.updateUserByRequest(eq(userId), anyObject(),principalUserName))
+        String principal = "principal";
+        when(userService.updateUserByRequest(eq(userId), anyObject(), eq(principal)))
                 .thenReturn(mockUser);
 
         String json = TestHelper.mapToJson(mockUser);
@@ -92,13 +89,14 @@ public class UserControllerTest {
                 .principal(new Principal() {
                     @Override
                     public String getName() {
-                        return principalUserName;
+                        return "principal";
                     }
                 })
                 .content(json).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", is(mockUser.getUsername())));
+                .andExpect(jsonPath("$.email", is(mockUser.getEmail())))
+                .andExpect(jsonPath("$.active", is(mockUser.isActive())));
     }
 
     @Test
