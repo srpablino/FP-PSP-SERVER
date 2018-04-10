@@ -193,12 +193,12 @@ public class UserServiceImpl implements UserService {
 
         //check if logged user can perform the update over the targeted user.
         UserEntity responsibleUser = userRepository.findByUsername(requesterUserName);
-        if (canPerformUpdateOverUser(userTarget,responsibleUser)){
+        if (canPerformUpdateOverUser(userTarget, responsibleUser)){
             userTarget.setEmail(userTargetDTO.getEmail());
             userTarget.setActive(userTargetDTO.isActive());
             userRepository.save(userTarget);
             LOG.debug("Changed Information for User: {}", userTarget);
-        }else{
+        }else {
             throw new RuntimeException(i18n.translate("user.updateNotAllowed"));
         }
         return userMapper.entityToDto(userTarget);
@@ -211,15 +211,15 @@ public class UserServiceImpl implements UserService {
         List<UserRoleEntity> targetUserRoleEntityList = userRoleRepository.findByUser(targetUser);
 
         if (targetUserRoleEntityList == null){
-            LOG.warn("Currently, only users with 1 rol can be updated. " +
-                    "No role were found for this user");
+            LOG.warn("Currently, only users with 1 rol can be updated. "
+                    + "No role were found for this user");
             return updatePossible;
         }
 
         //there is not a predefined behavior in case the targetUser has more than 1 role for now
         if (targetUserRoleEntityList.size()>1){
-            LOG.warn("Currently only users with 1 rol can be updated. " +
-                    "There are more than 1 rol for this user");
+            LOG.warn("Currently only users with 1 rol can be updated. "
+                    + "There are more than 1 rol for this user");
             return updatePossible;
         }
 
