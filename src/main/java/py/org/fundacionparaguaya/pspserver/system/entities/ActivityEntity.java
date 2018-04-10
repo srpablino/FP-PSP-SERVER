@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.common.entities.LocalDateTimeConverter;
+import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
@@ -31,8 +32,8 @@ public class ActivityEntity extends BaseEntity {
         @org.hibernate.annotations.Parameter(name =
                 SequenceStyleGenerator.INCREMENT_PARAM, value = "1") })
     @GeneratedValue(generator = "activityFeedSequenceGenerator")
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "activity_id")
+    private Long activityId;
 
     @NotNull
     @Column(name = "activity_key")
@@ -45,6 +46,10 @@ public class ActivityEntity extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role activityRole;
+
+    @ManyToOne(targetEntity = FamilyEntity.class)
+    @JoinColumn(name = "family_id")
+    private FamilyEntity family;
 
     @ManyToOne(targetEntity = OrganizationEntity.class)
     @JoinColumn(name = "organization_id")
@@ -62,12 +67,12 @@ public class ActivityEntity extends BaseEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
+    public Long getActivityId() {
+        return activityId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getActivityKey() {
@@ -92,6 +97,14 @@ public class ActivityEntity extends BaseEntity {
 
     public void setActivityRole(Role activityRole) {
         this.activityRole = activityRole;
+    }
+
+    public FamilyEntity getFamily() {
+        return family;
+    }
+
+    public void setFamily(FamilyEntity family) {
+        this.family = family;
     }
 
     public OrganizationEntity getOrganization() {
@@ -141,7 +154,7 @@ public class ActivityEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this).add("id", id)
+        return MoreObjects.toStringHelper(this).add("activityId", activityId)
                 .add("activityKey", activityKey)
                 .add("activityParams", activityParams)
                 .add("activityRole", activityRole)
@@ -157,15 +170,15 @@ public class ActivityEntity extends BaseEntity {
         if (this == obj) {
             return true;
         }
-        if (id == null || obj == null || getClass() != obj.getClass()) {
+        if (activityId == null || obj == null || getClass() != obj.getClass()) {
             return false;
         }
         ActivityEntity toCompare = (ActivityEntity) obj;
-        return id.equals(toCompare.id);
+        return activityId.equals(toCompare.activityId);
     }
 
     @Override
     public int hashCode() {
-        return id == null ? 0 : id.hashCode();
+        return activityId == null ? 0 : activityId.hashCode();
     }
 }

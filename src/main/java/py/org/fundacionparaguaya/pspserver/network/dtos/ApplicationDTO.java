@@ -264,12 +264,12 @@ public class ApplicationDTO implements Serializable {
                 .add("code", code)
                 .add("description", description)
                 .add("isActive", isActive)
-                .add("country", country.toString())
-                .add("city", city.toString())
+                .add("country", country)
+                .add("city", city)
                 .add("information", information)
                 .add("isHub", isHub)
                 .add("isPartner", isPartner)
-                .add("dashboard", dashboard.toString())
+                .add("dashboard", dashboard)
                 .add("logoUrl", logoUrl)
                 .toString();
     }

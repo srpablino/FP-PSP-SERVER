@@ -1,7 +1,11 @@
 package py.org.fundacionparaguaya.pspserver.system.dtos;
 
 import com.google.common.base.MoreObjects;
+import py.org.fundacionparaguaya.pspserver.families.dtos.FamilyDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
+import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
+import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,10 +17,10 @@ public class ActivityDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long activityId;
-    private Long userId;
-    private Long applicationId;
-    private Long organizationId;
-    private Long familyId;
+    private UserDTO user;
+    private FamilyDTO family;
+    private ApplicationDTO application;
+    private OrganizationDTO organization;
     private String activityKey;
     private String activityParams;
     private Role activityRole;
@@ -25,13 +29,13 @@ public class ActivityDTO implements Serializable {
     public ActivityDTO() {
     }
 
-    public ActivityDTO(Long activityId, Long userId, Long applicationId, Long organizationId, Long familyId,
+    public ActivityDTO(Long activityId, UserDTO user, ApplicationDTO application, OrganizationDTO organization, FamilyDTO family,
             String activityKey, String activityParams, Role activityRole, String createAt) {
         this.activityId = activityId;
-        this.userId = userId;
-        this.applicationId = applicationId;
-        this.organizationId = organizationId;
-        this.familyId = familyId;
+        this.user = user;
+        this.application = application;
+        this.organization = organization;
+        this.family = family;
         this.activityKey = activityKey;
         this.activityParams = activityParams;
         this.activityRole = activityRole;
@@ -46,36 +50,36 @@ public class ActivityDTO implements Serializable {
         this.activityId = activityId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
-    public Long getApplicationId() {
-        return applicationId;
+    public FamilyDTO getFamily() {
+        return family;
     }
 
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
+    public void setFamily(FamilyDTO family) {
+        this.family = family;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
+    public ApplicationDTO getApplication() {
+        return application;
     }
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
+    public void setApplication(ApplicationDTO application) {
+        this.application = application;
     }
 
-    public Long getFamilyId() {
-        return familyId;
+    public OrganizationDTO getOrganization() {
+        return organization;
     }
 
-    public void setFamilyId(Long familyId) {
-        this.familyId = familyId;
+    public void setOrganization(OrganizationDTO organization) {
+        this.organization = organization;
     }
 
     public String getActivityKey() {
@@ -112,10 +116,10 @@ public class ActivityDTO implements Serializable {
 
     public static class Builder {
         private Long activityId;
-        private Long userId;
-        private Long applicationId;
-        private Long organizationId;
-        private Long familyId;
+        private UserDTO user;
+        private FamilyDTO family;
+        private ApplicationDTO application;
+        private OrganizationDTO organization;
         private String activityKey;
         private List<String> activityParams;
         private Role activityRole;
@@ -130,23 +134,23 @@ public class ActivityDTO implements Serializable {
             return this;
         }
 
-        public Builder userId(Long userId) {
-            this.userId = userId;
+        public Builder user(UserDTO user) {
+            this.user = user;
             return this;
         }
 
-        public Builder applicationId(Long applicationId) {
-            this.applicationId = applicationId;
+        public Builder application(ApplicationDTO application) {
+            this.application = application;
             return this;
         }
 
-        public Builder organizationId(Long organizationId) {
-            this.organizationId = organizationId;
+        public Builder organization(OrganizationDTO organization) {
+            this.organization = organization;
             return this;
         }
 
-        public Builder familyId(Long familyId) {
-            this.familyId = familyId;
+        public Builder family(FamilyDTO family) {
+            this.family = family;
             return this;
         }
 
@@ -171,12 +175,12 @@ public class ActivityDTO implements Serializable {
         }
 
         public Builder addActivityParam(String param) {
-            this.activityParams = activityParams;
+            activityParams.add(param);
             return this;
         }
 
         public ActivityDTO build() {
-            return new ActivityDTO(activityId, userId, applicationId, organizationId, familyId,
+            return new ActivityDTO(activityId, user, application, organization, family,
                     activityKey, activityParams.stream().collect(Collectors.joining(",")),
                     activityRole, createAt);
         }
@@ -186,15 +190,10 @@ public class ActivityDTO implements Serializable {
         return new ActivityDTO.Builder();
     }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this).add("activityId", activityId)
-                .add("applicationId", applicationId)
-                .add("organizationId", organizationId)
-                .add("familyId", familyId)
-                .add("activityKey", activityKey)
-                .add("activityParams", activityParams)
-                .add("createAt", createAt)
+    @Override public String toString() {
+        return MoreObjects.toStringHelper(this).add("activityId", activityId).add("user", user).add("family", family)
+                .add("application", application).add("organization", organization).add("activityKey", activityKey)
+                .add("activityParams", activityParams).add("activityRole", activityRole).add("createAt", createAt)
                 .toString();
     }
 }

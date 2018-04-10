@@ -1,6 +1,5 @@
 package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
@@ -39,9 +38,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityDTO addActivity(ActivityDTO activityDTO) {
-        ActivityEntity activity = new ActivityEntity();
-        BeanUtils.copyProperties(activityDTO, activity);
-        ActivityEntity newActivity = activityRepository.save(activity);
+        ActivityEntity newActivity = activityRepository.save(activityMapper.dtoToEntity(activityDTO));
         return activityMapper.entityToDto(newActivity);
     }
 

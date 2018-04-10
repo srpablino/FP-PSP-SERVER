@@ -130,31 +130,41 @@ public class SnapshotServiceImpl implements SnapshotService {
         Snapshot newSnapshot = economicMapper.entityToDto(snapshotEconomicEntity);
 
         /*Example of activities for testing purposes*/
-        //if its first
-        ActivityDTO firstSnapshotActivity = ActivityDTO.builder()
+        //TODO if its first
+        /*ActivityDTO firstSnapshotActivity = ActivityDTO.builder()
                 .activityKey("activity.adminHouseholdFirstSnapshot")
                 .activityRole(Role.ROLE_ROOT)//Fundacion Paraguaya
-                .applicationId(details.getApplication().getId())
                 .addActivityParam(family.getName())
                 .addActivityParam(family.getCity().getCity())
+                .build();*/
+
+        ActivityDTO adminSnapshotActivity = ActivityDTO.builder()
+                .activityKey("activity.adminSnapshots")
+                .activityRole(Role.ROLE_ROOT)
+                .addActivityParam(details.getOrganization().getDescription())
+                .addActivityParam(details.getApplication().getDescription())//HUB-> Fundacion Paraguaya
                 .build();
 
         ActivityDTO hubActivity = ActivityDTO.builder()
-                .activityKey("activity.hubHouseholdFirstSnapshot")
-                .applicationId(details.getApplication().getId())
-                .addActivityParam(family.getName())
+                .activityKey("activity.hubSnapshots")
+                .activityRole(Role.ROLE_HUB_ADMIN)
+                .application(details.getApplication())
+                .addActivityParam(details.getOrganization().getDescription())
                 .addActivityParam(family.getCity().getCity())
                 .build();
 
         ActivityDTO orgActivity = ActivityDTO.builder()
-                .activityKey("activity.orgHouseholdFirstSnapshot")
-                .applicationId(details.getApplication().getId())
-                .organizationId(details.getOrganization().getId())
-                .addActivityParam(family.getName())
+                .activityKey("activity.orgSnapshots")
+                .activityRole(Role.ROLE_APP_ADMIN)
+                .application(details.getApplication())
+                .organization(details.getOrganization())
+                .addActivityParam(details.getUsername())
                 .addActivityParam(family.getCity().getCity())
                 .build();
 
-        //activityService.addActivity();
+        activityService.addActivity(adminSnapshotActivity);
+        activityService.addActivity(hubActivity);
+        activityService.addActivity(orgActivity);
         return newSnapshot;
     }
 
