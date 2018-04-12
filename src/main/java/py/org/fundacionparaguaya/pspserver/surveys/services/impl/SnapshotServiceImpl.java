@@ -154,30 +154,31 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     @Override
-    public List<SurveyData> findBySurveyId(Long surveyId){
+    public List<SurveyData> findBySurveyId(Long surveyId) {
 
-        List<SurveyData> surveyDataList = economicRepository.findBySurveyDefinitionId(surveyId)
-                .stream()
+        List<SurveyData> surveyDataList = economicRepository
+                .findBySurveyDefinitionId(surveyId).stream()
                 .map(economicMapper::entityToDto)
                 .map((snap) -> getSurveyDataFromSnapShot(snap))
-                .map(surveyData-> mapToNumericIndicators(surveyData))
+                .map(surveyData -> mapToNumericIndicators(surveyData))
                 .collect(Collectors.toList());
 
         return surveyDataList;
     }
 
-    public SurveyData getSurveyDataFromSnapShot(Snapshot snapshot){
+    public SurveyData getSurveyDataFromSnapShot(Snapshot snapshot) {
 
         SurveyData surveyData;
         String lat = null;
         String lonG = null;
 
         try {
-            String ubication = (String) snapshot.getEconomicSurveyData().get("familyUbication");
+            String ubication = (String) snapshot.getEconomicSurveyData()
+                    .get("familyUbication");
             String[] ubicationCoord = ubication.split(",");
             lat = ubicationCoord[0].trim();
-            lonG= ubicationCoord[1].trim();
-        }catch (RuntimeException e){
+            lonG = ubicationCoord[1].trim();
+        } catch (RuntimeException e) {
             LOG.warn("Unknow ubication format. Mapping continues anyway", e);
         }
 
@@ -187,30 +188,31 @@ public class SnapshotServiceImpl implements SnapshotService {
         surveyData.put("lat", lat);
         surveyData.put("lonG", lonG);
 
-        return  surveyData;
+        return surveyData;
     }
 
-    public SurveyData mapToNumericIndicators(SurveyData surveyData){
+    public SurveyData mapToNumericIndicators(SurveyData surveyData) {
 
         SurveyData outSurveyData = new SurveyData();
         outSurveyData.putAll(surveyData);
 
         Integer colorCode;
 
-        for (Map.Entry entry : outSurveyData.entrySet()){
+        for (Map.Entry entry : outSurveyData.entrySet()) {
             colorCode = null;
 
-            if (entry.getValue() instanceof String){
-                SurveyStoplightEnum surveyStoplightEnum =
-                        SurveyStoplightEnum.fromValue((String) entry.getValue());
-                if (surveyStoplightEnum!=null){
+            if (entry.getValue() instanceof String) {
+                SurveyStoplightEnum surveyStoplightEnum = SurveyStoplightEnum
+                        .fromValue((String) entry.getValue());
+                if (surveyStoplightEnum != null) {
                     colorCode = surveyStoplightEnum.getCode();
                 }
 
             }
 
-            if (colorCode != null){
-                //it is an indicator, we return the value coded as number: RED 0, YELLOW 1, GREEN 2
+            if (colorCode != null) {
+                // it is an indicator, we return the value coded as number: RED
+                // 0, YELLOW 1, GREEN 2
                 entry.setValue(colorCode);
             }
         }
@@ -280,8 +282,8 @@ public class SnapshotServiceImpl implements SnapshotService {
                     SurveyData sd = new SurveyData();
                     sd.put(INDICATOR_NAME,
                             getDescriptionOpt(survey, indicator)
-                            .map(e -> e.get("es"))
-                            .orElse(getNameFromCamelCase(indicator)));
+                                    .map(e -> e.get("es")).orElse(
+                                            getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
@@ -292,13 +294,10 @@ public class SnapshotServiceImpl implements SnapshotService {
         return indicatorsToRet;
     }
 
-    private Optional<PropertyTitle> getDescriptionOpt(SurveyDefinition survey, String indicator){
-        return Optional
-                .ofNullable(survey
-                        .getSurveySchema()
-                        .getProperties()
-                        .get(indicator)
-                        .getDescription());
+    private Optional<PropertyTitle> getDescriptionOpt(SurveyDefinition survey,
+            String indicator) {
+        return Optional.ofNullable(survey.getSurveySchema().getProperties()
+                .get(indicator).getDescription());
     }
 
     @Override
@@ -309,7 +308,8 @@ public class SnapshotServiceImpl implements SnapshotService {
         indicators.forEach((k, v) -> {
             SurveyData indicator = new SurveyData();
             indicator.put(INDICATOR_NAME, getNameFromCamelCase(k));
-            indicator.put(INDICATOR_VALUE, v!=null? StringUtils.lowerCase(v.toString()):"none");
+            indicator.put(INDICATOR_VALUE,
+                    v != null ? StringUtils.lowerCase(v.toString()) : "none");
             toRet.add(indicator);
         });
         return toRet;
@@ -333,6 +333,9 @@ public class SnapshotServiceImpl implements SnapshotService {
         List<SnapshotIndicators> toRet = new ArrayList<>();
         List<SnapshotEconomicEntity> originalSnapshots = economicRepository
                 .findByFamilyFamilyId(familyId).stream()
+                .sorted(Comparator
+                        .comparing(SnapshotEconomicEntity::getCreatedAt)
+                        .reversed())
                 .collect(Collectors.toList());
 
         for (SnapshotEconomicEntity os : originalSnapshots) {
