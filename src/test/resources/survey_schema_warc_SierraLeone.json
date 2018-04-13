@@ -6,7 +6,8 @@
 		"firstName",
 		"lastName",
 		"birthdate",
-		"countryOfBirth"
+		"countryOfBirth",
+		"gender"
 
 	],
 	"properties": {
@@ -15,16 +16,14 @@
 			"type": "string",
 			"title": {
 				"es": "Please, insert your name"
-			},
-			"default": ""
+			}
 		},
 
 		"lastName": {
 			"type": "string",
 			"title": {
 				"es": "Please insert your surname"
-			},
-			"default": ""
+			}
 		},
 
 		"birthdate": {
@@ -541,8 +540,7 @@
 				"Female",
 				"Male",
 				"Other or prefer not to disclose"
-			],
-			"default": "F"
+			]
 		},
 
 		"activityMain": {
@@ -634,7 +632,7 @@
 		"benefitIncome": {
 			"type": "number",
 			"title": {
-				"es": "Do I have a business that generates me income? How much (per month)?"
+				"es": "Do I have a business that generates me income? How much (daily)?"
 			},
 			"default": 0
 		},
@@ -650,7 +648,7 @@
 		"otherMembersIncome": {
 			"type": "string",
 			"title": {
-				"es": "What are other members income?"
+				"es": "What are other members income? (daily)"
 			},
 			"default": ""
 		},
@@ -731,7 +729,7 @@
 		"familyWaterAccess": {
 			"type": "string",
 			"title": {
-				"es": "Does your family access water service with?"
+				"es": "Is there water service at your family's place of residence? If not, how does your family obtain water?"
 			},
 			"default": ""
 		},
