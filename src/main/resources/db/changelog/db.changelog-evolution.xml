@@ -292,7 +292,7 @@
     <changeSet id="2018-03-13T15:00" author="rvillalba">
         <sqlFile path="sql/2018-03-13T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    
+
     <!--Delete unnecessary  users, applications and organizations-->
     <changeSet id="2018-03-23T11:02" author="mgonzalez">
         <sqlFile path="sql/2018-03-23T11:02.sql" relativeToChangelogFile="true"/>
@@ -301,6 +301,11 @@
     <!--Add logo_url column to family table-->
     <changeSet id="2018-03-22T09:00" author="pjlopez">
         <sqlFile path="sql/2018-03-22T09:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Add column to save the user in family-->
+    <changeSet id="2018-03-22T09:00" author="jferreira">
+        <sqlFile path="sql/2018-04-13T15:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>
