@@ -168,7 +168,13 @@
       },
     "salaryIncome": {
         "ui:field": "numberFormat"
-      }
+      },
+    "otherMembersSalary": {
+      "ui:field": "numberFormat"
+    },
+    "otherMembersBusinessIncome": {
+      "ui:field": "numberFormat"
+    }
 
    },
 
@@ -178,13 +184,15 @@
   	"birthdate",
   	"countryOfBirth",
   	"gender",
+
+    "currency",
   	"activityMain",
   	"activitySecondary",
   	"benefitIncome",
     "salaryIncome",
     "otherMembersIncome",
     "otherMembersSalary",
-    "bussinessWeeklyIncome",
+    "otherMembersBusinessIncome",
     "cashBenefitsGovernment",
     "situationHouse",
     "memberDisability",
@@ -264,13 +272,14 @@
   ],
 
   "ui:group:economics": [
+    "currency",
     "activityMain",
     "activitySecondary",
     "benefitIncome",
     "salaryIncome",
     "otherMembersIncome",
     "otherMembersSalary",
-    "bussinessWeeklyIncome",
+    "otherMembersBusinessIncome",
     "cashBenefitsGovernment",
     "situationHouse",
     "memberDisability",
