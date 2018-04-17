@@ -20,8 +20,7 @@
 		"gender",
 		"identificationNumber",
 		"identificationType",
-		"lastName",
-		"email"
+		"lastName"
 	],
 	"properties": {
 		"identificationType": {
@@ -585,8 +584,7 @@
 			"type": "string",
 			"title": {
 				"es": "Email address"
-			},
-            "format": "email"
+			}
 		},
 
 		"postCode": {
@@ -1746,7 +1744,7 @@
 				"es": "Sexual Health"
 			},
 			"description": {
-				"es": "We get tested as needed"
+				"es": "Sexual health and family planning"
 			},
 			"items": {
 				"type": "object",
@@ -2186,17 +2184,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-1.jpg",
-						"description": "We have broad social networks that positively influence our lives. We have the confidence to draw on these networks to create opportunities.",
+						"description": "In our household, children have all the necessary uniforms, school supplies and additional materials or books to support a good education.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-2.jpg",
-						"description": "We may have broad networks but we don't have the confidence to make the most of them.",
+						"description": "In our household, children have basic uniforms and school supplies. We wish we could afford additional materials and supplies.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-3.jpg",
-						"description": "In our household, we don’t mix with many people. The people we know have a bad influence on some members of the household.",
+						"description": "In our household, children do not have the required school supplies or they are not sufficient or appropriate.",
 						"value": "RED"
 					},
 					{
