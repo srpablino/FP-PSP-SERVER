@@ -305,6 +305,7 @@ public class FamilyServiceImpl implements FamilyService {
         FamilyEntity newFamily = new FamilyEntity();
         newFamily.setPerson(person);
         newFamily.setCode(code);
+        newFamily.setUser(userRepo.findByUsername(details.getUsername()));
         newFamily.setName(person.getFirstName().concat(SPACE)
                 .concat(person.getLastName()));
         newFamily.setLocationPositionGps(snapshot.getEconomicSurveyData()
