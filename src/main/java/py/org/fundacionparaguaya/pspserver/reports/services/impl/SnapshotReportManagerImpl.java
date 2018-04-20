@@ -50,12 +50,6 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
 
     private static final String CSV_DELIMITER = ",";
 
-    private static final String INDICATOR_RED = "RED";
-
-    private static final String INDICATOR_YELOW = "YELLOW";
-
-    private static final String INDICATOR_GREEN = "GREEN";
-
     private final FamilyRepository familyRepository;
 
     private final FamilyDTOMapper familyReportMapper;
