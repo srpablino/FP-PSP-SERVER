@@ -30,6 +30,7 @@ import py.org.fundacionparaguaya.pspserver.reports.services.SnapshotReportManage
 import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SurveyEntity;
+import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
 import py.org.fundacionparaguaya.pspserver.surveys.mapper.SnapshotIndicatorMapper;
 import py.org.fundacionparaguaya.pspserver.surveys.repositories.SnapshotEconomicRepository;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
@@ -234,6 +235,7 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                     if (data.getAsString(key) == null) {
                         row.add("");
                     } else {
+                        // row.add(getIndicatorValues(data.getAsString(key)));
                         row.add(getIndicatorValues(data.getAsString(key)));
                     }
                 } else {
@@ -290,15 +292,14 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
     }
 
     private String getIndicatorValues(String value) {
-        switch (value) {
-        case INDICATOR_GREEN:
-            return "2";
-        case INDICATOR_YELOW:
-            return "1";
-        case INDICATOR_RED:
-            return "0";
-        default:
-            return value;
+
+        SurveyStoplightEnum surveyStoplightEnum = SurveyStoplightEnum
+                .fromValue(value);
+        if (surveyStoplightEnum != null) {
+            return String.valueOf(surveyStoplightEnum.getCode());
         }
+
+        return value;
+
     }
 }
