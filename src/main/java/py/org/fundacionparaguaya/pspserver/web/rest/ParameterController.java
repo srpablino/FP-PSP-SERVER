@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.org.fundacionparaguaya.pspserver.system.dtos.ParameterDTO;
@@ -75,4 +76,10 @@ public class ParameterController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/key")
+    public ResponseEntity<ParameterDTO> getParameterByKey(
+            @RequestParam(value = "keyParameter", required = true) String keyParameter) {
+        ParameterDTO dto = parameterService.getParameterByKey(keyParameter);
+        return ResponseEntity.ok(dto);
+    }
 }

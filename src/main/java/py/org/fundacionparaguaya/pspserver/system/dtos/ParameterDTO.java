@@ -26,6 +26,12 @@ public class ParameterDTO implements Serializable {
             String description,
             String typeParameter,
             String value) {
+        this.parameterId = parameterId;
+        this.keyParameter = keyParameter;
+        this.description = description;
+        this.typeParameter = typeParameter;
+        this.value = value;
+
     }
 
     public static class Builder {
