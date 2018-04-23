@@ -88,6 +88,21 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/includeNotActive")
+    public ResponseEntity<PaginableList<UserDTO>> getPaginatedUsersIncludingNotActive(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
+            @RequestParam(value = "sort_by", required = false, defaultValue = "username") String sortBy,
+            @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+            @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
+            @AuthenticationPrincipal UserDetailsDTO userDetails) {
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
+        Page<UserDTO> pageProperties = userService.listUsersIncludeNotActive(userDetails, filter, pageRequest);
+        PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
+
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId) {
         LOG.debug("REST request to delete User: {}", userId);

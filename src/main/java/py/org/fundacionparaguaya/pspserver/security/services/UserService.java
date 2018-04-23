@@ -28,5 +28,7 @@ public interface UserService {
 
     Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest);
 
+    Page<UserDTO> listUsersIncludeNotActive(UserDetailsDTO userDetails, String filter, PageRequest pageRequest);
+
     List<UserDTO> listUsers(ApplicationDTO application, OrganizationDTO organization);
 }

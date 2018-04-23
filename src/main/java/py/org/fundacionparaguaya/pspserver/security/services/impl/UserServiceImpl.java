@@ -199,7 +199,12 @@ public class UserServiceImpl implements UserService {
             userRepository.save(userTarget);
             LOG.debug("Changed Information for User: {}", userTarget);
         }else {
-            throw new RuntimeException(i18n.translate("user.updateNotAllowed"));
+
+            throw new CustomParameterizedException(i18n.translate("user.updateNotAllowed"),
+                    new ImmutableMultimap.Builder<String, String>()
+                            .put("username", userTarget.getUsername())
+                            .build()
+                            .asMap());
         }
         return userMapper.entityToDto(userTarget);
     }
@@ -300,6 +305,17 @@ public class UserServiceImpl implements UserService {
                 Specifications
                         .where(byLoggedUser(userDetails))
                         .and(userIsActive())
+                        .and(byFilter(filter)),
+                pageRequest);
+
+        return userApplicationPage.map(userApplicationMapper::entityToUserDto);
+    }
+
+    @Override
+    public Page<UserDTO> listUsersIncludeNotActive(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
+        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
+                Specifications
+                        .where(byLoggedUser(userDetails))
                         .and(byFilter(filter)),
                 pageRequest);
 
