@@ -7,34 +7,15 @@
 		"firstName",
 		"gender",
 		"identificationNumber",
-		"identificationType",
 		"lastName",
 		"birthdate"
 	],
 	"properties": {
 
-		"identificationType": {
-			"type": "string",
-			"title": {
-				"es": "Tipo de documento"
-			},
-			"enum": [
-				"CI",
-				"DNI",
-				"PASSPORT"
-			],
-			"enumNames": [
-				"Cédula de Identidad",
-				"DNI",
-				"Pasaporte"
-			],
-			"default": "DNI"
-		},
-
 		"identificationNumber": {
 			"type": "string",
 			"title": {
-				"es": "Ingrese su número de documento"
+				"es": "Ingrese su número de DNI"
 			}
 		},
 
@@ -565,7 +546,7 @@
 			"enumNames": [
 				"Femenino",
 				"Masculino",
-				"Otro"
+				"Deseo no responder"
 			],
 			"default": "F"
 		},
@@ -580,7 +561,7 @@
 		"currency": {
 			"type": "string",
 			"title": {
-				"es": "Seleccione la moneda utilizada"
+				"es": "Seleccione la moneda en la que gana su dinero"
 			},
 			"enum": [
 				"AFN",
@@ -928,7 +909,7 @@
 		"areaOfResidence": {
 			"type": "string",
 			"title": {
-				"es": "Tipo de area de residencia, normalmente los valores son RURAL/URBAN"
+				"es": "Área en la que reside"
 			},
 			"enum": [
 				"URBAN",
@@ -943,7 +924,7 @@
 		"employmentStatusPrimary": {
 			"type": "string",
 			"title": {
-				"es": "Puesto en su empleo primario"
+				"es": "Actividad Principal"
 			},
 			"enum": [
 				"SELF-EMPLOYED",
@@ -978,7 +959,7 @@
 		"activityMain": {
 			"type": "string",
 			"title": {
-				"es": "Ingrese su actividad principal"
+				"es": "Sector de actividad principal"
 			},
 			"enum": [
 				"AGRICULTURE",
@@ -1031,7 +1012,7 @@
 		"employmentStatusSecondary": {
 			"type": "string",
 			"title": {
-				"es": "Puesto en su empleo secundario"
+				"es": "Actividad secundaria"
 			},
 			"enum": [
 				"SELF-EMPLOYED",
@@ -1066,7 +1047,7 @@
 		"activitySecondary": {
 			"type": "string",
 			"title": {
-				"es": "Ingrese su actividad secundaria"
+				"es": "Sector de actividad secundaria"
 			},
 			"enum": [
 				"AGRICULTURE",
@@ -1116,31 +1097,38 @@
 			],
 			"default": "AGRICULTURE"
 		},
-		"householdMonthlyIncome": {
-			"type": "number",
-			"title": {
-				"es": "Ingrese su ingreso mensual familiar"
-			},
-			"default": 0
-		},
 		"salaryIncome": {
 			"type": "number",
 			"title": {
-				"es": "Ingrese su ingreso mensual por salario"
+				"es": "¿Cuál es su ingreso mensual por salario?"
 			},
 			"default": 0
 		},
 		"benefitIncome": {
 			"type": "number",
 			"title": {
-				"es": "Si recibe algún tipo de beneficio del estado u organización, ingrese el monto"
+				"es": "¿Recibe algún tipo de beneficio del estado u organización? En caso de ser positivo ingrese el monto mensual."
 			},
 			"default": 0
 		},
 		"pensionIncome": {
 			"type": "number",
 			"title": {
-				"es": "Si recibe ingreso por pensión, ingrese el monto"
+				"es": "¿Recibe algún ingreso por pensión?  En caso de ser positivo Ingrese el monto mensual."
+			},
+			"default": 0
+		},
+		"otherIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Tiene algún otro tipo de ingreso? En caso de ser positivo ingrese el monto mensual."
+			},
+			"default": 0
+		},
+		"householdMonthlyIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Cuál es el ingreso total de la familia al mes?"
 			},
 			"default": 0
 		},
@@ -1148,13 +1136,6 @@
 			"type": "number",
 			"title": {
 				"es": "Ingrese la cantidad que tenga de ahorros"
-			},
-			"default": 0
-		},
-		"otherIncome": {
-			"type": "number",
-			"title": {
-				"es": "Ingrese otros ingresos que tenga"
 			},
 			"default": 0
 		},
@@ -1171,29 +1152,6 @@
 				"es": "Ingrese sus ingresos netos"
 			},
 			"default": 0
-		},
-		"educationClientLevel": {
-			"type": "string",
-			"title": {
-				"es": "Nivel de educación de la persona entrevistada o la cabeza de familia"
-			},
-			"enum": [
-				"INCOMPLETE-PRIMARY",
-				"COMPLETED-PRIMARY",
-				"INCOMPLETE-SECONDARY",
-				"COMPLETED-SECONDARY",
-				"INCOMPLETE-COLLEGE",
-				"COLLEGE-DEGREE"
-			],
-			"enumNames": [
-				"Primaria incompleta",
-				"Primaria completa",
-				"Secundaria incompleta",
-				"Secundaria completa",
-				"Universitaria incompleta",
-				"Título universitario"
-			],
-			"default": "INCOMPLETE-PRIMARY"
 		},
 		"educationPersonMostStudied": {
 			"type": "string",
@@ -1218,33 +1176,6 @@
 			],
 			"default": "INCOMPLETE-PRIMARY"
 		},
-		"educationLevelAttained": {
-			"type": "string",
-			"title": {
-				"es": "Nivel de educación alcanzado por la persona con más estudios en la familia"
-			},
-			"enum": [
-				"NONE",
-				"LEVEL-1",
-				"LEVEL-2",
-				"LEVEL-3",
-				"LEVEL-4",
-				"LEVEL-5",
-				"LEVEL-6",
-				"OTHER"
-			],
-			"enumNames": [
-				"Ninguno",
-				"Nivel 1",
-				"Nivel 2",
-				"Nivel 3",
-				"Nivel 4",
-				"Nivel 5",
-				"Nivel 6",
-				"Otro"
-			],
-			"default": "NONE"
-		},
 		"housingSituation": {
 			"type": "string",
 			"title": {
@@ -1266,14 +1197,6 @@
 			],
 			"default": "OWN-TITTLE"
 		},
-		"otherUsefulInfo": {
-			"type": "string",
-			"title": {
-				"es": "Otra información relevante"
-			},
-			"default": "Ninguna"
-		},
-
 		"familyCountry": {
 			"type": "string",
 			"title": {

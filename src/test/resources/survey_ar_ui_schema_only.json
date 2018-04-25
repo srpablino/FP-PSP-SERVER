@@ -177,7 +177,6 @@
 		}
 	},
 	"ui:order": [
-		"identificationType",
 		"identificationNumber",
 		"firstName",
 		"lastName",
@@ -188,22 +187,20 @@
 
 		"currency",
 		"areaOfResidence",
+		"employmentStatusPrimary",
 		"activityMain",
 		"employmentStatusSecondary",
 		"activitySecondary",
-		"householdMonthlyIncome",
 		"salaryIncome",
 		"benefitIncome",
 		"pensionIncome",
-		"savingsIncome",
 		"otherIncome",
+		"householdMonthlyIncome",
+		"savingsIncome",
 		"householdMonthlyOutgoing",
 		"netSuplus",
-		"educationClientLevel",
 		"educationPersonMostStudied",
-		"educationLevelAttained",
 		"housingSituation",
-		"otherUsefulInfo",
 		"familyCountry",
 		"familyCity",
 		"familyUbication",
@@ -262,7 +259,6 @@
 		"autonomyDecisions"
 	],
 	"ui:group:personal": [
-		"identificationType",
 		"identificationNumber",
 		"firstName",
 		"lastName",
@@ -274,6 +270,7 @@
 	"ui:group:economics": [
 		"currency",
 		"areaOfResidence",
+		"employmentStatusPrimary",
 		"activityMain",
 		"employmentStatusSecondary",
 		"activitySecondary",
@@ -285,11 +282,8 @@
 		"otherIncome",
 		"householdMonthlyOutgoing",
 		"netSuplus",
-		"educationClientLevel",
 		"educationPersonMostStudied",
-		"educationLevelAttained",
 		"housingSituation",
-		"otherUsefulInfo",
 		"familyCountry",
 		"familyCity",
 		"familyUbication"
