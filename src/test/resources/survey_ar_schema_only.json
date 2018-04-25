@@ -561,7 +561,7 @@
 		"currency": {
 			"type": "string",
 			"title": {
-				"es": "Seleccione la moneda en la que gana su dinero"
+				"es": "Seleccione la moneda en que responderá las siguientes preguntas económicas."
 			},
 			"enum": [
 				"AFN",
