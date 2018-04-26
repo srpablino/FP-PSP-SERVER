@@ -7291,17 +7291,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/3.jpg",
-						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescentes y adultos) lo comparten es por su voluntad.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/2.jpg",
-						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Algunos de los grupos (niños, adolescente y adulto) lo comparten involuntariamente.",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Algunos de los grupos (niños, adolescentes y adultos) lo comparten involuntariamente.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/1.jpg",
-						"description": "Cada dormitorio es utilizado en promedio por tres o más miembros de mi familia y pertenecen a grupos diferentes (niño, adolescente, adulto).",
+						"description": "Cada dormitorio es utilizado en promedio por tres o más miembros de mi familia.",
 						"value": "RED"
 					},
 					{
@@ -7314,7 +7314,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/3.jpg",
-				"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
+				"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescentes y adultos) lo comparten es por su voluntad.",
 				"value": "GREEN"
 			}]
 		},
@@ -7611,12 +7611,12 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/3.jpg",
-						"description": "Mi familia tiene acceso permanente y no clandestino a fuentes de energía que le permiten tener luz tanto en el domicilio como en la espacio público que rodea la casa familiar, tener acceso al agua caliente y cocinar con fuentes energéticas que no contaminen el ambiente ni la salud humana. ",
+						"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/2.jpg",
-						"description": "Mi familia tiene acceso a fuentes de energía para iluminar la casa/alrededores, cocinar de manera sustentable y al agua caliente pero el mismo es clandestino y/o insuficiente (pasa cuatro horas o más del día sin electricidad en temporada alta).",
+						"description": "Mi familia tiene acceso a la electricidad, pero el acceso es clandestino y/o insuficiente (pasa cuatro horas o más del día sin electricidad en temporada alta).",
 						"value": "YELLOW"
 					},
 					{
@@ -7634,7 +7634,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/3.jpg",
-				"description": "Mi familia tiene acceso permanente y no clandestino a fuentes de energía que le permiten tener luz tanto en el domicilio como en la espacio público que rodea la casa familiar, tener acceso al agua caliente y cocinar con fuentes energéticas que no contaminen el ambiente ni la salud humana. ",
+				"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
 				"value": "GREEN"
 			}]
 		},
@@ -7731,7 +7731,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/3.jpg",
-						"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores. ",
+						"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores.",
 						"value": "GREEN"
 					},
 					{
@@ -7754,7 +7754,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/3.jpg",
-				"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores. ",
+				"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores.",
 				"value": "GREEN"
 			}]
 		},
