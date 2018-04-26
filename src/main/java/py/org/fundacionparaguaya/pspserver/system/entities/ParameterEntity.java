@@ -1,25 +1,39 @@
 package py.org.fundacionparaguaya.pspserver.system.entities;
 
-import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+
 import com.google.common.base.MoreObjects;
+
+import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 
 @Entity
 @Table(name = "parameter", schema = "system")
 public class ParameterEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "system.parameter_parameter_id_seq")
-    @SequenceGenerator(name = "system.parameter_parameter_id_seq",
-    sequenceName = "system.parameter_parameter_id_seq", allocationSize = 1)
+    @GenericGenerator(
+                name = "parametersSequenceGenerator",
+                strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+                parameters = {
+                    @Parameter(name = SequenceStyleGenerator.SCHEMA,
+                                value = "system"),
+                    @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM,
+                            value = "parameter_parameter_id_seq"),
+                    @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM,
+                            value = "1"),
+                    @Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM,
+                            value = "1")
+                }
+    )
+    @GeneratedValue(generator = "parametersSequenceGenerator")
     @Column(name = "parameter_id")
     private Long parameterId;
 
