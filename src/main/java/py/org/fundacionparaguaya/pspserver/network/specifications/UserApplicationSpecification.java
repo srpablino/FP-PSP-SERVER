@@ -75,13 +75,13 @@ public class UserApplicationSpecification {
         };
     }
 
-    public static Specification<UserApplicationEntity> userIsActive() {
+    public static Specification<UserApplicationEntity> userIsActive(Boolean active) {
         return (Root<UserApplicationEntity> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
 
             Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.getUser());
-            Expression<Boolean> active = userJoin.<Boolean>get(UserEntity_.getActive());
+            Expression<Boolean> isActive = userJoin.<Boolean>get(UserEntity_.getActive());
 
-            return builder.isTrue(active);
+            return builder.equal(isActive,active);
         };
     }
 }

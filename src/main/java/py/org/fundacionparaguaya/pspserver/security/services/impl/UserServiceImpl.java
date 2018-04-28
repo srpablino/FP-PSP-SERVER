@@ -300,24 +300,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
-        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
-                Specifications
-                        .where(byLoggedUser(userDetails))
-                        .and(userIsActive())
-                        .and(byFilter(filter)),
-                pageRequest);
+    public Page<UserDTO> listUsers(UserDetailsDTO userDetails, String filter, PageRequest pageRequest,
+                                   Boolean active) {
+        Specifications<UserApplicationEntity> specifications = Specifications
+                .where(byLoggedUser(userDetails))
+                .and(byFilter(filter));
 
-        return userApplicationPage.map(userApplicationMapper::entityToUserDto);
-    }
+        // if null, does not filter by user active status
+        if (active!=null){
+            //if not null, perform filter by active == true or active == false
+            specifications = specifications.and(userIsActive(active));
+        }
 
-    @Override
-    public Page<UserDTO> listUsersIncludeNotActive(UserDetailsDTO userDetails, String filter, PageRequest pageRequest) {
-        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(
-                Specifications
-                        .where(byLoggedUser(userDetails))
-                        .and(byFilter(filter)),
-                pageRequest);
+        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(specifications
+                ,pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
     }
@@ -329,7 +325,7 @@ public class UserServiceImpl implements UserService {
                 Specifications
                         .where(hasApplication(application))
                         .and(hasOrganization(organization))
-                        .and(userIsActive()));
+                        .and(userIsActive(true)));
 
         return userApplications.stream().map(userApplicationMapper::entityToUserDto).collect(Collectors.toList());
     }
