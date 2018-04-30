@@ -97,7 +97,7 @@ public class UserDTO implements Serializable{
         }
 
         public UserDTO build() {
-            return new UserDTO(userId, username, email, pass, active, application, organization,role);
+            return new UserDTO(userId, username, email, pass, active, application, organization, role);
         }
     }
 
@@ -165,7 +165,9 @@ public class UserDTO implements Serializable{
         this.organization = organization;
     }
 
-    public void setRole(String role){this.role = role;}
+    public void setRole(String role){
+        this.role = role;
+    }
 
     @Override
     public String toString() {

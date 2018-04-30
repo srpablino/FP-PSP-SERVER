@@ -81,7 +81,7 @@ public class UserApplicationSpecification {
             Join<UserApplicationEntity, UserEntity> userJoin = root.join(UserApplicationEntity_.getUser());
             Expression<Boolean> isActive = userJoin.<Boolean>get(UserEntity_.getActive());
 
-            return builder.equal(isActive,active);
+            return builder.equal(isActive, active);
         };
     }
 }

@@ -312,8 +312,8 @@ public class UserServiceImpl implements UserService {
             specifications = specifications.and(userIsActive(active));
         }
 
-        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository.findAll(specifications
-                ,pageRequest);
+        Page<UserApplicationEntity> userApplicationPage = userApplicationRepository
+                .findAll(specifications, pageRequest);
 
         return userApplicationPage.map(userApplicationMapper::entityToUserDto);
     }

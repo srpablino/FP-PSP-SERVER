@@ -83,7 +83,7 @@ public class UserController {
                             @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                             @AuthenticationPrincipal UserDetailsDTO userDetails) {
         PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, "user." + sortBy);
-        Page<UserDTO> pageProperties = userService.listUsers(userDetails, filter, pageRequest,active);
+        Page<UserDTO> pageProperties = userService.listUsers(userDetails, filter, pageRequest, active);
         PaginableList<UserDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
 
         return ResponseEntity.ok(response);
