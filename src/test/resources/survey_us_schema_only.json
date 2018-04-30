@@ -632,22 +632,6 @@
 				"None"
 			]
 		},
-		"activityMain": {
-			"type": "string",
-			"title": {
-				"es": "How do you make an income?"
-			},
-			"enum": [
-				"Agriculture",
-				"Public sector",
-				"Private sector"
-			],
-			"enumNames": [
-				"Agriculture",
-				"Public sector",
-				"Private sector"
-			]
-		},
 		"manyPeopleHouseholdIncomeYN": {
 			"type": "string",
 			"title": {
