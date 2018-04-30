@@ -1,0 +1,184 @@
+{
+	"properties": {},
+
+	"ui:custom:fields": {
+
+		"income": {
+			"ui:field": "gallery"
+		},
+		"documentation": {
+			"ui:field": "gallery"
+		},
+		"accessToCredit": {
+			"ui:field": "gallery"
+		},
+		"water": {
+			"ui:field": "gallery"
+		},
+		"nearbyHealthPost": {
+			"ui:field": "gallery"
+		},
+		"alimentation": {
+			"ui:field": "gallery"
+		},
+		"garbageDisposal": {
+			"ui:field": "gallery"
+		},
+		"safeHouse": {
+			"ui:field": "gallery"
+		},
+		"safeBathroom": {
+			"ui:field": "gallery"
+		},
+		"electricityAccess": {
+			"ui:field": "gallery"
+		},
+		"refrigerator": {
+			"ui:field": "gallery"
+		},
+		"separateBed": {
+			"ui:field": "gallery"
+		},
+		"separateBedrooms": {
+			"ui:field": "gallery"
+		},
+		"properKitchen": {
+			"ui:field": "gallery"
+		},
+		"phone": {
+			"ui:field": "gallery"
+		},
+		"security": {
+			"ui:field": "gallery"
+		},
+		"readAndWrite": {
+			"ui:field": "gallery"
+		},
+		"middleEducation": {
+			"ui:field": "gallery"
+		},
+		"socialCapital": {
+			"ui:field": "gallery"
+		},
+		"informationAccess": {
+			"ui:field": "gallery"
+		},
+		"influenceInPublicSector": {
+			"ui:field": "gallery"
+		},
+		"awarenessOfNeeds": {
+			"ui:field": "gallery"
+		},
+		"selfEsteem": {
+			"ui:field": "gallery"
+		},
+		"autonomyDecisions": {
+			"ui:field": "gallery"
+		},
+
+		"familyUbication": {
+			"ui:field": "gmap"
+		},
+		"birthdate": {
+			"ui:field": "date"
+		}
+	},
+
+	"ui:order": [
+
+		"identificationType",
+		"identificationNumber",
+		"firstName",
+		"lastName",
+		"birthdate",
+		"countryOfBirth",
+		"gender",
+
+		"currency",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"employmentStatusPrimary",
+		"familyUbication",
+		"householdMonthlyIncome",
+		"manyPeopleHouseholdIncome",
+		"receiveStateIncome",
+		"housingSituation",
+		"familyCar",
+		"memberDiedBefore5",
+
+		"income",
+		"accessToCredit",
+		"documentation",
+		"water",
+		"nearbyHealthPost",
+		"alimentation",
+		"garbageDisposal",
+		"safeHouse",
+		"safeBathroom",
+		"electricityAccess",
+		"refrigerator",
+		"separateBedrooms",
+		"properKitchen",
+		"phone",
+		"security",
+		"readAndWrite",
+		"middleEducation",
+		"socialCapital",
+		"informationAccess",
+		"influenceInPublicSector",
+		"awarenessOfNeeds",
+		"selfEsteem",
+		"autonomyDecisions"
+
+	],
+
+	"ui:group:personal": [
+		"identificationType",
+		"identificationNumber",
+		"firstName",
+		"lastName",
+		"birthdate",
+		"countryOfBirth",
+		"gender"
+	],
+
+	"ui:group:economics": [
+		"currency",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"employmentStatusPrimary",
+		"familyUbication",
+		"householdMonthlyIncome",
+		"manyPeopleHouseholdIncome",
+		"receiveStateIncome",
+		"housingSituation",
+		"familyCar",
+		"memberDiedBefore5"
+	],
+
+	"ui:group:indicators": [
+		"income",
+		"accessToCredit",
+		"documentation",
+		"water",
+		"nearbyHealthPost",
+		"alimentation",
+		"garbageDisposal",
+		"safeHouse",
+		"safeBathroom",
+		"electricityAccess",
+		"refrigerator",
+		"separateBedrooms",
+		"properKitchen",
+		"phone",
+		"security",
+		"readAndWrite",
+		"middleEducation",
+		"socialCapital",
+		"informationAccess",
+		"influenceInPublicSector",
+		"awarenessOfNeeds",
+		"selfEsteem",
+		"autonomyDecisions"
+	]
+}
