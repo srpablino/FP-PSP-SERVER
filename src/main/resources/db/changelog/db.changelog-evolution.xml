@@ -319,10 +319,5 @@
         <sqlFile path="sql/2018-04-19T14:50.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <!-- Add row to system.parameter table-->
-    <changeSet id="2018-05-02T18:00" author="pjlopez">
-        <sqlFile path="sql/2018-05-02T18:00.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
 </databaseChangeLog>
 
