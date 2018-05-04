@@ -30,10 +30,12 @@ public class UserDTO implements Serializable{
 
     private OrganizationDTO organization;
 
+    private String role;
+
     public UserDTO() {}
 
     private UserDTO(Long userId, String username, String email, String pass, boolean active,
-                        ApplicationDTO application, OrganizationDTO organization) {
+                        ApplicationDTO application, OrganizationDTO organization, String role) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -41,6 +43,7 @@ public class UserDTO implements Serializable{
         this.active = active;
         this.application = application;
         this.organization = organization;
+        this.role = role;
     }
 
     public static class Builder {
@@ -51,6 +54,7 @@ public class UserDTO implements Serializable{
         private boolean active;
         private ApplicationDTO application;
         private OrganizationDTO organization;
+        private String role;
 
         public Builder userId(Long userId) {
             this.userId = userId;
@@ -87,8 +91,13 @@ public class UserDTO implements Serializable{
             return this;
         }
 
+        public Builder role(String role) {
+            this.role = role;
+            return this;
+        }
+
         public UserDTO build() {
-            return new UserDTO(userId, username, email, pass, active, application, organization);
+            return new UserDTO(userId, username, email, pass, active, application, organization, role);
         }
     }
 
@@ -106,6 +115,10 @@ public class UserDTO implements Serializable{
 
     public String getEmail() {
         return email;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public String getPass() {
@@ -152,6 +165,10 @@ public class UserDTO implements Serializable{
         this.organization = organization;
     }
 
+    public void setRole(String role){
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -162,6 +179,7 @@ public class UserDTO implements Serializable{
                 .add("active", active)
                 .add("application", application)
                 .add("organization", organization)
+                .add("role", role)
                 .toString();
     }
 }
