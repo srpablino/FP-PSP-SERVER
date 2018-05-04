@@ -1,83 +1,13 @@
 {
 	"properties": {},
-
 	"ui:custom:fields": {
-
-		"income": {
-			"ui:field": "gallery"
-		},
-		"documentation": {
-			"ui:field": "gallery"
-		},
-		"accessToCredit": {
-			"ui:field": "gallery"
-		},
-		"water": {
-			"ui:field": "gallery"
-		},
-		"nearbyHealthPost": {
-			"ui:field": "gallery"
-		},
-		"alimentation": {
-			"ui:field": "gallery"
-		},
-		"garbageDisposal": {
-			"ui:field": "gallery"
-		},
-		"safeHouse": {
-			"ui:field": "gallery"
-		},
-		"safeBathroom": {
-			"ui:field": "gallery"
-		},
-		"electricityAccess": {
-			"ui:field": "gallery"
-		},
-		"refrigerator": {
-			"ui:field": "gallery"
-		},
-		"separateBed": {
-			"ui:field": "gallery"
-		},
-		"separateBedrooms": {
-			"ui:field": "gallery"
-		},
-		"properKitchen": {
-			"ui:field": "gallery"
-		},
-		"phone": {
-			"ui:field": "gallery"
-		},
-		"security": {
-			"ui:field": "gallery"
-		},
-		"readAndWrite": {
-			"ui:field": "gallery"
-		},
-		"middleEducation": {
-			"ui:field": "gallery"
-		},
-		"socialCapital": {
-			"ui:field": "gallery"
-		},
-		"informationAccess": {
-			"ui:field": "gallery"
-		},
-		"influenceInPublicSector": {
+	  
+	  "electricityAccess": {
 			"ui:field": "gallery"
 		},
 		"awarenessOfNeeds": {
 			"ui:field": "gallery"
 		},
-		"selfEsteem": {
-			"ui:field": "gallery"
-		},
-		"autonomyDecisions": {
-			"ui:field": "gallery"
-		},
-		
-		
-		
 		"stableIncome": {
 			"ui:field": "gallery"
 		},
@@ -90,14 +20,16 @@
 		"registeredToVoteAndVotesInElections": {
 			"ui:field": "gallery"
 		},
-		
-		
 
+	  
 		"familyUbication": {
 			"ui:field": "gmap"
 		},
 		"birthdate": {
 			"ui:field": "date"
+		},
+		"householdMonthlyIncome":{
+			"ui:field": "numberFormat"
 		}
 	},
 
@@ -110,100 +42,63 @@
 		"birthdate",
 		"countryOfBirth",
 		"gender",
-
+		"email",
+		"postCode",
+		"areaOfResidence",
 		"currency",
-		"educationClientLevel",
-		"educationPersonMostStudied",
-		"employmentStatusPrimary",
-		"familyUbication",
 		"householdMonthlyIncome",
+		"employmentStatusPrimary",
+		"manyPeopleHousehold",
 		"manyPeopleHouseholdIncome",
+		"manyPeopleUnder18Household",
 		"receiveStateIncome",
 		"housingSituation",
-		"familyCar",
-		"memberDiedBefore5",
-
-    "income",
-		"stableIncome",
-		"accessToCredit",
-		"documentation",
-		"water",
-		"nearbyHealthPost",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"familyUbication",
+      
+    "stableIncome",
 		"dentalCare",
-		"alimentation",
-		"garbageDisposal",
-		"safeHouse",
-		"safeBathroom",
 		"electricityAccess",
-		"refrigerator",
-		"separateBedrooms",
-		"properKitchen",
-		"phone",
-		"security",
-		"readAndWrite",
-		"middleEducation",
 		"knowledgeAndSkillsToGenerateIncome",
-		"socialCapital",
 		"registeredToVoteAndVotesInElections",
-		"informationAccess",
-		"influenceInPublicSector",
-		"awarenessOfNeeds",
-		"selfEsteem",
-		"autonomyDecisions"
-
+		"awarenessOfNeeds"  
+		
 	],
 
 	"ui:group:personal": [
-		"identificationType",
-		"identificationNumber",
-		"firstName",
-		"lastName",
 		"birthdate",
 		"countryOfBirth",
-		"gender"
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"identificationType",
+		"lastName",
+		"email",
+		"postCode"
 	],
 
 	"ui:group:economics": [
+		"areaOfResidence",
 		"currency",
 		"educationClientLevel",
 		"educationPersonMostStudied",
 		"employmentStatusPrimary",
 		"familyUbication",
 		"householdMonthlyIncome",
+		"manyPeopleHousehold",
 		"manyPeopleHouseholdIncome",
+		"manyPeopleUnder18Household",
 		"receiveStateIncome",
-		"housingSituation",
-		"familyCar",
-		"memberDiedBefore5"
+		"housingSituation"
 	],
 
 	"ui:group:indicators": [
-		"income",
 		"stableIncome",
-		"accessToCredit",
-		"documentation",
-		"water",
-		"nearbyHealthPost",
 		"dentalCare",
-		"alimentation",
-		"garbageDisposal",
-		"safeHouse",
-		"safeBathroom",
 		"electricityAccess",
-		"refrigerator",
-		"separateBedrooms",
-		"properKitchen",
-		"phone",
-		"security",
-		"readAndWrite",
-		"middleEducation",
 		"knowledgeAndSkillsToGenerateIncome",
-		"socialCapital",
 		"registeredToVoteAndVotesInElections",
-		"informationAccess",
-		"influenceInPublicSector",
-		"awarenessOfNeeds",
-		"selfEsteem",
-		"autonomyDecisions"
+		"awarenessOfNeeds"
 	]
 }
