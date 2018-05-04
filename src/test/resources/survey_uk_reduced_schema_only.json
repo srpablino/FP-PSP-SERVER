@@ -774,6 +774,45 @@
 				}
 			]
 		},
+		"stableIncome": {
+			"type": "array",
+			"title": {
+				"es": "Stable Income"
+			},
+			"description": {
+				"es": "We have a stable income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
+						"description": "Our household income is stable.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-2.jpg",
+						"description": "Our household income goes up and down a bit.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-3.jpg",
+						"description": "Our household income goes up and down a lot making it difficult to plan ahead.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
+				"description": "Our household income is stable.",
+				"value": "GREEN"
+			}]
+		},
 		"accessToCredit": {
 			"type": "array",
 			"title": {
@@ -941,6 +980,45 @@
 					"value": "GREEN"
 				}
 			]
+		},
+		"dentalCare": {
+			"type": "array",
+			"title": {
+				"es": "Dental Care"
+			},
+			"description": {
+				"es": "We have healthy teeth "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
+						"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-2.jpg",
+						"description": "Someone in our household has not been to the dentist in the past 5 years.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-3.jpg",
+						"description": "In our household, someone has dental problems and cannot or does not know how to access dental care or cannot afford it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
+				"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
+				"value": "GREEN"
+			}]
 		},
 		"alimentation": {
 			"type": "array",
@@ -1446,6 +1524,46 @@
 				}
 			]
 		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"type": "array",
+			"title": {
+				"es": "Knowledge and Skills to Generate Income"
+			},
+			"description": {
+				"es": "We know how to make an income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
+						"description": "Everyone in our household has the necessary skills to find employment or start their business.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-2.jpg",
+						"description": "People in our household have some skills needed to find employment but struggle with some aspects (e.g. application forms, interversion skills).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-3.jpg",
+						"description": "Some adults in our household have no skills to find employment, start their own business, or have never worked.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
+				"description": "Everyone in our household has the necessary skills to find employment or start their business.",
+				"value": "GREEN"
+			}]
+		},
 		"socialCapital": {
 			"type": "array",
 			"title": {
@@ -1487,6 +1605,46 @@
 					"value": "GREEN"
 				}
 			]
+		},
+		"registeredToVoteAndVotesInElections": {
+			"type": "array",
+			"title": {
+				"es": "Registered to Vote and Votes in Elections"
+			},
+			"description": {
+				"es": "We vote in elections"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
+						"description": "Everyone in our household is registered to vote and does so regularly.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-2.jpg",
+						"description": "Everyone in our household is registered to vote but does not regularly vote.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-3.jpg",
+						"description": "Members in our household are not registered to vote or we are not motivated to vote in elections.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
+				"description": "Everyone in our household is registered to vote and does so regularly.",
+				"value": "GREEN"
+			}]
 		},
 		"informationAccess": {
 			"type": "array",
