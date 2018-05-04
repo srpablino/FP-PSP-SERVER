@@ -75,6 +75,23 @@
 		"autonomyDecisions": {
 			"ui:field": "gallery"
 		},
+		
+		
+		
+		"stableIncome": {
+			"ui:field": "gallery"
+		},
+		"dentalCare": {
+			"ui:field": "gallery"
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"ui:field": "gallery"
+		},
+		"registeredToVoteAndVotesInElections": {
+			"ui:field": "gallery"
+		},
+		
+		
 
 		"familyUbication": {
 			"ui:field": "gmap"
@@ -106,11 +123,13 @@
 		"familyCar",
 		"memberDiedBefore5",
 
-		"income",
+    "income",
+		"stableIncome",
 		"accessToCredit",
 		"documentation",
 		"water",
 		"nearbyHealthPost",
+		"dentalCare",
 		"alimentation",
 		"garbageDisposal",
 		"safeHouse",
@@ -123,7 +142,9 @@
 		"security",
 		"readAndWrite",
 		"middleEducation",
+		"knowledgeAndSkillsToGenerateIncome",
 		"socialCapital",
+		"registeredToVoteAndVotesInElections",
 		"informationAccess",
 		"influenceInPublicSector",
 		"awarenessOfNeeds",
@@ -158,10 +179,12 @@
 
 	"ui:group:indicators": [
 		"income",
+		"stableIncome",
 		"accessToCredit",
 		"documentation",
 		"water",
 		"nearbyHealthPost",
+		"dentalCare",
 		"alimentation",
 		"garbageDisposal",
 		"safeHouse",
@@ -174,7 +197,9 @@
 		"security",
 		"readAndWrite",
 		"middleEducation",
+		"knowledgeAndSkillsToGenerateIncome",
 		"socialCapital",
+		"registeredToVoteAndVotesInElections",
 		"informationAccess",
 		"influenceInPublicSector",
 		"awarenessOfNeeds",
