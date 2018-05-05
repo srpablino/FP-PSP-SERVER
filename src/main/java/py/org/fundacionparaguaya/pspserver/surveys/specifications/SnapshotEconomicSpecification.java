@@ -24,7 +24,7 @@ public class SnapshotEconomicSpecification {
 
     private static final String SHORT_DATE_FORMAT = "dd/MM/yyyy";
 
-    private static final long MONTH_AGO = 2;
+    private static final long MONTH_AGO = 12;
 
     private SnapshotEconomicSpecification() {
         // not called
