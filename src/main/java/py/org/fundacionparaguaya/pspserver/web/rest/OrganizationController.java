@@ -63,7 +63,7 @@ public class OrganizationController {
 
     @GetMapping("/list")
     public ResponseEntity<List<OrganizationDTO>> listOrganizationsByUser(
-            @AuthenticationPrincipal UserDetailsDTO userDetails ) {
+            @AuthenticationPrincipal UserDetailsDTO userDetails) {
 
         List<OrganizationDTO> organizations = organizationService.
                 listOrganizations(userDetails, null, null).getContent();
