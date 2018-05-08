@@ -73,24 +73,26 @@ public class ApplicationController {
         return ResponseEntity.ok(applications);
     }
 
+    @GetMapping("/listByUser")
+    public ResponseEntity<List<ApplicationDTO>> listApplicationByUser(
+            @AuthenticationPrincipal UserDetailsDTO userDetails ) {
+
+        List<ApplicationDTO> appList = applicationService.
+                getPaginatedApplications(userDetails, null, null).getContent();
+        return ResponseEntity.ok(appList);
+    }
+
     @GetMapping()
     public ResponseEntity<PaginableList<ApplicationDTO>> getPaginatedApplications(
                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-                                @RequestParam(value = "all", required = false, defaultValue = "false") boolean all,
                                 @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                                 @AuthenticationPrincipal UserDetailsDTO userDetails) {
-
-        PageRequest pageRequest = null;
-
-        if (!all) {
-            pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        }
-
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
         Page<ApplicationDTO> pageProperties =
-                applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
+                                        applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
         PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
     }

@@ -25,6 +25,7 @@ import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/organizations")
@@ -60,22 +61,24 @@ public class OrganizationController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/listByUser")
+    public ResponseEntity<List<OrganizationDTO>> listOrganizationsByUser(
+            @AuthenticationPrincipal UserDetailsDTO userDetails ) {
+
+        List<OrganizationDTO> organizations = organizationService.
+                listOrganizations(userDetails, null, null).getContent();
+        return ResponseEntity.ok(organizations);
+    }
+
     @GetMapping()
     public ResponseEntity<PaginableList<OrganizationDTO>> getAllOrganizations(
                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
-                                @RequestParam(value = "all", required = false, defaultValue = "false") boolean all,
                                 @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                                 @AuthenticationPrincipal UserDetailsDTO userDetails) {
-
-        PageRequest pageRequest = null;
-
-        if (!all){
-            pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        }
-
+        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
         Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(userDetails, filter, pageRequest);
         PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
