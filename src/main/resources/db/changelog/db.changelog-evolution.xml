@@ -320,7 +320,7 @@
 
     <!--change gender column to character varying in order to get a better acronym representation for gender-->
     <changeSet id="2018-05-04T15:00" author="pjlopez">
-        <sqlFile path="sql/2018-04-12T10:00.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="sql/2018-05-04T15:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>
