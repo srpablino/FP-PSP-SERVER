@@ -79,11 +79,17 @@ public class ApplicationController {
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+                                @RequestParam(value = "all", required = false, defaultValue = "false") boolean all,
                                 @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                                 @AuthenticationPrincipal UserDetailsDTO userDetails) {
-        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
-        Page<ApplicationDTO> pageProperties =
-                                        applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
+
+        PageRequest pageRequest = null;
+
+        if (!all) {
+            pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+        }
+
+        Page<ApplicationDTO> pageProperties = applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
         PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
     }
