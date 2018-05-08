@@ -89,7 +89,8 @@ public class ApplicationController {
             pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
         }
 
-        Page<ApplicationDTO> pageProperties = applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
+        Page<ApplicationDTO> pageProperties =
+                applicationService.getPaginatedApplications(userDetails, filter, pageRequest);
         PaginableList<ApplicationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
     }
