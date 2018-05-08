@@ -73,15 +73,6 @@ public class ApplicationController {
         return ResponseEntity.ok(applications);
     }
 
-    @GetMapping("/listByUser")
-    public ResponseEntity<List<ApplicationDTO>> listApplicationByUser(
-            @AuthenticationPrincipal UserDetailsDTO userDetails ) {
-
-        List<ApplicationDTO> appList = applicationService.
-                getPaginatedApplications(userDetails, null, null).getContent();
-        return ResponseEntity.ok(appList);
-    }
-
     @GetMapping()
     public ResponseEntity<PaginableList<ApplicationDTO>> getPaginatedApplications(
                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,

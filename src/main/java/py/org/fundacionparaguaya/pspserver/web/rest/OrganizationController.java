@@ -61,7 +61,7 @@ public class OrganizationController {
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/listByUser")
+    @GetMapping("/list")
     public ResponseEntity<List<OrganizationDTO>> listOrganizationsByUser(
             @AuthenticationPrincipal UserDetailsDTO userDetails ) {
 
