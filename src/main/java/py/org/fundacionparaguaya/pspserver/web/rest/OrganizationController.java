@@ -66,9 +66,16 @@ public class OrganizationController {
                                 @RequestParam(value = "per_page", required = false, defaultValue = "12") int perPage,
                                 @RequestParam(value = "sort_by", required = false, defaultValue = "name") String sortBy,
                                 @RequestParam(value = "order", required = false, defaultValue = "asc") String orderBy,
+                                @RequestParam(value = "all", required = false, defaultValue = "false") boolean all,
                                 @RequestParam(value = "filter", required = false, defaultValue = "") String filter,
                                 @AuthenticationPrincipal UserDetailsDTO userDetails) {
-        PageRequest pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+
+        PageRequest pageRequest = null;
+
+        if (!all){
+            pageRequest = new PspPageRequest(page, perPage, orderBy, sortBy);
+        }
+
         Page<OrganizationDTO> pageProperties = organizationService.listOrganizations(userDetails, filter, pageRequest);
         PaginableList<OrganizationDTO> response = new PaginableList<>(pageProperties, pageProperties.getContent());
         return ResponseEntity.ok(response);
