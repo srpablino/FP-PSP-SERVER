@@ -324,5 +324,10 @@
         <sqlFile path="sql/2018-05-04T17:00.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Set columns length for applications and organizations tables -->
+    <changeSet id="2018-05-08T09:30" author="cbenitez">
+        <sqlFile path="sql/2018-05-08T09:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
 
