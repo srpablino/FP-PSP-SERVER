@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -22,6 +23,7 @@ import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
+import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 
 /**
  *
@@ -35,6 +37,7 @@ public class TermCondPolEntity extends BaseEntity {
     private static final long serialVersionUID = 1213762117818707037L;
 
     @Id
+    @NotNull
     @GenericGenerator(name = "termcondpolSequenceGenerator",
         strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
         parameters = {
@@ -67,6 +70,10 @@ public class TermCondPolEntity extends BaseEntity {
     @Column(name = "type_cod")
     @Enumerated(EnumType.STRING)
     private TermCondPolType typeCod;
+
+    @Column(name = "language")
+    @Enumerated(EnumType.STRING)
+    private TermCondPolLanguage language;
 
     public Long getId() {
         return id;
@@ -116,6 +123,14 @@ public class TermCondPolEntity extends BaseEntity {
         this.typeCod = type;
     }
 
+    public TermCondPolLanguage getLanguage() {
+        return language;
+        }
+
+    public void setLanguage(TermCondPolLanguage language) {
+        this.language = language;
+        }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -142,6 +157,7 @@ public class TermCondPolEntity extends BaseEntity {
             .add("year", year)
             .add("created date", createdDate)
             .add("type", typeCod)
+                .add("language", language)
             .toString();
     }
 
