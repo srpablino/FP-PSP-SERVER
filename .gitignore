@@ -18,3 +18,4 @@ out.txt
 lambda/creds.json
 lambda/node_modules
 **/*.zip
+lambda/.env

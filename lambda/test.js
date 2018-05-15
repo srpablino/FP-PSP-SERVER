@@ -1,5 +1,4 @@
 var getSnapshots = require("./getSnapshotsImpl");
-var creds = require("./creds.json");
 
 const queryString = "security=2&registeredToVoteAndVotesInElections=2";
 
@@ -10,9 +9,10 @@ const indicatorsFilter = {
 };
 
 const params = {
-  creds,
   surveyId: 11,
   indicatorsFilter
 };
 
-getSnapshots(params).then(resp => console.log(resp));
+getSnapshots(params)
+  .then(resp => console.log(resp))
+  .catch(error => console.log({ error }));

@@ -4,8 +4,8 @@
   "description": "scripts de prueba para invocar a jcard",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "zip -r getSnapshots.zip ."
+    "build": "zip -r getSnapshots.zip .",
+    "test": "source .env && node test.js"
   },
   "author": "danicricco",
   "license": "ISC",

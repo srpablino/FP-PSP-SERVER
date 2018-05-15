@@ -1,13 +1,11 @@
 var qs = require("qs");
 var axios = require("axios");
 var request = require("request");
-
-const AUTH_URL = `https://platform.backend.povertystoplight.org/oauth/token`;
-const BASE_URL = `https://platform.backend.povertystoplight.org`;
+const config = require("./config");
 
 function getSnapshotsBySurvey(accessToken, surveyId, indictarosFilter) {
   const instance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: config.BASE_URL,
     headers: { Authorization: `Bearer ${accessToken}` }
   });
 
@@ -38,19 +36,30 @@ function filter(snapshots, { match, ...indicators }) {
   });
 }
 
-function login(creds) {
+function getCreds() {
+  return {
+    username: config.username,
+    password: config.password,
+    grant_type: config.grant_type,
+    clientId: config.clientId,
+    clientSecret: config.clientSecret
+  };
+}
+
+function login(creds = getCreds()) {
+  const { clientId, clientSecret, ...restCreds } = creds;
   const options = {
     method: "POST",
-    auth: { username: "barClientIdPassword", password: "secret" },
-    data: qs.stringify(creds),
-    url: AUTH_URL
+    auth: { username: clientId, password: clientSecret },
+    data: qs.stringify(restCreds),
+    url: config.AUTH_URL
   };
 
   return axios(options);
 }
 
-function getSnapshotsImpl({ creds, surveyId, indicatorsFilter }) {
-  return login(creds).then(resp =>
+function getSnapshotsImpl({ surveyId, indicatorsFilter }) {
+  return login().then(resp =>
     getSnapshotsBySurvey(resp.data.access_token, surveyId, indicatorsFilter)
   );
 }
