@@ -3,8 +3,13 @@ var getSnapshots = require("./getSnapshotsImpl");
 const queryString = "security=2&registeredToVoteAndVotesInElections=2";
 
 const indicatorsFilter = {
-  security: "2",
-  registeredToVoteAndVotesInElections: "2",
+  // security: "2",
+  // registeredToVoteAndVotesInElections: "2",
+  // regularityOfMeals: "NONE",
+  // lat: "54.979645",
+  stableIncome: 0,
+  entrepreneurialSpirit: 2,
+  knowledgeAndSkillsToGenerateIncome: 2,
   match: "any"
 };
 

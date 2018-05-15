@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "build": "zip -r getSnapshots.zip .",
-    "test": "source .env && node test.js"
+    "test": "source .env && node test.js",
+    "test:demo": "source .env.demo && node test.js",
+    "test:testing": "source .env.testing && node test.js"
   },
   "author": "danicricco",
   "license": "ISC",

@@ -1,22 +1,12 @@
-const AUTH_URL = `https://platform.backend.povertystoplight.org/oauth/token`;
-const BASE_URL = `https://platform.backend.povertystoplight.org`;
-const creds = require("./creds.json");
-const {
-  username,
-  password,
-  grant_type,
-  accessToken,
-  clientId,
-  clientSecret
-} = creds;
+const { grant_type, clientId, clientSecret } = require("./creds_config.json");
 
 module.exports = {
-  AUTH_URL: process.env.AUTH_URL || AUTH_URL,
-  BASE_URL: process.env.BASE_URL || BASE_URL,
-  username: process.env.USERNAME || username,
-  password: process.env.PASSWORD || password,
+  AUTH_URL: process.env.AUTH_URL,
+  BASE_URL: process.env.BASE_URL,
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD,
+  accessToken: process.env.ACCESS_TOKEN,
   grant_type: process.env.GRANT_TYPE || grant_type,
-  accessToken: process.env.ACCESS_TOKEN || accessToken,
   clientId: process.env.CLIENT_ID || clientId,
   clientSecret: process.env.CLIENT_SECRET || clientSecret
 };

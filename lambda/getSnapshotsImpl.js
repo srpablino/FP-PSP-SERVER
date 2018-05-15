@@ -15,16 +15,28 @@ function getSnapshotsBySurvey(accessToken, surveyId, indictarosFilter) {
     .catch(error => Promise.reject(error));
 }
 
-function filter(snapshots, { match, ...indicators }) {
-  if (!indicators || Object.keys(indicators).length === 0) {
+function isNumeric(num) {
+  return !isNaN(num);
+}
+
+function areValuesEqual(value1, value2) {
+  if (isNumeric(value1) && isNumeric(value2)) {
+    return parseFloat(value1) === parseFloat(value2);
+  }
+  return value1 === value2;
+}
+
+function filter(snapshots, indicatorsFilter) {
+  if (!indicatorsFilter || Object.keys(indicatorsFilter).length === 0) {
     return snapshots;
   }
+  const { match, ...indicators } = indicatorsFilter;
   const matchAll = !match || match === "all";
   return snapshots.filter(snapshot => {
     const totalIndicatorsEqual = Object.keys(snapshot)
       .filter(key => Object.keys(indicators).includes(key))
       .reduce((totalEqual, key) => {
-        if (parseInt(indicators[key], 10) === snapshot[key]) {
+        if (areValuesEqual(indicators[key], snapshot[key])) {
           return totalEqual + 1;
         }
         return 0;
@@ -45,7 +57,10 @@ function getCreds() {
     clientSecret: config.clientSecret
   };
 }
-
+// TODO Agregar logica para leer
+// el token de env y ver si aún es válido
+// si no es válido realizar el login
+// con las credenciales
 function login(creds = getCreds()) {
   const { clientId, clientSecret, ...restCreds } = creds;
   const options = {
@@ -56,6 +71,15 @@ function login(creds = getCreds()) {
   };
 
   return axios(options);
+}
+
+function getToken(token) {
+  const instance = axios.create({
+    baseURL: config.BASE_URL,
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  return instance.get(`/oauth/decode`).catch(error => Promise.reject(error));
 }
 
 function getSnapshotsImpl({ surveyId, indicatorsFilter }) {
