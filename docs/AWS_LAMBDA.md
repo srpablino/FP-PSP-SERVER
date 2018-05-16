@@ -18,7 +18,7 @@ _surveyId_: the id of the survey
 
 **Query URL Parameters**
 
-Can be any of the indicators the indicators proprties for that survey.
+Can be any of the indicators properties names for that survey. This can vary for each survey.
 
 The indicators properties values can be any of the following:
 
