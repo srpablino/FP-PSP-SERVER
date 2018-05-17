@@ -6,6 +6,7 @@ import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
+import py.org.fundacionparaguaya.pspserver.system.constants.ActivityType;
 
 import java.util.Date;
 
@@ -20,9 +21,9 @@ public class ActivityFeedDTO extends ActivityDTO {
     }
 
     public ActivityFeedDTO(Long activityId, UserDTO user, ApplicationDTO application, OrganizationDTO organization,
-            FamilyDTO family, String activityKey, String activityParams, Role activityRole, String createAt,
-            String message, Date date) {
-        super(activityId, user, application, organization, family, activityKey, activityParams, activityRole, createAt);
+            FamilyDTO family, String activityKey, String activityParams, Role activityRole, ActivityType activityType,
+            String createAt, String message, Date date) {
+        super(activityId, user, application, organization, family, activityKey, activityParams, activityRole, activityType, createAt);
         this.message = message;
         this.date = date;
     }

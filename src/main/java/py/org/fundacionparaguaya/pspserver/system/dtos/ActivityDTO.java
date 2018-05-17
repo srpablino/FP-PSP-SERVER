@@ -6,6 +6,7 @@ import py.org.fundacionparaguaya.pspserver.network.dtos.ApplicationDTO;
 import py.org.fundacionparaguaya.pspserver.network.dtos.OrganizationDTO;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
+import py.org.fundacionparaguaya.pspserver.system.constants.ActivityType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,13 +25,14 @@ public class ActivityDTO implements Serializable {
     private String activityKey;
     private String activityParams;
     private Role activityRole;
+    private ActivityType activityType;
     private String createAt;
 
     public ActivityDTO() {
     }
 
     public ActivityDTO(Long activityId, UserDTO user, ApplicationDTO application, OrganizationDTO organization, FamilyDTO family,
-            String activityKey, String activityParams, Role activityRole, String createAt) {
+            String activityKey, String activityParams, Role activityRole, ActivityType activityType, String createAt) {
         this.activityId = activityId;
         this.user = user;
         this.application = application;
@@ -39,6 +41,7 @@ public class ActivityDTO implements Serializable {
         this.activityKey = activityKey;
         this.activityParams = activityParams;
         this.activityRole = activityRole;
+        this.activityType = activityType;
         this.createAt = createAt;
     }
 
@@ -106,6 +109,14 @@ public class ActivityDTO implements Serializable {
         this.activityRole = activityRole;
     }
 
+    public ActivityType getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
+    }
+
     public String getCreateAt() {
         return createAt;
     }
@@ -123,6 +134,7 @@ public class ActivityDTO implements Serializable {
         private String activityKey;
         private List<String> activityParams;
         private Role activityRole;
+        private ActivityType activityType;
         private String createAt;
 
         public Builder() {
@@ -169,6 +181,11 @@ public class ActivityDTO implements Serializable {
             return this;
         }
 
+        public Builder activityType(ActivityType activityType) {
+            this.activityType = activityType;
+            return this;
+        }
+
         public Builder createAt(String createAt) {
             this.createAt = createAt;
             return this;
@@ -182,7 +199,7 @@ public class ActivityDTO implements Serializable {
         public ActivityDTO build() {
             return new ActivityDTO(activityId, user, application, organization, family,
                     activityKey, activityParams.stream().collect(Collectors.joining(",")),
-                    activityRole, createAt);
+                    activityRole, activityType, createAt);
         }
     }
 
@@ -193,7 +210,7 @@ public class ActivityDTO implements Serializable {
     @Override public String toString() {
         return MoreObjects.toStringHelper(this).add("activityId", activityId).add("user", user).add("family", family)
                 .add("application", application).add("organization", organization).add("activityKey", activityKey)
-                .add("activityParams", activityParams).add("activityRole", activityRole).add("createAt", createAt)
-                .toString();
+                .add("activityParams", activityParams).add("activityRole", activityRole)
+                .add("activityType", activityType).add("createAt", createAt).toString();
     }
 }

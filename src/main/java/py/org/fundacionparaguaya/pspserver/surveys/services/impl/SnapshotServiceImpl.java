@@ -31,8 +31,6 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
-import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
-import py.org.fundacionparaguaya.pspserver.system.services.ActivityService;
 
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -71,8 +69,6 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private final OrganizationRepository organizationRepository;
 
-    private final ActivityService activityService;
-
     private final I18n i18n;
 
     private static final String INDICATOR_NAME = "name";
@@ -85,8 +81,7 @@ public class SnapshotServiceImpl implements SnapshotService {
             SnapshotIndicatorPriorityService priorityService,
             PersonMapper personMapper, FamilyService familyService,
             OrganizationMapper organizationMapper, I18n i18n,
-            OrganizationRepository organizationRepository,
-            ActivityService activityService) {
+            OrganizationRepository organizationRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -97,7 +92,6 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.organizationMapper = organizationMapper;
         this.i18n = i18n;
         this.organizationRepository = organizationRepository;
-        this.activityService = activityService;
     }
 
     @Override
@@ -130,41 +124,51 @@ public class SnapshotServiceImpl implements SnapshotService {
         Snapshot newSnapshot = economicMapper.entityToDto(snapshotEconomicEntity);
 
         /*Example of activities for testing purposes*/
-        //TODO if its first
-        /*ActivityDTO firstSnapshotActivity = ActivityDTO.builder()
-                .activityKey("activity.adminHouseholdFirstSnapshot")
-                .activityRole(Role.ROLE_ROOT)//Fundacion Paraguaya
-                .addActivityParam(family.getName())
-                .addActivityParam(family.getCity().getCity())
-                .build();*/
 
-        ActivityDTO adminSnapshotActivity = ActivityDTO.builder()
-                .activityKey("activity.adminSnapshots")
-                .activityRole(Role.ROLE_ROOT)
-                .addActivityParam(details.getOrganization().getDescription())
-                .addActivityParam(details.getApplication().getDescription())//HUB-> Fundacion Paraguaya
-                .build();
+        /*if(newFamily){
+            //if its the first snapshot
+            ActivityDTO firstSnapshotActivity = ActivityDTO.builder()
+                    .activityKey("activity.adminHouseholdFirstSnapshot")
+                    .activityRole(Role.ROLE_ROOT)//Fundacion Paraguaya
+                    .addActivityParam(family.getName())
+                    .addActivityParam(family.getCity().getCity())
+                    .build();
 
-        ActivityDTO hubActivity = ActivityDTO.builder()
-                .activityKey("activity.hubSnapshots")
-                .activityRole(Role.ROLE_HUB_ADMIN)
-                .application(details.getApplication())
-                .addActivityParam(details.getOrganization().getDescription())
-                .addActivityParam(family.getCity().getCity())
-                .build();
+            activityService.addActivity(firstSnapshotActivity);
 
-        ActivityDTO orgActivity = ActivityDTO.builder()
-                .activityKey("activity.orgSnapshots")
-                .activityRole(Role.ROLE_APP_ADMIN)
-                .application(details.getApplication())
-                .organization(details.getOrganization())
-                .addActivityParam(details.getUsername())
-                .addActivityParam(family.getCity().getCity())
-                .build();
+        }else{
+            ActivityDTO adminSnapshotActivity = ActivityDTO.builder()
+                    .activityKey("activity.adminSnapshots")
+                    .activityRole(Role.ROLE_ROOT)
+                    .activityType(ActivityType.SNAPSHOTS)
+                    .addActivityParam(details.getOrganization().getDescription())
+                    .addActivityParam(details.getApplication().getDescription())//HUB-> Fundacion Paraguaya
+                    .build();
 
-        activityService.addActivity(adminSnapshotActivity);
-        activityService.addActivity(hubActivity);
-        activityService.addActivity(orgActivity);
+            ActivityDTO hubActivity = ActivityDTO.builder()
+                    .activityKey("activity.hubSnapshots")
+                    .activityRole(Role.ROLE_HUB_ADMIN)
+                    .activityType(ActivityType.SNAPSHOTS)
+                    .application(details.getApplication())
+                    .addActivityParam(details.getOrganization().getDescription())
+                    .addActivityParam(family.getCity().getCity())
+                    .build();
+
+            ActivityDTO orgActivity = ActivityDTO.builder()
+                    .activityKey("activity.orgSnapshots")
+                    .activityRole(Role.ROLE_APP_ADMIN)
+                    .activityType(ActivityType.SNAPSHOTS)
+                    .application(details.getApplication())
+                    .organization(details.getOrganization())
+                    .addActivityParam(details.getUsername())
+                    .addActivityParam(family.getCity().getCity())
+                    .build();
+
+            activityService.addActivity(adminSnapshotActivity);
+            activityService.addActivity(hubActivity);
+            activityService.addActivity(orgActivity);
+        }*/
+
         return newSnapshot;
     }
 

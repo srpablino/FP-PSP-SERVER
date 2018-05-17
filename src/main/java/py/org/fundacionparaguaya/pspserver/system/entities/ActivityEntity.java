@@ -10,6 +10,7 @@ import py.org.fundacionparaguaya.pspserver.network.entities.ApplicationEntity;
 import py.org.fundacionparaguaya.pspserver.network.entities.OrganizationEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
+import py.org.fundacionparaguaya.pspserver.system.constants.ActivityType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -46,6 +47,11 @@ public class ActivityEntity extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role activityRole;
+
+    @Column(name = "activity_type")
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private ActivityType activityType;
 
     @ManyToOne(targetEntity = FamilyEntity.class)
     @JoinColumn(name = "family_id")
@@ -97,6 +103,14 @@ public class ActivityEntity extends BaseEntity {
 
     public void setActivityRole(Role activityRole) {
         this.activityRole = activityRole;
+    }
+
+    public ActivityType getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
     }
 
     public FamilyEntity getFamily() {
@@ -158,6 +172,7 @@ public class ActivityEntity extends BaseEntity {
                 .add("activityKey", activityKey)
                 .add("activityParams", activityParams)
                 .add("activityRole", activityRole)
+                .add("activityType", activityType)
                 .add("organization", organization)
                 .add("application", application)
                 .add("user", user)

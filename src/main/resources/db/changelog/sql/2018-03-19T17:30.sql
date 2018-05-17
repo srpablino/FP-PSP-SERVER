@@ -14,7 +14,6 @@ ALTER TABLE system.activity
 
 --Deletes unused columns of activity
 ALTER TABLE system.activity
-  DROP COLUMN activity_type CASCADE,
   DROP COLUMN description CASCADE;
 
 --Renames create_at column to created_at
