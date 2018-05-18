@@ -57,8 +57,7 @@ import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 @Service
 public class SnapshotServiceImpl implements SnapshotService {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(SnapshotServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SnapshotServiceImpl.class);
 
     private final SnapshotIndicatorPriorityService priorityService;
 
@@ -130,7 +129,15 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         familyService.updateFamily(family.getFamilyId());
 
-        return economicMapper.entityToDto(snapshotEconomicEntity);
+        Snapshot created = economicMapper.entityToDto(snapshotEconomicEntity);
+
+        LOG.info("User '{}' created a new Snapshot, snapshot_id={}",
+                details.getUsername(), created.getSnapshotEconomicId());
+        LOG.info("Snapshot = {}", created);
+        LOG.info("User '{}' finished Survey, survey_id={}",
+                details.getUsername(), created.getSurveyId());
+
+        return created;
     }
 
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
