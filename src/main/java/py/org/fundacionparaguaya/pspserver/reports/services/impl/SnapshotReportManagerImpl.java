@@ -81,20 +81,10 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                 .createdAtBetween2Dates(filters.getDateFrom(),
                         filters.getDateTo());
 
-        if (filters.getOrganizationId().isEmpty()) {
-          families = familyRepository.findAll(where(dateRange)
-                  .and(byApplication(filters.getApplicationId()))
-          .and(dateRange), sort);
-          } else {
-            for (Long id: filters.getOrganizationId()) {
-                List<FamilyEntity> aux = new ArrayList<>();
-                aux = familyRepository.findAll(where(byOrganization(id))
-                        .and(dateRange)
-                        .and(byApplication(filters.getApplicationId()))
-                        .and(dateRange), sort);
-                families.addAll(aux);
-                }
-            }
+        families = familyRepository.findAll(where(byOrganization(filters.getOrganizationId()))
+              .and(dateRange)
+              .and(byApplication(filters.getApplicationId()))
+              .and(dateRange), sort);
 
         Map<OrganizationEntity, List<FamilyEntity>> groupByOrganization = families
                 .stream()
@@ -267,14 +257,11 @@ public class SnapshotReportManagerImpl implements SnapshotReportManager {
                             filters.getDateTo());
 
             snapshots = snapshotRepository.findAll(
-                    where(SnapshotEconomicSpecification
-                            .byApplication(filters.getApplicationId()))
-                                    .and(dateRange)
-                                    .and(SnapshotEconomicSpecification
-                                            .byOrganization(
-                                                    filters.getOrganizationId().get(0))),
-                    sort);
-
+                  where(SnapshotEconomicSpecification
+                          .byApplication(filters.getApplicationId()))
+                                  .and(dateRange)
+                                  .and(SnapshotEconomicSpecification
+                                          .byOrganizations(filters.getOrganizationId())), sort);
         }
 
         ReportDTO report = getOrganizationAndFamilyData(snapshots);

@@ -47,15 +47,15 @@ public class SnapshotEconomicSpecification {
         };
     }
 
-    public static Specification<SnapshotEconomicEntity> byOrganization(Long organizationId) {
+    public static Specification<SnapshotEconomicEntity> byOrganizations(List<Long> organizations) {
         return new Specification<SnapshotEconomicEntity>() {
             @Override
             public Predicate toPredicate(Root<SnapshotEconomicEntity> root, CriteriaQuery<?> query,
                     CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                if (organizationId != null) {
-                    predicates.add(cb.equal(root.join("family").join("organization").get("id"), organizationId));
+                if (organizations != null) {
+                    predicates.add(root.join("family").join("organization").get("id").in(organizations));
                 }
 
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));

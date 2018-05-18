@@ -1,7 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.web.rest;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -50,12 +49,11 @@ public class SnapshotReportController {
     @GetMapping(path = "/family/indicators", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<FamilySnapshotDTO>> getSnapshotsIndicatorsByFamily(
             @RequestParam(value = "application_id", required = false) Long applicationId,
-            @RequestParam(value = "organization_id", required = false) Long organizationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo) {
-      List<Long> organizations = new ArrayList<Long>();
-      organizations.add(organizationId);
+
       SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
       List<FamilySnapshotDTO> snapshots = familyReportService.listSnapshotByFamily(filters);
       return ResponseEntity.ok(snapshots);
@@ -64,13 +62,11 @@ public class SnapshotReportController {
     @GetMapping(path = "/family/indicators/csv", produces = "application/octet-stream")
     public void generateCSVSnapshotByOrganizationAndCreatedDate(
             @RequestParam(value = "application_id", required = false) Long applicationId,
-            @RequestParam(value = "organization_id", required = false) Long organizationId,
+            @RequestParam(value = "organizations[]", required = false) List<Long> organizations,
             @RequestParam(value = "family_id", required = true) Long familyId,
             @RequestParam(value = "date_from", required = true) String dateFrom,
             @RequestParam(value = "date_to", required = true) String dateTo,
             HttpServletResponse response) throws IOException {
-        List<Long> organizations = new ArrayList<Long>();
-        organizations.add(organizationId);
 
         SnapshotFilterDTO filters = new SnapshotFilterDTO(applicationId, organizations, familyId, dateFrom, dateTo);
         String csv = familyReportService.generateCSVSnapshotByOrganizationAndCreatedDate(filters);
