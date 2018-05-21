@@ -56,12 +56,6 @@ public class ActivityMapper implements BaseMapper<ActivityEntity, ActivityDTO>{
     public ActivityDTO entityToDto(ActivityEntity entity) {
         ActivityDTO dto = modelMapper.map(entity, ActivityDTO.class);
         dto.setActivityId(entity.getActivityId());
-        /*dto.setApplicationId(Optional.ofNullable(entity.getApplication())
-                .map(ApplicationEntity::getId).orElse(null));
-        dto.setOrganizationId(Optional.ofNullable(entity.getOrganization())
-                .map(OrganizationEntity::getId).orElse(null));
-        dto.setFamilyId(Optional.ofNullable(entity.getFamily())
-                .map(FamilyEntity::getFamilyId).orElse(null));*/
         return dto;
     }
 
@@ -95,6 +89,7 @@ public class ActivityMapper implements BaseMapper<ActivityEntity, ActivityDTO>{
         ActivityFeedDTO dto = modelMapper.map(entity, ActivityFeedDTO.class);
         dto.setActivityId(entity.getActivityId());
         dto.setDate(new Date());
+        dto.setType(entity.getActivityType().getValue());
         dto.setMessage(i18n.translate(entity.getActivityKey(), entity.getActivityParams().split(",")));
         return dto;
     }

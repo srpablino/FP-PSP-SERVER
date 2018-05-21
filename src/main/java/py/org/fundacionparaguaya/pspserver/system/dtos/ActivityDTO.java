@@ -26,7 +26,7 @@ public class ActivityDTO implements Serializable {
     private String activityParams;
     private Role activityRole;
     private ActivityType activityType;
-    private String createAt;
+    private String createdAt;
 
     public ActivityDTO() {
     }
@@ -42,7 +42,7 @@ public class ActivityDTO implements Serializable {
         this.activityParams = activityParams;
         this.activityRole = activityRole;
         this.activityType = activityType;
-        this.createAt = createAt;
+        this.createdAt = createAt;
     }
 
     public Long getActivityId() {
@@ -117,12 +117,12 @@ public class ActivityDTO implements Serializable {
         this.activityType = activityType;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public static class Builder {
@@ -211,6 +211,6 @@ public class ActivityDTO implements Serializable {
         return MoreObjects.toStringHelper(this).add("activityId", activityId).add("user", user).add("family", family)
                 .add("application", application).add("organization", organization).add("activityKey", activityKey)
                 .add("activityParams", activityParams).add("activityRole", activityRole)
-                .add("activityType", activityType).add("createAt", createAt).toString();
+                .add("activityType", activityType).add("createdAt", createdAt).toString();
     }
 }

@@ -63,8 +63,6 @@ public class MockupUtils {
                 .country(getCountryTest())
                 .city(getCityTest())
                 .information("foo.information")
-                .isHub(true)
-                .isPartner(true)
                 .dashboard(getDashboardTest())
                 .build();
     }
