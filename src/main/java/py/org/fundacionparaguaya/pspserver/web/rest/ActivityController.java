@@ -46,7 +46,7 @@ public class ActivityController {
     }
 
     @GetMapping("/feed")
-    public ResponseEntity<List<ActivityFeedDTO>> showActivityFeedByUser(@AuthenticationPrincipal UserDetailsDTO details) {
+    public ResponseEntity<List<ActivityFeedDTO>> showActivityFeed(@AuthenticationPrincipal UserDetailsDTO details) {
         return ResponseEntity.ok(activityFeedManager.showActivityFeedByUserDetails(details));
     }
 }

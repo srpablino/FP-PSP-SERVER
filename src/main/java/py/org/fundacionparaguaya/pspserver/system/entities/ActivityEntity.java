@@ -73,6 +73,9 @@ public class ActivityEntity extends BaseEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 
+    public ActivityEntity() {
+    }
+
     public Long getActivityId() {
         return activityId;
     }

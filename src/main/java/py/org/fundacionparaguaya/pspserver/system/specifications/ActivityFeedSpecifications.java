@@ -26,6 +26,9 @@ public class ActivityFeedSpecifications {
 
     private static final String ID_ATTRIBUTE = "id";
 
+    public ActivityFeedSpecifications() {
+    }
+
     public static Specification<ActivityEntity> byDetails(UserDetailsDTO details) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -35,13 +38,11 @@ public class ActivityFeedSpecifications {
             Expression<String> byRole = root.get(ActivityEntity_.getActivityRole());
             predicates.add(cb.equal(byRole, role));
 
-            if(role != Role.ROLE_ROOT){
-
-                if(role == Role.ROLE_HUB_ADMIN || role == Role.ROLE_APP_ADMIN){
+            if (role != Role.ROLE_ROOT) {
+                if (role == Role.ROLE_HUB_ADMIN || role == Role.ROLE_APP_ADMIN) {
                     byApplication(root, cb, details).ifPresent(predicates::add);
                 }
-
-                if(role == Role.ROLE_APP_ADMIN ){
+                if (role == Role.ROLE_APP_ADMIN) {
                     byOrganization(root, cb, details).ifPresent(predicates::add);
                 }
             }

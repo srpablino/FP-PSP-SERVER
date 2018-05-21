@@ -12,6 +12,8 @@ import py.org.fundacionparaguaya.pspserver.system.services.ActivityService;
 
 import java.util.List;
 
+import static py.org.fundacionparaguaya.pspserver.system.constants.ActivityMessage.*;
+
 /**
  * Created by bsandoval on 05/05/18.
  */
@@ -27,7 +29,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
     @Override
     public void createHouseholdFirstSnapshotActivity(UserDetailsDTO details, FamilyEntity family) {
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.householdFirstSnapshot")
+                .activityKey(HOUSEHOLD_FIRST_SNAPSHOT.getKey())
                 .activityRole(Role.ROLE_ROOT)
                 .activityType(ActivityType.SNAPSHOTS)
                 .addActivityParam(family.getName())
@@ -35,7 +37,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
                 .build());
 
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.householdFirstSnapshot")
+                .activityKey(HOUSEHOLD_FIRST_SNAPSHOT.getKey())
                 .activityRole(Role.ROLE_HUB_ADMIN)
                 .activityType(ActivityType.SNAPSHOTS)
                 .application(details.getApplication())
@@ -44,7 +46,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
                 .build());
 
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.householdFirstSnapshot")
+                .activityKey(HOUSEHOLD_FIRST_SNAPSHOT.getKey())
                 .activityRole(Role.ROLE_APP_ADMIN)
                 .activityType(ActivityType.SNAPSHOTS)
                 .application(details.getApplication())
@@ -57,7 +59,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
     @Override
     public void createHouseholdSnapshotActivity(UserDetailsDTO details, FamilyEntity family) {
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.adminSnapshots")
+                .activityKey(ADMIN_SNAPSHOTS.getKey())
                 .activityRole(Role.ROLE_ROOT)
                 .activityType(ActivityType.SNAPSHOTS)
                 .addActivityParam(details.getOrganization().getDescription())
@@ -65,7 +67,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
                 .build());
 
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.hubSnapshots")
+                .activityKey(HUB_SNAPSHOTS.getKey())
                 .activityRole(Role.ROLE_HUB_ADMIN)
                 .activityType(ActivityType.SNAPSHOTS)
                 .application(details.getApplication())
@@ -74,7 +76,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
                 .build());
 
         activityService.addActivity(ActivityDTO.builder()
-                .activityKey("activity.orgSnapshots")
+                .activityKey(ORG_SNAPSHOTS.getKey())
                 .activityRole(Role.ROLE_APP_ADMIN)
                 .activityType(ActivityType.SNAPSHOTS)
                 .application(details.getApplication())

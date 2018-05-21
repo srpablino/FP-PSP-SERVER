@@ -3,18 +3,19 @@ package py.org.fundacionparaguaya.pspserver.system.constants;
 /**
  * Created by bsandoval on 21/05/18.
  */
-public enum ActivityMessageKey {
+public enum ActivityMessage {
     HOUSEHOLD_FIRST_SNAPSHOT("activity.householdFirstSnapshot"),
     ADMIN_SNAPSHOTS("activity.adminSnapshots"),
-    HUB_SNAPSHOTS("activity.hubSnapshots");
+    HUB_SNAPSHOTS("activity.hubSnapshots"),
+    ORG_SNAPSHOTS("activity.orgSnapshots");
 
-    private final String value;
+    private final String key;
 
-    ActivityMessageKey(String value){
-        this.value = value;
+    ActivityMessage(String key){
+        this.key = key;
     }
 
-    public String getValue(){
-        return this.value;
+    public String getKey(){
+        return this.key;
     }
 }
