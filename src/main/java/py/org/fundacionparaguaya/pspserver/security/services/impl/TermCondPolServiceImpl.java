@@ -10,6 +10,7 @@ import py.org.fundacionparaguaya.pspserver.security.entities.TermCondPolEntity;
 import py.org.fundacionparaguaya.pspserver.security.mapper.TermCondPolMapper;
 import py.org.fundacionparaguaya.pspserver.security.repositories.TermCondPolRepository;
 import py.org.fundacionparaguaya.pspserver.security.services.TermCondPolService;
+import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,17 +33,19 @@ public class TermCondPolServiceImpl implements TermCondPolService {
     }
 
     @Override
-    public TermCondPolDTO getLastTermCondPol(TermCondPolType type) {
+    public TermCondPolDTO getLastTermCondPol(TermCondPolType type, TermCondPolLanguage language) {
 
         checkArgument(type != null,
                 "Argument was %s but expected not null", type);
+        checkArgument(language != null,
+                "Argument was %s but expected not null", language);
 
         return Optional.ofNullable(repository
-                .findFirstByTypeCodOrderByCreatedDateDesc(type))
+                .findFirstByTypeCodAndLanguageOrderByCreatedDateDesc(type, language))
                 .map(mapper::entityToDto)
                 .orElseThrow(() -> new UnknownResourceException(
-                        "Terms and Conditions or Privacy Policy"
-                                + " does not exist"));
+                "Terms and Conditions or Privacy Policy"
+                        + " does not exist"));
 
     }
 
