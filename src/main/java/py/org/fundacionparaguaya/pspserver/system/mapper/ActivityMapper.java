@@ -4,10 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import py.org.fundacionparaguaya.pspserver.common.mapper.BaseMapper;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
-import py.org.fundacionparaguaya.pspserver.families.repositories.FamilyRepository;
-import py.org.fundacionparaguaya.pspserver.network.repositories.ApplicationRepository;
-import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepository;
-import py.org.fundacionparaguaya.pspserver.security.repositories.UserRepository;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityDTO;
 import py.org.fundacionparaguaya.pspserver.system.dtos.ActivityFeedDTO;
 import py.org.fundacionparaguaya.pspserver.system.entities.ActivityEntity;
@@ -22,24 +18,10 @@ public class ActivityMapper implements BaseMapper<ActivityEntity, ActivityDTO>{
 
     private final ModelMapper modelMapper;
 
-    private final UserRepository userRepository;
-
-    private final ApplicationRepository applicationRepository;
-
-    private final OrganizationRepository organizationRepository;
-
-    private final FamilyRepository familyRepository;
-
     private final I18n i18n;
 
-    public ActivityMapper(ModelMapper modelMapper, UserRepository userRepository,
-            ApplicationRepository applicationRepository, OrganizationRepository organizationRepository,
-            FamilyRepository familyRepository, I18n i18n) {
+    public ActivityMapper(ModelMapper modelMapper, I18n i18n) {
         this.modelMapper = modelMapper;
-        this.userRepository = userRepository;
-        this.applicationRepository = applicationRepository;
-        this.organizationRepository = organizationRepository;
-        this.familyRepository = familyRepository;
         this.i18n = i18n;
     }
 
@@ -61,21 +43,7 @@ public class ActivityMapper implements BaseMapper<ActivityEntity, ActivityDTO>{
 
     @Override
     public ActivityEntity dtoToEntity(ActivityDTO dto) {
-        ActivityEntity entity = modelMapper.map(dto, ActivityEntity.class);
-
-        if(dto.getUser() != null){
-            entity.setUser(userRepository.getOne(dto.getUser().getUserId()));
-        }
-        if(dto.getApplication() != null){
-            entity.setApplication(applicationRepository.getOne(dto.getApplication().getId()));
-        }
-        if(dto.getOrganization() != null){
-            entity.setOrganization(organizationRepository.findById(dto.getOrganization().getId()));
-        }
-        if(dto.getFamily() != null){
-            entity.setFamily(familyRepository.getOne(dto.getFamily().getFamilyId()));
-        }
-        return entity;
+        return modelMapper.map(dto, ActivityEntity.class);
     }
 
     public List<ActivityFeedDTO> entityListToActivityFeed(List<ActivityEntity> entityList) {
