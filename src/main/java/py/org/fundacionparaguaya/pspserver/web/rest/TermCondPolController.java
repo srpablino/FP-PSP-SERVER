@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
+import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 import py.org.fundacionparaguaya.pspserver.security.dtos.TermCondPolDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
 import py.org.fundacionparaguaya.pspserver.security.services.TermCondPolService;
@@ -43,11 +44,12 @@ public class TermCondPolController {
     @GetMapping("/last")
     public ResponseEntity<TermCondPolDTO> getLastTermCondPolByType(
             @RequestParam(value = "type", required = true) TermCondPolType type,
+            @RequestParam(value= "language", required = true) TermCondPolLanguage language,
             @RequestParam(value = "surveyId", required = false) Long surveyId,
             @RequestParam(value = "familyId", required = false) Long familyId,
             @AuthenticationPrincipal UserDetailsDTO userDetails) {
         logTermCondPrivPolicy(type, userDetails, surveyId, familyId);
-        TermCondPolDTO dto = service.getLastTermCondPol(type);
+        TermCondPolDTO dto = service.getLastTermCondPol(type, language);
         return ResponseEntity.ok(dto);
     }
 
@@ -77,10 +79,11 @@ public class TermCondPolController {
             @RequestParam("html_file") MultipartFile htmlFile,
             @RequestParam("type") TermCondPolType type,
             @RequestParam("version") String version,
-            @RequestParam("year") Integer year)
+            @RequestParam("year") Integer year,
+            @RequestParam("language") TermCondPolLanguage language)
             throws URISyntaxException {
         TermCondPolDTO dto = service.saveTerms(htmlFile,
-                TermCondPolDTO.builder().typeCod(type).version(version).year(year).build());
+                TermCondPolDTO.builder().typeCod(type).version(version).year(year).language(language).build());
         URI location = new URI("/termcondpol/" + dto.getId());
         return ResponseEntity.created(location).build();
     }
