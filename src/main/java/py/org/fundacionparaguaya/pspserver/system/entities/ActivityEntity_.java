@@ -20,6 +20,8 @@ public class ActivityEntity_ {
     private static volatile SingularAttribute<ActivityEntity, UserEntity> user;
     private static volatile SingularAttribute<ActivityEntity, String> activityRole;
 
+    private ActivityEntity_() {}
+
     public static SingularAttribute<ActivityEntity, ApplicationEntity> getApplication() {
         return application;
     }

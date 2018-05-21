@@ -31,9 +31,8 @@ public class ActivityDTO implements Serializable {
     public ActivityDTO() {
     }
 
-    public ActivityDTO(Long activityId, UserDTO user, ApplicationDTO application, OrganizationDTO organization, FamilyDTO family,
-            String activityKey, String activityParams, Role activityRole, ActivityType activityType, String createAt) {
-        this.activityId = activityId;
+    public ActivityDTO(UserDTO user, ApplicationDTO application, OrganizationDTO organization, FamilyDTO family,
+            String activityKey, String activityParams, Role activityRole, ActivityType activityType) {
         this.user = user;
         this.application = application;
         this.organization = organization;
@@ -42,7 +41,6 @@ public class ActivityDTO implements Serializable {
         this.activityParams = activityParams;
         this.activityRole = activityRole;
         this.activityType = activityType;
-        this.createdAt = createAt;
     }
 
     public Long getActivityId() {
@@ -126,7 +124,6 @@ public class ActivityDTO implements Serializable {
     }
 
     public static class Builder {
-        private Long activityId;
         private UserDTO user;
         private FamilyDTO family;
         private ApplicationDTO application;
@@ -139,11 +136,6 @@ public class ActivityDTO implements Serializable {
 
         public Builder() {
             this.activityParams = new ArrayList<>();
-        }
-
-        public Builder activityId(Long activityId) {
-            this.activityId = activityId;
-            return this;
         }
 
         public Builder user(UserDTO user) {
@@ -186,20 +178,15 @@ public class ActivityDTO implements Serializable {
             return this;
         }
 
-        public Builder createAt(String createAt) {
-            this.createAt = createAt;
-            return this;
-        }
-
         public Builder addActivityParam(String param) {
             activityParams.add(param);
             return this;
         }
 
         public ActivityDTO build() {
-            return new ActivityDTO(activityId, user, application, organization, family,
+            return new ActivityDTO(user, application, organization, family,
                     activityKey, activityParams.stream().collect(Collectors.joining(",")),
-                    activityRole, activityType, createAt);
+                    activityRole, activityType);
         }
     }
 

@@ -26,7 +26,7 @@ public class ActivityFeedSpecifications {
 
     private static final String ID_ATTRIBUTE = "id";
 
-    public ActivityFeedSpecifications() {
+    private ActivityFeedSpecifications() {
     }
 
     public static Specification<ActivityEntity> byDetails(UserDetailsDTO details) {
@@ -52,15 +52,15 @@ public class ActivityFeedSpecifications {
         };
     }
 
-    public static Optional<Predicate> byApplication(Root<ActivityEntity> root, CriteriaBuilder cb, UserDetailsDTO details){
-        return Optional.ofNullable(details.getApplication()).map(a -> {
+    public static Optional<Predicate> byApplication(Root<ActivityEntity> root, CriteriaBuilder cb, UserDetailsDTO det){
+        return Optional.ofNullable(det.getApplication()).map(a -> {
             Expression<Long> byId = root.join(ActivityEntity_.getApplication()).get(ID_ATTRIBUTE);
             return cb.equal(byId, a.getId());
         });
     }
 
-    public static Optional<Predicate> byOrganization(Root<ActivityEntity> root, CriteriaBuilder cb, UserDetailsDTO details){
-        return Optional.ofNullable(details.getOrganization()).map(o -> {
+    public static Optional<Predicate> byOrganization(Root<ActivityEntity> root, CriteriaBuilder cb, UserDetailsDTO det){
+        return Optional.ofNullable(det.getOrganization()).map(o -> {
             Expression<Long> byId = root.join(ActivityEntity_.getOrganization()).get(ID_ATTRIBUTE);
             return cb.equal(byId, o.getId());
         });

@@ -74,7 +74,7 @@ public class ActivityEntity extends BaseEntity {
     private LocalDateTime createdAt;
 
     public ActivityEntity() {
-    }
+    };
 
     public Long getActivityId() {
         return activityId;
