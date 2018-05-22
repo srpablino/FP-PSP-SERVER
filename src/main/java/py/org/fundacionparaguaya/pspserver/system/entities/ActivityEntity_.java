@@ -7,6 +7,7 @@ import py.org.fundacionparaguaya.pspserver.security.entities.UserEntity;
 
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+import java.time.LocalDateTime;
 
 /**
  * Created by bsandoval on 16/05/18.
@@ -19,6 +20,7 @@ public class ActivityEntity_ {
     private static volatile SingularAttribute<ActivityEntity, FamilyEntity> family;
     private static volatile SingularAttribute<ActivityEntity, UserEntity> user;
     private static volatile SingularAttribute<ActivityEntity, String> activityRole;
+    private static volatile SingularAttribute<ActivityEntity, LocalDateTime> createdAt;
 
     private ActivityEntity_() {}
 
@@ -40,5 +42,9 @@ public class ActivityEntity_ {
 
     public static SingularAttribute<ActivityEntity, String> getActivityRole() {
         return activityRole;
+    }
+
+    public static SingularAttribute<ActivityEntity, LocalDateTime> getCreatedAt() {
+        return createdAt;
     }
 }
