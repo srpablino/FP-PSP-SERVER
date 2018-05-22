@@ -1,5 +1,6 @@
 package py.org.fundacionparaguaya.pspserver.system.services.impl;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import py.org.fundacionparaguaya.pspserver.families.entities.FamilyEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
@@ -88,6 +89,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
 
     @Override
     public List<ActivityFeedDTO> showActivityFeedByUserDetails(UserDetailsDTO details) {
-        return activityService.getActivitiesByUserDetails(details);
+        Sort sortByDate = new Sort(Sort.Direction.DESC, "createdAt");
+        return activityService.getActivitiesByUserDetails(details, sortByDate);
     }
 }
