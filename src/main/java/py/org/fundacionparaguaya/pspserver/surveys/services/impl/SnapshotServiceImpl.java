@@ -1,21 +1,15 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
-import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
-
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
-import java.util.stream.Collectors;
-
+import com.amazonaws.util.json.Jackson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import py.org.fundacionparaguaya.pspserver.common.exceptions.CustomParameterizedException;
 import py.org.fundacionparaguaya.pspserver.common.exceptions.UnknownResourceException;
 import py.org.fundacionparaguaya.pspserver.config.I18n;
@@ -30,15 +24,7 @@ import py.org.fundacionparaguaya.pspserver.network.repositories.OrganizationRepo
 import py.org.fundacionparaguaya.pspserver.security.constants.Role;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDTO;
 import py.org.fundacionparaguaya.pspserver.security.dtos.UserDetailsDTO;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.NewSnapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.PropertyTitle;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.Snapshot;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicatorPriority;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotIndicators;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SnapshotTaken;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyData;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.SurveyDefinition;
-import py.org.fundacionparaguaya.pspserver.surveys.dtos.TopOfIndicators;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.*;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotEconomicEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.entities.SnapshotIndicatorEntity;
 import py.org.fundacionparaguaya.pspserver.surveys.enums.SurveyStoplightEnum;
@@ -50,6 +36,16 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
+
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.byApplication;
+import static py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification.createdAtLess2Months;
 
 /**
  * Created by rodrigovillalba on 9/14/17.
@@ -85,12 +81,12 @@ public class SnapshotServiceImpl implements SnapshotService {
     private static final String INDICATOR_VALUE = "value";
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
-            SnapshotEconomicMapper economicMapper, SurveyService surveyService,
-            SnapshotIndicatorMapper indicatorMapper,
-            SnapshotIndicatorPriorityService priorityService,
-            PersonMapper personMapper, FamilyService familyService,
-            OrganizationMapper organizationMapper, I18n i18n,
-            OrganizationRepository organizationRepository) {
+                               SnapshotEconomicMapper economicMapper, SurveyService surveyService,
+                               SnapshotIndicatorMapper indicatorMapper,
+                               SnapshotIndicatorPriorityService priorityService,
+                               PersonMapper personMapper, FamilyService familyService,
+                               OrganizationMapper organizationMapper, I18n i18n,
+                               OrganizationRepository organizationRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -103,14 +99,44 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.organizationRepository = organizationRepository;
     }
 
+    public boolean validateDependency(NewSnapshot snapshot) {
+        SurveyDefinition surveyDefinition
+                = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());
+        String json =
+                Jackson.toJsonString(surveyDefinition);
+        JsonParser jsonParser = new JsonParser();
+        JsonObject gjsonObject = jsonParser.parse(json).getAsJsonObject();
+        JsonArray gjsonArray = gjsonObject.getAsJsonObject("survey_schema")
+                .getAsJsonObject("dependencies")
+                .getAsJsonObject("gender")
+                .getAsJsonArray("oneOf");
+        for (int i =0 ; i < gjsonArray.size();i++) {
+            JsonElement jsonElement = gjsonArray.get(i);
+            JsonObject jsonObject1 = jsonElement.getAsJsonObject().getAsJsonObject("properties");
+
+            for (String key : jsonObject1.keySet()) {
+                if (key.equals("dependecyGender")) {
+                    break;
+                }
+            }
+
+        }
+
+        return false;
+    }
+
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(UserDetailsDTO details,
-            NewSnapshot snapshot) {
+                                      NewSnapshot snapshot) {
         checkNotNull(snapshot);
+
+
+        this.validateDependency(snapshot);
 
         ValidationResults results = surveyService
                 .checkSchemaCompliance(snapshot);
+
         if (!results.isValid()) {
             throw new CustomParameterizedException(
                     i18n.translate("snapshot.invalid"), results.asMap());
@@ -134,7 +160,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
-            SnapshotIndicatorEntity indicator, FamilyEntity family) {
+                                                SnapshotIndicatorEntity indicator, FamilyEntity family) {
 
         SnapshotEconomicEntity entity = economicMapper
                 .newSnapshotToEconomicEntity(snapshot, indicator);
@@ -283,7 +309,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                     sd.put(INDICATOR_NAME,
                             getDescriptionOpt(survey, indicator)
                                     .map(e -> e.get("es")).orElse(
-                                            getNameFromCamelCase(indicator)));
+                                    getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
@@ -295,7 +321,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private Optional<PropertyTitle> getDescriptionOpt(SurveyDefinition survey,
-            String indicator) {
+                                                      String indicator) {
         return Optional.ofNullable(survey.getSurveySchema().getProperties()
                 .get(indicator).getDescription());
     }
@@ -390,20 +416,20 @@ public class SnapshotServiceImpl implements SnapshotService {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
                 .ifPresent(light -> {
                     switch (light) {
-                    case RED:
-                        indicators.setCountRedIndicators(
-                                indicators.getCountRedIndicators() + 1);
-                        break;
-                    case YELLOW:
-                        indicators.setCountYellowIndicators(
-                                indicators.getCountYellowIndicators() + 1);
-                        break;
-                    case GREEN:
-                        indicators.setCountGreenIndicators(
-                                indicators.getCountGreenIndicators() + 1);
-                        break;
-                    default:
-                        break;
+                        case RED:
+                            indicators.setCountRedIndicators(
+                                    indicators.getCountRedIndicators() + 1);
+                            break;
+                        case YELLOW:
+                            indicators.setCountYellowIndicators(
+                                    indicators.getCountYellowIndicators() + 1);
+                            break;
+                        case GREEN:
+                            indicators.setCountGreenIndicators(
+                                    indicators.getCountGreenIndicators() + 1);
+                            break;
+                        default:
+                            break;
                     }
                 });
     }
@@ -515,17 +541,17 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         if (light != null) {
             switch (light) {
-            case "RED":
-                topOfIndicators.incrementRed();
-                break;
-            case "YELLOW":
-                topOfIndicators.incrementYellow();
-                break;
-            case "GREEN":
-                topOfIndicators.incrementGreen();
-                break;
-            default:
-                break;
+                case "RED":
+                    topOfIndicators.incrementRed();
+                    break;
+                case "YELLOW":
+                    topOfIndicators.incrementYellow();
+                    break;
+                case "GREEN":
+                    topOfIndicators.incrementGreen();
+                    break;
+                default:
+                    break;
             }
         }
     }
