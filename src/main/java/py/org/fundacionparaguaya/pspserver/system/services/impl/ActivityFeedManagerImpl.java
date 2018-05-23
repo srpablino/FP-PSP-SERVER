@@ -85,7 +85,7 @@ public class ActivityFeedManagerImpl implements ActivityFeedManager {
 
     @Override
     public List<ActivityFeedDTO> showActivityFeedByUserDetails(UserDetailsDTO details) {
-        Sort sortByDate = new Sort(Sort.Direction.DESC,"createdAt");
+        Sort sortByDate = new Sort(Sort.Direction.DESC, "createdAt");
         return activityService.getActivitiesByUserDetails(details, sortByDate);
     }
 }
