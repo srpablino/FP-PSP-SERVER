@@ -12,7 +12,7 @@ import java.util.function.Function;
  */
 public class ActivityParamMapper {
 
-    private static String DEFAULT_PARAM = "xx";
+    private static final String DEFAULT_PARAM = "xx";
 
     public ActivityParamMapper() {
     }
