@@ -339,6 +339,11 @@
         <sqlFile path="sql/2018-05-12T15:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--Create activity feed table-->
+    <changeSet id="2018-03-19T17:30" author="bsandoval">
+        <sqlFile path="sql/2018-03-19T17:30.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Add column post_code to Person table-->
     <changeSet id="2018-05-25T10:30" author="cbenitez">
         <sqlFile path="sql/2018-05-25T10:30.sql" relativeToChangelogFile="true"/>
