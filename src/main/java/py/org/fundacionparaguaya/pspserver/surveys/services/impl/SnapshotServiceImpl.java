@@ -81,12 +81,12 @@ public class SnapshotServiceImpl implements SnapshotService {
 
 
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
-                               SnapshotEconomicMapper economicMapper, SurveyService surveyService,
-                               SnapshotIndicatorMapper indicatorMapper,
-                               SnapshotIndicatorPriorityService priorityService,
-                               PersonMapper personMapper, FamilyService familyService,
-                               OrganizationMapper organizationMapper, I18n i18n,
-                               OrganizationRepository organizationRepository) {
+            SnapshotEconomicMapper economicMapper, SurveyService surveyService,
+            SnapshotIndicatorMapper indicatorMapper,
+            SnapshotIndicatorPriorityService priorityService,
+            PersonMapper personMapper, FamilyService familyService,
+            OrganizationMapper organizationMapper, I18n i18n,
+            OrganizationRepository organizationRepository) {
         this.economicRepository = economicRepository;
         this.economicMapper = economicMapper;
         this.surveyService = surveyService;
@@ -169,7 +169,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     @Override
     @Transactional
     public Snapshot addSurveySnapshot(UserDetailsDTO details,
-                                      NewSnapshot snapshot) {
+            NewSnapshot snapshot) {
         checkNotNull(snapshot);
 
         ValidationResults results = surveyService
@@ -201,7 +201,9 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         familyService.updateFamily(family.getFamilyId());
 
-        return economicMapper.entityToDto(snapshotEconomicEntity);
+        Snapshot newSnapshot = economicMapper.entityToDto(snapshotEconomicEntity);
+
+        return newSnapshot;
     }
 
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
@@ -353,7 +355,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                     sd.put(INDICATOR_NAME,
                             getDescriptionOpt(survey, indicator)
                                     .map(e -> e.get("es")).orElse(
-                                    getNameFromCamelCase(indicator)));
+                                            getNameFromCamelCase(indicator)));
                     sd.put(INDICATOR_VALUE, indicators.get(indicator));
                     countIndicators(toRet, sd.get(INDICATOR_VALUE));
                     indicatorsToRet.add(sd);
@@ -365,7 +367,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private Optional<PropertyTitle> getDescriptionOpt(SurveyDefinition survey,
-                                                      String indicator) {
+            String indicator) {
         return Optional.ofNullable(survey.getSurveySchema().getProperties()
                 .get(indicator).getDescription());
     }
@@ -422,9 +424,12 @@ public class SnapshotServiceImpl implements SnapshotService {
             snapshotIndicators.setSnapshotEconomicId(os.getId());
             snapshotIndicators.setSurveyId(os.getSurveyDefinition().getId());
             FamilyDTO familyDto = familyService.getFamilyById(familyId);
-            familyDto.setOrganizationId(
-                    organizationMapper.entityToDto(organizationRepository
-                            .findOne(familyDto.getOrganization().getId())));
+            Optional.ofNullable(familyDto.getOrganization())
+                    .ifPresent(organization -> {
+                        familyDto.setOrganization(
+                                organizationMapper.entityToDto(organizationRepository
+                                        .findOne(organization.getId())));
+                    });
             snapshotIndicators.setFamily(familyDto);
             if (os.getUser() != null) {
                 snapshotIndicators
@@ -460,20 +465,20 @@ public class SnapshotServiceImpl implements SnapshotService {
         Optional.ofNullable(SurveyStoplightEnum.fromValue(String.valueOf(v)))
                 .ifPresent(light -> {
                     switch (light) {
-                        case RED:
-                            indicators.setCountRedIndicators(
-                                    indicators.getCountRedIndicators() + 1);
-                            break;
-                        case YELLOW:
-                            indicators.setCountYellowIndicators(
-                                    indicators.getCountYellowIndicators() + 1);
-                            break;
-                        case GREEN:
-                            indicators.setCountGreenIndicators(
-                                    indicators.getCountGreenIndicators() + 1);
-                            break;
-                        default:
-                            break;
+                    case RED:
+                        indicators.setCountRedIndicators(
+                                indicators.getCountRedIndicators() + 1);
+                        break;
+                    case YELLOW:
+                        indicators.setCountYellowIndicators(
+                                indicators.getCountYellowIndicators() + 1);
+                        break;
+                    case GREEN:
+                        indicators.setCountGreenIndicators(
+                                indicators.getCountGreenIndicators() + 1);
+                        break;
+                    default:
+                        break;
                     }
                 });
     }
@@ -585,17 +590,17 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         if (light != null) {
             switch (light) {
-                case "RED":
-                    topOfIndicators.incrementRed();
-                    break;
-                case "YELLOW":
-                    topOfIndicators.incrementYellow();
-                    break;
-                case "GREEN":
-                    topOfIndicators.incrementGreen();
-                    break;
-                default:
-                    break;
+            case "RED":
+                topOfIndicators.incrementRed();
+                break;
+            case "YELLOW":
+                topOfIndicators.incrementYellow();
+                break;
+            case "GREEN":
+                topOfIndicators.incrementGreen();
+                break;
+            default:
+                break;
             }
         }
     }

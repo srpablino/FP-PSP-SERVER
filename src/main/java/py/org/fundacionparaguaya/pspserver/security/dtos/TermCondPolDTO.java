@@ -3,6 +3,7 @@ package py.org.fundacionparaguaya.pspserver.security.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
+import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 
 public class TermCondPolDTO {
     @JsonProperty("id")
@@ -23,16 +24,20 @@ public class TermCondPolDTO {
     @JsonProperty("type_cod")
     private TermCondPolType typeCod;
 
+    @JsonProperty("language")
+    private TermCondPolLanguage language;
+
     public TermCondPolDTO(){}
 
     private TermCondPolDTO(Long id, String html, String version,
-        Integer year, String createdDate, TermCondPolType type) {
+        Integer year, String createdDate, TermCondPolType type, TermCondPolLanguage language) {
         this.id = id;
         this.html = html;
         this.version = version;
         this.year = year;
         this.createdDate = createdDate;
         this.typeCod = type;
+        this.language = language;
     }
 
     public Long getId() {
@@ -83,6 +88,14 @@ public class TermCondPolDTO {
         this.typeCod = type;
     }
 
+    public TermCondPolLanguage getLanguage() {
+        return language;
+        }
+
+    public  void setLanguage(TermCondPolLanguage language) {
+        this.language = language;
+        }
+
     public static class Builder {
 
         private Long id;
@@ -91,6 +104,7 @@ public class TermCondPolDTO {
         private Integer year;
         private String createdDate;
         private TermCondPolType typeCod;
+        private TermCondPolLanguage language;
 
         public Builder id(Long id) {
             this.id = id;
@@ -122,10 +136,16 @@ public class TermCondPolDTO {
             return this;
         }
 
+        public Builder language(TermCondPolLanguage language) {
+            this.language = language;
+            return this;
+        }
+
         public TermCondPolDTO build() {
             return new TermCondPolDTO(id, html,
-                version, year, createdDate, typeCod);
+                version, year, createdDate, typeCod, language);
         }
+
     }
 
     public static Builder builder() {
