@@ -52,6 +52,17 @@ public class NewSnapshot   {
     @JsonProperty("priv_pol_id")
     private Long privPolId = null;
 
+    @JsonProperty("dependencies")
+    private Object dependencies;
+
+    public Object getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(Object dependencies) {
+        this.dependencies = dependencies;
+    }
+
     public NewSnapshot personalSurveyData(SurveyData surveyData) {
         this.personalSurveyData = surveyData;
         return this;

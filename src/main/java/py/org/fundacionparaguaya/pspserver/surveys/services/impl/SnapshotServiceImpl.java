@@ -1,10 +1,7 @@
 package py.org.fundacionparaguaya.pspserver.surveys.services.impl;
 
 import com.amazonaws.util.json.Jackson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +32,8 @@ import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotIndicatorPri
 import py.org.fundacionparaguaya.pspserver.surveys.services.SnapshotService;
 import py.org.fundacionparaguaya.pspserver.surveys.services.SurveyService;
 import py.org.fundacionparaguaya.pspserver.surveys.specifications.SnapshotEconomicSpecification;
+import py.org.fundacionparaguaya.pspserver.surveys.validation.DependencyValidation;
+import py.org.fundacionparaguaya.pspserver.surveys.validation.DependencyValidationOneOf;
 import py.org.fundacionparaguaya.pspserver.surveys.validation.ValidationResults;
 
 import java.time.format.DateTimeFormatter;
@@ -80,6 +79,7 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private static final String INDICATOR_VALUE = "value";
 
+
     public SnapshotServiceImpl(SnapshotEconomicRepository economicRepository,
                                SnapshotEconomicMapper economicMapper, SurveyService surveyService,
                                SnapshotIndicatorMapper indicatorMapper,
@@ -99,31 +99,72 @@ public class SnapshotServiceImpl implements SnapshotService {
         this.organizationRepository = organizationRepository;
     }
 
-    public boolean validateDependency(NewSnapshot snapshot) {
+    private boolean dependenciesAreValid(NewSnapshot snapshot) {
+
         SurveyDefinition surveyDefinition
                 = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());
-        String json =
+        String stringSurvey =
                 Jackson.toJsonString(surveyDefinition);
+        String formDependency = Jackson.toJsonString(snapshot.getDependencies());
         JsonParser jsonParser = new JsonParser();
-        JsonObject gjsonObject = jsonParser.parse(json).getAsJsonObject();
-        JsonArray gjsonArray = gjsonObject.getAsJsonObject("survey_schema")
-                .getAsJsonObject("dependencies")
-                .getAsJsonObject("gender")
-                .getAsJsonArray("oneOf");
-        for (int i =0 ; i < gjsonArray.size();i++) {
-            JsonElement jsonElement = gjsonArray.get(i);
-            JsonObject jsonObject1 = jsonElement.getAsJsonObject().getAsJsonObject("properties");
 
-            for (String key : jsonObject1.keySet()) {
-                if (key.equals("dependecyGender")) {
-                    break;
+        JsonObject jsonFormDependency = jsonParser.parse(formDependency).getAsJsonObject();
+
+        JsonObject jsonSchemaDependency = jsonParser.parse(stringSurvey).getAsJsonObject()
+                .getAsJsonObject(DependencyValidation.SURVEY_SCHEMA)
+                .getAsJsonObject(DependencyValidation.DEPENDENCIES);
+
+        for (String key : jsonFormDependency.keySet()){
+
+            if (jsonFormDependency.getAsJsonObject(key).has(key)){
+
+                JsonElement value = jsonFormDependency.getAsJsonObject(key).getAsJsonPrimitive(key);
+
+                //case when dependency is of kind ONE OF
+                if (jsonSchemaDependency.getAsJsonObject(key).has(DependencyValidation.ONE_OF)){
+                    DependencyValidationOneOf dependencyValidationOneOf = new DependencyValidationOneOf();
+                    JsonObject jsonDependenciesAndRequired =  dependencyValidationOneOf
+                            .getDependenciesAndRequiredProperties(key,value,jsonSchemaDependency);
+                    if (jsonDependenciesAndRequired == null) {
+                        return false;
+                    }
+                    if (! dependencyValidationOneOf.checkDependency(jsonFormDependency.getAsJsonObject(key)
+                            ,jsonDependenciesAndRequired)){
+                        return false;
+                    }
                 }
-            }
 
+                // other future cases could be added
+
+            }
         }
 
-        return false;
+
+        return true;
     }
+
+    private void addDependenciesToAditionalData
+            (SnapshotEconomicEntity snapshotEconomicEntity, NewSnapshot snapshot){
+
+        String formDependency = Jackson.toJsonString(snapshot.getDependencies());
+        JsonParser jsonParser = new JsonParser();
+
+        JsonObject jsonFormDependency = jsonParser.parse(formDependency).getAsJsonObject();
+
+        for (String key : jsonFormDependency.keySet()){
+            JsonObject dependenciesJson = jsonFormDependency.getAsJsonObject(key);
+            for (String keyD : dependenciesJson.keySet() ){
+                // The property key which is also within dependency is not included to avoid duplication
+                if (! key.equals(keyD)){
+                    snapshotEconomicEntity.getAdditionalProperties().put(keyD,
+                            dependenciesJson.getAsJsonPrimitive(keyD).getAsString());
+                }
+            }
+        }
+
+
+    }
+
 
     @Override
     @Transactional
@@ -131,13 +172,10 @@ public class SnapshotServiceImpl implements SnapshotService {
                                       NewSnapshot snapshot) {
         checkNotNull(snapshot);
 
-
-        this.validateDependency(snapshot);
-
         ValidationResults results = surveyService
                 .checkSchemaCompliance(snapshot);
 
-        if (!results.isValid()) {
+        if (!results.isValid() || !dependenciesAreValid(snapshot)) {
             throw new CustomParameterizedException(
                     i18n.translate("snapshot.invalid"), results.asMap());
         }
@@ -151,8 +189,15 @@ public class SnapshotServiceImpl implements SnapshotService {
         FamilyEntity family = familyService
                 .getOrCreateFamilyFromSnapshot(details, snapshot, personEntity);
 
+
+        SnapshotEconomicEntity socioEconomicEntity = economicMapper
+                .newSnapshotToEconomicEntity(snapshot, indicatorEntity);
+
+        addDependenciesToAditionalData(socioEconomicEntity,snapshot);
+
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
-                indicatorEntity, family);
+                socioEconomicEntity, family);
+
 
         familyService.updateFamily(family.getFamilyId());
 
@@ -160,10 +205,9 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private SnapshotEconomicEntity saveEconomic(NewSnapshot snapshot,
-                                                SnapshotIndicatorEntity indicator, FamilyEntity family) {
+                                                SnapshotEconomicEntity entity, FamilyEntity family) {
 
-        SnapshotEconomicEntity entity = economicMapper
-                .newSnapshotToEconomicEntity(snapshot, indicator);
+
         entity.setFamily(family);
         entity.setPersonalInformation(snapshot.getPersonalSurveyData());
 
