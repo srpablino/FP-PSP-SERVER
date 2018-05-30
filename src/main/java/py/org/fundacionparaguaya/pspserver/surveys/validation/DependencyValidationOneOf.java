@@ -1,8 +1,10 @@
 package py.org.fundacionparaguaya.pspserver.surveys.validation;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import py.org.fundacionparaguaya.pspserver.surveys.dtos.Property;
 
 public class DependencyValidationOneOf implements DependencyValidation{
 
@@ -36,8 +38,21 @@ public class DependencyValidationOneOf implements DependencyValidation{
 
 
         // every dependency that is present, must conform to the dependencies in the schema
+        JsonObject jsonSchemaProperties= jsonDependenciesAndRequired.getAsJsonObject(PROPERTIES);
         for (String key : jsonDependencyData.keySet()){
-            if(!jsonDependenciesAndRequired.getAsJsonObject(PROPERTIES).has(key)){
+            if(! jsonSchemaProperties.has(key)){
+                return false;
+            }
+
+            // type check
+            String propertySchemaType = jsonSchemaProperties.getAsJsonObject(key).getAsJsonPrimitive("type").getAsString();
+            Property property = new Property();
+            property.setType(Property.TypeEnum.fromValue(propertySchemaType));
+
+            boolean isValid = PropertyValidator.validType().apply
+                    (property,key, new Gson().fromJson(jsonDependencyData.get(key),Object.class)).isValid();
+
+            if (!isValid){
                 return false;
             }
         }

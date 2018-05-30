@@ -100,7 +100,7 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private boolean dependenciesAreValid(NewSnapshot snapshot) {
-
+        //get the dependencies from the formData and the dependencies structure from the schema
         SurveyDefinition surveyDefinition
                 = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());
         String stringSurvey =
@@ -114,27 +114,45 @@ public class SnapshotServiceImpl implements SnapshotService {
                 .getAsJsonObject(DependencyValidation.SURVEY_SCHEMA)
                 .getAsJsonObject(DependencyValidation.DEPENDENCIES);
 
+        // for every property dependency present in the formData
+        JsonObject jsonDependencyObject = new JsonObject();
         for (String key : jsonFormDependency.keySet()){
 
+            // the same property should be as a dependency attribute, to get the selected value in the form
             if (jsonFormDependency.getAsJsonObject(key).has(key)){
 
+                //selected value
                 JsonElement value = jsonFormDependency.getAsJsonObject(key).getAsJsonPrimitive(key);
 
-                //case when dependency is of kind ONE OF
+                //case when the dependency structure is of kind ONE OF
                 if (jsonSchemaDependency.getAsJsonObject(key).has(DependencyValidation.ONE_OF)){
                     DependencyValidationOneOf dependencyValidationOneOf = new DependencyValidationOneOf();
+
+                    /*
+                    gets a list of attributtes and required attributes that should be present.
+                     according the selected value
+                    * */
                     JsonObject jsonDependenciesAndRequired =  dependencyValidationOneOf
                             .getDependenciesAndRequiredProperties(key,value,jsonSchemaDependency);
+
+                    // the property was not found to have any dependency in the json schema
                     if (jsonDependenciesAndRequired == null) {
                         return false;
                     }
-                    if (! dependencyValidationOneOf.checkDependency(jsonFormDependency.getAsJsonObject(key)
+
+                    /* check that every dependency in the formData is present in the jsonSchema,  also checks that every
+                    *  required dependency defined in the schema, is present in the formData dependencies
+                    */
+                    jsonDependencyObject = jsonFormDependency.getAsJsonObject(key).deepCopy();
+                    //we dont need the property as dependency
+                    jsonDependencyObject.remove(key);
+                    if (! dependencyValidationOneOf.checkDependency(jsonDependencyObject
                             ,jsonDependenciesAndRequired)){
                         return false;
                     }
                 }
 
-                // other future cases could be added
+                // other cases of dependency managment could be added
 
             }
         }
@@ -154,7 +172,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         for (String key : jsonFormDependency.keySet()){
             JsonObject dependenciesJson = jsonFormDependency.getAsJsonObject(key);
             for (String keyD : dependenciesJson.keySet() ){
-                // The property key which is also within dependency is not included to avoid duplication
+                // The property key which is also within dependency is not included
                 if (! key.equals(keyD)){
                     snapshotEconomicEntity.getAdditionalProperties().put(keyD,
                             dependenciesJson.getAsJsonPrimitive(keyD).getAsString());
