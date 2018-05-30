@@ -133,7 +133,7 @@ public class SnapshotServiceImpl implements SnapshotService {
                      according the selected value
                     * */
                     JsonObject jsonDependenciesAndRequired =  dependencyValidationOneOf
-                            .getDependenciesAndRequiredProperties(key,value,jsonSchemaDependency);
+                            .getDependenciesAndRequiredProperties(key, value, jsonSchemaDependency);
 
                     // the property was not found to have any dependency in the json schema
                     if (jsonDependenciesAndRequired == null) {
@@ -146,8 +146,8 @@ public class SnapshotServiceImpl implements SnapshotService {
                     jsonDependencyObject = jsonFormDependency.getAsJsonObject(key).deepCopy();
                     //we dont need the property as dependency
                     jsonDependencyObject.remove(key);
-                    if (! dependencyValidationOneOf.checkDependency(jsonDependencyObject
-                            ,jsonDependenciesAndRequired)){
+                    if (!dependencyValidationOneOf.checkDependency(jsonDependencyObject,
+                            jsonDependenciesAndRequired)){
                         return false;
                     }
                 }
@@ -171,9 +171,9 @@ public class SnapshotServiceImpl implements SnapshotService {
 
         for (String key : jsonFormDependency.keySet()){
             JsonObject dependenciesJson = jsonFormDependency.getAsJsonObject(key);
-            for (String keyD : dependenciesJson.keySet() ){
+            for (String keyD : dependenciesJson.keySet()){
                 // The property key which is also within dependency is not included
-                if (! key.equals(keyD)){
+                if (!key.equals(keyD)){
                     snapshotEconomicEntity.getAdditionalProperties().put(keyD,
                             dependenciesJson.getAsJsonPrimitive(keyD).getAsString());
                 }
@@ -211,7 +211,7 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotEconomicEntity socioEconomicEntity = economicMapper
                 .newSnapshotToEconomicEntity(snapshot, indicatorEntity);
 
-        addDependenciesToAditionalData(socioEconomicEntity,snapshot);
+        addDependenciesToAditionalData(socioEconomicEntity, snapshot);
 
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
                 socioEconomicEntity, family);

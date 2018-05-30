@@ -20,9 +20,9 @@ public class DependencyValidationOneOf implements DependencyValidation{
                 JsonObject oneOfProperties = oneOfArray.get(i).getAsJsonObject().getAsJsonObject(PROPERTIES);
                 if (oneOfProperties.getAsJsonObject(keyProperty)
                         .getAsJsonArray(ENUM).contains(enumValue)){
-                    jsonObject.add(PROPERTIES,oneOfProperties);
+                    jsonObject.add(PROPERTIES, oneOfProperties);
                     if (oneOfArray.get(i).getAsJsonObject().has(REQUIRED)){
-                        jsonObject.add(REQUIRED,oneOfArray.get(i)
+                        jsonObject.add(REQUIRED, oneOfArray.get(i)
                                 .getAsJsonObject().getAsJsonArray(REQUIRED));
                     }
                     return jsonObject;
@@ -40,17 +40,18 @@ public class DependencyValidationOneOf implements DependencyValidation{
         // every dependency that is present, must conform to the dependencies in the schema
         JsonObject jsonSchemaProperties= jsonDependenciesAndRequired.getAsJsonObject(PROPERTIES);
         for (String key : jsonDependencyData.keySet()){
-            if(! jsonSchemaProperties.has(key)){
+            if (!jsonSchemaProperties.has(key)){
                 return false;
             }
 
             // type check
-            String propertySchemaType = jsonSchemaProperties.getAsJsonObject(key).getAsJsonPrimitive("type").getAsString();
+            String propertySchemaType = jsonSchemaProperties.getAsJsonObject(key)
+                    .getAsJsonPrimitive("type").getAsString();
             Property property = new Property();
             property.setType(Property.TypeEnum.fromValue(propertySchemaType));
 
             boolean isValid = PropertyValidator.validType().apply
-                    (property,key, new Gson().fromJson(jsonDependencyData.get(key),Object.class)).isValid();
+                    (property, key, new Gson().fromJson(jsonDependencyData.get(key), Object.class)).isValid();
 
             if (!isValid){
                 return false;
@@ -62,7 +63,7 @@ public class DependencyValidationOneOf implements DependencyValidation{
             JsonArray dependenciesArray = jsonDependenciesAndRequired.getAsJsonArray(REQUIRED);
 
             for (int i = 0; i < dependenciesArray.size(); i++){
-                if (! jsonDependencyData.has(dependenciesArray.get(i).getAsString())){
+                if (!jsonDependencyData.has(dependenciesArray.get(i).getAsString())){
                     return false;
                 }
             }
