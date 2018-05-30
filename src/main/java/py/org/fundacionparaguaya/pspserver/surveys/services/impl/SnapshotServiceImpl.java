@@ -100,6 +100,12 @@ public class SnapshotServiceImpl implements SnapshotService {
     }
 
     private boolean dependenciesAreValid(NewSnapshot snapshot) {
+
+        //there are not dependencies, no need to perform validation
+        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
+            return true;
+        }
+
         //get the dependencies from the formData and the dependencies structure from the schema
         SurveyDefinition surveyDefinition
                 = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());

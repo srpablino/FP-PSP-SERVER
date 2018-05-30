@@ -53,13 +53,13 @@ public class NewSnapshot   {
     private Long privPolId = null;
 
     @JsonProperty("dependencies")
-    private Object dependencies;
+    private SurveyData dependencies;
 
-    public Object getDependencies() {
+    public SurveyData getDependencies() {
         return dependencies;
     }
 
-    public void setDependencies(Object dependencies) {
+    public void setDependencies(SurveyData dependencies) {
         this.dependencies = dependencies;
     }
 
