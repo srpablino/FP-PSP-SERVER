@@ -177,33 +177,15 @@
 		}
 	},
 	"ui:order": [
-		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
 		"countryOfBirth",
 		"gender",
-		"phoneNumber",
-
-		"currency",
-		"areaOfResidence",
-		"employmentStatusPrimary",
-		"activityMain",
-		"employmentStatusSecondary",
-		"activitySecondary",
 		"salaryIncome",
 		"benefitIncome",
-		"pensionIncome",
-		"otherIncome",
-		"householdMonthlyIncome",
-		"savingsIncome",
-		"householdMonthlyOutgoing",
-		"netSuplus",
-		"educationPersonMostStudied",
-		"housingSituation",
-		"familyCountry",
-		"familyCity",
-		"familyUbication",
+		"memberDiedBefore5",
+		"familyCar",
 
 		"income",
 		"familySavings",
@@ -259,34 +241,17 @@
 		"autonomyDecisions"
 	],
 	"ui:group:personal": [
-		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
 		"countryOfBirth",
-		"gender",
-		"phoneNumber"
+		"gender"
 	],
 	"ui:group:economics": [
-		"currency",
-		"areaOfResidence",
-		"employmentStatusPrimary",
-		"activityMain",
-		"employmentStatusSecondary",
-		"activitySecondary",
 		"salaryIncome",
 		"benefitIncome",
-		"pensionIncome",
-		"otherIncome",
-		"householdMonthlyIncome",
-		"savingsIncome",
-		"householdMonthlyOutgoing",
-		"netSuplus",
-		"educationPersonMostStudied",
-		"housingSituation",
-		"familyCountry",
-		"familyCity",
-		"familyUbication"
+		"memberDiedBefore5",
+		"familyCar"
 	],
 	"ui:group:indicators": [
 		"income",
