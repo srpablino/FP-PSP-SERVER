@@ -41,7 +41,7 @@ public class SurveySchema implements Serializable {
     @JsonProperty("type")
     private String type = Property.TypeEnum.OBJECT.toString();
 
-    @JsonProperty("dependencies")
+    @JsonProperty(value = "dependencies", required = false)
     private SurveyData dependencies;
 
     public SurveySchema title(String title) {
@@ -49,7 +49,6 @@ public class SurveySchema implements Serializable {
         return this;
     }
 
-    @JsonProperty("dependencies")
     public SurveyData getDependencies() {
         return dependencies;
     }

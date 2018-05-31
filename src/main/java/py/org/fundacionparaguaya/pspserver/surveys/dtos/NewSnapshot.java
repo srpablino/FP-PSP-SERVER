@@ -52,7 +52,7 @@ public class NewSnapshot   {
     @JsonProperty("priv_pol_id")
     private Long privPolId = null;
 
-    @JsonProperty("dependencies")
+    @JsonProperty(value = "dependencies", required = false)
     private SurveyData dependencies;
 
     public SurveyData getDependencies() {
