@@ -182,10 +182,6 @@
 		"birthdate",
 		"countryOfBirth",
 		"gender",
-		"salaryIncome",
-		"benefitIncome",
-		"memberDiedBefore5",
-		"familyCar",
 
 		"income",
 		"familySavings",
@@ -238,7 +234,14 @@
 		"emotionalIntelligence",
 		"householdViolence",
 		"entrepreneurialSpirit",
-		"autonomyDecisions"
+		"autonomyDecisions",
+
+		"salaryIncome",
+		"benefitIncome",
+		"memberDiedBefore5",
+		"familyCar",
+		"activityMain",
+		"housingSituation"
 	],
 	"ui:group:personal": [
 		"firstName",
@@ -251,7 +254,9 @@
 		"salaryIncome",
 		"benefitIncome",
 		"memberDiedBefore5",
-		"familyCar"
+		"familyCar",
+		"activityMain",
+		"housingSituation"
 	],
 	"ui:group:indicators": [
 		"income",

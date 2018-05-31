@@ -552,6 +552,80 @@
 			},
 			"default": 0
 		},
+		"activityMain": {
+			"type": "string",
+			"title": {
+				"es": "Sector de actividad principal"
+			},
+			"enum": [
+				"AGRICULTURE",
+				"MINING-QUARRYING",
+				"MANUFACTURING",
+				"ELECTRICITY-GAS",
+				"WATER-SEWERAGE",
+				"CONSTRUCTION",
+				"TRADE",
+				"TRANSPORTATION-STORAGE",
+				"ACCOMMODATION-FOOD",
+				"INFORMATION-COMMUNICATION",
+				"FINANCIAL",
+				"REAL-ESTATE",
+				"PROFESSIONAL",
+				"ADMINISTRATIVE",
+				"PUBLIC-ADMINISTRATION",
+				"EDUCATION",
+				"HEALTH-SOCIAL",
+				"ARTS",
+				"OTHER",
+				"HOUSEHOLDS",
+				"EXTRATERRITORIAL"
+			],
+			"enumNames": [
+				"Agricultura, Silvicultura y Pesca",
+				"Minas y Canteras",
+				"Manufactura",
+				"Suministro de electricidad, gas, vapor y aire acondicionado",
+				"Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
+				"Construcción",
+				"Comercio mayorista y minorista, reparación de vehículos y motocicletas",
+				"Transporte y almacenamiento",
+				"Actividades de alojamiento y servicio de comida",
+				"Información y Comunicación",
+				"Actividades financieras y de seguros",
+				"Actividades inmobiliarias",
+				"Actividades profesionales, científicas y técnicas",
+				"Actividades administrativas",
+				"Administración pública y defensa",
+				"Educación",
+				"Actividades de salud y servicio social",
+				"Arte, entretenimiento y recreación",
+				"Otras actividades de servicio",
+				"Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
+				"Actividades de organizaciones extraterritoriales"
+			],
+			"default": "AGRICULTURE"
+		},
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "Situación de la vivienda"
+			},
+			"enum": [
+				"OWN-TITTLE",
+				"OWN-NO-TITTLE",
+				"FAMILY-PROPERTY",
+				"RENTED",
+				"BORROWED"
+			],
+			"enumNames": [
+				"Propia con título",
+				"Propia sin título",
+				"En propiedad familiar",
+				"Alquilada",
+				"Prestada"
+			],
+			"default": "OWN-TITTLE"
+		},
 		"memberDiedBefore5": {
 			"type": "string",
 			"title": {
@@ -1857,7 +1931,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/3.jpg",
-				"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores.",
+				"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario.",
 				"value": "GREEN"
 			}]
 		},
