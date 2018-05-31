@@ -101,6 +101,11 @@ public class SnapshotServiceImpl implements SnapshotService {
 
     private boolean dependenciesAreValid(NewSnapshot snapshot) {
 
+        //if there are not dependencies, there is no need to perform validation
+        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
+            return true;
+        }
+
         //get the dependencies from the formData and the dependencies structure from the schema
         SurveyDefinition surveyDefinition
                 = this.surveyService.getSurveyDefinition(snapshot.getSurveyId());
@@ -165,6 +170,11 @@ public class SnapshotServiceImpl implements SnapshotService {
     private void addDependenciesToAditionalData
             (SnapshotEconomicEntity snapshotEconomicEntity, NewSnapshot snapshot){
 
+        //if there are not dependencies, just return
+        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
+            return;
+        }
+
         String formDependency = Jackson.toJsonString(snapshot.getDependencies());
         JsonParser jsonParser = new JsonParser();
 
@@ -191,17 +201,11 @@ public class SnapshotServiceImpl implements SnapshotService {
             NewSnapshot snapshot) {
         checkNotNull(snapshot);
 
-        //if there are not dependencies, there is no need to perform validation
-        boolean hasDependency = true;
-        if (snapshot.getDependencies() == null || snapshot.getDependencies().size() == 0){
-            hasDependency = false;
-        }
-
         ValidationResults results = surveyService
                 .checkSchemaCompliance(snapshot);
 
         //validate survey
-        if (hasDependency && !dependenciesAreValid(snapshot) || !results.isValid()) {
+        if (!results.isValid() || !dependenciesAreValid(snapshot)) {
             throw new CustomParameterizedException(
                     i18n.translate("snapshot.invalid"), results.asMap());
         }
@@ -219,9 +223,9 @@ public class SnapshotServiceImpl implements SnapshotService {
         SnapshotEconomicEntity socioEconomicEntity = economicMapper
                 .newSnapshotToEconomicEntity(snapshot, indicatorEntity);
 
-        if (hasDependency){
-            addDependenciesToAditionalData(socioEconomicEntity, snapshot);
-        }
+
+        addDependenciesToAditionalData(socioEconomicEntity, snapshot);
+
 
         SnapshotEconomicEntity snapshotEconomicEntity = saveEconomic(snapshot,
                 socioEconomicEntity, family);
