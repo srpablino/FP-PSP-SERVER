@@ -3,7 +3,6 @@ package py.org.fundacionparaguaya.pspserver.security.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
-import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 
 public class TermCondPolDTO {
     @JsonProperty("id")
@@ -24,20 +23,20 @@ public class TermCondPolDTO {
     @JsonProperty("type_cod")
     private TermCondPolType typeCod;
 
-    @JsonProperty("language")
-    private TermCondPolLanguage language;
+    @JsonProperty("id_application")
+    private Long applicationId;
 
     public TermCondPolDTO(){}
 
     private TermCondPolDTO(Long id, String html, String version,
-        Integer year, String createdDate, TermCondPolType type, TermCondPolLanguage language) {
+        Integer year, String createdDate, TermCondPolType type, Long applicationId) {
         this.id = id;
         this.html = html;
         this.version = version;
         this.year = year;
         this.createdDate = createdDate;
         this.typeCod = type;
-        this.language = language;
+        this.applicationId = applicationId;
     }
 
     public Long getId() {
@@ -88,13 +87,13 @@ public class TermCondPolDTO {
         this.typeCod = type;
     }
 
-    public TermCondPolLanguage getLanguage() {
-        return language;
-        }
+    public Long getApplicationId() {
+        return applicationId;
+    }
 
-    public  void setLanguage(TermCondPolLanguage language) {
-        this.language = language;
-        }
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
+    }
 
     public static class Builder {
 
@@ -104,7 +103,7 @@ public class TermCondPolDTO {
         private Integer year;
         private String createdDate;
         private TermCondPolType typeCod;
-        private TermCondPolLanguage language;
+        private Long applicationId;
 
         public Builder id(Long id) {
             this.id = id;
@@ -136,14 +135,14 @@ public class TermCondPolDTO {
             return this;
         }
 
-        public Builder language(TermCondPolLanguage language) {
-            this.language = language;
+        public Builder applicationId(Long applicationId) {
+            this.applicationId = applicationId;
             return this;
         }
 
         public TermCondPolDTO build() {
             return new TermCondPolDTO(id, html,
-                version, year, createdDate, typeCod, language);
+                version, year, createdDate, typeCod, applicationId);
         }
 
     }

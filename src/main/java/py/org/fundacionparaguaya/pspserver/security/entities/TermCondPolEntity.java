@@ -23,7 +23,6 @@ import com.google.common.base.MoreObjects;
 
 import py.org.fundacionparaguaya.pspserver.common.entities.BaseEntity;
 import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolType;
-import py.org.fundacionparaguaya.pspserver.security.constants.TermCondPolLanguage;
 
 /**
  *
@@ -71,9 +70,8 @@ public class TermCondPolEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TermCondPolType typeCod;
 
-    @Column(name = "language")
-    @Enumerated(EnumType.STRING)
-    private TermCondPolLanguage language;
+    @Column(name = "id_application")
+    private Long applicationId;
 
     public Long getId() {
         return id;
@@ -123,13 +121,13 @@ public class TermCondPolEntity extends BaseEntity {
         this.typeCod = type;
     }
 
-    public TermCondPolLanguage getLanguage() {
-        return language;
-        }
+    public Long getApplicationId() {
+        return applicationId;
+    }
 
-    public void setLanguage(TermCondPolLanguage language) {
-        this.language = language;
-        }
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -157,7 +155,7 @@ public class TermCondPolEntity extends BaseEntity {
             .add("year", year)
             .add("created date", createdDate)
             .add("type", typeCod)
-                .add("language", language)
+                .add("application id", applicationId)
             .toString();
     }
 

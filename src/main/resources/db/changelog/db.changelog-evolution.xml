@@ -354,4 +354,14 @@
         <sqlFile path="sql/2018-05-25T10:30.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!-- Add column id_application in TermCondPol table and drops language column-->
+    <changeSet id="2018-05-30T17:00" author="nvaldez">
+        <sqlFile path="sql/2018-05-30T17:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- Inserts default terms&cond and privacy policy for each hub-->
+    <changeSet id="2018-05-31T10:00" author="nvaldez">
+        <sqlFile path="sql/2018-05-31T10:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
