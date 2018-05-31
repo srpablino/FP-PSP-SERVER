@@ -704,7 +704,7 @@
 		"diversifiedSourcesOfIncome": {
 			"type": "array",
 			"title": {
-				"es": "Ingresos diversificados"
+				"es": "Fuente de ingreso diversificada"
 			},
 			"description": {
 				"es": "Tenemos varias fuentes de ingresos"
@@ -744,7 +744,7 @@
 		"documentation": {
 			"type": "array",
 			"title": {
-				"es": "DNI"
+				"es": "Documento Nacional de Identidad (DNI)"
 			},
 			"description": {
 				"es": "Tenemos DNI"
@@ -1024,7 +1024,7 @@
 		"sexualHealth": {
 			"type": "array",
 			"title": {
-				"es": "Salud sexual y reproductiva"
+				"es": "Salud sexual"
 			},
 			"description": {
 				"es": "Salud Sexual. Nos hacemos los controles que necesitamos"
@@ -2144,7 +2144,7 @@
 		"awarenessOfHumanRights": {
 			"type": "array",
 			"title": {
-				"es": "Respeto los derechos humanos"
+				"es": "Conciencia de los derechos humanos"
 			},
 			"description": {
 				"es": "Conciencia de los derechos humanos "
@@ -2224,7 +2224,7 @@
 		"socialCapital": {
 			"type": "array",
 			"title": {
-				"es": "Forma parte de un grupo con objetivos comunes"
+				"es": "Forma parte de un grupo"
 			},
 			"description": {
 				"es": "Integramos grupos en la comunidad"
@@ -2384,7 +2384,7 @@
 		"lifePlan": {
 			"type": "array",
 			"title": {
-				"es": "Conciencia de necesidades y establecimiento de metas"
+				"es": "Conciencia de sus necesidades"
 			},
 			"description": {
 				"es": "Tenemos metas de vida"
