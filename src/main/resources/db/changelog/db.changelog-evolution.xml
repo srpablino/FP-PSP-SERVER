@@ -319,6 +319,11 @@
         <sqlFile path="sql/2018-04-19T14:50.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <!--change gender column to character varying in order to get a better acronym representation for gender-->
+    <changeSet id="2018-05-04T15:00" author="pjlopez">
+        <sqlFile path="sql/2018-05-04T15:00.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- Delete unused columns is_partner, is_hub -->
     <changeSet id="2018-05-04T17:00" author="cbenitez">
         <sqlFile path="sql/2018-05-04T17:00.sql" relativeToChangelogFile="true"/>
