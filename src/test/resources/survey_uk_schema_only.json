@@ -802,17 +802,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg",
-						"description": "Our household income is consistently above 60% of the UK average. (i.e. Single: £9,500. Couple with no children: £14,200. Couple with two children £20,400).",
+						"description": "Our household income is always above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-2.jpg",
-						"description": "Our household income this year is above 60% of the UK average. (i.e. Single: £9,500. Couple with no children: £14,200. Couple with two children £20,400).",
+						"description": "Our household income, this year, is above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-3.jpg",
-						"description": "Our household income is always below 60% of the UK average. (i.e. Single: £9,500. Couple with no children: £14,200. Couple with two children £20,400).",
+						"description": "Our household income is always below 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
 						"value": "RED"
 					},
 					{
@@ -825,7 +825,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg",
-				"description": "Our household income is consistently above 60% of the UK average. (i.e. Single: £9,500. Couple with no children: £14,200. Couple with two children £20,400).",
+				"description": "Our household income is always above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
 				"value": "GREEN"
 			}]
 		},
@@ -835,7 +835,7 @@
 				"es": "Stable Income"
 			},
 			"description": {
-				"es": "We have a stable income"
+				"es": "Our monthly income doesn't change"
 			},
 			"items": {
 				"type": "object",
@@ -846,12 +846,12 @@
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-2.jpg",
-						"description": "Our household income goes up and down a bit.",
+						"description": "Our household income doesn’t change that much.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-3.jpg",
-						"description": "Our household income goes up and down a lot making it difficult to plan ahead.",
+						"description": "Our household income always goes up and down and we can’t plan ahead.",
 						"value": "RED"
 					},
 					{
@@ -871,26 +871,26 @@
 		"accessToCredit": {
 			"type": "array",
 			"title": {
-				"es": "Access to Credit"
+				"es": "Credit Access"
 			},
 			"description": {
-				"es": "We have access to credit"
+				"es": "We can get credit"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-1.jpg",
-						"description": "In our household, everyone has good credit scores, or has access to safe and affordable ways to borrow money (e.g. through a bank).",
+						"description": "In our household everyone has good credit scores; we can borrow money from a bank.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-2.jpg",
-						"description": "In our household, someone has bad credit scores, and we do not understand the financial information available to help us make good borrowing choices.",
+						"description": "Someone in our household has bad credit scores; borrowing money can be a problem because we don’t know how to get good advice.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-3.jpg",
-						"description": "In our household, we have no access to credit, or lack information about accessing affordable credit, or we borrow from loan sharks.",
+						"description": "In our household we can’t get credit or any proper help to get some; we borrow from loan sharks.",
 						"value": "RED"
 					},
 					{
@@ -903,7 +903,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-1.jpg",
-				"description": "In our household, everyone has good credit scores, or has access to safe and affordable ways to borrow money (e.g. through a bank).",
+				"description": "In our household everyone has good credit scores; we can borrow money from a bank.",
 				"value": "GREEN"
 			}]
 		},
@@ -919,17 +919,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-1.jpg",
-						"description": "In our household, we regularly save and we have enough available for emergencies/unexpected events (at least 3 months of essential spending). We also do not have significant debts.",
+						"description": "We save and we can cope with emergencies; we have at least 3 months of expenses set aside. We don’t have a lot of debt.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-2.jpg",
-						"description": "In our household, we have some savings but we do not actively save or we constantly have to juggle bills and debts (e.g. council tax, water, electricity, gas, telephone, insurance, other fuel bills, mortgage, rent or other loans).",
+						"description": "We have some money to save, but we can’t save too often because debt and bills are hard to cope with.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-3.jpg",
-						"description": "In our household, we have never or almost never saved and would not have money for unexpected events, or in my house we have critical debts or are seriously behind in bills.",
+						"description": "In our household we don’t have money to save, or for emergencies. We have lots of debt and can’t keep up with our bills.  ",
 						"value": "RED"
 					},
 					{
@@ -942,33 +942,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-1.jpg",
-				"description": "In our household, we regularly save and we have enough available for emergencies/unexpected events (at least 3 months of essential spending). We also do not have significant debts.",
+				"description": "We save and we can cope with emergencies; we have at least 3 months of expenses set aside. We don’t have a lot of debt.",
 				"value": "GREEN"
 			}]
 		},
 		"diversifiedSourcesOfIncome": {
 			"type": "array",
 			"title": {
-				"es": "Diversified Sources of Income"
+				"es": "Varied Sources of Income"
 			},
 			"description": {
-				"es": "We have different sources of income"
+				"es": "We have more than one source of income"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-1.jpg",
-						"description": "In our household, more than one individual has a job that provides income to the family. Or if only one individual works, that job is secure.",
+						"description": "In our household more than one person has a job, or the only person who works has a secure job. ",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-2.jpg",
-						"description": "In our household, only one individual has a job that provides income, but is not completely secure. Or the second income source is unreliable or comes from benefits.",
+						"description": "In our household only one person has a job, but the income from it isn’t secure. Or, our second-income source is unreliable or comes from benefits.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-3.jpg",
-						"description": "In our household, no one has a job that provides income or the only income is very unreliable. Our only regular source of income is from benefits.",
+						"description": "No one has a job in our household, or our income is not fixed. We rely on benefits. ",
 						"value": "RED"
 					},
 					{
@@ -981,7 +981,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-1.jpg",
-				"description": "In our household, more than one individual has a job that provides income to the family. Or if only one individual works, that job is secure.",
+				"description": "In our household more than one person has a job, or the only person who works has a secure job. ",
 				"value": "GREEN"
 			}]
 		},
@@ -991,23 +991,23 @@
 				"es": "Personal Identification"
 			},
 			"description": {
-				"es": "We have forms of ID"
+				"es": "We have ID"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-1.jpg",
-						"description": "In our household, all family members have valid ID and proper documentation. We can prove our ID to anyone who asks. (These may include Driving License or Birth Certificate.)",
+						"description": "We all have proper ID. We have things like birth certificates and drivers’ licences to show, if asked.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-2.jpg",
-						"description": "Someone in our household has problems with documentation and we are actively looking to solve it.",
+						"description": "Someone in our household has ID problems; we can find ways to sort it.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-3.jpg",
-						"description": "Someone in our household does not have ID/documentation or has a problem with ID/documentation and does not know how to solve it or can’t afford to do so.",
+						"description": "Someone in our household does not have/has a problem with proper ID. We don’t know how to/can’t afford to fix it.",
 						"value": "RED"
 					},
 					{
@@ -1021,7 +1021,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-1.jpg",
-				"description": "In our household, all family members have valid ID and proper documentation. We can prove our ID to anyone who asks. (These may include Driving License or Birth Certificate.)",
+				"description": "We all have proper ID. We have things like birth certificates and drivers’ licences to show, if asked.",
 				"value": "GREEN"
 			}]
 		},
@@ -1031,23 +1031,23 @@
 				"es": "Stable Housing"
 			},
 			"description": {
-				"es": "We have stable housing"
+				"es": "Our housing situation is secure"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-1.jpg",
-						"description": "In our household, we have long term tenancy or own our property. We are happy with our rent contract and confident that we can get alternative housing if we need it.",
+						"description": "We can rent long-term,   or we own our property. We are happy with our rental contract and can move somewhere else if we want to.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-2.jpg",
-						"description": "In our household, we are unhappy with our current tencancy contract, or we are at risk of having to move. In the near future we might not be able to afford where we currently live.",
+						"description": "We are unhappy with our current rental contract, or we might have to move. We might not be able to stay in our home because we can’t afford it.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-3.jpg",
-						"description": "In our household, we have had to sleep rough one night or more in the past year OR we are living in temporary accommodation, or are at serious risk of eviction or having to leave our home without wanting to.",
+						"description": "We have slept somewhere that is not our home for one night or more in the last year; or we live in a temporary place; or we fear eviction; or we had to leave our home without wanting to.",
 						"value": "RED"
 					},
 					{
@@ -1061,7 +1061,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-1.jpg",
-				"description": "In our household, we have long term tenancy or own our property. We are happy with our rent contract and confident that we can get alternative housing if we need it.",
+				"description": "We can rent long-term,   or we own our property. We are happy with our rental contract and can move somewhere else if we want to.",
 				"value": "GREEN"
 			}]
 		},
@@ -1071,23 +1071,23 @@
 				"es": "Household Appliances"
 			},
 			"description": {
-				"es": "We have the household appliances we need"
+				"es": "We have essential household appliances"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-1.jpg",
-						"description": "In our household, we have all essential appliances of our own and these work properly. These include: fridge, freezer, washing machine, cooker etc.",
+						"description": "In our household our basic appliances work. We have a fridge, freezer, washing machine, cooker, etc.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-2.jpg",
-						"description": "In our household, some essential appliances are faulty or do not work properly.",
+						"description": "In our household some basic appliances are faulty or broken.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-3.jpg",
-						"description": "In our household, we have very limited access to or do not have one or more essential household appliances.",
+						"description": "In our household we can’t often use/don’t have basic appliances.",
 						"value": "RED"
 					},
 					{
@@ -1101,7 +1101,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-1.jpg",
-				"description": "In our household, we have all essential appliances of our own and these work properly. These include: fridge, freezer, washing machine, cooker etc.",
+				"description": "In our household our basic appliances work. We have a fridge, freezer, washing machine, cooker, etc.",
 				"value": "GREEN"
 			}]
 		},
@@ -1111,23 +1111,23 @@
 				"es": "Cooking Facilities"
 			},
 			"description": {
-				"es": "We have a modern kitchen"
+				"es": "We have proper facilities to prepare food"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-1.jpg",
-						"description": "In our household, we have a ventilated kitchen, a cooker and all the necessary kitchen equipment to cook, store food, and for all members of the house to eat properly.",
+						"description": "We have a proper kitchen with everything to cook and store food for our household.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-2.jpg",
-						"description": "In our household, we have an adequate kitchen; however we need to improve the facilities or need more equipment to cook and eat properly.",
+						"description": "Our kitchen isn’t bad, but we need to fix things or get more stuff to cook properly.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-3.jpg",
-						"description": "In our household, we do not have a proper kitchen or equipment. We have to cook elsewhere or share a space with many other people.",
+						"description": "We do not have a proper place to cook. We have to cook somewhere else or share a crowded space.",
 						"value": "RED"
 					},
 					{
@@ -1141,7 +1141,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-1.jpg",
-				"description": "In our household, we have a ventilated kitchen, a cooker and all the necessary kitchen equipment to cook, store food, and for all members of the house to eat properly.",
+				"description": "We have a proper kitchen with everything to cook and store food for our household.",
 				"value": "GREEN"
 			}]
 		},
@@ -1151,23 +1151,23 @@
 				"es": "Access to Gas/Electricity"
 			},
 			"description": {
-				"es": "We have electricity"
+				"es": "We always have gas/electricity"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
-						"description": "In our household, we can afford to pay for gas and/or electricity all the time.",
+						"description": "We can afford to pay for gas and/or electricity all of the time.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-2.jpg",
-						"description": "In our household, we have gas and/or electricity but don't use it all the time because of the cost.",
+						"description": "We have gas and/or electricity, but we can’t use it all the time because of the cost.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-3.jpg",
-						"description": "In our household in the past year, we sometimes have had no gas or electricity for heating or cooking.  Sometimes we need to choose between food and heating.",
+						"description": "In the past year, sometimes there has been no gas or electricity and we have had to choose between cooking or heating.",
 						"value": "RED"
 					},
 					{
@@ -1181,7 +1181,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
-				"description": "In our household, we can afford to pay for gas and/or electricity all the time.",
+				"description": "We can afford to pay for gas and/or electricity all of the time.",
 				"value": "GREEN"
 			}]
 		},
@@ -1197,17 +1197,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-1.jpg",
-						"description": "Our house is very safe.  There are no faulty appliances, holes in walls, loose wires, or damp.  Doors and windows have locks and the building is appropriate for all weathers.",
+						"description": "Our house is very safe. There are no broken appliances, structural damage, loose wiring or damp. Doors and windows lock; the building withstands all weather conditions.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-2.jpg",
-						"description": "Our house has minor safety issues that are a risk for people who live there.  It is unsuitable in some weather conditions (e.g. windows let in the cold, there is risk of flooding).",
+						"description": "Our house has a few safety issues that may be bad for those living there, e.g.: windows let in the cold; risk of flooding.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-3.jpg",
-						"description": "Our house has serious safety issues that are a risk for people who live there.  It is unsuitable in certain weather conditions (e.g. significant damp or mould, always floods in heavy rains, doors and windows do not lock securely).",
+						"description": "Our house is in bad condition. People who live there are at risk because of, e.g.: damp or mould, heavy-rain flooding, doors and windows don’t lock properly.",
 						"value": "RED"
 					},
 					{
@@ -1221,7 +1221,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-1.jpg",
-				"description": "Our house is very safe.  There are no faulty appliances, holes in walls, loose wires, or damp.  Doors and windows have locks and the building is appropriate for all weathers.",
+				"description": "Our house is very safe. There are no broken appliances, structural damage, loose wiring or damp. Doors and windows lock; the building withstands all weather conditions.",
 				"value": "GREEN"
 			}]
 		},
@@ -1231,23 +1231,23 @@
 				"es": "Sanitation and Sewage"
 			},
 			"description": {
-				"es": "We have a modern bathroom"
+				"es": "We have a proper bathroom"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-1.jpg",
-						"description": "In our house, we always have access to a bathroom, which has proper ventilation, hot and cold running water, privacy, and is regularly cleaned.",
+						"description": "In our house we always have access to a bathroom which has got good ventilation, hot- and cold-running water,  privacy and is cleaned often.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-2.jpg",
-						"description": "In our house, we share the bathroom with more than 4 people and/or the bathroom is not regularly cleaned, or it is faulty.",
+						"description": "In our house we share the bathroom with 4 or more people, and/or the bathroom is not regularly cleaned or is defective.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-3.jpg",
-						"description": "In our house, we do not always have access to a bathroom and/or our bathroom is in a bad condition.",
+						"description": "In our house we do not always have access to a bathroom, and/or our bathroom is in a bad state.",
 						"value": "RED"
 					},
 					{
@@ -1261,7 +1261,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-1.jpg",
-				"description": "In our house, we always have access to a bathroom, which has proper ventilation, hot and cold running water, privacy, and is regularly cleaned.",
+				"description": "In our house we always have access to a bathroom which has got good ventilation, hot- and cold-running water,  privacy and is cleaned often.",
 				"value": "GREEN"
 			}]
 		},
@@ -1277,17 +1277,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-1.jpg",
-						"description": "In my house, adults, adolescents, and children do not sleep in the same bedrooms and the house is not overcrowded. Everyone has their privacy.",
+						"description": "In our house adults, teens and kids do not sleep in the same bedrooms; the house is not overcrowded. Everyone has their privacy.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-2.jpg",
-						"description": "In our house, adults, adolescents, and children sleep in the same bedrooms and some people in our house would prefer more space or privacy to sleep.",
+						"description": "In our house adults, teens and kids sleep in the same bedrooms; some people in our house want more space or privacy.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-3.jpg",
-						"description": "In our house, multiple people sleep in the same bedroom.  A mix of adults, adolescents, and children share bedrooms with each other. Our house is overcrowded and we need more space.",
+						"description": "In our house many people sleep in the same bedroom. Adults, teens and kids share bedrooms with each other. Our house is overcrowded and we need more space.",
 						"value": "RED"
 					},
 					{
@@ -1300,33 +1300,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-1.jpg",
-				"description": "In my house, adults, adolescents, and children do not sleep in the same bedrooms and the house is not overcrowded. Everyone has their privacy.",
+				"description": "In our house adults, teens and kids do not sleep in the same bedrooms; the house is not overcrowded. Everyone has their privacy.",
 				"value": "GREEN"
 			}]
 		},
 		"comfortOfTheHome": {
 			"type": "array",
 			"title": {
-				"es": "Comfort of the Home"
+				"es": "Home Comforts"
 			},
 			"description": {
-				"es": "We have enough furniture and ammenities"
+				"es": "We have the furniture we need"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-1.jpg",
-						"description": "In our house, we have all the space and facilities to feel comfortable.  We have enough furniture, equipment and living space to study, relax and to eat meals together.",
+						"description": "In our house we have enough space to work and relax in. We have enough furniture and appliances to be comfortable. ",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-2.jpg",
-						"description": "Our house is quite comfortable but could benefit from better quality furniture and equipment, or the house is cluttered so that it is uncomfortable to live in.",
+						"description": "Our house is quite comfortable,  but we could do with better furniture and appliances, or the house is too messy to relax in.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-3.jpg",
-						"description": "We do not have enough furniture or equipment to live comfortably.  There is not appropriate living or eating space or equipment for everyone.",
+						"description": "We do not have enough furniture or appliances to live comfortably. There is not enough living/eating room or proper facilities to relax with.",
 						"value": "RED"
 					},
 					{
@@ -1339,33 +1339,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-1.jpg",
-				"description": "In our house, we have all the space and facilities to feel comfortable.  We have enough furniture, equipment and living space to study, relax and to eat meals together.",
+				"description": "In our house we have enough space to work and relax in. We have enough furniture and appliances to be comfortable. ",
 				"value": "GREEN"
 			}]
 		},
 		"regularMeansOfTransportation": {
 			"type": "array",
 			"title": {
-				"es": "Regular Means of Transportation"
+				"es": "Reliable Transport"
 			},
 			"description": {
-				"es": "We have regular transportation"
+				"es": "We have access to good transportation"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-1.jpg",
-						"description": "To travel to the places we need to get to regularly, we have our own means of transport (car, motorcycle, bicycle) available when we need it, or we have access to regular public transport.",
+						"description": "To get to the places we often go, we have our own transport (car, motorcycle, bicycle); or we have good access to public transport.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-2.jpg",
-						"description": "To travel to the places we need to get to regularly, transport is not always available when needed or transport costs are problematic.  We sometimes struggle to afford to travel from one place to another.",
+						"description": "To get to the places we go often, transport isn’t always handy, or costs too much. Sometimes we can’t find the money to get about.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-3.jpg",
-						"description": "We have no means of transport of our own and public transport in our area is irregular (e.g. one bus an hour) and too expensive.",
+						"description": "We don’t have our own transport and public transport in our area is unreliable, e.g. a bus now-and-then that costs too much.",
 						"value": "RED"
 					},
 					{
@@ -1378,7 +1378,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-1.jpg",
-				"description": "To travel to the places we need to get to regularly, we have our own means of transport (car, motorcycle, bicycle) available when we need it, or we have access to regular public transport.",
+				"description": "To get to the places we often go, we have our own transport (car, motorcycle, bicycle); or we have good access to public transport.",
 				"value": "GREEN"
 			}]
 		},
@@ -1388,23 +1388,23 @@
 				"es": "Access to Shops and Services"
 			},
 			"description": {
-				"es": "We have access to shops and services"
+				"es": "We can access the shops we need"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-1.jpg",
-						"description": "We can reach the shops and services we want all the time (e.g. food shops, hardware store, banks, hair dresser etc.).",
+						"description": "We can always reach the shops and services we need, e.g.: food and hardware shops, hairdressers, banks etc.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-2.jpg",
-						"description": "Sometimes the shops we want to use are difficult to get to (affordability, location, inconvenient to carry large shopping bags etc.).",
+						"description": "Sometimes going shopping is difficult, e.g.: too expensive, shops are far away, carrying heavy bags is a chore, etc.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-3.jpg",
-						"description": "We often can’t get to the shops we want (too far away, too expensive, impossible to carry large shopping bags etc.).",
+						"description": "A lot of the time we can’t go shopping, e.g., shops are far away, too expensive, carrying heavy bags is a chore, etc.",
 						"value": "RED"
 					},
 					{
@@ -1417,7 +1417,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-1.jpg",
-				"description": "We can reach the shops and services we want all the time (e.g. food shops, hardware store, banks, hair dresser etc.).",
+				"description": "We can always reach the shops and services we need, e.g.: food and hardware shops, hairdressers, banks etc.",
 				"value": "GREEN"
 			}]
 		},
@@ -1427,23 +1427,23 @@
 				"es": "Communication"
 			},
 			"description": {
-				"es": "We have a phone and access to internet"
+				"es": "We have a phone and internet access"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-1.jpg",
-						"description": "All adult members in our household have access to an affordable mobile phone and internet access at home.",
+						"description": "Adults in our household have affordable mobile phones and internet access.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-2.jpg",
-						"description": "In our household, we have access to mobile phones or the internet but the costs are a problem for us.",
+						"description": "In our household we have mobile phones and/or the internet, but we can’t always afford them.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-3.jpg",
-						"description": "In our household, we have no access either to a phone or internet.",
+						"description": "In our household we don’t have a mobile phone or the internet.",
 						"value": "RED"
 					},
 					{
@@ -1457,7 +1457,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-1.jpg",
-				"description": "All adult members in our household have access to an affordable mobile phone and internet access at home.",
+				"description": "Adults in our household have affordable mobile phones and internet access.",
 				"value": "GREEN"
 			}]
 		},
@@ -1467,23 +1467,23 @@
 				"es": "Security"
 			},
 			"description": {
-				"es": "We feel safe"
+				"es": "We feel safe where we live and work"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-1.jpg",
-						"description": "We feel safe in both the area we live in and where we work.",
+						"description": "We feel safe where we live and work. ",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-2.jpg",
-						"description": "We feel unsafe in either the area we live in or where we work.",
+						"description": "We don’t feel safe either where we live or where we work.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-3.jpg",
-						"description": "We feel unsafe in both the areas where we work and live.",
+						"description": "We don’t feel safe where we work and live.",
 						"value": "RED"
 					},
 					{
@@ -1497,7 +1497,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-1.jpg",
-				"description": "We feel safe in both the area we live in and where we work.",
+				"description": "We feel safe where we live and work. ",
 				"value": "GREEN"
 			}]
 		},
@@ -1507,23 +1507,23 @@
 				"es": "Clothing and Footwear"
 			},
 			"description": {
-				"es": "We have clothes to change into every day"
+				"es": "We have the clothing we need"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-1.jpg",
-						"description": "In our household, everyone has all necessary clothing and footwear for any weather, including suitable clothing for work.",
+						"description": "In our household everyone has proper clothes and shoes for all conditions/needs e.g. for work.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-2.jpg",
-						"description": "All members of our household have enough clothing and footwear but we don’t have suitable clothing for all occasions (e.g. work). We have winter clothing but could use some more.",
+						"description": "Our household has enough clothes and shoes, but we don’t always have proper clothing, e.g. work. We have winter clothes, but need more.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-3.jpg",
-						"description": "In our household, we do not have enough clothing or footwear, or clothing is not appropriate, especially for winter. We often have to rely on donations.",
+						"description": "In our household we do not have proper clothes or shoes, especially for winter. We often depend on donations.",
 						"value": "RED"
 					},
 					{
@@ -1537,7 +1537,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-1.jpg",
-				"description": "In our household, everyone has all necessary clothing and footwear for any weather, including suitable clothing for work.",
+				"description": "In our household everyone has proper clothes and shoes for all conditions/needs e.g. for work.",
 				"value": "GREEN"
 			}]
 		},
@@ -1553,17 +1553,17 @@
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-1.jpg",
-						"description": "We have a full range of insurance, feel that all risks are covered, and know how to seek the best deals.",
+						"description": "We have good insurance and it covers all possible risks.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-2.jpg",
-						"description": "We have some insurance but are not sure if it covers us for everything, or that we have the best deals.",
+						"description": "We have some insurance, but we aren’t sure if it covers everything, or it doesn’t offer the best protection.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-3.jpg",
-						"description": "We don’t have any insurance or it is inadequate.",
+						"description": "We don’t have proper/any insurance.",
 						"value": "RED"
 					},
 					{
@@ -1577,33 +1577,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-1.jpg",
-				"description": "We have a full range of insurance, feel that all risks are covered, and know how to seek the best deals.",
+				"description": "We have good insurance and it covers all possible risks.",
 				"value": "GREEN"
 			}]
 		},
 		"regularityOfMeals": {
 			"type": "array",
 			"title": {
-				"es": "Regularity of Meals"
+				"es": "Set Meals"
 			},
 			"description": {
-				"es": "We do not miss meals"
+				"es": "We have plenty to eat"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-1.jpg",
-						"description": "In our household, we do not miss meals and we always have enough to eat.",
+						"description": "In our household we always have enough to eat.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-2.jpg",
-						"description": "In our household, we sometimes struggle to buy our meals and eat sufficiently because we don’t have enough money.",
+						"description": "In our household we sometimes battle to buy enough food for our needs.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-3.jpg",
-						"description": "In the past few months, members of our household have had fewer than two meals a day or have been hungry because we could not afford food.",
+						"description": "People in our household have had fewer than two meals a day, or have gone hungry in the past few months because we can’t afford food.",
 						"value": "RED"
 					},
 					{
@@ -1617,7 +1617,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-1.jpg",
-				"description": "In our household, we do not miss meals and we always have enough to eat.",
+				"description": "In our household we always have enough to eat.",
 				"value": "GREEN"
 			}]
 		},
@@ -1627,23 +1627,23 @@
 				"es": "Eating a Nutritious Diet"
 			},
 			"description": {
-				"es": "We have good nutrition"
+				"es": "We eat a healthy diet"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-1.jpg",
-						"description": "We are confident that we know what we need for a healthy diet for all family members and make sure we consume a nutritious healthy diet.",
+						"description": "We know what a healthy diet is and we eat healthy food.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-2.jpg",
-						"description": "We get confused with healthy eating information or cannot afford to buy healthy food.  I am not sure if we eat a healthy diet or not.",
+						"description": "We get confused about how to eat healthy or can’t afford to buy healthy food. We aren’t sure if our diet is healthy or not.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-3.jpg",
-						"description": "We don’t know very much about healthy eating or we are not concerned whether we are eating healthy food or not.  Our diet does not usually include fruit or vegetables.",
+						"description": "We don’t know or think about healthy eating and our diet does not usually include fruit or vegetables.",
 						"value": "RED"
 					},
 					{
@@ -1656,7 +1656,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-1.jpg",
-				"description": "We are confident that we know what we need for a healthy diet for all family members and make sure we consume a nutritious healthy diet.",
+				"description": "We know what a healthy diet is and we eat healthy food.",
 				"value": "GREEN"
 			}]
 		},
