@@ -601,11 +601,13 @@
 			},
 			"enum": [
 				"URBAN",
-				"RURAL"
+				"RURAL",
+				"TRAVELLING-COMMUNITY"
 			],
 			"enumNames": [
-				"URBAN",
-				"RURAL"
+				"Urban",
+				"Rural",
+				"Travelling Community"
 			],
 			"default": "URBAN"
 		},
@@ -628,6 +630,7 @@
 				"RETIRED",
 				"INEDUCATION",
 				"OTHER",
+				"NEET",
 				"NONE"
 			],
 			"enumNames": [
@@ -637,7 +640,9 @@
 				"Retired",
 				"In education",
 				"Other",
+				"NEET",
 				"None"
+
 			],
 			"default": "EMPLOYED"
 		},
@@ -676,7 +681,7 @@
 		"receiveStateIncome": {
 			"type": "string",
 			"title": {
-				"es": "Do you receive any state income. (e.g. benefits, pension, allowances)?"
+				"es": "Do you receive any state income. (e.g. allowances, benefits, disability, pension)?"
 			},
 			"enum": [
 				"YES",
@@ -697,6 +702,8 @@
 			"enum": [
 				"SCHOOL-INCOMPLETE",
 				"SCHOOL-COMPLETE",
+				"APPRENTICESHIP-COMPLETE",
+				"APPRENTICESHIP-INCOMPLETE",
 				"COLLEGE-INCOMPLETE",
 				"COLLEGE-COMPLETE",
 				"UNIVERSITY-INCOMPLETE",
@@ -705,6 +712,8 @@
 			"enumNames": [
 				"School incomplete",
 				"School complete",
+				"Apprenticeship complete",
+				"Apprenticeship incomplete",
 				"College incomplete",
 				"College complete",
 				"University incomplete",
@@ -720,6 +729,8 @@
 			"enum": [
 				"SCHOOL-INCOMPLETE",
 				"SCHOOL-COMPLETE",
+				"APPRENTICESHIP-COMPLETE",
+				"APPRENTICESHIP-INCOMPLETE",
 				"COLLEGE-INCOMPLETE",
 				"COLLEGE-COMPLETE",
 				"UNIVERSITY-INCOMPLETE",
@@ -728,6 +739,8 @@
 			"enumNames": [
 				"School incomplete",
 				"School complete",
+				"Apprenticeship complete",
+				"Apprenticeship incomplete",
 				"College incomplete",
 				"College complete",
 				"University incomplete",
@@ -747,6 +760,8 @@
 				"LIVING-WITH-PARENTS",
 				"LIVING-WITH-PARTNER",
 				"IN-CARE",
+				"HOMELESS",
+				"PREFER-NOT-TO-SAY",
 				"OTHER"
 			],
 			"enumNames": [
@@ -756,6 +771,8 @@
 				"Living with Parents",
 				"Living with Partner",
 				"In care",
+				"Homeless",
+				"Prefer not to say",
 				"Other"
 			],
 			"default": "OWNER"
@@ -790,6 +807,7 @@
 			},
 			"default": "54.979645, -1.617649"
 		},
+
 		"income": {
 			"type": "array",
 			"title": {
@@ -801,10 +819,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg",
-						"description": "Our household income is always above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-1.jpg",
+					"description": "Our household income is always above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/1-2.jpg",
 						"description": "Our household income, this year, is above 60% of the UK average, i.e., Single: £9,500, couple with no kids: £14,200, couple with two kids: £20,400.",
@@ -840,10 +858,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
-						"description": "Our household income is stable.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
+					"description": "Our household income is stable.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-2.jpg",
 						"description": "Our household income doesn’t change that much.",
@@ -879,10 +897,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-1.jpg",
-						"description": "In our household everyone has good credit scores; we can borrow money from a bank.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-1.jpg",
+					"description": "In our household everyone has good credit scores; we can borrow money from a bank.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/3-2.jpg",
 						"description": "Someone in our household has bad credit scores; borrowing money can be a problem because we don’t know how to get good advice.",
@@ -918,10 +936,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-1.jpg",
-						"description": "We save and we can cope with emergencies; we have at least 3 months of expenses set aside. We don’t have a lot of debt.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-1.jpg",
+					"description": "We save and we can cope with emergencies; we have at least 3 months of expenses set aside. We don’t have a lot of debt.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/4-2.jpg",
 						"description": "We have some money to save, but we can’t save too often because debt and bills are hard to cope with.",
@@ -957,10 +975,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-1.jpg",
-						"description": "In our household more than one person has a job, or the only person who works has a secure job. ",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-1.jpg",
+					"description": "In our household more than one person has a job, or the only person who works has a secure job. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/5-2.jpg",
 						"description": "In our household only one person has a job, but the income from it isn’t secure. Or, our second-income source is unreliable or comes from benefits.",
@@ -996,10 +1014,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-1.jpg",
-						"description": "We all have proper ID. We have things like birth certificates and drivers’ licences to show, if asked.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-1.jpg",
+					"description": "We all have proper ID. We have things like birth certificates and drivers’ licences to show, if asked.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/6-2.jpg",
 						"description": "Someone in our household has ID problems; we can find ways to sort it.",
@@ -1036,10 +1054,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-1.jpg",
-						"description": "We can rent long-term,   or we own our property. We are happy with our rental contract and can move somewhere else if we want to.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-1.jpg",
+					"description": "We can rent long-term,   or we own our property. We are happy with our rental contract and can move somewhere else if we want to.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/7-2.jpg",
 						"description": "We are unhappy with our current rental contract, or we might have to move. We might not be able to stay in our home because we can’t afford it.",
@@ -1076,10 +1094,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-1.jpg",
-						"description": "In our household our basic appliances work. We have a fridge, freezer, washing machine, cooker, etc.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-1.jpg",
+					"description": "In our household our basic appliances work. We have a fridge, freezer, washing machine, cooker, etc.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/8-2.jpg",
 						"description": "In our household some basic appliances are faulty or broken.",
@@ -1116,10 +1134,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-1.jpg",
-						"description": "We have a proper kitchen with everything to cook and store food for our household.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-1.jpg",
+					"description": "We have a proper kitchen with everything to cook and store food for our household.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/9-2.jpg",
 						"description": "Our kitchen isn’t bad, but we need to fix things or get more stuff to cook properly.",
@@ -1156,10 +1174,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
-						"description": "We can afford to pay for gas and/or electricity all of the time.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
+					"description": "We can afford to pay for gas and/or electricity all of the time.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-2.jpg",
 						"description": "We have gas and/or electricity, but we can’t use it all the time because of the cost.",
@@ -1196,10 +1214,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-1.jpg",
-						"description": "Our house is very safe. There are no broken appliances, structural damage, loose wiring or damp. Doors and windows lock; the building withstands all weather conditions.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-1.jpg",
+					"description": "Our house is very safe. There are no broken appliances, structural damage, loose wiring or damp. Doors and windows lock; the building withstands all weather conditions.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/11-2.jpg",
 						"description": "Our house has a few safety issues that may be bad for those living there, e.g.: windows let in the cold; risk of flooding.",
@@ -1236,10 +1254,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-1.jpg",
-						"description": "In our house we always have access to a bathroom which has got good ventilation, hot- and cold-running water,  privacy and is cleaned often.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-1.jpg",
+					"description": "In our house we always have access to a bathroom which has got good ventilation, hot- and cold-running water,  privacy and is cleaned often.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/12-2.jpg",
 						"description": "In our house we share the bathroom with 4 or more people, and/or the bathroom is not regularly cleaned or is defective.",
@@ -1276,10 +1294,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-1.jpg",
-						"description": "In our house adults, teens and kids do not sleep in the same bedrooms; the house is not overcrowded. Everyone has their privacy.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-1.jpg",
+					"description": "In our house adults, teens and kids do not sleep in the same bedrooms; the house is not overcrowded. Everyone has their privacy.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/13-2.jpg",
 						"description": "In our house adults, teens and kids sleep in the same bedrooms; some people in our house want more space or privacy.",
@@ -1315,10 +1333,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-1.jpg",
-						"description": "In our house we have enough space to work and relax in. We have enough furniture and appliances to be comfortable. ",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-1.jpg",
+					"description": "In our house we have enough space to work and relax in. We have enough furniture and appliances to be comfortable. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/14-2.jpg",
 						"description": "Our house is quite comfortable,  but we could do with better furniture and appliances, or the house is too messy to relax in.",
@@ -1354,10 +1372,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-1.jpg",
-						"description": "To get to the places we often go, we have our own transport (car, motorcycle, bicycle); or we have good access to public transport.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-1.jpg",
+					"description": "To get to the places we often go, we have our own transport (car, motorcycle, bicycle); or we have good access to public transport.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/15-2.jpg",
 						"description": "To get to the places we go often, transport isn’t always handy, or costs too much. Sometimes we can’t find the money to get about.",
@@ -1393,10 +1411,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-1.jpg",
-						"description": "We can always reach the shops and services we need, e.g.: food and hardware shops, hairdressers, banks etc.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-1.jpg",
+					"description": "We can always reach the shops and services we need, e.g.: food and hardware shops, hairdressers, banks etc.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/16-2.jpg",
 						"description": "Sometimes going shopping is difficult, e.g.: too expensive, shops are far away, carrying heavy bags is a chore, etc.",
@@ -1432,10 +1450,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-1.jpg",
-						"description": "Adults in our household have affordable mobile phones and internet access.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-1.jpg",
+					"description": "Adults in our household have affordable mobile phones and internet access.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/17-2.jpg",
 						"description": "In our household we have mobile phones and/or the internet, but we can’t always afford them.",
@@ -1472,10 +1490,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-1.jpg",
-						"description": "We feel safe where we live and work. ",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-1.jpg",
+					"description": "We feel safe where we live and work. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/18-2.jpg",
 						"description": "We don’t feel safe either where we live or where we work.",
@@ -1512,10 +1530,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-1.jpg",
-						"description": "In our household everyone has proper clothes and shoes for all conditions/needs e.g. for work.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-1.jpg",
+					"description": "In our household everyone has proper clothes and shoes for all conditions/needs e.g. for work.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/19-2.jpg",
 						"description": "Our household has enough clothes and shoes, but we don’t always have proper clothing, e.g. work. We have winter clothes, but need more.",
@@ -1552,10 +1570,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-1.jpg",
-						"description": "We have good insurance and it covers all possible risks.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-1.jpg",
+					"description": "We have good insurance and it covers all possible risks.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/20-2.jpg",
 						"description": "We have some insurance, but we aren’t sure if it covers everything, or it doesn’t offer the best protection.",
@@ -1592,10 +1610,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-1.jpg",
-						"description": "In our household we always have enough to eat.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-1.jpg",
+					"description": "In our household we always have enough to eat.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/21-2.jpg",
 						"description": "In our household we sometimes battle to buy enough food for our needs.",
@@ -1632,10 +1650,10 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-1.jpg",
-						"description": "We know what a healthy diet is and we eat healthy food.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-1.jpg",
+					"description": "We know what a healthy diet is and we eat healthy food.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/22-2.jpg",
 						"description": "We get confused about how to eat healthy or can’t afford to buy healthy food. We aren’t sure if our diet is healthy or not.",
@@ -1663,26 +1681,26 @@
 		"nearbyHealthPost": {
 			"type": "array",
 			"title": {
-				"es": "Access to Health Care"
+				"es": "Health-Care Access"
 			},
 			"description": {
-				"es": "We can access health services"
+				"es": "We have access to health care"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/23-1.jpg",
-						"description": "Everyone in the house has a local GP, is registered and uses the service when needed, and is happy with it.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/23-1.jpg",
+					"description": "Everyone in the house has a local GP and is happy to use this service when needed.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/23-2.jpg",
-						"description": "In our household, everyone is registered but not everyone uses the service, even when they should do.",
+						"description": "In our household everyone has a GP, but some of us don’t always go to the doctor when we should.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/23-3.jpg",
-						"description": "Someone in the household is not registered at a local GP or does not seek medical treatment when needed.",
+						"description": "Someone in our household hasn’t got a local GP or doesn’t go to the doctor when sick. ",
 						"value": "RED"
 					},
 					{
@@ -1695,7 +1713,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/23-1.jpg",
-				"description": "Everyone in the house has a local GP, is registered and uses the service when needed, and is happy with it.",
+				"description": "Everyone in the house has a local GP and is happy to use this service when needed.",
 				"value": "GREEN"
 			}]
 		},
@@ -1705,23 +1723,23 @@
 				"es": "Personal Hygiene"
 			},
 			"description": {
-				"es": "We have good hygiene"
+				"es": "We keep a good level of hygiene"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/24-1.jpg",
-						"description": "We keep a good, consistent level of hygiene (wash our hands, bathe regularly, brush teeth everyday etc.).",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/24-1.jpg",
+					"description": "We keep clean all the time by washing hands, bathing and brushing teeth daily.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/24-2.jpg",
-						"description": "Sometimes we cannot take baths, or not everyone washes their hands or brushes their teeth daily.",
+						"description": "Sometimes we can’t take baths or we don’t wash our hands or brush our teeth daily.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/24-3.jpg",
-						"description": "Not everyone in our household has   good hygiene. Sometimes we cannot afford to buy basic toiletries (soap, shampoo, toothpaste, toothbrush).",
+						"description": "Not everyone in our household keeps clean. Sometimes we can’t afford basic toiletries like soap and toothpaste.",
 						"value": "RED"
 					},
 					{
@@ -1734,7 +1752,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/24-1.jpg",
-				"description": "We keep a good, consistent level of hygiene (wash our hands, bathe regularly, brush teeth everyday etc.).",
+				"description": "We keep clean all the time by washing hands, bathing and brushing teeth daily.",
 				"value": "GREEN"
 			}]
 		},
@@ -1744,23 +1762,23 @@
 				"es": "Sexual Health"
 			},
 			"description": {
-				"es": "Sexual health and family planning"
+				"es": "We understand sexual health"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/25-1.jpg",
-						"description": "All members of the household are well informed about sexual health and family planning and use contraceptives (condoms, the pill etc.).",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/25-1.jpg",
+					"description": "All members of the household understand sexual health and family-planning, and use contraceptives like condoms and the pill.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/25-2.jpg",
-						"description": "Members of the household are informed about sexual health and family planning but take risks. They have access to contraceptives (condoms, the pill etc.) but do not always use them.",
+						"description": "Members of the household understand sexual health and family-planning, but take risks. They can get contraceptives like condoms and the pill, but don’t always use them.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/25-3.jpg",
-						"description": "Members of the household have little knowledge of sexual health and family planning and do not have access to contraceptives (condoms, the pill etc.).",
+						"description": "Members of the household don’t know about sexual health and family-planning and can’t get contraceptives like condoms and the pill.",
 						"value": "RED"
 					},
 					{
@@ -1773,7 +1791,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/25-1.jpg",
-				"description": "All members of the household are well informed about sexual health and family planning and use contraceptives (condoms, the pill etc.).",
+				"description": "All members of the household understand sexual health and family-planning, and use contraceptives like condoms and the pill.",
 				"value": "GREEN"
 			}]
 		},
@@ -1783,23 +1801,23 @@
 				"es": "Eyesight"
 			},
 			"description": {
-				"es": "We have healthy vision"
+				"es": "We have good eyesight or glasses"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/26-1.jpg",
-						"description": "No one in the household has unresolved eye problems and goes to have check-ups at least every 2 years.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/26-1.jpg",
+					"description": "No one in the household has eye problems that aren’t seen to; everyone goes for check-ups every 2 years.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/26-2.jpg",
-						"description": "A member of the household has not been to an optician in the last 3 years.  They have an eyesight problem but know how to get support.",
+						"description": "A member of the household with an eyesight problem hasn’t been for an eye check-up in the last 3 years. This person knows how to get support.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/26-3.jpg",
-						"description": "A member of the household has not visited an optician in more than 5 years but needs to go.  They need glasses but cannot afford them, or don’t know where to go for support.",
+						"description": "A member of the household hasn’t gone for an eye check-up in more than 5 years; glasses are needed but cost too much. There is no support for this problem.",
 						"value": "RED"
 					},
 					{
@@ -1812,7 +1830,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/26-1.jpg",
-				"description": "No one in the household has unresolved eye problems and goes to have check-ups at least every 2 years.",
+				"description": "No one in the household has eye problems that aren’t seen to; everyone goes for check-ups every 2 years.",
 				"value": "GREEN"
 			}]
 		},
@@ -1822,15 +1840,15 @@
 				"es": "Dental Care"
 			},
 			"description": {
-				"es": "We have healthy teeth "
+				"es": "We visit the dentist regularly"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
-						"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
+					"description": "In our household  everyone visits a dentist regularly. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-2.jpg",
 						"description": "Someone in our household has not been to the dentist in the past 5 years.",
@@ -1838,7 +1856,7 @@
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-3.jpg",
-						"description": "In our household, someone has dental problems and cannot or does not know how to access dental care or cannot afford it.",
+						"description": "In our household someone needs to see a dentist but can’t/doesn’t know how to, or can’t pay for it.",
 						"value": "RED"
 					},
 					{
@@ -1851,7 +1869,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
-				"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
+				"description": "In our household  everyone visits a dentist regularly. ",
 				"value": "GREEN"
 			}]
 		},
@@ -1861,23 +1879,23 @@
 				"es": "Vaccinations"
 			},
 			"description": {
-				"es": "We are vaccinated"
+				"es": "We are up to date with vaccinations"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/28-1.jpg",
-						"description": "Everyone in our household has all the required vaccinations up to date. We are well informed about the benefits of immunisations.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/28-1.jpg",
+					"description": "In our household everyone has had all their vaccinations. They know how this will keep them healthy.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/28-2.jpg",
-						"description": "In our household, we need boosters on some vaccines or we choose not to vaccinate.",
+						"description": "In our household we need vaccine boosters, or choose not to vaccinate.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/28-3.jpg",
-						"description": "In our household, there are people that have not been vaccinated or we don’t know if they have or not.",
+						"description": "In our household there are people who haven’t been vaccinated or aren’t sure if they have been or not.  ",
 						"value": "RED"
 					},
 					{
@@ -1890,7 +1908,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/28-1.jpg",
-				"description": "Everyone in our household has all the required vaccinations up to date. We are well informed about the benefits of immunisations.",
+				"description": "In our household everyone has had all their vaccinations. They know how this will keep them healthy.",
 				"value": "GREEN"
 			}]
 		},
@@ -1900,23 +1918,23 @@
 				"es": "Rubbish Disposal"
 			},
 			"description": {
-				"es": "We dispose of our rubbish well"
+				"es": "We manage our rubbish well"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/29-1.jpg",
-						"description": "We use the full range of rubbish disposal services including pay-to-collect bulky items. When needed we take items to the neighbourhood recycling centre.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/29-1.jpg",
+					"description": "We use all the rubbish-removal services, including pay-to-collect for bulky items. We can recycle at the neighbourhood recycling centre.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/29-2.jpg",
-						"description": "Our household has access to rubbish bins but don’t use them properly. I am not happy with rubbish disposal system and can’t afford to use pay-to-collect for bulky items.",
+						"description": "Our household has rubbish bins, but they aren’t used properly. The rubbish-removal system is bad and pay-to-collect bulky items cost too much.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/29-3.jpg",
-						"description": "Our household does not have access or does not use a household or communal waste bin. Rubbish is rarely collected in my area.",
+						"description": "Our household doesn’t have/doesn’t use a household/common rubbish bin. Rubbish isn’t often collected.",
 						"value": "RED"
 					},
 					{
@@ -1929,33 +1947,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/29-1.jpg",
-				"description": "We use the full range of rubbish disposal services including pay-to-collect bulky items. When needed we take items to the neighbourhood recycling centre.",
+				"description": "We use all the rubbish-removal services, including pay-to-collect for bulky items. We can recycle at the neighbourhood recycling centre.",
 				"value": "GREEN"
 			}]
 		},
 		"unpollutedEnvironment": {
 			"type": "array",
 			"title": {
-				"es": "Unpolluted Environment"
+				"es": "Clean Environment"
 			},
 			"description": {
-				"es": "We live in a healthy environment"
+				"es": "Our neighbourhood is free of pollution"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/30-1.jpg",
-						"description": "Our neighbourhood is always free of pollution of any kind (e.g. dog dirt, rubbish in the street or bad air quality).",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/30-1.jpg",
+					"description": "Our neighbourhood is always clean, free from, e.g.: dog dirt, litter in the street or bad air quality.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/30-2.jpg",
-						"description": "Our neighbourhood is clean most of the time but not always. The air quality is not as good as it should be.",
+						"description": "Our neighbourhood is clean, but not always. The air quality isn’t great.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/30-3.jpg",
-						"description": "In our household we feel the environment is polluted (e.g. dog dirt, rubbish in the streets, bad air quality). We feel it is a health hazard or it has already affected our health.",
+						"description": "Our household environment is dirty, e.g., dog waste, litter in the streets, bad air quality. It is a health hazard, or it has already affected our health.",
 						"value": "RED"
 					},
 					{
@@ -1968,7 +1986,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/30-1.jpg",
-				"description": "Our neighbourhood is always free of pollution of any kind (e.g. dog dirt, rubbish in the street or bad air quality).",
+				"description": "Our neighbourhood is always clean, free from, e.g.: dog dirt, litter in the street or bad air quality.",
 				"value": "GREEN"
 			}]
 		},
@@ -1978,23 +1996,23 @@
 				"es": "Literacy"
 			},
 			"description": {
-				"es": "We know how to read and write"
+				"es": "We can read and write in English"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/31-1.jpg",
-						"description": "Everyone in our household can read and write at appropriate levels in English, including knowledge of writing for work purposes.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/31-1.jpg",
+					"description": "Everyone in our household can read and write English well, including writing for work purposes.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/31-2.jpg",
-						"description": "Everyone in our household can read and write well, but need help with more complex writing styles or more difficult reading.",
+						"description": "Everyone in our household can read and write English well, but need help with harder writing tasks or reading.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/31-3.jpg",
-						"description": "Some members of our household do not read and write English at an appropriate level.",
+						"description": "Some members of our household don’t read and write English well enough.",
 						"value": "RED"
 					},
 					{
@@ -2008,33 +2026,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/31-1.jpg",
-				"description": "Everyone in our household can read and write at appropriate levels in English, including knowledge of writing for work purposes.",
+				"description": "Everyone in our household can read and write English well, including writing for work purposes.",
 				"value": "GREEN"
 			}]
 		},
 		"middleEducation": {
 			"type": "array",
 			"title": {
-				"es": "Children Enrolled and Attend School"
+				"es": "Children Enrolled in and Attending School"
 			},
 			"description": {
-				"es": "Our children go to school"
+				"es": "Our children attend school"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/32-1.jpg",
-						"description": "All members in our household completed school and all children are on track to obtain their GCSEs. If 16-18 they are either at school, college or apprenticeship/traineeship.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/32-1.jpg",
+					"description": "All members in our household finished school and all kids will get their GCSEs. Anyone 16-18 is either in   school/college or an apprenticeship/traineeship.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/32-2.jpg",
-						"description": "Some are at risk of not completing school or not getting a minimum of C in English and Maths GCSEs or not staying in school, college or apprenticeship/traineeship.",
+						"description": "Some in our household might not finish school or get a minimum of C in English /Maths GCSEs, or won’t finish school, college or an apprenticeship/traineeship.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/32-3.jpg",
-						"description": "There are members of our household that should be attending school but they are not. 16-18 year olds are not in school, college or apprenticeship/traineeship.",
+						"description": "There are children in our household who aren’t in school and should be.16-18-year olds aren’t in school or college or in any training, e.g. for an apprenticeship. ",
 						"value": "RED"
 					},
 					{
@@ -2048,7 +2066,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/32-1.jpg",
-				"description": "All members in our household completed school and all children are on track to obtain their GCSEs. If 16-18 they are either at school, college or apprenticeship/traineeship.",
+				"description": "All members in our household finished school and all kids will get their GCSEs. Anyone 16-18 is either in   school/college or an apprenticeship/traineeship.",
 				"value": "GREEN"
 			}]
 		},
@@ -2058,23 +2076,23 @@
 				"es": "Knowledge and Skills to Generate Income"
 			},
 			"description": {
-				"es": "We know how to make an income"
+				"es": "We know how to get a job or make money"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
-						"description": "Everyone in our household has the necessary skills to find employment or start their business.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
+					"description": "Everyone in our household has the skills and knows how to find employment or start a business.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-2.jpg",
-						"description": "People in our household have some skills needed to find employment but struggle with some aspects (e.g. application forms, interversion skills).",
+						"description": "People in our household have some skills to get employment, but struggle with, e.g., application forms, interview skills.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-3.jpg",
-						"description": "Some adults in our household have no skills to find employment, start their own business, or have never worked.",
+						"description": "Some adults in our household have no skills to get employment, start a business, or have never worked.",
 						"value": "RED"
 					},
 					{
@@ -2088,14 +2106,14 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
-				"description": "Everyone in our household has the necessary skills to find employment or start their business.",
+				"description": "Everyone in our household has the skills and knows how to find employment or start a business.",
 				"value": "GREEN"
 			}]
 		},
 		"capacityToPlanAndBudget": {
 			"type": "array",
 			"title": {
-				"es": "Capacity to Plan and Budget"
+				"es": "Planning and Budgeting"
 			},
 			"description": {
 				"es": "We have a budget"
@@ -2103,18 +2121,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/34-1.jpg",
-						"description": "We have a household budget and stick to it.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/34-1.jpg",
+					"description": "We have a household budget and stick to it.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/34-2.jpg",
-						"description": "We have a household budget but sometimes we overspend.",
+						"description": "There is a household budget, but sometimes we spend too much.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/34-3.jpg",
-						"description": "In our household we find it hard to manage our finances, or we live hand to mouth.",
+						"description": "In our household we struggle with money, or we live on next to nothing.",
 						"value": "RED"
 					},
 					{
@@ -2138,23 +2156,23 @@
 				"es": "Communication and Social Capital"
 			},
 			"description": {
-				"es": "We have broad social networks"
+				"es": "We have good friendship groups"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/35-1.jpg",
-						"description": "We have broad social networks that positively influence our lives. We have the confidence to draw on these networks to create opportunities.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/35-1.jpg",
+					"description": "We mix with many people who are a good influence on us. We use these connections to open up   opportunities.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/35-2.jpg",
-						"description": "We may have broad networks but we don't have the confidence to make the most of them.",
+						"description": "We mix with people, but we don't make the most of it.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/35-3.jpg",
-						"description": "In our household, we don’t mix with many people. The people we know have a bad influence on some members of the household.",
+						"description": "In our household we don’t mix much and those people we know have a bad influence on some of us.",
 						"value": "RED"
 					},
 					{
@@ -2168,7 +2186,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/35-1.jpg",
-				"description": "We have broad social networks that positively influence our lives. We have the confidence to draw on these networks to create opportunities.",
+				"description": "We mix with many people who are a good influence on us. We use these connections to open up   opportunities.",
 				"value": "GREEN"
 			}]
 		},
@@ -2178,23 +2196,23 @@
 				"es": "School Supplies and Books"
 			},
 			"description": {
-				"es": "We have school supplies"
+				"es": "Our children have school supplies"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-1.jpg",
-						"description": "In our household, children have all the necessary uniforms, school supplies and additional materials or books to support a good education.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-1.jpg",
+					"description": "In our household kids have all the uniforms, school supplies/books needed.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-2.jpg",
-						"description": "In our household, children have basic uniforms and school supplies. We wish we could afford additional materials and supplies.",
+						"description": "In our household kids have basic uniforms and school supplies, but we can’t afford anything extra.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-3.jpg",
-						"description": "In our household, children do not have the required school supplies or they are not sufficient or appropriate.",
+						"description": "In our household kids don’t have the school supplies they need or they aren’t good enough.",
 						"value": "RED"
 					},
 					{
@@ -2208,8 +2226,8 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/36-1.jpg",
-						"description": "In our household, children have all the necessary uniforms, school supplies and additional materials or books to support a good education.",
-						"value": "GREEN"
+				"description": "In our household kids have all the uniforms, school supplies/books needed.",
+				"value": "GREEN"
 			}]
 		},
 		"informationAccess": {
@@ -2218,23 +2236,23 @@
 				"es": "Access to Information"
 			},
 			"description": {
-				"es": "We have access to information"
+				"es": "We are well informed"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/37-1.jpg",
-						"description": "We are able to access information via a range of media to suit all of our news and entertainment needs.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/37-1.jpg",
+					"description": "We can get information from different media for both news and entertainment.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/37-2.jpg",
-						"description": "We can access information but not always what we need/when we need it, or we have a limited range of media which we prefer to use for entertainment purposes rather than accessing the news.",
+						"description": "We can get information, but not always. We use the access we have for entertainment rather than the news.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/37-3.jpg",
-						"description": "We have no or very restricted access to media for our news and entertainment.",
+						"description": "We don’t get or get very little news and entertainment.",
 						"value": "RED"
 					},
 					{
@@ -2248,7 +2266,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/37-1.jpg",
-				"description": "We are able to access information via a range of media to suit all of our news and entertainment needs.",
+				"description": "We can get information from different media for both news and entertainment.",
 				"value": "GREEN"
 			}]
 		},
@@ -2258,23 +2276,23 @@
 				"es": "Entertainment and Recreation"
 			},
 			"description": {
-				"es": "We have access to entertainment"
+				"es": "We get involved in activities"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/38-1.jpg",
-						"description": "In our household, we regularly participate in recreational activities in our neighbourhood, as well as activities elsewhere.  We have all the necessary equipment and information to participate, and can afford to do so.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/38-1.jpg",
+					"description": "We regularly take part in neighbourhood leisure activities, as well as elsewhere. We have all we need to join in and we can afford it.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/38-2.jpg",
-						"description": "In our household, we sometimes participate in recreational activities but only in our neighbourhood, or we had to quit an activity because we could not afford it anymore.",
+						"description": "We sometimes take part in leisure activities in our neighbourhood, or we quit because it costs too much.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/38-3.jpg",
-						"description": "In our household, we do not participate in recreational activities outside the home.",
+						"description": "We don’t take part in leisure activities outside of our household.",
 						"value": "RED"
 					},
 					{
@@ -2288,7 +2306,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/38-1.jpg",
-				"description": "In our household, we regularly participate in recreational activities in our neighbourhood, as well as activities elsewhere.  We have all the necessary equipment and information to participate, and can afford to do so.",
+				"description": "We regularly take part in neighbourhood leisure activities, as well as elsewhere. We have all we need to join in and we can afford it.",
 				"value": "GREEN"
 			}]
 		},
@@ -2298,23 +2316,23 @@
 				"es": "Cultural Traditions and Heritage"
 			},
 			"description": {
-				"es": "We value cultural traditions"
+				"es": "We value our culture"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/39-1.jpg",
-						"description": "Our household values and recognises cultural traditions and we have a strong feeling of belonging in the community.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/39-1.jpg",
+					"description": "Our household keeps and knows social traditions, and we fit in well with others.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/39-2.jpg",
-						"description": "Our household seems to belong to the community but we sometimes feel isolated from it.",
+						"description": "Our household sort of fits in with others, but we sometimes feel cut off.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/39-3.jpg",
-						"description": "In our household, we feel no sense of belonging in our local community.",
+						"description": "In our household we don’t fit in with others.",
 						"value": "RED"
 					},
 					{
@@ -2328,7 +2346,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/39-1.jpg",
-				"description": "Our household values and recognises cultural traditions and we have a strong feeling of belonging in the community.",
+				"description": "Our household keeps and knows social traditions, and we fit in well with others.",
 				"value": "GREEN"
 			}]
 		},
@@ -2343,18 +2361,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/40-1.jpg",
-						"description": "Members of our household recognise and value cultural differences and treat everyone the same.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/40-1.jpg",
+					"description": "All of our household accepts and respects cultural differences; they treat everyone the same.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/40-2.jpg",
-						"description": "Some members of our household do not tolerate or respect different cultures and treat people negatively if their ideas, religion, race or sexual orientation are different.",
+						"description": "Some of our household does not accept or respect differences; they treat people unfairly if their ideas, religion, race or sexual choices are different.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/40-3.jpg",
-						"description": "Most members of our household do not tolerate or respect different cultures and treat people differently/negatively.",
+						"description": "Most of our household doesn’t accept or respect differences; they treat people unequally.",
 						"value": "RED"
 					},
 					{
@@ -2368,14 +2386,14 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/40-1.jpg",
-				"description": "Members of our household recognise and value cultural differences and treat everyone the same.",
+				"description": "All of our household accepts and respects cultural differences; they treat everyone the same.",
 				"value": "GREEN"
 			}]
 		},
 		"awarenessOfHumanRights": {
 			"type": "array",
 			"title": {
-				"es": "Awareness of Human Rights"
+				"es": "Human-Rights’ Awareness"
 			},
 			"description": {
 				"es": "We respect human rights"
@@ -2383,18 +2401,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/41-1.jpg",
-						"description": "In our household, we are aware of our rights and feel they are wholly respected.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/41-1.jpg",
+					"description": "In our household we know our rights and we feel we are respected.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/41-2.jpg",
-						"description": "In our household, most are confident we know our rights but feel like we might be exploited or disrespected.",
+						"description": "In our household most of us know our rights, but feel like we may be put down or treated badly.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/41-3.jpg",
-						"description": "No-one in our household is clear about our rights. We feel   disrespected and/or exploited.",
+						"description": "In our household we aren’t sure about our rights. We feel put down and/or treated badly.",
 						"value": "RED"
 					},
 					{
@@ -2408,33 +2426,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/41-1.jpg",
-				"description": "In our household, we are aware of our rights and feel they are wholly respected.",
+				"description": "In our household we know our rights and we feel we are respected.",
 				"value": "GREEN"
 			}]
 		},
 		"socialCapital": {
 			"type": "array",
 			"title": {
-				"es": "Part of Group Activities"
+				"es": "Participating in Group Activities"
 			},
 			"description": {
-				"es": "We are part of a group"
+				"es": "We are actively involved in [groups] group-participation"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/42-1.jpg",
-						"description": "Everyone in our household is actively involved in groups where they can express themselves and feel supported.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/42-1.jpg",
+					"description": "Everyone in our household joins in groups where they can give and feel support.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/42-2.jpg",
-						"description": "Everyone in our household occasionally attends these groups but they do not meet up or attend often and are not well networked in the groups.",
+						"description": "Only sometimes those in our household attend groups, but they aren’t well connected in these.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/42-3.jpg",
-						"description": "There is someone in our household who does not belong to any group (e.g. neighbourhood group, church, committees, parent groups, social groups).",
+						"description": "Some in our household don’t belong to any group, e.g. in the neighbourhood, church, committees, parenting or social.",
 						"value": "RED"
 					},
 					{
@@ -2448,33 +2466,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/42-1.jpg",
-				"description": "Everyone in our household is actively involved in groups where they can express themselves and feel supported.",
+				"description": "Everyone in our household joins in groups where they can give and feel support.",
 				"value": "GREEN"
 			}]
 		},
 		"influenceInPublicSector": {
 			"type": "array",
 			"title": {
-				"es": "Influence on the Public Sector"
+				"es": "Public-Sector Influence"
 			},
 			"description": {
-				"es": "We know how to petition authorities"
+				"es": "We know how to petition"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/43-1.jpg",
-						"description": "In our household when we see problems in our community, we know who to talk to (for example going to our local MP or councillors, or organising a petition).",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/43-1.jpg",
+					"description": "In our household we know who to talk to, to sort problems in our community, e.g. local MP/councillors, or starting a petition.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/43-2.jpg",
-						"description": "In our household, we do not take action to solve problems in my community.  We only participate if someone else organises it.",
+						"description": "In our household we don’t try to sort problems in our community. We only do so if someone else takes the lead.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/43-3.jpg",
-						"description": "In our household, we do not know how to contact local authorities or we think there's no point in getting involved because nothing ever changes.",
+						"description": "In our household we don’t know how to get in touch with the local authorities, or we don’t bother  because nothing ever happens if we do.",
 						"value": "RED"
 					},
 					{
@@ -2488,14 +2506,14 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/43-1.jpg",
-				"description": "In our household when we see problems in our community, we know who to talk to (for example going to our local MP or councillors, or organising a petition).",
+				"description": "In our household we know who to talk to, to sort problems in our community, e.g. local MP/councillors, or starting a petition.",
 				"value": "GREEN"
 			}]
 		},
 		"registeredToVoteAndVotesInElections": {
 			"type": "array",
 			"title": {
-				"es": "Registered to Vote and Votes in Elections"
+				"es": "Registered to Vote and Voting"
 			},
 			"description": {
 				"es": "We vote in elections"
@@ -2503,18 +2521,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
-						"description": "Everyone in our household is registered to vote and does so regularly.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
+					"description": "Everyone in our household is registered to vote and always does.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-2.jpg",
-						"description": "Everyone in our household is registered to vote but does not regularly vote.",
+						"description": "Everyone in our household is registered to vote, but doesn’t always.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-3.jpg",
-						"description": "Members in our household are not registered to vote or we are not motivated to vote in elections.",
+						"description": "In our household no one is registered to vote, or we can’t be bothered to vote.",
 						"value": "RED"
 					},
 					{
@@ -2528,14 +2546,14 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
-				"description": "Everyone in our household is registered to vote and does so regularly.",
+				"description": "Everyone in our household is registered to vote and always does.",
 				"value": "GREEN"
 			}]
 		},
 		"abilityToSolveProblemsAndConflicts": {
 			"type": "array",
 			"title": {
-				"es": "Ability to Solve Problems and Conflicts"
+				"es": "Problem-and Conflict-Solving"
 			},
 			"description": {
 				"es": "We solve our own problems"
@@ -2543,18 +2561,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/45-1.jpg",
-						"description": "When we see problems in our community or house, we take action to improve it. Problems are addressed positively and are not avoided.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/45-1.jpg",
+					"description": "When we see problems around us, we sort them out positively. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/45-2.jpg",
-						"description": "When we see problems in our household or community, we usually do not do anything about them or are usually unsure of how to solve them.",
+						"description": "When we see problems around us we usually don’t do anything, or we try to fix them but aren’t really sure how to do it.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/45-3.jpg",
-						"description": "In our household when we see problems, we usually avoid responsibility or expect others to solve the problem.",
+						"description": "In our household we avoid problems and wait for others to sort them.",
 						"value": "RED"
 					},
 					{
@@ -2568,33 +2586,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/45-1.jpg",
-				"description": "When we see problems in our community or house, we take action to improve it. Problems are addressed positively and are not avoided.",
+				"description": "When we see problems around us, we sort them out positively. ",
 				"value": "GREEN"
 			}]
 		},
 		"awarenessOfNeeds": {
 			"type": "array",
 			"title": {
-				"es": "Awareness of Needs - Life Map"
+				"es": "Needs-Awareness/ Life-Map"
 			},
 			"description": {
-				"es": "We have a family life plan"
+				"es": "We know how to plan for the future"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-1.jpg",
-						"description": "In our household, we usually reflect about our present situation, and imagine how it could be different. We have concrete targets for the short, medium and long term and know how to reach them.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-1.jpg",
+					"description": "In our household we often think of ways to change our circumstances. We have real targets for the future, and know how to achieve them.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-2.jpg",
-						"description": "In our household, we can imagine where we want to be in the future but are not sure how to get there.",
+						"description": "In our household we think about what we want in the future, but aren’t sure how to get there.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-3.jpg",
-						"description": "In our household, we can't imagine changing things or think we'd like things to be different, but what's the point?",
+						"description": "In our household we don’t see the point in trying to change anything. ",
 						"value": "RED"
 					},
 					{
@@ -2608,33 +2626,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-1.jpg",
-				"description": "In our household, we usually reflect about our present situation, and imagine how it could be different. We have concrete targets for the short, medium and long term and know how to reach them.",
+				"description": "In our household we often think of ways to change our circumstances. We have real targets for the future, and know how to achieve them.",
 				"value": "GREEN"
 			}]
 		},
 		"selfEsteem": {
 			"type": "array",
 			"title": {
-				"es": "Self Confidence and Self Esteem"
+				"es": "Self-Confidence and Self-Esteem"
 			},
 			"description": {
-				"es": "I trust in my abilities and achievements"
+				"es": "We believe in self-worth"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/47-1.jpg",
-						"description": "Most or all of the household have strong levels of self-confidence and self-esteem in a variety of situations.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/47-1.jpg",
+					"description": "Most, or all of the household, are really confident and secure in many different situations.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/47-2.jpg",
-						"description": "Some but not all of the household have good self esteem or self confidence but in general don’t like being out of their comfort zone.",
+						"description": "Some, but not all of the household, are confident and secure; we aren’t that happy leaving our comfort zone.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/47-3.jpg",
-						"description": "Most of our household find it difficult to be self-confident and lack self-esteem; we don't enter situations out of our comfort zone.",
+						"description": "Most of our household is insecure; we don't leave our comfort zone.",
 						"value": "RED"
 					},
 					{
@@ -2648,7 +2666,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/47-1.jpg",
-				"description": "Most or all of the household have strong levels of self-confidence and self-esteem in a variety of situations.",
+				"description": "Most, or all of the household, are really confident and secure in many different situations.",
 				"value": "GREEN"
 			}]
 		},
@@ -2658,23 +2676,23 @@
 				"es": "Moral Conscience"
 			},
 			"description": {
-				"es": "We condiser others in decision-making"
+				"es": "We consider others when making decisions"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/48-1.jpg",
-						"description": "Our household makes decisions that respect people, the family, and the community.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/48-1.jpg",
+					"description": "Our household makes decisions that respect the family and the community. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/48-2.jpg",
-						"description": "Our household makes decisions that are heavily influenced by what is accepted in the local neighbourhood.",
+						"description": "Our household makes decisions that are in line with the local community but are not necessarily our own.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/48-3.jpg",
-						"description": "The household makes decisions that just benefit us. We don’t think about the impact on others.",
+						"description": "The household only does what suits it and doesn’t care how that affects others. ",
 						"value": "RED"
 					},
 					{
@@ -2688,7 +2706,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/48-1.jpg",
-				"description": "Our household makes decisions that respect people, the family, and the community.",
+				"description": "Our household makes decisions that respect the family and the community. ",
 				"value": "GREEN"
 			}]
 		},
@@ -2703,18 +2721,18 @@
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/49-1.jpg",
-						"description": "People in our household can identify their emotions and those of others.  They are able to control their emotional responses in a wide range of situations and understand the consequences of their actions to themselves and others.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/49-1.jpg",
+					"description": "Those in our household read their and other peoples’ emotions well. They react well in many different situations and understand how their actions affect themselves and others.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/49-2.jpg",
-						"description": "People in our household can sometimes identify their emotions or those of others, and control their reactions. Under stress or when facing a problem, they might close-up emotionally or act impulsively.",
+						"description": "Our household can sometimes read their emotions or those of others well, and know how to react. If there is stress or a problem, though, they might act without thinking or withdraw.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/49-3.jpg",
-						"description": "People in our household do things  without thinking of the consequences to themselves and others.",
+						"description": "People in our household do things without thinking of the consequences to themselves or to others.",
 						"value": "RED"
 					},
 					{
@@ -2728,33 +2746,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/49-1.jpg",
-				"description": "People in our household can identify their emotions and those of others.  They are able to control their emotional responses in a wide range of situations and understand the consequences of their actions to themselves and others.",
+				"description": "Those in our household read their and other peoples’ emotions well. They react well in many different situations and understand how their actions affect themselves and others.",
 				"value": "GREEN"
 			}]
 		},
 		"selfExpression": {
 			"type": "array",
 			"title": {
-				"es": "Self Expression"
+				"es": "Self-Expression"
 			},
 			"description": {
-				"es": "We present ourselves well"
+				"es": "We have good self-perception"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/50-1.jpg",
-						"description": "Everyone in our household has a good perception of themselves and are self-confident about the way they express themselves. We like to dress well and look good. It is also a habit we value in others.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/50-1.jpg",
+					"description": "Our household has a good opinion of itself. We are confident in the way we come across. We like to dress well and look good, and like it when others do too. ",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/50-2.jpg",
-						"description": "Some household members admire and/or value people in their way of dressing and appearance but lack the self-confidence to express themselves or feel ashamed when dressed differently.",
+						"description": "Some household members like the way others express themselves, but don’t feel confident to do the same, or feel self-conscious when dressing differently.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/50-3.jpg",
-						"description": "Most household members do not have a good perception of themselves, or they do not particularly like to dress well or look good, nor is it something they value in others.",
+						"description": "Most household members don’t have a good opinion of themselves, nor do they like to dress well or look good; they don’t care whether others do either.",
 						"value": "RED"
 					},
 					{
@@ -2768,33 +2786,33 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/50-1.jpg",
-				"description": "Everyone in our household has a good perception of themselves and are self-confident about the way they express themselves. We like to dress well and look good. It is also a habit we value in others.",
+				"description": "Our household has a good opinion of itself. We are confident in the way we come across. We like to dress well and look good, and like it when others do too. ",
 				"value": "GREEN"
 			}]
 		},
 		"willingnessDesireToDevelopSkillsAndKnowledge": {
 			"type": "array",
 			"title": {
-				"es": "Willingness/Desire to Develop Skills and Knowledge"
+				"es": "Readiness/Desire to Develop Skills and Knowledge"
 			},
 			"description": {
-				"es": "We value self-improvement"
+				"es": "We look to learn new skills"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/51-1.jpg",
-						"description": "In our household, we are constantly looking to learn or improve our existing skills.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/51-1.jpg",
+					"description": "In our household we are always looking to learn or to better our skills.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/51-2.jpg",
-						"description": "In our household, some are interested in developing new skills and knowledge but do not actively look for these opportunities or think these are accessible to them.",
+						"description": "Some of us are interested in new skills and knowledge, but don’t often look for chances to find these or can’t.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/51-3.jpg",
-						"description": "In our household, we are not interested in developing new skills and knowledge.",
+						"description": "Our household isn’t interested in new skills and knowledge.",
 						"value": "RED"
 					},
 					{
@@ -2808,7 +2826,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/51-1.jpg",
-				"description": "In our household, we are constantly looking to learn or improve our existing skills.",
+				"description": "In our household we are always looking to learn or to better our skills.",
 				"value": "GREEN"
 			}]
 		},
@@ -2818,23 +2836,23 @@
 				"es": "Household Violence"
 			},
 			"description": {
-				"es": "We have no violence in our family"
+				"es": "We don't have violence in our house"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/52-1.jpg",
-						"description": "Physical, sexual, economic, or emotional abuse is not a problem in our household.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/52-1.jpg",
+					"description": "Physical, sexual, economic or emotional abuse isn’t a problem in our household.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/52-2.jpg",
-						"description": "In our household, there have been some instances of physical, sexual, economic, or emotional abuse but they've been addressed.",
+						"description": "In our household there has been some physical, sexual, economic or emotional abuse; it has been sorted.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/52-3.jpg",
-						"description": "In our household, there are instances of physical, sexual, economic, or emotional abuse and no action has been taken.",
+						"description": "In our household there is physical, sexual, economic or emotional abuse; nothing has been done about it.",
 						"value": "RED"
 					},
 					{
@@ -2848,7 +2866,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/52-1.jpg",
-				"description": "Physical, sexual, economic, or emotional abuse is not a problem in our household.",
+				"description": "Physical, sexual, economic or emotional abuse isn’t a problem in our household.",
 				"value": "GREEN"
 			}]
 		},
@@ -2858,23 +2876,23 @@
 				"es": "Entrepreneurial Spirit"
 			},
 			"description": {
-				"es": "We have a entrepreneurial spirit"
+				"es": "We have goals and aspirations"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/53-1.jpg",
-						"description": "In our household, we have goals and aspirations and are proactive about achieving them.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/53-1.jpg",
+					"description": "In our household we have goals and we know how to achieve them.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/53-2.jpg",
-						"description": "In our household, we have some goals and aspirations but sometimes struggle to find means of achieving them.",
+						"description": "In our household we have some goals, but can’t always achieve them.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/53-3.jpg",
-						"description": "In our household, we don’t set ourselves goals or have little interest in changing things.",
+						"description": "In our household we don’t have goals, or want any change.",
 						"value": "RED"
 					},
 					{
@@ -2888,7 +2906,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/53-1.jpg",
-				"description": "In our household, we have goals and aspirations and are proactive about achieving them.",
+				"description": "In our household we have goals and we know how to achieve them.",
 				"value": "GREEN"
 			}]
 		},
@@ -2898,23 +2916,23 @@
 				"es": "Autonomy"
 			},
 			"description": {
-				"es": "I have control over my life decisions"
+				"es": "We know how to make decisions"
 			},
 			"items": {
 				"type": "object",
 				"enum": [{
-						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/54-1.jpg",
-						"description": "In our household, we are all involved in decision-making processes and have a voice in them. Everyone makes decisions independently in the areas that affect them directly.",
-						"value": "GREEN"
-					},
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/54-1.jpg",
+					"description": "In our household we all have a say and make decisions. Everyone can make decisions for themselves.",
+					"value": "GREEN"
+				},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/54-2.jpg",
-						"description": "Only some members of our household are decision makers and restrict input even when the matter affects someone directly.",
+						"description": "Only some members of our household take charge; they don’t listen to others even when things affect others directly.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/54-3.jpg",
-						"description": "In our household, one person makes the decisions and the rest have to live with it.",
+						"description": "In our household only one person is in charge of everything.",
 						"value": "RED"
 					},
 					{
@@ -2928,7 +2946,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/54-1.jpg",
-				"description": "In our household, we are all involved in decision-making processes and have a voice in them. Everyone makes decisions independently in the areas that affect them directly.",
+				"description": "In our household we all have a say and make decisions. Everyone can make decisions for themselves.",
 				"value": "GREEN"
 			}]
 		}

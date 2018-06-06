@@ -198,6 +198,7 @@
 		"housingSituation",
 		"educationClientLevel",
 		"educationPersonMostStudied",
+		"otherUsefulInfo",
 		"familyUbication",
 
 		"income",
@@ -280,7 +281,8 @@
 		"manyPeopleHouseholdIncome",
 		"manyPeopleUnder18Household",
 		"receiveStateIncome",
-		"housingSituation"
+		"housingSituation",
+		"otherUsefulInfo"
 	],
 
 	"ui:group:indicators": [
