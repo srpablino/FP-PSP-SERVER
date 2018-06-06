@@ -1,0 +1,1038 @@
+{
+	"title": "UK Stoplight Demo",
+	"description": "A simple stoplight survey example with default values for UK.",
+	"type": "object",
+	"required": [
+		"activityMain",
+		"activitySecondary",
+		"areaOfResidence",
+		"currency",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"employmentStatusPrimary",
+		"employmentStatusSecondary",
+		"familyUbication",
+		"householdMonthlyIncome",
+		"housingSituation",
+		"birthdate",
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"identificationType",
+		"lastName"
+	],
+	"properties": {
+		"identificationType": {
+			"type": "string",
+			"title": {
+				"es": "Personal Reference"
+			},
+			"enum": [
+				"NATIONALINSURANCE",
+				"ORGANISATIONALREFERENCENUMBER",
+				"OTHER"
+			],
+			"enumNames": [
+				"National Insurance Number",
+				"Organisation Reference Number",
+				"Other identification"
+			],
+			"default": "NATIONALINSURANCE"
+		},
+
+		"identificationNumber": {
+			"type": "string",
+			"title": {
+				"es": "Please enter your selected personal reference"
+			}
+		},
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Enter your first name"
+			}
+		},
+
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Enter your surname"
+			}
+		},
+
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Enter your date of birth"
+			}
+		},
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Enter your country of birth"
+			},
+			"enum": [
+				"AF",
+				"AL",
+				"DZ",
+				"AS",
+				"AD",
+				"AO",
+				"AQ",
+				"AR",
+				"AM",
+				"AW",
+				"AU",
+				"AT",
+				"AZ",
+				"BS",
+				"BH",
+				"BD",
+				"BB",
+				"BY",
+				"BE",
+				"BZ",
+				"BJ",
+				"BM",
+				"BT",
+				"BO",
+				"BA",
+				"BW",
+				"BV",
+				"BR",
+				"IO",
+				"VG",
+				"BN",
+				"BG",
+				"BF",
+				"BI",
+				"KH",
+				"CM",
+				"CV",
+				"KY",
+				"CF",
+				"TD",
+				"CL",
+				"CN",
+				"CX",
+				"CC",
+				"CO",
+				"KM",
+				"CG",
+				"CK",
+				"CR",
+				"HR",
+				"CU",
+				"CY",
+				"CZ",
+				"DK",
+				"DJ",
+				"DM",
+				"DO",
+				"EC",
+				"AI",
+				"EG",
+				"GQ",
+				"ER",
+				"EE",
+				"ET",
+				"FK",
+				"FO",
+				"FJ",
+				"FI",
+				"FR",
+				"GF",
+				"PF",
+				"TF",
+				"GA",
+				"GM",
+				"GE",
+				"DE",
+				"GH",
+				"GI",
+				"CA",
+				"GR",
+				"GL",
+				"GP",
+				"GU",
+				"GT",
+				"GG",
+				"GY",
+				"GN",
+				"GW",
+				"HT",
+				"HM",
+				"HN",
+				"HK",
+				"HU",
+				"IS",
+				"IN",
+				"ID",
+				"IR",
+				"IQ",
+				"IE",
+				"AX",
+				"IM",
+				"IL",
+				"IT",
+				"CI",
+				"JM",
+				"JP",
+				"JO",
+				"KZ",
+				"KE",
+				"KI",
+				"KW",
+				"KG",
+				"LA",
+				"LV",
+				"LB",
+				"LS",
+				"LR",
+				"LY",
+				"LI",
+				"LT",
+				"LU",
+				"MO",
+				"MK",
+				"MG",
+				"MW",
+				"MY",
+				"MV",
+				"ML",
+				"MT",
+				"MH",
+				"MQ",
+				"MU",
+				"MR",
+				"YT",
+				"RE",
+				"MX",
+				"FM",
+				"MD",
+				"MC",
+				"MN",
+				"ME",
+				"MS",
+				"MA",
+				"MZ",
+				"MM",
+				"NA",
+				"NR",
+				"NP",
+				"NL",
+				"AN",
+				"NC",
+				"NZ",
+				"NI",
+				"NE",
+				"NG",
+				"NU",
+				"NF",
+				"KP",
+				"NO",
+				"EH",
+				"AG",
+				"OM",
+				"PK",
+				"PW",
+				"PS",
+				"PA",
+				"PG",
+				"PY",
+				"PE",
+				"PH",
+				"PN",
+				"PL",
+				"GD",
+				"PT",
+				"PR",
+				"QA",
+				"RO",
+				"RU",
+				"RW",
+				"KN",
+				"PM",
+				"WS",
+				"BL",
+				"SM",
+				"ST",
+				"SA",
+				"SN",
+				"RS",
+				"SC",
+				"SL",
+				"SG",
+				"SK",
+				"SI",
+				"SB",
+				"SO",
+				"ZA",
+				"GS",
+				"KR",
+				"ES",
+				"LK",
+				"SH",
+				"LC",
+				"VC",
+				"SD",
+				"SR",
+				"SJ",
+				"SZ",
+				"JE",
+				"SE",
+				"CH",
+				"SY",
+				"TW",
+				"TJ",
+				"TH",
+				"TH",
+				"SV",
+				"TL",
+				"TG",
+				"TK",
+				"TO",
+				"TT",
+				"TN",
+				"TR",
+				"TM",
+				"TC",
+				"TV",
+				"UG",
+				"UA",
+				"AE",
+				"GB",
+				"US",
+				"UY",
+				"UZ",
+				"VU",
+				"VA",
+				"VE",
+				"VN",
+				"VI",
+				"WF",
+				"YE"
+			],
+			"enumNames": [
+				"Afghanistan",
+				"Albania",
+				"Algiers",
+				"American Samoa",
+				"Andorra",
+				"Angola",
+				"Antarctica",
+				"Argentina",
+				"Armenia",
+				"Aruba",
+				"Australia",
+				"Austria",
+				"Azerbaijan",
+				"Bahamas",
+				"Bahrain",
+				"Bangladesh",
+				"Barbados",
+				"Belarus",
+				"Belgium",
+				"Belize",
+				"Benin",
+				"Bermuda",
+				"Bhutan",
+				"Bolivia",
+				"Bosnia and Herzegovina",
+				"Botswana",
+				"Bouvet Island",
+				"Brazil",
+				"British Indian Ocean Territory",
+				"British Virgin Islands",
+				"Brunei",
+				"Bulgaria",
+				"Burkina Faso",
+				"Burundi",
+				"Cambodia",
+				"Cameroon",
+				"Cape Verde",
+				"Cayman Islands",
+				"Central African Republic",
+				"Chad",
+				"Chile",
+				"China",
+				"Christmas Islands",
+				"Cocos Islands",
+				"Colombia",
+				"Comoros",
+				"Congo",
+				"Cook Islands",
+				"Costa Rica",
+				"Croatia",
+				"Cuba",
+				"Cyprus",
+				"Czech Republic",
+				"Denmark",
+				"Djibouti",
+				"Domínica",
+				"Dominican Republic",
+				"Ecuador",
+				"Eel",
+				"Egypt",
+				"Equatorial Guinea",
+				"Eritrea",
+				"Estonia",
+				"Ethiopia",
+				"Falkland Islands",
+				"Faroe Islands",
+				"Fiji",
+				"Finland",
+				"France",
+				"French Guiana",
+				"French Polynesia",
+				"French Southern Territories",
+				"Gabon",
+				"Gambia",
+				"Georgia",
+				"Germany",
+				"Ghana",
+				"Gibraltar",
+				"Glen",
+				"Greece",
+				"Greenland",
+				"Guadalupe",
+				"Guam",
+				"Guatemala",
+				"Guernsey",
+				"Guiana",
+				"Guinea",
+				"Guinea-Bissau",
+				"Haiti",
+				"Heard and McDonald Islands",
+				"Honduras",
+				"Hong Kong",
+				"Hungary",
+				"Iceland",
+				"India",
+				"Indonesia",
+				"Iran",
+				"Iraq",
+				"Ireland",
+				"Islas Áland",
+				"Isle of Man",
+				"Israel",
+				"Italy",
+				"Ivory Coast",
+				"Jamaica",
+				"Japan",
+				"Jordan",
+				"Kazakhstan",
+				"Kenya",
+				"Kiribati",
+				"Kuwait",
+				"Kyrgyzstan",
+				"Laos",
+				"Latvia",
+				"Lebanon",
+				"Lesotho",
+				"Liberia",
+				"Libya",
+				"Liechtenstein",
+				"Lithuania",
+				"Luxembourg",
+				"Macao",
+				"Macedonia",
+				"Madagascar",
+				"Malawi",
+				"Malaysia",
+				"Maldives",
+				"Mali",
+				"Malt",
+				"Marshall Islands",
+				"Martinique",
+				"Mauricio",
+				"Mauritania",
+				"Mayotte",
+				"Meeting",
+				"Mexico",
+				"Micronesia",
+				"Moldova",
+				"Monaco",
+				"Mongolia",
+				"Montenegro",
+				"Montserrat",
+				"Morocco",
+				"Mozambique",
+				"Myanmar",
+				"Namibia",
+				"Nauru",
+				"Nepal",
+				"Netherlands",
+				"Netherlands Antilles",
+				"New Caledonia",
+				"New Zealand",
+				"Nicaragua",
+				"Niger",
+				"Nigeria",
+				"Niue",
+				"Norkfolk Islands",
+				"North Korea",
+				"Norway",
+				"Occidental Sahara",
+				"Old and bearded",
+				"Oman",
+				"Pakistan",
+				"Palau Islands",
+				"Palestine",
+				"Panama",
+				"Papua New Guinea",
+				"Paraguay",
+				"Peru",
+				"Philippines",
+				"Pitcairn Islands",
+				"Poland",
+				"Pomegranate",
+				"Portugal",
+				"Puerto Rico",
+				"Qatar",
+				"Romania",
+				"Russia",
+				"Rwanda",
+				"Saint Kitts and Nevis",
+				"Saint Pierre and Miquelon",
+				"Samoa",
+				"San Bartolome",
+				"San Marino",
+				"Sao Tome and Principe",
+				"Saudi Arabia",
+				"Senegal",
+				"Serbia and Montenegro",
+				"Seychelles",
+				"Sierra Leone",
+				"Singapore",
+				"Slovakia",
+				"Slovenia",
+				"Solomon Islands",
+				"Somalia",
+				"South Africa",
+				"South Georgia and the South Sandwich Islands",
+				"South Korea",
+				"Spain",
+				"Sri Lanka",
+				"St. Helen",
+				"St. lucia",
+				"St. Vincent and the Grenadines",
+				"Sudan",
+				"Surinam",
+				"Svalbard and Jan Mayen Islands",
+				"Swaziland",
+				"Sweater",
+				"Sweden",
+				"Switzerland",
+				"Syria",
+				"Taiwan",
+				"Tajikistan",
+				"Tanzania",
+				"Thailand",
+				"The Savior",
+				"Timor-Leste",
+				"Togo",
+				"Tokelau",
+				"Tonga",
+				"Trinidad and Tobago",
+				"Tunisia",
+				"Turkey",
+				"Turkmenistan",
+				"Turks and Caicos Islands",
+				"Tuvalu",
+				"Uganda",
+				"Ukraine",
+				"United Arab Emirates",
+				"United Kingdom",
+				"United States of America",
+				"Uruguay",
+				"Uzbekistan",
+				"Vanuatu",
+				"Vatican CITY",
+				"Venezuela",
+				"Vietnam",
+				"Virgin Islands of the United States of America",
+				"Wallis and Futuna",
+				"Yemen"
+			],
+			"default": "GB"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Enter your gender"
+			},
+			"enum": [
+				"F",
+				"M",
+				"O"
+			],
+			"enumNames": [
+				"Female",
+				"Male",
+				"Prefer not to disclose"
+			],
+			"default": "F"
+		},
+
+		"email": {
+			"type": "string",
+			"title": {
+				"es": "Email address"
+			}
+		},
+
+		"postCode": {
+			"type": "string",
+			"title": {
+				"es": "Please enter your postal code"
+			}
+		},
+
+		"areaOfResidence": {
+			"type": "string",
+			"title": {
+				"es": "Please enter the area you live in"
+			},
+			"enum": [
+				"URBAN",
+				"RURAL"
+			],
+			"enumNames": [
+				"URBAN",
+				"RURAL"
+			],
+			"default": "URBAN"
+		},
+		"currency": {
+			"type": "string",
+			"title": {
+				"es": "Please enter the currency in which you earn your main income"
+			},
+			"default": "GBP/Pound Sterling "
+		},
+		"employmentStatusPrimary": {
+			"type": "string",
+			"title": {
+				"es": "What is your primary economic activity?"
+			},
+			"enum": [
+				"EMPLOYED",
+				"SELF-EMPLOYED",
+				"UNEMPLOYED",
+				"RETIRED",
+				"INEDUCATION",
+				"OTHER",
+				"NONE"
+			],
+			"enumNames": [
+				"Employed",
+				"Self Employed",
+				"Un employed",
+				"Retired",
+				"In education",
+				"Other",
+				"None"
+			],
+			"default": "EMPLOYED"
+		},
+		"householdMonthlyIncome": {
+			"type": "number",
+			"title": {
+				"es": "Please estimate your gross monthly household income (i.e, before taxes National Insurance contributions or other deductions)"
+			},
+			"default": 0
+		},
+
+		"manyPeopleHousehold": {
+			"type": "number",
+			"title": {
+				"es": "How many people are in your household?"
+			},
+			"default": 0
+		},
+
+		"manyPeopleHouseholdIncome": {
+			"type": "number",
+			"title": {
+				"es": "How many people in your household have an income?"
+			},
+			"default": 0
+		},
+
+		"manyPeopleUnder18Household": {
+			"type": "number",
+			"title": {
+				"es": "How many people under 18 live in your household?"
+			},
+			"default": 0
+		},
+
+		"receiveStateIncome": {
+			"type": "string",
+			"title": {
+				"es": "Do you receive any state income. (e.g. benefits, pension, allowances)?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			],
+			"default": "NO"
+		},
+
+		"educationClientLevel": {
+			"type": "string",
+			"title": {
+				"es": "What is your highest educational level?"
+			},
+			"enum": [
+				"SCHOOL-INCOMPLETE",
+				"SCHOOL-COMPLETE",
+				"COLLEGE-INCOMPLETE",
+				"COLLEGE-COMPLETE",
+				"UNIVERSITY-INCOMPLETE",
+				"UNIVERSITY-COMPLETE"
+			],
+			"enumNames": [
+				"School incomplete",
+				"School complete",
+				"College incomplete",
+				"College complete",
+				"University incomplete",
+				"University complete"
+			],
+			"default": "SCHOOL-COMPLETE"
+		},
+		"educationPersonMostStudied": {
+			"type": "string",
+			"title": {
+				"es": "What is your highest educational level in your household"
+			},
+			"enum": [
+				"SCHOOL-INCOMPLETE",
+				"SCHOOL-COMPLETE",
+				"COLLEGE-INCOMPLETE",
+				"COLLEGE-COMPLETE",
+				"UNIVERSITY-INCOMPLETE",
+				"UNIVERSITY-COMPLETE"
+			],
+			"enumNames": [
+				"School incomplete",
+				"School complete",
+				"College incomplete",
+				"College complete",
+				"University incomplete",
+				"University complete"
+			],
+			"default": "SCHOOL-COMPLETE"
+		},
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "What is the property title situation of your household?"
+			},
+			"enum": [
+				"OWNER",
+				"COUNCIL-HOUSING-ASSOCIATION",
+				"PRIVATE-RENTAL",
+				"LIVING-WITH-PARENTS",
+				"LIVING-WITH-PARTNER",
+				"IN-CARE",
+				"OTHER"
+			],
+			"enumNames": [
+				"Owner",
+				"Council/Housing Association",
+				"Private rental",
+				"Living with Parents",
+				"Living with Partner",
+				"In care",
+				"Other"
+			],
+			"default": "OWNER"
+		},
+		"otherUsefulInfo": {
+			"type": "string",
+			"title": {
+				"es": "Is there any member with disabilities in your household? Please indicate the disability type"
+			},
+			"enum": [
+				"PHYSICAL",
+				"MENTAL",
+				"LEARNING",
+				"SENSORY",
+				"OTHER",
+				"NO-MEMBER-DISABILITIES"
+			],
+			"enumNames": [
+				"Physical",
+				"Mental",
+				"Learning",
+				"Sensory",
+				"Other",
+				"No member with disabilities"
+			],
+			"default": "NO-MEMBER-DISABILITIES"
+		},
+		"familyUbication": {
+			"type": "string",
+			"title": {
+				"es": "Please select the geographic location of your household"
+			},
+			"default": "54.979645, -1.617649"
+		},
+		"stableIncome": {
+			"type": "array",
+			"title": {
+				"es": "Stable Income"
+			},
+			"description": {
+				"es": "We have a stable income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
+						"description": "Our household income is stable.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-2.jpg",
+						"description": "Our household income goes up and down a bit.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-3.jpg",
+						"description": "Our household income goes up and down a lot making it difficult to plan ahead.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/2-1.jpg",
+				"description": "Our household income is stable.",
+				"value": "GREEN"
+			}]
+		},
+		"dentalCare": {
+			"type": "array",
+			"title": {
+				"es": "Dental Care"
+			},
+			"description": {
+				"es": "We have healthy teeth "
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
+						"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-2.jpg",
+						"description": "Someone in our household has not been to the dentist in the past 5 years.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-3.jpg",
+						"description": "In our household, someone has dental problems and cannot or does not know how to access dental care or cannot afford it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/27-1.jpg",
+				"description": "No one in our household has dental problems and everyone visits a dentist regularly. Everyone understands the importance of dental hygiene.",
+				"value": "GREEN"
+			}]
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Access to Gas/Electricity"
+			},
+			"description": {
+				"es": "We have electricity"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
+						"description": "In our household, we can afford to pay for gas and/or electricity all the time.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-2.jpg",
+						"description": "In our household, we have gas and/or electricity but don't use it all the time because of the cost.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-3.jpg",
+						"description": "In our household in the past year, we sometimes have had no gas or electricity for heating or cooking.  Sometimes we need to choose between food and heating.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/10-1.jpg",
+					"description": "In our household, we can afford to pay for gas and/or electricity all the time.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"type": "array",
+			"title": {
+				"es": "Knowledge and Skills to Generate Income"
+			},
+			"description": {
+				"es": "We know how to make an income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
+						"description": "Everyone in our household has the necessary skills to find employment or start their business.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-2.jpg",
+						"description": "People in our household have some skills needed to find employment but struggle with some aspects (e.g. application forms, interversion skills).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-3.jpg",
+						"description": "Some adults in our household have no skills to find employment, start their own business, or have never worked.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/33-1.jpg",
+				"description": "Everyone in our household has the necessary skills to find employment or start their business.",
+				"value": "GREEN"
+			}]
+		},
+		"registeredToVoteAndVotesInElections": {
+			"type": "array",
+			"title": {
+				"es": "Registered to Vote and Votes in Elections"
+			},
+			"description": {
+				"es": "We vote in elections"
+			},
+			"items": {
+				"type": "object",
+				"enum": [{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
+						"description": "Everyone in our household is registered to vote and does so regularly.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-2.jpg",
+						"description": "Everyone in our household is registered to vote but does not regularly vote.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-3.jpg",
+						"description": "Members in our household are not registered to vote or we are not motivated to vote in elections.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+
+				]
+			},
+			"uniqueItems": true,
+			"default": [{
+				"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/44-1.jpg",
+				"description": "Everyone in our household is registered to vote and does so regularly.",
+				"value": "GREEN"
+			}]
+		},
+		"awarenessOfNeeds": {
+			"type": "array",
+			"title": {
+				"es": "Awareness of Needs - Life Map"
+			},
+			"description": {
+				"es": "We have a family life plan"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-1.jpg",
+						"description": "In our household, we usually reflect about our present situation, and imagine how it could be different. We have concrete targets for the short, medium and long term and know how to reach them.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-2.jpg",
+						"description": "In our household, we can imagine where we want to be in the future but are not sure how to get there.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-3.jpg",
+						"description": "In our household, we can't imagine changing things or think we'd like things to be different, but what's the point?",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.eu-west-2.amazonaws.com/py.org.fundacionparaguaya.psp.images/surveys/indicators/46-1.jpg",
+					"description": "In our household, we usually reflect about our present situation, and imagine how it could be different. We have concrete targets for the short, medium and long term and know how to reach them.",
+					"value": "GREEN"
+				}
+			]
+		}
+		
+	}
+
+}

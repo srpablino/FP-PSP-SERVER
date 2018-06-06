@@ -1,0 +1,1592 @@
+{
+	"title": "Encuesta de Semáforo. Fundación Irradia. Argentina.",
+	"description": "Estructura de la encuesta compuesta por: datos personales, socioeconómicos e indicadores.",
+	"type": "object",
+	"required": [
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"lastName",
+		"birthdate"
+	],
+	"properties": {
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su nombre"
+			}
+		},
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su apellido"
+			}
+		},
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Ingrese su fecha de nacimiento"
+			}
+		},
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su país de nacimiento"
+			},
+			"enum": [
+				"AR",
+				"PY",
+				"AD",
+				"AE",
+				"AF",
+				"AG",
+				"AI",
+				"AL",
+				"AM",
+				"AN",
+				"AO",
+				"AQ",
+				"AS",
+				"AT",
+				"AU",
+				"AW",
+				"AX",
+				"AZ",
+				"BA",
+				"BB",
+				"BD",
+				"BE",
+				"BF",
+				"BG",
+				"BH",
+				"BI",
+				"BJ",
+				"BL",
+				"BM",
+				"BN",
+				"BO",
+				"BR",
+				"BS",
+				"BT",
+				"BV",
+				"BW",
+				"BY",
+				"BZ",
+				"CA",
+				"CC",
+				"CF",
+				"CG",
+				"CH",
+				"CI",
+				"CK",
+				"CL",
+				"CM",
+				"CN",
+				"CO",
+				"CR",
+				"CU",
+				"CV",
+				"CX",
+				"CY",
+				"CZ",
+				"DE",
+				"DJ",
+				"DK",
+				"DM",
+				"DO",
+				"DZ",
+				"EC",
+				"EE",
+				"EG",
+				"EH",
+				"ER",
+				"ES",
+				"ET",
+				"FI",
+				"FJ",
+				"FK",
+				"FM",
+				"FO",
+				"FR",
+				"GA",
+				"GB",
+				"GD",
+				"GE",
+				"GF",
+				"GG",
+				"GH",
+				"GI",
+				"GL",
+				"GM",
+				"GN",
+				"GP",
+				"GQ",
+				"GR",
+				"GS",
+				"GT",
+				"GU",
+				"GW",
+				"GY",
+				"HK",
+				"HM",
+				"HN",
+				"HR",
+				"HT",
+				"HU",
+				"ID",
+				"IE",
+				"IL",
+				"IM",
+				"IN",
+				"IO",
+				"IQ",
+				"IR",
+				"IS",
+				"IT",
+				"JE",
+				"JM",
+				"JO",
+				"JP",
+				"KE",
+				"KG",
+				"KH",
+				"KI",
+				"KM",
+				"KN",
+				"KP",
+				"KR",
+				"KW",
+				"KY",
+				"KZ",
+				"LA",
+				"LB",
+				"LC",
+				"LI",
+				"LK",
+				"LR",
+				"LS",
+				"LT",
+				"LU",
+				"LV",
+				"LY",
+				"MA",
+				"MC",
+				"MD",
+				"ME",
+				"MG",
+				"MH",
+				"MK",
+				"ML",
+				"MM",
+				"MN",
+				"MO",
+				"MQ",
+				"MR",
+				"MS",
+				"MT",
+				"MU",
+				"MV",
+				"MW",
+				"MX",
+				"MY",
+				"MZ",
+				"NA",
+				"NC",
+				"NE",
+				"NF",
+				"NG",
+				"NI",
+				"NL",
+				"NO",
+				"NP",
+				"NR",
+				"NU",
+				"NZ",
+				"OM",
+				"PA",
+				"PE",
+				"PF",
+				"PG",
+				"PH",
+				"PK",
+				"PL",
+				"PM",
+				"PN",
+				"PR",
+				"PS",
+				"PT",
+				"PW",
+				"QA",
+				"RE",
+				"RO",
+				"RS",
+				"RU",
+				"RW",
+				"SA",
+				"SB",
+				"SC",
+				"SD",
+				"SE",
+				"SG",
+				"SH",
+				"SI",
+				"SJ",
+				"SK",
+				"SL",
+				"SM",
+				"SN",
+				"SO",
+				"SR",
+				"ST",
+				"SV",
+				"SY",
+				"SZ",
+				"TC",
+				"TD",
+				"TF",
+				"TG",
+				"TH",
+				"TH",
+				"TJ",
+				"TK",
+				"TL",
+				"TM",
+				"TN",
+				"TO",
+				"TR",
+				"TT",
+				"TV",
+				"TW",
+				"UA",
+				"UG",
+				"US",
+				"UY",
+				"UZ",
+				"VA",
+				"VC",
+				"VE",
+				"VG",
+				"VI",
+				"VN",
+				"VU",
+				"WF",
+				"WS",
+				"YE",
+				"YT",
+				"ZA"
+			],
+			"enumNames": [
+				"Argentina",
+				"Paraguay",
+				"Andorra",
+				"Emiratos Árabes Unidos",
+				"Afganistán",
+				"Antigua y Barbuda",
+				"Anguila",
+				"Albania",
+				"Armenia",
+				"Antillas Neerlandesas",
+				"Angola",
+				"Antártida",
+				"Samoa Americana",
+				"Austria",
+				"Australia",
+				"Aruba",
+				"Islas Áland",
+				"Azerbaiyán",
+				"Bosnia y Herzegovina",
+				"Barbados",
+				"Bangladesh",
+				"Bélgica",
+				"Burkina Faso",
+				"Bulgaria",
+				"Bahréin",
+				"Burundi",
+				"Benin",
+				"San Bartolomé",
+				"Bermudas",
+				"Brunéi",
+				"Bolivia",
+				"Brasil",
+				"Bahamas",
+				"Bhután",
+				"Isla Bouvet",
+				"Botsuana",
+				"Belarús",
+				"Belice",
+				"Canadá",
+				"Islas Cocos",
+				"República Centro-Africana",
+				"Congo",
+				"Suiza",
+				"Costa de Marfil",
+				"Islas Cook",
+				"Chile",
+				"Camerún",
+				"China",
+				"Colombia",
+				"Costa Rica",
+				"Cuba",
+				"Cabo Verde",
+				"Islas Christmas",
+				"Chipre",
+				"República Checa",
+				"Alemania",
+				"Yibuti",
+				"Dinamarca",
+				"Domínica",
+				"República Dominicana",
+				"Argel",
+				"Ecuador",
+				"Estonia",
+				"Egipto",
+				"Sahara Occidental",
+				"Eritrea",
+				"España",
+				"Etiopía",
+				"Finlandia",
+				"Fiji",
+				"Islas Malvinas",
+				"Micronesia",
+				"Islas Faroe",
+				"Francia",
+				"Gabón",
+				"Reino Unido",
+				"Granada",
+				"Georgia",
+				"Guayana Francesa",
+				"Guernsey",
+				"Ghana",
+				"Gibraltar",
+				"Groenlandia",
+				"Gambia",
+				"Guinea",
+				"Guadalupe",
+				"Guinea Ecuatorial",
+				"Grecia",
+				"Georgia del Sur e Islas Sandwich del Sur",
+				"Guatemala",
+				"Guam",
+				"Guinea-Bissau",
+				"Guayana",
+				"Hong Kong",
+				"Islas Heard y McDonald",
+				"Honduras",
+				"Croacia",
+				"Haití",
+				"Hungría",
+				"Indonesia",
+				"Irlanda",
+				"Israel",
+				"Isla de Man",
+				"India",
+				"Territorio Británico del Océano Índico",
+				"Irak",
+				"Irán",
+				"Islandia",
+				"Italia",
+				"Jersey",
+				"Jamaica",
+				"Jordania",
+				"Japón",
+				"Kenia",
+				"Kirguistán",
+				"Camboya",
+				"Kiribati",
+				"Comoros",
+				"San Cristóbal y Nieves",
+				"Corea del Norte",
+				"Corea del Sur",
+				"Kuwait",
+				"Islas Caimán",
+				"Kazajstán",
+				"Laos",
+				"Líbano",
+				"Santa Lucía",
+				"Liechtenstein",
+				"Sri Lanka",
+				"Liberia",
+				"Lesotho",
+				"Lituania",
+				"Luxemburgo",
+				"Letonia",
+				"Libia",
+				"Marruecos",
+				"Mónaco",
+				"Moldova",
+				"Montenegro",
+				"Madagascar",
+				"Islas Marshall",
+				"Macedonia",
+				"Mali",
+				"Myanmar",
+				"Mongolia",
+				"Macao",
+				"Martinica",
+				"Mauritania",
+				"Montserrat",
+				"Malta",
+				"Mauricio",
+				"Maldivas",
+				"Malawi",
+				"México",
+				"Malasia",
+				"Mozambique",
+				"Namibia",
+				"Nueva Caledonia",
+				"Níger",
+				"Islas Norkfolk",
+				"Nigeria",
+				"Nicaragua",
+				"Países Bajos",
+				"Noruega",
+				"Nepal",
+				"Nauru",
+				"Niue",
+				"Nueva Zelanda",
+				"Omán",
+				"Panamá",
+				"Perú",
+				"Polinesia Francesa",
+				"Papúa Nueva Guinea",
+				"Filipinas",
+				"Pakistán",
+				"Polonia",
+				"San Pedro y Miquelón",
+				"Islas Pitcairn",
+				"Puerto Rico",
+				"Palestina",
+				"Portugal",
+				"Islas Palaos",
+				"Qatar",
+				"Reunión",
+				"Rumanía",
+				"Serbia y Montenegro",
+				"Rusia",
+				"Ruanda",
+				"Arabia Saudita",
+				"Islas Solomón",
+				"Seychelles",
+				"Sudán",
+				"Suecia",
+				"Singapur",
+				"Santa Elena",
+				"Eslovenia",
+				"Islas Svalbard y Jan Mayen",
+				"Eslovaquia",
+				"Sierra Leona",
+				"San Marino",
+				"Senegal",
+				"Somalia",
+				"Surinam",
+				"Santo Tomé y Príncipe",
+				"El Salvador",
+				"Siria",
+				"Suazilandia",
+				"Islas Turcas y Caicos",
+				"Chad",
+				"Territorios Australes Franceses",
+				"Togo",
+				"Tailandia",
+				"Tanzania",
+				"Tayikistán",
+				"Tokelau",
+				"Timor-Leste",
+				"Turkmenistán",
+				"Túnez",
+				"Tonga",
+				"Turquía",
+				"Trinidad y Tobago",
+				"Tuvalu",
+				"Taiwán",
+				"Ucrania",
+				"Uganda",
+				"Estados Unidos de América",
+				"Uruguay",
+				"Uzbekistán",
+				"Ciudad del Vaticano",
+				"San Vicente y las Granadinas",
+				"Venezuela",
+				"Islas Vírgenes Británicas",
+				"Islas Vírgenes de los Estados Unidos de América",
+				"Vietnam",
+				"Vanuatu",
+				"Wallis y Futuna",
+				"Samoa",
+				"Yemen",
+				"Mayotte",
+				"Sudáfrica"
+			],
+			"default": "AR"
+		},
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su género"
+			},
+			"enum": [
+				"F",
+				"M",
+				"O"
+			],
+			"enumNames": [
+				"Femenino",
+				"Masculino",
+				"Deseo no responder"
+			],
+			"default": "F"
+		},
+		"salaryIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Cuál es su ingreso mensual por salario?"
+			},
+			"default": 0
+		},
+		"benefitIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Recibe algún tipo de beneficio del estado u organización? En caso de ser positivo ingrese el monto mensual."
+			},
+			"default": 0
+		},
+		"memberDiedBefore5": {
+			"type": "string",
+			"title": {
+				"es": "Durante los últimos cinco años, ¿algún miembro de mi familia falleció antes de cumplir 5 años?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Si",
+				"No"
+			]
+		},
+		"familyCar": {
+			"type": "string",
+			"title": {
+				"es": "¿Mi familia tine auto o camioneta?"
+			},
+			"enum": [
+				"Yes",
+				"No"
+			],
+			"enumNames": [
+				"Si",
+				"No"
+			]
+		},
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Ingresos superiores a la línea de pobreza"
+			},
+			"description": {
+				"es": "Tenemos ingresos suficientes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/1/3.jpg",
+						"description": "Los ingresos de  mi familia superan el monto necesario para adquirir la CBT.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/1/2.jpg",
+						"description": "Los Ingresos de mi  familia son apenas suficientes para adquirir la CBT.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/1/1.jpg",
+						"description": "Los ingresos de mi familia alcanzan sólo para adquirir la CBA o se encuentran por debajo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/1/3.jpg",
+					"description": "Los ingresos de  mi familia superan el monto necesario para adquirir la CBT.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"accessToCredit": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al crédito"
+			},
+			"description": {
+				"es": "Podemos sacar créditos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/3/3.jpg",
+						"description": "Al menos un miembro de mi familia accedió a créditos de instituciones legales, y en condiciones justas de mercado, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias, sin embargo, pueden acceder a un crédito si lo necesitan.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/3/2.jpg",
+						"description": "Al menos un miembro de mi familia accedió a créditos en los últimos doce meses, pero solamente de instituciones no legales (macatero, familiares, patrón, etc.).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/3/1.jpg",
+						"description": "Ninguno de los miembros de mi familia accedió a crédito en los últimos doce meses, a pesar de que quisieran hacerlo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/3/3.jpg",
+					"description": "Al menos un miembro de mi familia accedió a créditos de instituciones legales, y en condiciones justas de mercado, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias, sin embargo, pueden acceder a un crédito si lo necesitan.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "DNI"
+			},
+			"description": {
+				"es": "Tenemos DNI"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/5/3.jpg",
+						"description": "Todos los miembros de mi familia tienen DNI vigente.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/5/2.jpg",
+						"description": "Todos los miembros de mi familia tienen DNI, pero uno o más tienen el documento vencido.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/5/1.jpg",
+						"description": "Más de un miembro de  mi familia no tiene DNI, es decir que no se encuentra inscripto en el Registro Civil.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/5/3.jpg",
+					"description": "Todos los miembros de mi familia tienen DNI vigente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"garbageDisposal": {
+			"type": "array",
+			"title": {
+				"es": "Disposición de basura"
+			},
+			"description": {
+				"es": "Manejamos bien nuestra basura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/7/3.jpg",
+						"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hoyo tapado distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo y recicla los desechos inorgánicos. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/7/2.jpg",
+						"description": "Los miembros de mi familia entierran los residuos inorgánicos en un hoyo tapado dentro de su terreno, pero está distanciado a menos de veinte metros de la vivienda, fuentes de agua y campo de cultivo. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/7/1.jpg",
+						"description": "Los miembros de mi familia queman sus basuras o las tiran a cielo abierto en su terreno o cerca de la vivienda, fuentes de agua o campos de cultivo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/7/3.jpg",
+					"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hoyo tapado distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo y recicla los desechos inorgánicos. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"water": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al agua segura"
+			},
+			"description": {
+				"es": "Tenemos agua segura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/8/3.jpg",
+						"description": "Mi familia cuenta con disponibilidad de agua corriente durante la mayor parte del día, de buena calidad y en cantidad suficiente. Cuenta con una canilla dentro del terreno de la casa.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/8/2.jpg",
+						"description": "Mi familia tiene acceso al agua segura fuera del terreno de la vivienda, a través de una canilla, un pozo o aljibe protegido, agua de manantial o pluvial protegido. La distancia para acceder a ella es menos de treinta minutos de caminata ida y vuelta de la casa.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/8/1.jpg",
+						"description": "Mi familia bebe agua no saludable o tiene que acarrearla desde un punto a más de treinta minutos de caminata ida y vuelta de la casa.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/8/3.jpg",
+					"description": "Mi familia cuenta con disponibilidad de agua corriente durante la mayor parte del día, de buena calidad y en cantidad suficiente. Cuenta con una canilla dentro del terreno de la casa.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"nearbyHealthPost": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a servicios de salud"
+			},
+			"description": {
+				"es": "Tenemos acceso al servicio de salud"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/9/3.jpg",
+						"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla en un puesto de salud a menos de una hora de la casa, esperando menos de dos a ser atendido y sin ser discriminado. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/9/2.jpg",
+						"description": "En los últimos 3 meses, cuando algún miembro de mi familia necesitó atención médica de emergencia básica, pudo obtenerla. Pero no pudo obtener atención especializada, las consultas o medicinas le eran muy caras, el puesto de salud quedaba a más de una hora, esperó más de dos horas para ser atendido y/o fue discriminado.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/9/1.jpg",
+						"description": "En los últimos 3 meses, cuando mi familia necesitó atención médica por alguna enfermedad o accidente, no pudo obtenerla, debido a que no contaba con atención, la atención fue mala, las consultas o medicinas fueron demasiado caras, el tiempo de espera fue muy largo y/o fue discriminado.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/9/3.jpg",
+					"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla en un puesto de salud a menos de una hora de la casa, esperando menos de dos a ser atendido y sin ser discriminado. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"alimentation": {
+			"type": "array",
+			"title": {
+				"es": "Alimentación adecuada"
+			},
+			"description": {
+				"es": "Tenemos buena alimentación"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/10/3.jpg",
+						"description": "Todos los miembros de mi familia: \n a). consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cordero, etc.), 2. Leche, yogur, quesos y/o derivados, 3. verduras variadas, 4. huevos, 5. frutas variadas, 6. Cereales, arroz, pasta, papa, maíz, etc., \n y b). tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  \n Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/10/2.jpg",
+						"description": "Los miembros de mi familia no incluyeron en su dieta todos los componentes citados en el nivel verde, pero en la última semana todos los miembros de mi familia tuvieron tres comidas en el día – o si se saltaron una, fue por motivos voluntarios no asociados a la falta de dinero o alimentos.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/10/1.jpg",
+						"description": "En la última semana, por lo menos una vez, un miembro de mi familia se acostó con hambre o saltó una comida involuntariamente por falta de alimentos o dinero.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/10/3.jpg",
+					"description": "Todos los miembros de mi familia: \n a). consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cordero, etc.), 2. Leche, yogur, quesos y/o derivados, 3. verduras variadas, 4. huevos, 5. frutas variadas, 6. Cereales, arroz, pasta, papa, maíz, etc., \n y b). tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  \n Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeHouse": {
+			"type": "array",
+			"title": {
+				"es": "Hogar seguro."
+			},
+			"description": {
+				"es": "Nuestro hogar es seguro."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/19/3.jpg",
+						"description": "Mi familia tiene un hogar con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de madera o material cocido, \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/19/2.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con uno de los componentes del nivel verde.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/19/1.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con dos o más de los componentes del nivel verde.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/19/3.jpg",
+					"description": "Mi familia tiene un hogar con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material cocido (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de madera o material cocido, \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Dormitorios separados."
+			},
+			"description": {
+				"es": "Dormimos en cuartos separados."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/3.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescentes y adultos) lo comparten es por su voluntad.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/2.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Algunos de los grupos (niños, adolescentes y adultos) lo comparten involuntariamente.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/1.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por tres o más miembros de mi familia.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/21/3.jpg",
+					"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescentes y adultos) lo comparten es por su voluntad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"properKitchen": {
+			"type": "array",
+			"title": {
+				"es": "Cocina elevada y ventilada."
+			},
+			"description": {
+				"es": "Tenemos cocina elevada y ventilada."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/22/3.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una cocina elevada y no utiliza estiércol, carbón o leña.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/22/2.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido pero no ventilado o cocina al aire libre o en fogón (no cuenta con cocina elevada). En ningún caso utiliza estiércol, carbón o leña.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/22/1.jpg",
+						"description": "Mi familia cocina utilizando, principalmente, estiércol, carbón o leña.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/22/3.jpg",
+					"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una cocina elevada y no utiliza estiércol, carbón o leña.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeBathroom": {
+			"type": "array",
+			"title": {
+				"es": "Baño moderno"
+			},
+			"description": {
+				"es": "Tenemos baño moderno"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/23/3.jpg",
+						"description": "Mi familia tiene un baño moderno, lo que significa que cuenta con: (a) Inodoro (WC), (b) ducha de agua fría y caliente, (c) cisterna, (d) asegura la privacidad, (e) cuenta con un buen sistema de evacuación, (f) no se comparte con otra familia, y (g) lo mantiene limpio.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/23/2.jpg",
+						"description": "Aunque el baño de mi familia no reúne todos los requisitos descriptos para el nivel verde, cuenta con algún tipo de inodoro con agua, una letrina con losa y buena ventilación, o inodoro orgánico. No se comparte con otra familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/23/1.jpg",
+						"description": "Mi familia comparte su baño o letrina con otra familia o no reúne los requisitos para el nivel amarillo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/23/3.jpg",
+					"description": "Mi familia tiene un baño moderno, lo que significa que cuenta con: (a) Inodoro (WC), (b) ducha de agua fría y caliente, (c) cisterna, (d) asegura la privacidad, (e) cuenta con un buen sistema de evacuación, (f) no se comparte con otra familia, y (g) lo mantiene limpio.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Heladera y otros activos"
+			},
+			"description": {
+				"es": "Tenemos heladera y otros activos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/24/3.jpg",
+						"description": "Mi familia tiene heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/24/2.jpg",
+						"description": "Mi familia tiene dos de estos activos: radio, TV, teléfono, motocicleta, lavarropas, heladera.  \n O si tiene más de dos, no tiene heladera.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/24/1.jpg",
+						"description": "Mi familia tiene uno o ninguno de estos activos: radio, TV, teléfono, motocicleta, lavarropas, heladera.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/24/3.jpg",
+					"description": "Mi familia tiene heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"phone": {
+			"type": "array",
+			"title": {
+				"es": "Teléfono o celular"
+			},
+			"description": {
+				"es": "Tenemos teléfono "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/25/3.jpg",
+						"description": "Mi familia cuenta con servicio de telefonía línea baja o celular disponible de manera constante en el hogar.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/25/2.jpg",
+						"description": "Mi familia cuenta con servicio de telefonía línea baja o celular, pero puede utilizarlo solamente parte del tiempo.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/25/1.jpg",
+						"description": "Mi familia no cuenta con servicio de telefonía (ni celular, ni línea baja).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/25/3.jpg",
+					"description": "Mi familia cuenta con servicio de telefonía línea baja o celular disponible de manera constante en el hogar.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safety": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de la persona"
+			},
+			"description": {
+				"es": "Mi familia no fue asaltada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/27/3.jpg",
+						"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/27/2.jpg",
+						"description": "Al menos un miembro de mi familia sufrió́ un acto de violencia contra su persona en los últimos doce meses, pero igualmente pudo seguir con sus actividades o asistir al trabajo.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/27/1.jpg",
+						"description": "Al menos un miembro de mi familia sufrió un acto de violencia contra su persona en los últimos doce meses y como resultado no pudo trabajar por un día entero o más, o fue causa de muerte. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/27/3.jpg",
+					"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"securityOfProperty": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de los bienes"
+			},
+			"description": {
+				"es": "Mi familia no fue robada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/28/3.jpg",
+						"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/28/2.jpg",
+						"description": "Mi familia sufrió un acto de violencia y/o robo contra sus bienes en los últimos doce meses, y el valor de la propiedad dañada o robada es menor al equivalente de una semana de los ingresos de la familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/28/1.jpg",
+						"description": "Mi familia sufrió más de un acto de violencia y/o robo contra su propiedad en los últimos doce meses, o sufrió un solo acto donde el valor del bien dañado o robado es equivalente o mayor a una semana de los ingresos de la familia.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/28/3.jpg",
+					"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a la energía"
+			},
+			"description": {
+				"es": "Tenemos acceso a la energía"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/3.jpg",
+						"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/2.jpg",
+						"description": "Mi familia tiene acceso a la electricidad, pero el acceso es clandestino y/o insuficiente (pasa cuatro horas o más del día sin electricidad en temporada alta).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/1.jpg",
+						"description": "Mi familia no tiene acceso a fuentes de energía para iluminar la casa/alrededores, cocinar de manera sustentable y al agua caliente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/29/3.jpg",
+					"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"middleEducation": {
+			"type": "array",
+			"title": {
+				"es": "Educación "
+			},
+			"description": {
+				"es": "Los niños y jóvenes tienen acceso a la educación"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/3.jpg",
+						"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/2.jpg",
+						"description": "Entre los miembros de mi familia hay al menos un menor de 18 años que no va a la escuela o no finalizó la fase de educación secundaria. La familia sabe de la existencia de los estudios superiores pero no lo considera una opción para sus miembros.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/1.jpg",
+						"description": "Ningún miembro de  mi familia menor de 18 años va a la escuela. La familia no sabe de la existencia de estudios superiores como una opción para su familia.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/32/3.jpg",
+					"description": "Todos los miembros de mi familia en edad escolar van a la escuela o han terminado el secundario. La familia considera posible que algunos de sus hijos cursen estudios superiores.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"readAndWrite": {
+			"type": "array",
+			"title": {
+				"es": "Sabe leer, escribir y comprender en español"
+			},
+			"description": {
+				"es": "Sabemos leer y escribir"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/33/3.jpg",
+						"description": "Todos los miembros de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilitad.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/33/2.jpg",
+						"description": "Todos los miembros de mi familia (quince años y más) saben leer y escribir, pero al menos uno siente que le cuesta leer y/o escribir sus ideas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/33/1.jpg",
+						"description": "Al menos un miembro de mi familia (quince años y más) no puede leer y/o escribir.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/33/3.jpg",
+					"description": "Todos los miembros de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilitad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"informationAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a la información (TV e internet)"
+			},
+			"description": {
+				"es": "Tenemos internet y tele"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/37/3.jpg",
+						"description": "Mi familia cuenta con servicio de telefonía celular  o acceso a internet de manera constante.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/37/2.jpg",
+						"description": "Mi familia cuenta solo con una radio",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/37/1.jpg",
+						"description": "Mi familia no cuenta con radio, televisor o internet.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/37/3.jpg",
+					"description": "Mi familia cuenta con servicio de telefonía celular  o acceso a internet de manera constante.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"socialCapital": {
+			"type": "array",
+			"title": {
+				"es": "Forma parte de un grupo con objetivos comunes"
+			},
+			"description": {
+				"es": "Integramos grupos en la comunidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/42/3.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/42/2.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en un grupo de manera permanente.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/42/1.jpg",
+						"description": "Ningún miembro de mi familia participa en un grupo de manera permanente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/42/3.jpg",
+					"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"influenceInPublicSector": {
+			"type": "array",
+			"title": {
+				"es": "Influencia en el sector público"
+			},
+			"description": {
+				"es": "Sabemos peticionar a las autoridades"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/43/3.jpg",
+						"description": "Mi familia no tiene problemas que requieran de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento, o se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/43/2.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado. Presentó una solicitud, pero no le da seguimiento.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/43/1.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado, pero no presenta una solicitud.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/43/3.jpg",
+					"description": "Mi familia no tiene problemas que requieran de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento, o se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"lifePlan": {
+			"type": "array",
+			"title": {
+				"es": "Conciencia de necesidades y establecimiento de metas"
+			},
+			"description": {
+				"es": "Tenemos metas de vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/46/3.jpg",
+						"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo (un año o más). Realiza acciones continuamente para lograrlas.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/46/2.jpg",
+						"description": "Mi familia piensa que puede mejorar su situación actual, pero no tiene metas a mediano (seis meses) y a largo plazo (un año o más).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/46/1.jpg",
+						"description": "Mi familia piensa que no puede mejorar su situación actual o no lo quiere hacer o no las comprende y en consecuencia no tiene metas de corto ni largo plazo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/46/3.jpg",
+					"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo (un año o más). Realiza acciones continuamente para lograrlas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Confianza en sí mismo"
+			},
+			"description": {
+				"es": "Confío en mi capacidad y mis logros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/47/3.jpg",
+						"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/47/2.jpg",
+						"description": "A veces me siento apto y tengo un sentimiento de logro por lo que hago, pero con la misma frecuencia me siento incapaz o no es frecuente que la gente diga que soy competente o capaz en lo que hago.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/47/1.jpg",
+						"description": "No me siento apto, y casi nunca logro lo que quiero. No creo que me admiren por lo que hago.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/47/3.jpg",
+					"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"autonomyDecisions": {
+			"type": "array",
+			"title": {
+				"es": "Autonomía y capacidad de tomar decisiones"
+			},
+			"description": {
+				"es": "Tomo decisiones sobre mi vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/52/3.jpg",
+						"description": "Tomo las decisiones en los aspectos claves de mi vida y participó activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/52/2.jpg",
+						"description": "Tomo algunas decisiones en los aspectos claves de mi vida y participo en algunas decisiones de mi familia. Algunas decisiones reflejan lo que valoro y otras son tomadas, principalmente, para complacer a otros o evitar consecuencias negativas.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/52/1.jpg",
+						"description": "No tomo las decisiones en los aspectos claves de mi vida. Hago lo que me dicen y mis decisiones son para complacer a otros o evitar consecuencias negativas.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/argentina/irradia/52/3.jpg",
+					"description": "Tomo las decisiones en los aspectos claves de mi vida y participó activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+					"value": "GREEN"
+				}
+			]
+		}
+	}
+}

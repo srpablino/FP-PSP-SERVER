@@ -1,0 +1,104 @@
+{
+	"properties": {},
+	"ui:custom:fields": {
+	  
+	  "electricityAccess": {
+			"ui:field": "gallery"
+		},
+		"awarenessOfNeeds": {
+			"ui:field": "gallery"
+		},
+		"stableIncome": {
+			"ui:field": "gallery"
+		},
+		"dentalCare": {
+			"ui:field": "gallery"
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"ui:field": "gallery"
+		},
+		"registeredToVoteAndVotesInElections": {
+			"ui:field": "gallery"
+		},
+
+	  
+		"familyUbication": {
+			"ui:field": "gmap"
+		},
+		"birthdate": {
+			"ui:field": "date"
+		},
+		"householdMonthlyIncome":{
+			"ui:field": "numberFormat"
+		}
+	},
+
+	"ui:order": [
+
+		"identificationType",
+		"identificationNumber",
+		"firstName",
+		"lastName",
+		"birthdate",
+		"countryOfBirth",
+		"gender",
+		"email",
+		"postCode",
+		"areaOfResidence",
+		"currency",
+		"householdMonthlyIncome",
+		"employmentStatusPrimary",
+		"manyPeopleHousehold",
+		"manyPeopleHouseholdIncome",
+		"manyPeopleUnder18Household",
+		"receiveStateIncome",
+		"housingSituation",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"familyUbication",
+      
+    "stableIncome",
+		"dentalCare",
+		"electricityAccess",
+		"knowledgeAndSkillsToGenerateIncome",
+		"registeredToVoteAndVotesInElections",
+		"awarenessOfNeeds"  
+		
+	],
+
+	"ui:group:personal": [
+		"birthdate",
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"identificationType",
+		"lastName",
+		"email",
+		"postCode"
+	],
+
+	"ui:group:economics": [
+		"areaOfResidence",
+		"currency",
+		"educationClientLevel",
+		"educationPersonMostStudied",
+		"employmentStatusPrimary",
+		"familyUbication",
+		"householdMonthlyIncome",
+		"manyPeopleHousehold",
+		"manyPeopleHouseholdIncome",
+		"manyPeopleUnder18Household",
+		"receiveStateIncome",
+		"housingSituation"
+	],
+
+	"ui:group:indicators": [
+		"stableIncome",
+		"dentalCare",
+		"electricityAccess",
+		"knowledgeAndSkillsToGenerateIncome",
+		"registeredToVoteAndVotesInElections",
+		"awarenessOfNeeds"
+	]
+}
