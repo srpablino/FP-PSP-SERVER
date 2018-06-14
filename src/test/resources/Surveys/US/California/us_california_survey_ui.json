@@ -1,21 +1,22 @@
 {
 	"properties": {},
-
 	"ui:custom:fields": {
-
 		"income": {
 			"ui:field": "gallery"
 		},
 		"familySavings": {
 			"ui:field": "gallery"
 		},
+		"formalSaving": {
+			"ui:field": "gallery"
+		},
 		"accessToCredit": {
 			"ui:field": "gallery"
 		},
-		"creditScore": {
+		"debt": {
 			"ui:field": "gallery"
 		},
-		"debt": {
+		"creditScore": {
 			"ui:field": "gallery"
 		},
 		"diversifiedSourcesOfIncome": {
@@ -42,12 +43,6 @@
 		"healthyWeight": {
 			"ui:field": "gallery"
 		},
-		"alcoholIntakeAdults": {
-			"ui:field": "gallery"
-		},
-		"alcoholIntakeYouth": {
-			"ui:field": "gallery"
-		},
 		"illegalSubstances": {
 			"ui:field": "gallery"
 		},
@@ -69,13 +64,10 @@
 		"insurance": {
 			"ui:field": "gallery"
 		},
-		"safeHouse": {
-			"ui:field": "gallery"
-		},
-		"stableHousing": {
-			"ui:field": "gallery"
-		},
 		"comfortOfTheHome": {
+			"ui:field": "gallery"
+		},
+		"safeHouse": {
 			"ui:field": "gallery"
 		},
 		"separateBedrooms": {
@@ -123,9 +115,6 @@
 		"capacityToPlanAndBudget": {
 			"ui:field": "gallery"
 		},
-		"Incarceration": {
-			"ui:field": "gallery"
-		},
 		"knowledgeAndSkillsToGenerateIncome": {
 			"ui:field": "gallery"
 		},
@@ -165,6 +154,12 @@
 		"selfEsteem": {
 			"ui:field": "gallery"
 		},
+		"love": {
+			"ui:field": "gallery"
+		},
+		"happiness": {
+			"ui:field": "gallery"
+		},
 		"moralConscience": {
 			"ui:field": "gallery"
 		},
@@ -180,16 +175,11 @@
 		"autonomyDecisions": {
 			"ui:field": "gallery"
 		},
-		"mentalHealth": {
-			"ui:field": "gallery"
-		},
 		"birthdate": {
 			"ui:field": "date"
 		}
 	},
-
 	"ui:order": [
-
 		"firstName",
 		"lastName",
 		"birthdate",
@@ -199,7 +189,6 @@
 		"postCode",
 		"countryOfBirth",
 		"gender",
-
 		"familyCar",
 		"householdMonthlyIncomeYN",
 		"employmentStatusPrimary",
@@ -210,12 +199,12 @@
 		"memberArmy",
 		"memberGRE",
 		"memberDiedBefore5",
-
 		"income",
 		"familySavings",
+		"formalSaving",
 		"accessToCredit",
-		"creditScore",
 		"debt",
+		"creditScore",
 		"diversifiedSourcesOfIncome",
 		"documentation",
 		"unpollutedEnvironment",
@@ -224,8 +213,6 @@
 		"nearbyHealthPost",
 		"alimentation",
 		"healthyWeight",
-		"alcoholIntakeAdults",
-		"alcoholIntakeYouth",
 		"illegalSubstances",
 		"personalHygiene",
 		"sexualHealth",
@@ -233,9 +220,8 @@
 		"eyesight",
 		"vaccinations",
 		"insurance",
-		"safeHouse",
-		"stableHousing",
 		"comfortOfTheHome",
+		"safeHouse",
 		"separateBedrooms",
 		"properKitchen",
 		"safeBathroom",
@@ -251,7 +237,6 @@
 		"readAndWrite",
 		"schoolSuppliesAndBooks",
 		"capacityToPlanAndBudget",
-		"Incarceration",
 		"knowledgeAndSkillsToGenerateIncome",
 		"informationAccess",
 		"entertainmentAndRecreation",
@@ -265,14 +250,14 @@
 		"registeredToVoteAndVotesInElections",
 		"awarenessOfNeeds",
 		"selfEsteem",
+		"happiness",
+		"love",
 		"moralConscience",
 		"emotionalIntelligence",
 		"householdViolence",
 		"entrepreneurialSpirit",
-		"autonomyDecisions",
-		"mentalHealth"
+		"autonomyDecisions"
 	],
-
 	"ui:group:personal": [
 		"firstName",
 		"lastName",
@@ -284,7 +269,6 @@
 		"countryOfBirth",
 		"gender"
 	],
-
 	"ui:group:economics": [
 		"familyCar",
 		"householdMonthlyIncomeYN",
@@ -297,13 +281,13 @@
 		"memberGRE",
 		"memberDiedBefore5"
 	],
-
 	"ui:group:indicators": [
 		"income",
 		"familySavings",
+		"formalSaving",
 		"accessToCredit",
-		"creditScore",
 		"debt",
+		"creditScore",
 		"diversifiedSourcesOfIncome",
 		"documentation",
 		"unpollutedEnvironment",
@@ -312,8 +296,6 @@
 		"nearbyHealthPost",
 		"alimentation",
 		"healthyWeight",
-		"alcoholIntakeAdults",
-		"alcoholIntakeYouth",
 		"illegalSubstances",
 		"personalHygiene",
 		"sexualHealth",
@@ -321,9 +303,8 @@
 		"eyesight",
 		"vaccinations",
 		"insurance",
-		"safeHouse",
-		"stableHousing",
 		"comfortOfTheHome",
+		"safeHouse",
 		"separateBedrooms",
 		"properKitchen",
 		"safeBathroom",
@@ -339,7 +320,6 @@
 		"readAndWrite",
 		"schoolSuppliesAndBooks",
 		"capacityToPlanAndBudget",
-		"Incarceration",
 		"knowledgeAndSkillsToGenerateIncome",
 		"informationAccess",
 		"entertainmentAndRecreation",
@@ -353,11 +333,12 @@
 		"registeredToVoteAndVotesInElections",
 		"awarenessOfNeeds",
 		"selfEsteem",
+		"happiness",
+		"love",
 		"moralConscience",
 		"emotionalIntelligence",
 		"householdViolence",
 		"entrepreneurialSpirit",
-		"autonomyDecisions",
-		"mentalHealth"
+		"autonomyDecisions"
 	]
 }

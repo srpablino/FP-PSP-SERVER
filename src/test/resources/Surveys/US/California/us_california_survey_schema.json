@@ -578,7 +578,7 @@
 				"Male",
 				"Another gender identity or Prefer not to disclose"
 			],
-			"default":"F"
+			"default": "F"
 		},
 		"familyCar": {
 			"type": "string",
@@ -741,7 +741,7 @@
 		"income": {
 			"type": "array",
 			"title": {
-				"es": "Income Above the Poverty Line"
+				"es": "Income"
 			},
 			"description": {
 				"es": "We have enough income"
@@ -751,17 +751,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/1/1.jpg",
-						"description": "My family's income is above the poverty line.",
+						"description": "My family’s income is above the poverty line.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/1/2.jpg",
-						"description": "My family's income is below the total poverty line but above the extreme poverty line.",
+						"description": "My family’s income is below the total poverty line but above the extreme poverty line.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/1/3.jpg",
-						"description": "My family's income is below the extreme poverty line.",
+						"description": "My family’s income is below the extreme poverty line.",
 						"value": "RED"
 					},
 					{
@@ -775,7 +775,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/1/1.jpg",
-					"description": "My family's income is above the poverty line.",
+					"description": "My family’s income is above the poverty line.",
 					"value": "GREEN"
 				}
 			]
@@ -783,7 +783,7 @@
 		"familySavings": {
 			"type": "array",
 			"title": {
-				"es": "Family Savings"
+				"es": "Savings"
 			},
 			"description": {
 				"es": "We have savings"
@@ -793,12 +793,12 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/1.jpg",
-						"description": "One or more members of my family have savings for at least six months and use services from legal financial institutions.",
+						"description": "One or more members of my family has saved money for at least six months.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/2.jpg",
-						"description": "One or more members of my family have informal savings (they keep money at home or in the property, informal saving groups, etc.). Or they have had a savings account for less than six months.",
+						"description": "Our family has some savings.",
 						"value": "YELLOW"
 					},
 					{
@@ -817,7 +817,49 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/1.jpg",
-					"description": "One or more members of my family have savings for at least six months and use services from legal financial institutions.",
+					"description": "One or more members of my family has saved money for at least six months.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"formalSaving": {
+			"type": "array",
+			"title": {
+				"es": "Formal Savings"
+			},
+			"description": {
+				"es": "Formal Savings"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/1.jpg",
+						"description": "One or more members of my family has a checking and a savings account and uses both.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/2.jpg",
+						"description": "One or more members of my family has a bank account but does not save money in it.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/3.jpg",
+						"description": "None of my family members have bank accounts. We save cash at home or do not save at all.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/2/1.jpg",
+					"description": "One or more members of my family has a checking and a savings account and uses both.",
 					"value": "GREEN"
 				}
 			]
@@ -825,7 +867,7 @@
 		"accessToCredit": {
 			"type": "array",
 			"title": {
-				"es": "Access to Credit"
+				"es": "Credit"
 			},
 			"description": {
 				"es": "We have access to credit"
@@ -835,17 +877,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/3/1.jpg",
-						"description": "At least one member of my family has had access to credit from legal institutions, and with fair market conditions, in the last twelve months, or can access such a credit if they need it. \n Or my family members do not need to borrow money because they can finance all of their needs through their own means.",
+						"description": "At least one member of my family has had access to credit from a bank in the last twelve months, or can access such a credit if they need it.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/3/2.jpg",
-						"description": "At least one member of my family has had access to credit in the last twelve months, but only from non formal institutions (door-to-door or street vendors, family loans, their bosses, et cetera).",
+						"description": "At least one member of my family has had access to credit in the last twelve months, but only from non-formal institutions (i.e. pawn shops, payday loans, family loans, from an acquaintance, et cetera).",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/3/3.jpg",
-						"description": "None of my family members has had access to credit in the last twelve months, despite wanting to do so. \n Or they manage to access some credit, but they are delayed with their payments for at least three months.",
+						"description": "None of my family members has had access to credit in the last twelve months, despite wanting credit.",
 						"value": "RED"
 					},
 					{
@@ -859,7 +901,49 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/3/1.jpg",
-					"description": "At least one member of my family has had access to credit from legal institutions, and with fair market conditions, in the last twelve months, or can access such a credit if they need it. \n Or my family members do not need to borrow money because they can finance all of their needs through their own means.",
+					"description": "At least one member of my family has had access to credit from a bank in the last twelve months, or can access such a credit if they need it.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"debt": {
+			"type": "array",
+			"title": {
+				"es": "Debt"
+			},
+			"description": {
+				"es": "I have no debt"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/1.jpg",
+						"description": "A member of my family has debt but we are able to make more than the minimum monthly payment without sacrificing any necessities or we have no debt.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/2.jpg",
+						"description": "A member of my family has debt and we must sacrifice other necessities in order to make the minimum monthly payment. \n or \n A member of my family has missed a monthly payments in the last 6 months.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/3.jpg",
+						"description": "One or more members of my family has debt and has been unable to make multiple payments over the past 6 months.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/1.jpg",
+					"description": "A member of my family has debt but we are able to make more than the minimum monthly payment without sacrificing any necessities or we have no debt.",
 					"value": "GREEN"
 				}
 			]
@@ -877,17 +961,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/4/1.jpg",
-						"description": "I know my credit score and it is above 650. ",
+						"description": "All members of my family have checked our credit scores in the last 6 months and know that we have a good credit score.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/4/2.jpg",
-						"description": "I don’t know my credit score but I think I have good credit. \n OR \n My credit score is between 550 and 650, but I have a plan in place to increase my score.",
+						"description": "All members of my family have checked our credit in the last 6 months and although we do not have a good credit score we do have a plan in place to improve it. ",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/4/3.jpg",
-						"description": "I don’t know my credit score and I don’t think I have good credit. \n OR \n My credit score is below 550 and I don’t have  plan in place to increase my score.",
+						"description": "At least one member of my family does not know their credit score or  does not have a plan in place to improve their poor credit score.",
 						"value": "RED"
 					},
 					{
@@ -901,49 +985,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/4/1.jpg",
-					"description": "I know my credit score and it is above 650. ",
-					"value": "GREEN"
-				}
-			]
-		},
-		"debt": {
-			"type": "array",
-			"title": {
-				"es": "Debt"
-			},
-			"description": {
-				"es": "I hace no debt"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/1.jpg",
-						"description": "I have  debt but I pay the minimum balance due every month without having to sacrifice other necessities. \n Or \n I have no debt.",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/2.jpg",
-						"description": "I have debt that I am able to pay off every month but to do so I have to sacrifice other necessities. \n Or \n I have debt but I have missed or been late with monthly payments one or two times over the past six months.",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/3.jpg",
-						"description": "I have debt that I am unable to pay off every month because I have other necessities. \n Or \n I have debt and I’ve had to pay late or miss payments more than twice over the past 6 months.",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/5/1.jpg",
-					"description": "I have  debt but I pay the minimum balance due every month without having to sacrifice other necessities. \n Or \n I have no debt.",
+					"description": "All members of my family have checked our credit scores in the last 6 months and know that we have a good credit score.",
 					"value": "GREEN"
 				}
 			]
@@ -951,7 +993,7 @@
 		"diversifiedSourcesOfIncome": {
 			"type": "array",
 			"title": {
-				"es": "Diversified Sources of Income"
+				"es": "Diversified source of Income"
 			},
 			"description": {
 				"es": "We have different sources of income"
@@ -961,17 +1003,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/6/1.jpg",
-						"description": "If my family was to lose its main source of income, it would not affect our level of consumption in the next four weeks, because we have various sources of income that would help us (various family members are employed, we have savings or assets we could easily sell, etc.).",
+						"description": "If my family were to lose its main source of income, our quality of life would not suffer. We have multiple sources of income that could sustain our quality of life for six months.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/6/2.jpg",
-						"description": "If my family was to lose its main source of income, our consumption would suffer moderately in the next four weeks, because we have another source of income that would help us (one other family member is employed, we have savings or assets we could easily sell, etc.).",
+						"description": "If my family was to lose its main source of income, our quality of life would only moderately suffer in the next four weeks, because we have another source of income. ",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/6/3.jpg",
-						"description": "If my family was to lose its main source of income, our consumption would heavily suffer in the next four weeks. We would not have any sources of income.",
+						"description": "If my family were to lose its main source of income, our quality of life would heavily suffer in the next four weeks. We would not have any sources of income.",
 						"value": "RED"
 					},
 					{
@@ -985,7 +1027,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/6/1.jpg",
-					"description": "If my family was to lose its main source of income, it would not affect our level of consumption in the next four weeks, because we have various sources of income that would help us (various family members are employed, we have savings or assets we could easily sell, etc.).",
+					"description": "If my family were to lose its main source of income, our quality of life would not suffer. We have multiple sources of income that could sustain our quality of life for six months.",
 					"value": "GREEN"
 				}
 			]
@@ -996,24 +1038,24 @@
 				"es": "Documentation: Identity document"
 			},
 			"description": {
-				"es": "We have forms of ID"
+				"es": "Documentation: Identity document"
 			},
 			"items": {
 				"type": "object",
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/7/1.jpg",
-						"description": "All members of my family, older than 12 years old, have valid identity documents.",
+						"description": "All members of my family have valid identification documents.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/7/2.jpg",
-						"description": "A member of my family, older than 12 years old, does not have a valid identity document.",
+						"description": "A member of my family does not have a valid identification document.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/7/3.jpg",
-						"description": "More than one member of my family, older than 12 years old, does not have a valid Identity document.",
+						"description": "More than one member of my family does not have a valid identification document.",
 						"value": "RED"
 					},
 					{
@@ -1027,7 +1069,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/7/1.jpg",
-					"description": "All members of my family, older than 12 years old, have valid identity documents.",
+					"description": "All members of my family have valid identification documents.",
 					"value": "GREEN"
 				}
 			]
@@ -1045,17 +1087,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/8/1.jpg",
-						"description": "My family lives in an unpolluted environment. There is no industrial smoke or bad odors coming from factories, livestock production or other sources; there is also no chemical waste, no poor waste disposal or poor waste management systems. If there is or there was contamination, steps are taken to solve the issue.",
+						"description": "My family lives in an unpolluted environment. If there is pollution or contamination, steps are being taken to solve the issue.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/8/2.jpg",
-						"description": "My family lives in an environment which sometimes is contaminated. There are bad odors and industrial smoke coming from factories, livestock production or other sources, chemical waste, and poor or nonexistent waste disposal or waste management systems. My family’s health is probably at risk, but we have done nothing to deal with contamination.",
+						"description": "My family lives in an environment which is sometimes polluted or contaminated. Steps are being taken to solve the problem.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/8/3.jpg",
-						"description": "My family lives in an environment where there are always bad odors and industrial smoke coming from factories, livestock production or other sources; there is also chemical waste and poor or nonexistent waste disposal or waste management systems. There is a risk for my family’s health, but we have not addressed the contamination because we think that there is nothing that can be done to resolve the issue.",
+						"description": "My family lives in an environment where there is always pollution or contamination. Steps are not being taken to solve this or we do not know what we can do about it.",
 						"value": "RED"
 					},
 					{
@@ -1069,7 +1111,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/8/1.jpg",
-					"description": "My family lives in an unpolluted environment. There is no industrial smoke or bad odors coming from factories, livestock production or other sources; there is also no chemical waste, no poor waste disposal or poor waste management systems. If there is or there was contamination, steps are taken to solve the issue.",
+					"description": "My family lives in an unpolluted environment. If there is pollution or contamination, steps are being taken to solve the issue.",
 					"value": "GREEN"
 				}
 			]
@@ -1087,17 +1129,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/9/1.jpg",
-						"description": "My family members dispose of their garbage in a trash can until it is collected or they bury their organic waste in a hole, at least 20 meters away from the house, water sources and farming areas. My family recycles inorganic waste.",
+						"description": "My family divides our trash and recycling items  and leave it to be picked up every week.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/9/2.jpg",
-						"description": "My family members bury their garbage in a sealed hole within their property, but it is not placed twenty meters or further away from the house, water sources and farming areas.",
+						"description": "My family has the option to divide our trash and recycling every week but does not always do it.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/9/3.jpg",
-						"description": "My family members burn their garbage or dump it on the ground in their property or close to their home, water source or farming areas.",
+						"description": "My family lacks the means or accessibility to divide our trash and recycle it every week.",
 						"value": "RED"
 					},
 					{
@@ -1111,7 +1153,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/9/1.jpg",
-					"description": "My family members dispose of their garbage in a trash can until it is collected or they bury their organic waste in a hole, at least 20 meters away from the house, water sources and farming areas. My family recycles inorganic waste.",
+					"description": "My family divides our trash and recycling items  and leave it to be picked up every week.",
 					"value": "GREEN"
 				}
 			]
@@ -1129,17 +1171,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/10/1.jpg",
-						"description": "My family has access to drinking water through a faucet inside of their parcel.",
+						"description": "My family has access to clean drinking water through a faucet inside of their house.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/10/2.jpg",
-						"description": "My family has access to drinking water outside of their parcel, through a faucet, a well or a protected reservoir, a spring or protected water collection system. The distance to access drinking water is less than thirty minutes on foot, there and back, from the household.",
+						"description": "My family has access to clean drinking water outside of our home, through a faucet, a well or a protected reservoir, a spring or protected water collection system. The distance to access drinking water is less than thirty minutes on foot, there and back, from the household.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/10/3.jpg",
-						"description": "My family consumes impotable water or has to bring drinking water from a place further than thirty minutes on foot, there and back.",
+						"description": "My family consumes unhealthy water or has to bring drinking water from a place further than thirty minutes on foot, there and back.",
 						"value": "RED"
 					},
 					{
@@ -1153,7 +1195,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/10/1.jpg",
-					"description": "My family has access to drinking water through a faucet inside of their parcel.",
+					"description": "My family has access to clean drinking water through a faucet inside of their house.",
 					"value": "GREEN"
 				}
 			]
@@ -1171,17 +1213,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/11/1.jpg",
-						"description": "In the last three months, every time a member of my family needed medical attention, they received it.",
+						"description": "In the past 6 months, any time a member of my family needed medical attention, we received it.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/11/2.jpg",
-						"description": "In the last three months, when a member of my family needed basic urgent medical attention, they could obtain it. They could not obtain specialized attention and the medical consultations, or the medications were very expensive.",
+						"description": "In the past 6 months, any time a member of my family needed basic urgent medical attention, we could obtain it. Although, we could not obtain specialized attention and the medical consultations, or the medications were very expensive.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/11/3.jpg",
-						"description": "In the last three months, when my family needed medical attention regarding an illness or accident, we could not obtain it due to one or more of the following: we do not have access to any medical care nearby, the care that was provided was poor, or the medical consultations or the medications were too expensive.",
+						"description": "Any time my family needed medical attention regarding an illness or accident, we could not obtain it due to one or more of the following: we do not have access to any medical care nearby, the care that was provided was poor, or the medical consultations or the medications were too expensive.",
 						"value": "RED"
 					},
 					{
@@ -1195,7 +1237,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/11/1.jpg",
-					"description": "In the last three months, every time a member of my family needed medical attention, they received it.",
+					"description": "In the past 6 months, any time a member of my family needed medical attention, we received it.",
 					"value": "GREEN"
 				}
 			]
@@ -1213,7 +1255,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/12/1.jpg",
-						"description": "All members of my family: \n a). consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. \n and \n b). had, at least, three meals a day: breakfast, lunch and dinner. \n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
+						"description": "All members of my family: \n a). consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc.  \n and b). had, at least, three meals a day: breakfast, lunch and dinner. \n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
 						"value": "GREEN"
 					},
 					{
@@ -1237,7 +1279,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/12/1.jpg",
-					"description": "All members of my family: \n a). consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. \n and \n b). had, at least, three meals a day: breakfast, lunch and dinner. \n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
+					"description": "All members of my family: \n a). consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc.  \n and b). had, at least, three meals a day: breakfast, lunch and dinner. \n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
 					"value": "GREEN"
 				}
 			]
@@ -1255,17 +1297,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/13/1.jpg",
-						"description": "All members of my family have an appropriate Body Mass Index and weight for their height, age and demographic.",
+						"description": "All members of my family have an appropriate weight for their height, age and demographic.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/13/2.jpg",
-						"description": "The majority of members of my family have an appropriate Body Mass Index, but not all. \n OR \n some members of my family do not have an appropriate BMI, but nobody is obese (BMI>30)",
+						"description": "One member of my family does not have an appropriate weight for their height, age and demographic.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/13/3.jpg",
-						"description": "The majority of members of my family do not have an appropriate Body Mass Index and are under or overweight. \n OR \n At lease one member of my family is obese (BMI>30)",
+						"description": "More than one member of my family does not have an appropriate weight for their height, age and demographic.",
 						"value": "RED"
 					},
 					{
@@ -1279,91 +1321,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/13/1.jpg",
-					"description": "All members of my family have an appropriate Body Mass Index and weight for their height, age and demographic.",
-					"value": "GREEN"
-				}
-			]
-		},
-		"alcoholIntakeAdults": {
-			"type": "array",
-			"title": {
-				"es": "Alcohol Intake Adults"
-			},
-			"description": {
-				"es": "Alcohol Intake Adults"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/14/1.jpg",
-						"description": "Over the past month, all adult members (age 21+) of my family have drunk at most in moderation, not exceeding 1 drink per day for women or 2 drinks per day for men. ",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/14/2.jpg",
-						"description": "Over the past month, at least one adult member (age 21+) of my family has drunk in excess no more than once, but this has not affected their job or led to family conflicts or violence. ",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/14/3.jpg",
-						"description": "Over the past month, at least one adult member (age 21+) of my family has drunk in excess frequently (more than once) \n or \n their drinking has led to problems with their work or to family conflicts or violence.",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/14/1.jpg",
-					"description": "Over the past month, all adult members (age 21+) of my family have drunk at most in moderation, not exceeding 1 drink per day for women or 2 drinks per day for men. ",
-					"value": "GREEN"
-				}
-			]
-		},
-		"alcoholIntakeYouth": {
-			"type": "array",
-			"title": {
-				"es": "Alcohol Intake Youth"
-			},
-			"description": {
-				"es": "Alcohol Intake Youth"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/15/1.jpg",
-						"description": "No minors (under the age of 21) in my household have consumed  alcohol in the previous month.",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/15/2.jpg",
-						"description": "A minor (under the age of 21) in my household has consumed alcohol in the previous month but does not regularly do so.",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/15/3.jpg",
-						"description": "A minor (under the age of 21) in my household drinks alcohol regularly.",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/15/1.jpg",
-					"description": "No minors (under the age of 21) in my household have consumed  alcohol in the previous month.",
+					"description": "All members of my family have an appropriate weight for their height, age and demographic.",
 					"value": "GREEN"
 				}
 			]
@@ -1381,17 +1339,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/16/1.jpg",
-						"description": "In the past month, no member of my family has used illegal drugs such as inhalants, cocaine, methamphetamine nor do we do so regularly. \n And \n In the past month, no member of my family has misused prescription drugs such as pain killers, sleeping pills or anti-anxiety medicine.",
+						"description": "No member of my family frequently uses/abuses alcohol or drugs.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/16/2.jpg",
-						"description": "In the past month, a member of my family has used illegal drugs such as inhalants, cocaine, methamphetamine but it is not a regular occurrence.  \n Or \n In the past month, a member of my family misused prescription drugs such as pain killers, sleeping pills or anti-anxiety medicine but it is not a regular occurrence.",
+						"description": "Members of my family do use/abuse alcohol or drugs but they do not cause significant issues in our lives.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/16/3.jpg",
-						"description": "In the past month, a member of family has used  illegal drugs such as inhalants, cocaine, methamphetamine and it is a regular occurrence. \n Or \n In the past month,  a member of my family misused prescription drugs such as pain killers, sleeping pills or anti-anxiety medicine and it is a regular occurrence.",
+						"description": "Members of my family do use/abuse alcohol or drugs and they do cause significant issues in our lives.",
 						"value": "RED"
 					},
 					{
@@ -1405,7 +1363,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/16/1.jpg",
-					"description": "In the past month, no member of my family has used illegal drugs such as inhalants, cocaine, methamphetamine nor do we do so regularly. \n And \n In the past month, no member of my family has misused prescription drugs such as pain killers, sleeping pills or anti-anxiety medicine.",
+					"description": "No member of my family frequently uses/abuses alcohol or drugs.",
 					"value": "GREEN"
 				}
 			]
@@ -1423,7 +1381,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/17/1.jpg",
-						"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, \n b) wash their hands with soap before eating and cooking any meal, \n c) brush their teeth on a daily basis, and \n d) shower every day. ",
+						"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, eat, and/or cook \n b) brush their teeth on a daily basis, and \n c) shower every day. ",
 						"value": "GREEN"
 					},
 					{
@@ -1447,7 +1405,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/17/1.jpg",
-					"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, \n b) wash their hands with soap before eating and cooking any meal, \n c) brush their teeth on a daily basis, and \n d) shower every day. ",
+					"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, eat, and/or cook \n b) brush their teeth on a daily basis, and \n c) shower every day. ",
 					"value": "GREEN"
 				}
 			]
@@ -1458,14 +1416,14 @@
 				"es": "Sexual Health"
 			},
 			"description": {
-				"es": "Sexual Health. We get tested as needed"
+				"es": "Sexual Health."
 			},
 			"items": {
 				"type": "object",
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/18/1.jpg",
-						"description": "All members of my family: \n a) in their reproductive years use some kind of family planning; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams. ",
+						"description": "All members of my family: \n a) in their reproductive years use some kind of family planning and protection; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams.  \n d) Who are sexually active have STI testing every 12 months.",
 						"value": "GREEN"
 					},
 					{
@@ -1489,7 +1447,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/18/1.jpg",
-					"description": "All members of my family: \n a) in their reproductive years use some kind of family planning; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams. ",
+					"description": "All members of my family: \n a) in their reproductive years use some kind of family planning and protection; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams.  \n d) Who are sexually active have STI testing every 12 months.",
 					"value": "GREEN"
 				}
 			]
@@ -1497,7 +1455,7 @@
 		"dentalCare": {
 			"type": "array",
 			"title": {
-				"es": "Dental Care"
+				"es": "Healthy teeth"
 			},
 			"description": {
 				"es": "We have healthy teeth "
@@ -1559,7 +1517,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/20/3.jpg",
-						"description": "More than one of my family members have problems with their vision and are not being treated.",
+						"description": "More than one member of my family has problems with their vision and is not being treated.",
 						"value": "RED"
 					},
 					{
@@ -1591,17 +1549,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/21/1.jpg",
-						"description": "All members of my family are immunized and up-to-date with all the mandatory vaccines according to the Ministry of Public Health and Wellbeing’s vaccination calendar.",
+						"description": "All members of my family are immunized and up-to-date with all the mandatory vaccines according to the State Public Health guidelines.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/21/2.jpg",
-						"description": "One member of my family is either not immunized or not up-to-date with the Ministry of Public Health and Wellbeing’s vaccination calendar. ",
+						"description": "One member of my family is either not immunized or not up-to-date with the State Public Health guidelines. ",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/21/3.jpg",
-						"description": "More than one member of my family is not immunized or not up-to-date with the mandatory vaccines established by Ministerio de Salud Pública y Bienestar Social.",
+						"description": "More than one member of my family is not immunized or not up-to-date with the mandatory vaccines established by State Public Health guidelines.",
 						"value": "RED"
 					},
 					{
@@ -1615,7 +1573,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/21/1.jpg",
-					"description": "All members of my family are immunized and up-to-date with all the mandatory vaccines according to the Ministry of Public Health and Wellbeing’s vaccination calendar.",
+					"description": "All members of my family are immunized and up-to-date with all the mandatory vaccines according to the State Public Health guidelines.",
 					"value": "GREEN"
 				}
 			]
@@ -1623,27 +1581,27 @@
 		"insurance": {
 			"type": "array",
 			"title": {
-				"es": "Insurance"
+				"es": "Medical Insurance"
 			},
 			"description": {
-				"es": "We have insurance "
+				"es": "We have medical insurance "
 			},
 			"items": {
 				"type": "object",
 				"enum": [
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/22/1.jpg",
-						"description": "All members of my family have medical insurance, and at least one member has another type of insurance as well, which can be: home insurance, automobile insurance, flood insurance, harvest and livestock insurance, business insurance, life insurance, funeral insurance, etcetera.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+						"description": "All members of my family have and use medical insurance. ",
 						"value": "GREEN"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/22/2.jpg",
-						"description": "My entire family only has medical insurance.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
+						"description": "Some members of my family have medical insurance and use it.",
 						"value": "YELLOW"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/22/3.jpg",
-						"description": "At least one member of my family does not have medical insurance.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
+						"description": "None of my family members have medical insurance.",
 						"value": "RED"
 					},
 					{
@@ -1656,8 +1614,50 @@
 			"uniqueItems": true,
 			"default": [
 				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/22/1.jpg",
-					"description": "All members of my family have medical insurance, and at least one member has another type of insurance as well, which can be: home insurance, automobile insurance, flood insurance, harvest and livestock insurance, business insurance, life insurance, funeral insurance, etcetera.",
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+					"description": "All members of my family have and use medical insurance. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"comfortOfTheHome": {
+			"type": "array",
+			"title": {
+				"es": "Comfortable home"
+			},
+			"description": {
+				"es": "We have enough furniture and ammenities"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/1.jpg",
+						"description": "My family has: \n a) enough chairs, tables and silverware for all its members, \n b) enough beds for all our family members (one per person or couple), and \n c) fans or air conditioning, and heater.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/2.jpg",
+						"description": "My family does not have one of the components described in the green level.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/3.jpg",
+						"description": "My family does not have two or more elements described in the green level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/1.jpg",
+					"description": "My family has: \n a) enough chairs, tables and silverware for all its members, \n b) enough beds for all our family members (one per person or couple), and \n c) fans or air conditioning, and heater.",
 					"value": "GREEN"
 				}
 			]
@@ -1665,7 +1665,7 @@
 		"safeHouse": {
 			"type": "array",
 			"title": {
-				"es": "Safe Home"
+				"es": "Safe house"
 			},
 			"description": {
 				"es": "We have a safe house"
@@ -1675,7 +1675,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/23/1.jpg",
-						"description": "My family has a home that has: \n a) tile roof, zinc sheet roof or reinforced concrete roof, \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
+						"description": "My family has a home that has: \n a) tile roof, reinforced concrete roof, or stable non-leaking roof \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
 						"value": "GREEN"
 					},
 					{
@@ -1699,91 +1699,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/23/1.jpg",
-					"description": "My family has a home that has: \n a) tile roof, zinc sheet roof or reinforced concrete roof, \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
-					"value": "GREEN"
-				}
-			]
-		},
-		"stableHousing": {
-			"type": "array",
-			"title": {
-				"es": "Consistent Housing"
-			},
-			"description": {
-				"es": "We have consistent housing"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/24/1.jpg",
-						"description": "For the past 6 months, I have had been able to sleep in a safe, secure and consistent house. I’ve never had to sleep outdoors, in cars, in abandoned buildings or on the streets; or in shelters, transitional housing or supportive housing. ",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/24/2.jpg",
-						"description": "In the past 6 months, I haven’t had access to a safe, secure and house on one or two nights. On those occasions, I had to sleep outdoors, in cars, in abandoned buildings or on the streets; or in shelters, transitional housing or supportive housing. ",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/24/3.jpg",
-						"description": "In the past 6 months, I haven’t had access to a safe, secure and house on more than two occasions. On those occasions, I had to sleep outdoors, in cars, in abandoned buildings or on the streets; or in shelters, transitional housing or supportive housing. ",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/24/1.jpg",
-					"description": "For the past 6 months, I have had been able to sleep in a safe, secure and consistent house. I’ve never had to sleep outdoors, in cars, in abandoned buildings or on the streets; or in shelters, transitional housing or supportive housing. ",
-					"value": "GREEN"
-				}
-			]
-		},
-		"comfortOfTheHome": {
-			"type": "array",
-			"title": {
-				"es": "Comfortable home"
-			},
-			"description": {
-				"es": "We have enough furniture and ammenities"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/1.jpg",
-						"description": "My family has: \n a) enough chairs, tables and silverware for all its members, \n b) enough beds for all its members (one per person or couple), and \n c) fans or air conditioning.",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/2.jpg",
-						"description": "My family does not have one of the components described in the green level- it does not exist or is insufficient.",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/3.jpg",
-						"description": "My family does not have two or more elements described in the green level- they do not exist or are insufficient.",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/25/1.jpg",
-					"description": "My family has: \n a) enough chairs, tables and silverware for all its members, \n b) enough beds for all its members (one per person or couple), and \n c) fans or air conditioning.",
+					"description": "My family has a home that has: \n a) tile roof, reinforced concrete roof, or stable non-leaking roof \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
 					"value": "GREEN"
 				}
 			]
@@ -1801,12 +1717,12 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/26/1.jpg",
-						"description": "On average, each bedroom is used by two or less members of my family. If any of the age groups (children, teenagers or adults) share a room, it is because they want to.",
+						"description": "On average, each bedroom is used by two or fewer members of my family. If any of the age groups (children, teenagers or adults) share a room, it is because they want to.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/26/2.jpg",
-						"description": "On average, each bedroom is used by two or less members of my family. Some age groups (children, teenagers or adults) share rooms unwillingly.",
+						"description": "On average, each bedroom is used by two or fewer members of my family. Some age groups (children, teenagers or adults) share rooms unwillingly.",
 						"value": "YELLOW"
 					},
 					{
@@ -1825,7 +1741,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/26/1.jpg",
-					"description": "On average, each bedroom is used by two or less members of my family. If any of the age groups (children, teenagers or adults) share a room, it is because they want to.",
+					"description": "On average, each bedroom is used by two or fewer members of my family. If any of the age groups (children, teenagers or adults) share a room, it is because they want to.",
 					"value": "GREEN"
 				}
 			]
@@ -1836,24 +1752,24 @@
 				"es": "Raised and ventilated kitchen"
 			},
 			"description": {
-				"es": "We have a proper kitchen"
+				"es": "Raised and ventilated kitchen"
 			},
 			"items": {
 				"type": "object",
 				"enum": [
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/27/1.jpg",
-						"description": "My family cooks in a covered and protected space. We have a raised stove and we do not use dung, wood, or charcoal.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+						"description": "My family cooks in a covered and protected space. We have a raised stove and we do not use wood or charcoal.",
 						"value": "GREEN"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/27/2.jpg",
-						"description": "My family cooks outside or on a stove (not on a raised stove), but does not use manure, coal or wood.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
+						"description": "My family cooks outside or on a stove (not on a raised stove), we also do not use coal or wood.",
 						"value": "YELLOW"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/27/3.jpg",
-						"description": "My family does not have a stove or mainly cooks using wood, or charcoal. ",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
+						"description": "My family mainly cooks using wood or charcoal. ",
 						"value": "RED"
 					},
 					{
@@ -1866,8 +1782,8 @@
 			"uniqueItems": true,
 			"default": [
 				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/27/1.jpg",
-					"description": "My family cooks in a covered and protected space. We have a raised stove and we do not use dung, wood, or charcoal.",
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+					"description": "My family cooks in a covered and protected space. We have a raised stove and we do not use wood or charcoal.",
 					"value": "GREEN"
 				}
 			]
@@ -1885,17 +1801,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/28/1.jpg",
-						"description": "My family has one or several bathrooms with the following characteristics: \n a) Has a complete toilet (WC); \n b) cistern; \n  c) ensures privacy; \n d) has a good evacuation system; \n e) it is not shared with other families, and \n f) it is kept clean.",
+						"description": "My family has one or several bathrooms with the following characteristics: \n a) Has a complete toilet; \n b) cistern; \n  c) ensures privacy; \n d) has a good evacuation system; \n e) it is not shared with other families, and \n f) it is kept clean.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/28/2.jpg",
-						"description": "Although my family’s bathroom does not contain all of the components described in the green level, it has some kind of toilet with water, a latrine with a slab floor and good ventilation, or organic toilet. It is not shared with another family.",
+						"description": "Although my family’s bathroom does not contain all of the components described in the green level, it has some kind of toilet with water, a latrine with a slab floor and good ventilation, or organic toilet. It is not shared with another household.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/28/3.jpg",
-						"description": "My family shares its bathroom or latrine with other families, or does not qualify for the yellow level.",
+						"description": "My family shares its bathroom or latrine with other households, or does not qualify for the yellow level.",
 						"value": "RED"
 					},
 					{
@@ -1909,7 +1825,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/28/1.jpg",
-					"description": "My family has one or several bathrooms with the following characteristics: \n a) Has a complete toilet (WC); \n b) cistern; \n  c) ensures privacy; \n d) has a good evacuation system; \n e) it is not shared with other families, and \n f) it is kept clean.",
+					"description": "My family has one or several bathrooms with the following characteristics: \n a) Has a complete toilet; \n b) cistern; \n  c) ensures privacy; \n d) has a good evacuation system; \n e) it is not shared with other families, and \n f) it is kept clean.",
 					"value": "GREEN"
 				}
 			]
@@ -1926,18 +1842,18 @@
 				"type": "object",
 				"enum": [
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/29/1.jpg",
-						"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+						"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, vehicle, and/ or washing machine.",
 						"value": "GREEN"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/29/2.jpg",
-						"description": "My family has two of the following goods: radio, TV, phone, motorcycle, washing machine, and/or refrigerator. \n Or if there are more than two, we do not own a refrigerator.",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
+						"description": "My family has two of the following goods: radio, TV, phone, vehicle, washing machine, and/or refrigerator. \n Or if there are more than two, we do not own a refrigerator.",
 						"value": "YELLOW"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/29/3.jpg",
-						"description": "My family has one or none of the following goods: radio, TV, telephone, motorcycle, washing machine, or refrigerator. ",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
+						"description": "My family has one or none of the following goods: radio, TV, telephone, vehicle, washing machine, or refrigerator. ",
 						"value": "RED"
 					},
 					{
@@ -1950,8 +1866,8 @@
 			"uniqueItems": true,
 			"default": [
 				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/29/1.jpg",
-					"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+					"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, vehicle, and/ or washing machine.",
 					"value": "GREEN"
 				}
 			]
@@ -1962,23 +1878,23 @@
 				"es": "Telephone or mobile phone "
 			},
 			"description": {
-				"es": "We have a phone and access to internet"
+				"es": "We have a phone or wireless service"
 			},
 			"items": {
 				"type": "object",
 				"enum": [
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/30/1.jpg",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
 						"description": "My family has a landline or wireless service constantly at their disposal.",
 						"value": "GREEN"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/30/2.jpg",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
 						"description": "My family has a landline or wireless service, but it can only be used sometimes.",
 						"value": "YELLOW"
 					},
 					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/30/3.jpg",
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
 						"description": "My family does not have phone service (neither landline nor wireless).",
 						"value": "RED"
 					},
@@ -1992,7 +1908,7 @@
 			"uniqueItems": true,
 			"default": [
 				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/30/1.jpg",
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
 					"description": "My family has a landline or wireless service constantly at their disposal.",
 					"value": "GREEN"
 				}
@@ -2016,12 +1932,12 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/31/2.jpg",
-						"description": "All members of my family have clothes and footwear that are appropriate for each season, but not enough to change every day.",
+						"description": "At least one member of my family is lacking appropriate clothes and footwear for each season.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/31/3.jpg",
-						"description": "At least one member of my family is lacking appropriate clothes and footwear for each season.",
+						"description": "More than one member of my family is lacking appropriate clothes and footwear for each season.",
 						"value": "RED"
 					},
 					{
@@ -2100,12 +2016,12 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/33/2.jpg",
-						"description": "My family has suffered an act of violence and/or theft against our property in the last twelve months, and the value of the damaged or stolen property was less than the equivalent of a week’s worth of my family's income.",
+						"description": "My family has suffered an act of violence and/or theft against our property in the last twelve months, and the value of the damaged  \n or stolen property was less than the equivalent of a week’s worth of my family's income.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/33/3.jpg",
-						"description": "My family has suffered more than one act of violence and/or theft against our property in the last twelve months, or we suffered a single act where the value of the damaged or stolen property is equivalent or higher than a week’s worth of my family's income.",
+						"description": "My family has suffered more than one act of violence and/or theft against our property in the last twelve months,  \n or we suffered a single act where the value of the damaged or stolen property is equivalent  \n or higher than a week’s worth of my family's income.",
 						"value": "RED"
 					},
 					{
@@ -2127,7 +2043,7 @@
 		"electricityAccess": {
 			"type": "array",
 			"title": {
-				"es": "Access to Gas/Electricity"
+				"es": "Electricity"
 			},
 			"description": {
 				"es": "We have electricity"
@@ -2142,7 +2058,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/34/2.jpg",
-						"description": "My family has access to electricity, but it is a via an illegal connection and/or insufficient (there is no electricity for four hours or more per day during high season).",
+						"description": "My family has access to electricity, but it is via an illegal connection and/or insufficient or inconsistent.",
 						"value": "YELLOW"
 					},
 					{
@@ -2179,7 +2095,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/35/1.jpg",
-						"description": "My family has access to a regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
+						"description": " My family has access to regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
 						"value": "GREEN"
 					},
 					{
@@ -2203,7 +2119,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/35/1.jpg",
-					"description": "My family has access to a regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
+					"description": " My family has access to regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
 					"value": "GREEN"
 				}
 			]
@@ -2256,7 +2172,7 @@
 				"es": "Children enrolled throughout high school"
 			},
 			"description": {
-				"es": "Our children go to school"
+				"es": "Schooling"
 			},
 			"items": {
 				"type": "object",
@@ -2305,12 +2221,12 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/38/1.jpg",
-						"description": "All of my family members aged 15 years and older can read and write with ease.",
+						"description": "All of my family members aged 15 years and older can read and write well enough to comprehend advance text and express their ideas on paper in a clear way.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/38/2.jpg",
-						"description": "All of my family members aged 15 years and older can read and write, however, it is difficult for at least one family member to read and/or write their ideas.  ",
+						"description": "All of my family members aged 15 years and older can read and write, however, it is difficult for at least one family member to read and comprehend advance text and/or write their ideas clearly.  ",
 						"value": "YELLOW"
 					},
 					{
@@ -2329,7 +2245,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/38/1.jpg",
-					"description": "All of my family members aged 15 years and older can read and write with ease.",
+					"description": "All of my family members aged 15 years and older can read and write well enough to comprehend advance text and express their ideas on paper in a clear way.",
 					"value": "GREEN"
 				}
 			]
@@ -2357,7 +2273,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/39/3.jpg",
-						"description": "The members of my family currently attending school lack most of the school supplies recommended by the teacher.",
+						"description": "The members of my family currently attending school lack most of the school supplies recommended by the teacher. ",
 						"value": "RED"
 					},
 					{
@@ -2418,48 +2334,6 @@
 				}
 			]
 		},
-		"Incarceration": {
-			"type": "array",
-			"title": {
-				"es": "Incarceration"
-			},
-			"description": {
-				"es": "Incarceration"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/41/1.jpg",
-						"description": "No members of the household have served time or committed an offense before. \n OR \n No members of the family are currently participating in illegal activities that put them at risk of being fined or arrested.",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/41/2.jpg",
-						"description": "No one in my family has served time or committed an offense before. However, one or more members may be at risk of committing an offense and getting arrested or fined for activities that are against the law.",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/41/3.jpg",
-						"description": "One or more members in the household is doing/has done activities that are against the law and he/she is at risk of getting arrested or is currently serving time for crime.",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/41/1.jpg",
-					"description": "No members of the household have served time or committed an offense before. \n OR \n No members of the family are currently participating in illegal activities that put them at risk of being fined or arrested.",
-					"value": "GREEN"
-				}
-			]
-		},
 		"knowledgeAndSkillsToGenerateIncome": {
 			"type": "array",
 			"title": {
@@ -2483,7 +2357,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/42/3.jpg",
-						"description": "None of my family members: \n a) has professional training, or has acquired or developed other special skills for the generation of income; or \n b) has an enterprise (business or their own endeavor). ",
+						"description": "None of my family members: \n a) has professional training, or has acquired or developed other special skills for the generation of income; or \n b) has an enterprise (business or their own endeavor).",
 						"value": "RED"
 					},
 					{
@@ -2525,7 +2399,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/43/3.jpg",
-						"description": "My family does not have a radio, television, or internet.",
+						"description": "My family does not have a radio, television, or internet. ",
 						"value": "RED"
 					},
 					{
@@ -2631,7 +2505,7 @@
 		"awarenessOfHumanRights": {
 			"type": "array",
 			"title": {
-				"es": "Awareness of Human Rights"
+				"es": "Human rights awareness"
 			},
 			"description": {
 				"es": "We respect human rights"
@@ -2651,7 +2525,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/46/3.jpg",
-						"description": "I do not believe that each person should have the same basic rights, because these rights depend on their sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera.",
+						"description": "I do not believe that peach person should have the same basic rights, because these rights depend on their sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera.",
 						"value": "RED"
 					},
 					{
@@ -2725,7 +2599,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/48/1.jpg",
-						"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group",
+						"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group. ",
 						"value": "GREEN"
 					},
 					{
@@ -2735,7 +2609,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/48/3.jpg",
-						"description": "No one in my family actively and regularly participates in a group",
+						"description": "No one in my family actively and regularly participates in a group. ",
 						"value": "RED"
 					},
 					{
@@ -2749,7 +2623,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/48/1.jpg",
-					"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group",
+					"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group. ",
 					"value": "GREEN"
 				}
 			]
@@ -2760,7 +2634,7 @@
 				"es": "Knows neighbors"
 			},
 			"description": {
-				"es": "We knows neighbors"
+				"es": "We know our neighbors"
 			},
 			"items": {
 				"type": "object",
@@ -2809,17 +2683,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/50/1.jpg",
-						"description": "My family does not have problems that require intervention by the State, or if there is a problem, we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position. ",
+						"description": "My family does not have problems that require intervention by community organizations or government, or if there is a problem, we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/50/2.jpg",
-						"description": "My family has problems that require intervention by the State. We submitted a request, but we did not follow up.",
+						"description": "My family has problems that require intervention by community organizations or government. We submitted a request, but we did not follow up.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/50/3.jpg",
-						"description": "My family has problems that require intervention by the State, but we did not submit a request.",
+						"description": "My family has problems that require intervention by community organizations or government, but we did not submit a request.",
 						"value": "RED"
 					},
 					{
@@ -2833,7 +2707,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/50/1.jpg",
-					"description": "My family does not have problems that require intervention by the State, or if there is a problem, we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position. ",
+					"description": "My family does not have problems that require intervention by community organizations or government, or if there is a problem, we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position.",
 					"value": "GREEN"
 				}
 			]
@@ -2851,7 +2725,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/51/1.jpg",
-						"description": " When a problem or conflict arises, my family members have a civilized conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse. ",
+						"description": "  When a problem or conflict arises, my family members have a civilized conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse. ",
 						"value": "GREEN"
 					},
 					{
@@ -2875,7 +2749,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/51/1.jpg",
-					"description": " When a problem or conflict arises, my family members have a civilized conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse. ",
+					"description": "  When a problem or conflict arises, my family members have a civilized conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse. ",
 					"value": "GREEN"
 				}
 			]
@@ -2883,7 +2757,7 @@
 		"registeredToVoteAndVotesInElections": {
 			"type": "array",
 			"title": {
-				"es": "Registered to Vote and Votes in Elections"
+				"es": "Register to vote and vote during elections"
 			},
 			"description": {
 				"es": "We vote in elections"
@@ -2893,7 +2767,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/52/1.jpg",
-						"description": " All of the adults in my family voted in the last elections organized by the Superior Court of Electoral Justice.",
+						"description": "All of the adults in my family voted in the last elections organized by the Superior Court of Electoral Justice.",
 						"value": "GREEN"
 					},
 					{
@@ -2917,7 +2791,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/52/1.jpg",
-					"description": " All of the adults in my family voted in the last elections organized by the Superior Court of Electoral Justice.",
+					"description": "All of the adults in my family voted in the last elections organized by the Superior Court of Electoral Justice.",
 					"value": "GREEN"
 				}
 			]
@@ -2935,17 +2809,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/53/1.jpg",
-						"description": "My family is aware that we can improve our current circumstances. For this, we have attainable goals in the medium term (six months) and long term. We continuously work to achieve them.",
+						"description": "My family is aware that we can improve our current circumstances. For this, we have attainable goals in the short, medium term (six months), and long term. We continuously work to achieve them.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/53/2.jpg",
-						"description": "My family believes that we can improve our current circumstances, but we do not have medium (6 months) and long-term goals.",
+						"description": "My family believes that we can improve our current circumstances and may have short term goals, but we do not have medium (6 months) and long-term goals.",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/53/3.jpg",
-						"description": "My family believes that we cannot better our current circumstances, or we do not want to because we are comfortable as we are.",
+						"description": "My family believes that we cannot better our current circumstances. ",
 						"value": "RED"
 					},
 					{
@@ -2959,7 +2833,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/53/1.jpg",
-					"description": "My family is aware that we can improve our current circumstances. For this, we have attainable goals in the medium term (six months) and long term. We continuously work to achieve them.",
+					"description": "My family is aware that we can improve our current circumstances. For this, we have attainable goals in the short, medium term (six months), and long term. We continuously work to achieve them.",
 					"value": "GREEN"
 				}
 			]
@@ -2977,17 +2851,17 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/54/1.jpg",
-						"description": "Generally, I feel competent, and most of the time I have a feeling of accomplishment. Or, many times, people tell me that I am competent or capable in what I do.",
+						"description": "Generally, I feel competent and confident, and most of the time I have a feeling of accomplishment.",
 						"value": "GREEN"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/54/2.jpg",
-						"description": "Sometimes I feel competent and I have a feeling of accomplishment about what I do, but just as often I feel incapable. Or, people tell me that I am competent or capable in what I do, but it is not very frequent. ",
+						"description": "Sometimes I feel competent and confident. I have a feeling of accomplishment about what I do, but just as often I feel incapable. ",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/54/3.jpg",
-						"description": "I do not feel competent, and I almost never achieve what I want. I do not believe that people admire me for the things I do. ",
+						"description": "I do not feel competent and confident, and I almost never achieve what I want. ",
 						"value": "RED"
 					},
 					{
@@ -3001,7 +2875,91 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/54/1.jpg",
-					"description": "Generally, I feel competent, and most of the time I have a feeling of accomplishment. Or, many times, people tell me that I am competent or capable in what I do.",
+					"description": "Generally, I feel competent and confident, and most of the time I have a feeling of accomplishment.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"happiness": {
+			"type": "array",
+			"title": {
+				"es": "Happiness"
+			},
+			"description": {
+				"es": "We are happy"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+						"description": "In the past month, sadness, hopelessness or a lack of motivation did not keep anyone in my family from doing all of their normal, day-to-day activities.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
+						"description": "Once or twice in the past month, a member of my family was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
+						"description": "Several times in the past month, a member of my family was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+					"description": "In the past month, sadness, hopelessness or a lack of motivation did not keep anyone in my family from doing all of their normal, day-to-day activities.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"love": {
+			"type": "array",
+			"title": {
+				"es": "Unconditional Love"
+			},
+			"description": {
+				"es": "Unconditional Love"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+						"description": "Adults in my family tell the youth members of my family regularly (several times a week) that we love them, care for them, and believe in them. Despite our busy lives, we make it a priority to listen to them  when they need us. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default2.png",
+						"description": "Adults in my family tell the youth members of my family occasionally (a few times a month) that we love them, care of them, and believe in them. We try to take the time to listen to them when they need it. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default3.png",
+						"description": "Adults in my family do not tell the youth members of my family that we love them, care for them, and believe in them at least a few times a month. We generally are too busy to take the time to listen to them (even if we wish we could). ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/default/default1.png",
+					"description": "Adults in my family tell the youth members of my family regularly (several times a week) that we love them, care for them, and believe in them. Despite our busy lives, we make it a priority to listen to them  when they need us. ",
 					"value": "GREEN"
 				}
 			]
@@ -3103,7 +3061,7 @@
 				"enum": [
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/57/1.jpg",
-						"description": "None of my family members are the targets of domestic violence. ",
+						"description": "None of my family members are the targets of domestic violence.  ",
 						"value": "GREEN"
 					},
 					{
@@ -3127,7 +3085,7 @@
 			"default": [
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/57/1.jpg",
-					"description": "None of my family members are the targets of domestic violence. ",
+					"description": "None of my family members are the targets of domestic violence.  ",
 					"value": "GREEN"
 				}
 			]
@@ -3197,7 +3155,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/59/3.jpg",
-						"description": " I do not participate in key aspects of my life or my family. I do as I am told and my decisions are made to please others or avoid negative consequences. ",
+						"description": "I do not participate in key aspects of my life or my family. I do as I am told and my decisions are made to please others or avoid negative consequences. ",
 						"value": "RED"
 					},
 					{
@@ -3212,48 +3170,6 @@
 				{
 					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/59/1.jpg",
 					"description": "I make all decisions about the key aspects of my life and participate actively in the decisions of my family. These decisions reflect what I value, I know there are limits, but I arrange my own life within them.",
-					"value": "GREEN"
-				}
-			]
-		},
-		"mentalHealth": {
-			"type": "array",
-			"title": {
-				"es": "Mental Health"
-			},
-			"description": {
-				"es": "Mental Health and Happiness"
-			},
-			"items": {
-				"type": "object",
-				"enum": [
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/60/1.jpg",
-						"description": "In the past month, sadness, hopelessness or a lack of motivation did not keep anyone in my family from doing all of their normal, day-to-day activities.",
-						"value": "GREEN"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/60/2.jpg",
-						"description": "Once or twice in the past month, a member of my family was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
-						"value": "YELLOW"
-					},
-					{
-						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/60/3.jpg",
-						"description": "Several times in the past month, a member of my family was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
-						"value": "RED"
-					},
-					{
-						"url": "NONE",
-						"description": "",
-						"value": "NONE"
-					}
-				]
-			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/california/60/1.jpg",
-					"description": "In the past month, sadness, hopelessness or a lack of motivation did not keep anyone in my family from doing all of their normal, day-to-day activities.",
 					"value": "GREEN"
 				}
 			]
