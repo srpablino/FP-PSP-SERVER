@@ -1,5 +1,5 @@
 {
-	"title": "Encuesta de Semáforo. FUSAI.",
+	"title": "Encuesta de Semáforo. Fundacion Paraguaya - Demo",
 	"description": "Estructura de la encuesta compuesta por: datos personales, socioeconómicos y 50 indicadores.",
 	"type": "object",
 	"required": [
@@ -11,7 +11,34 @@
 		"birthdate",
 		"manyPeopleHousehold"
 	],
+
 	"properties": {
+
+		"identificationType": {
+			"type": "string",
+			"title": {
+				"es": "Tipo de documento"
+			},
+			"enum": [
+				"CI",
+				"DNI",
+				"PASSPORT"
+			],
+			"enumNames": [
+				"Cédula de Identidad",
+				"DNI",
+				"Pasaporte"
+			],
+			"default": "CI"
+		},
+
+		"identificationNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de documento"
+			}
+		},
+
 		"firstName": {
 			"type": "string",
 			"title": {
@@ -31,6 +58,14 @@
 				"es": "Ingrese su fecha de nacimiento"
 			}
 		},
+
+		"phoneNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de teléfono"
+			}
+		},
+
 		"countryOfBirth": {
 			"type": "string",
 			"title": {
@@ -520,7 +555,7 @@
 				"Mayotte",
 				"Sudáfrica"
 			],
-			"default": "SV"
+			"default": "PY"
 		},
 		"gender": {
 			"type": "string",
@@ -546,40 +581,22 @@
 			}
 		},
 
-		"employmentStatusPrimary": {
+		"areaOfResidence": {
 			"type": "string",
 			"title": {
-				"es": "Puesto en su ocupación primaria"
+				"es": "Ingrese la zona en que vive"
 			},
 			"enum": [
-				"SELF-EMPLOYED",
-				"UNEMPLOYED",
-				"EMPLOYEE-FULL-TIME",
-				"EMPLOYEE-PART-TIME",
-				"CASUAL-WORK",
-				"WORK-BASED-TRAINING",
-				"STUDENT",
-				"VOLUNTEERING-INTERNSHIP",
-				"TRAVELLING",
-				"MEDICAL-TREATMENT",
-				"CUSTODIAL-SENTENCE",
-				"OTHER-INACTIVE"
+				"URBAN",
+				"RURAL"
 			],
 			"enumNames": [
-				"Trabajo independiente",
-				"No tiene",
-				"Empleo de tiempo completo",
-				"Empleo de tiempo compartido",
-				"Trabajo ocasional",
-				"Trabajo Basado en Entrenamiento",
-				"Estudiante",
-				"Voluntariado/Pasantía",
-				"Viajando",
-				"Tratamiendo médico",
-				"Libertal condicional",
-				"Otros"
+				"URBANA",
+				"RURAL"
 			]
 		},
+
+
 
 		"activityMain": {
 			"type": "string",
@@ -587,98 +604,51 @@
 				"es": "Ingrese su actividad principal"
 			},
 			"enum": [
-				"AGRICULTURE",
-				"MINING-QUARRYING",
-				"MANUFACTURING",
-				"ELECTRICITY-GAS",
-				"WATER-SEWERAGE",
-				"CONSTRUCTION",
-				"TRADE",
-				"TRANSPORTATION-STORAGE",
-				"ACCOMMODATION-FOOD",
-				"INFORMATION-COMMUNICATION",
-				"FINANCIAL",
-				"REAL-ESTATE",
-				"PROFESSIONAL",
-				"ADMINISTRATIVE",
-				"PUBLIC-ADMINISTRATION",
-				"EDUCATION",
-				"HEALTH-SOCIAL",
-				"ARTS",
-				"OTHER",
-				"HOUSEHOLDS",
-				"EXTRATERRITORIAL"
-			],
+				"VENTAS",
+				"SERVICIOS",
+				"MANUFACTURA",
+				"ENSEÑÁNZA",
+				"EMPLEADO/A DE EMPRESA PRIVADA",
+				"EMPLEADO/A DE EMPRESA PUBLICA",
+				"ONG",
+				"OTROS",
+				"NO TIENE"
+				],
 			"enumNames": [
-				"Agricultura, Silvicultura y Pesca",
-				"Minas y Canteras",
-				"Manufactura",
-				"Suministro de electricidad, gas, vapor y aire acondicionado",
-				"Actividades de abastecimiento de agua, alcantarillado y gestión de residuos",
-				"Construcción",
-				"Comercio mayorista y minorista, reparación de vehículos y motocicletas",
-				"Transporte y almacenamiento",
-				"Actividades de alojamiento y servicio de comida",
-				"Información y Comunicación",
-				"Actividades financieras y de seguros",
-				"Actividades inmobiliarias",
-				"Actividades profesionales, científicas y técnicas",
-				"Actividades administrativas",
-				"Administración pública y defensa",
-				"Educación",
-				"Actividades de salud y servicio social",
-				"Arte, entretenimiento y recreación",
-				"Otras actividades de servicio",
-				"Actividades de hogares como empleadores; otras actividades que producen bienes y servicios para uso propio",
-				"Actividades de organizaciones extraterritoriales"
+				"VENTAS (DESPENSA, COPETIN, COMESTIBLE)",
+				"SERVICIOS (PELUQUERIA, LIMPIEZA, MANICURA)",
+				"MANUFACTURA (ARTESANIA)",
+				"ENSEÑÁNZA",
+				"EMPLEADO/A DE EMPRESA PRIVADA",
+				"EMPLEADO/A DE EMPRESA PUBLICA",
+				"ONG: ORGANIZACION NO GUBERNAMENTAL",
+				"OTROS",
+				"NO TIENE"
 			]
 		},
 
-		"benefitIncome": {
+		"householdMonthlyIncome": {
 			"type": "number",
 			"title": {
-				"es": "¿Tengo un negocio que me genera ingreso semanalmente?"
+				"es": "Mi ingreso mensual es: "
 			},
 			"default": 0
 		},
-
-		"salaryIncome": {
+		"otherMembersIncome": {
 			"type": "number",
 			"title": {
-				"es": "¿Tengo un salario mensual?"
-			},
-			"default": 0
-		},
-
-		"otherMembersSalary": {
-			"type": "number",
-			"title": {
-				"es": "¿Los otros miembros de mi familia tienen salario?"
-			},
-			"default": 0
-		},
-
-		"otherMembersBusinessIncome": {
-			"type": "number",
-			"title": {
-				"es": "¿Los otros miembros de mi familia tienen negocio con ingresos semanales?"
+				"es": "El monto de ingresos que generan los otros miembros de mi familia mensualmente"
 			},
 			"default": 0
 		},
 		"receiveStateIncome": {
-			"type": "string",
+			"type": "number",
 			"title": {
-				"es": "¿Mi familia tienen ingresos transferidos por Programas del Gobierno?"
+				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto"
 			},
-			"enum": [
-				"YES",
-				"NO"
-			],
-			"enumNames": [
-				"Si",
-				"No"
-			]
+			"default": 0
 		},
+
 		"housingSituation": {
 			"type": "string",
 			"title": {
@@ -720,12 +690,6 @@
 				"Ningun miembro de la familia con discapacidad"
 			]
 		},
-		"familyWaterAccess": {
-			"type": "string",
-			"title": {
-				"es": "¿Como accede al servicio de agua mi familia?"
-			}
-		},
 		"memberDiedBefore5": {
 			"type": "string",
 			"title": {
@@ -745,15 +709,17 @@
 		"familyCar": {
 			"type": "string",
 			"title": {
-				"es": "¿Mi familia tiene auto o camioneta?"
+				"es": "¿Mi familia cuenta con movilidad propia?"
 			},
 			"enum": [
-				"Yes",
-				"No"
+				"AUTOMOVIL",
+				"CAMIONETA",
+				"NO CUENTA"
 			],
 			"enumNames": [
-				"Si",
-				"No"
+				"AUTOMOVIL",
+				"CAMIONETA",
+				"NO CUENTA CON MOVILIDAD"
 			]
 		},
 
@@ -762,7 +728,7 @@
 			"title": {
 				"es": "Seleccione la ubicación geográfica de la familia"
 			},
-			"default": "13.6914757,-89.2497993"
+			"default": "-25.2968485,-57.6331085"
 		},
 
 		"income": {
@@ -936,10 +902,10 @@
 		"documentation": {
 			"type": "array",
 			"title": {
-				"es": "Documentación: Documento unico de identidad (DUI)"
+				"es": "Documentación: Cédula de Identidad"
 			},
 			"description": {
-				"es": "Tenemos DUI"
+				"es": "Tenemos CI"
 			},
 			"items": {
 				"type": "object",
@@ -951,7 +917,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/5/2.jpg",
-						"description": "Un miembro de mi familia, no tiene uno o mas de los documentos de identidad (partida de nacimiento, carnet de minoridad o documento unico de identidad (DUI)).",
+						"description": "Un miembro de mi familia, no tiene uno o mas de los documentos de identidad (partida de nacimiento,  CI).",
 						"value": "YELLOW"
 					},
 					{

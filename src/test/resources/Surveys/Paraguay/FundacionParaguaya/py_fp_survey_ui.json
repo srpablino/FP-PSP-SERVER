@@ -166,36 +166,34 @@
 		"birthdate": {
 			"ui:field": "date"
 		},
-		"benefitIncome": {
+		"householdMonthlyIncome": {
 			"ui:field": "numberFormat"
 		},
-		"salaryIncome": {
+		"otherMembersIncome": {
 			"ui:field": "numberFormat"
 		},
-		"otherMembersSalary": {
-			"ui:field": "numberFormat"
-		},
-		"otherMembersBusinessIncome": {
+		"receiveStateIncome": {
 			"ui:field": "numberFormat"
 		}
+
 	},
 	"ui:order": [
+		"identificationType",
+		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
+		"phoneNumber",
 		"countryOfBirth",
 		"gender",
 		"manyPeopleHousehold",
-		"employmentStatusPrimary",
+		"areaOfResidence",
 		"activityMain",
-		"benefitIncome",
-		"salaryIncome",
-		"otherMembersSalary",
-		"otherMembersBusinessIncome",
+		"householdMonthlyIncome",
+		"otherMembersIncome",
 		"receiveStateIncome",
 		"housingSituation",
 		"memberDisability",
-		"familyWaterAccess",
 		"memberDiedBefore5",
 		"familyCar",
 		"familyUbication",
@@ -251,24 +249,24 @@
 		"autonomyDecisions"
 	],
 	"ui:group:personal": [
+		"identificationType",
+		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
+		"phoneNumber",
 		"countryOfBirth",
 		"gender"
 	],
 	"ui:group:economics": [
 		"manyPeopleHousehold",
-		"employmentStatusPrimary",
+		"areaOfResidence",
 		"activityMain",
-		"benefitIncome",
-		"salaryIncome",
-		"otherMembersSalary",
-		"otherMembersBusinessIncome",
+		"householdMonthlyIncome",
+		"otherMembersIncome",
 		"receiveStateIncome",
 		"housingSituation",
 		"memberDisability",
-		"familyWaterAccess",
 		"memberDiedBefore5",
 		"familyCar",
 		"familyUbication"
