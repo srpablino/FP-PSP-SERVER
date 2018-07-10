@@ -1021,7 +1021,7 @@
 			"default": 0
 		},
 
-		"cashBenefitsGovernment": {
+		"receiveStateIncome": {
 			"type": "string",
 			"title": {
 				"es": "Does my family receives cash benefits from the government?"
@@ -1029,7 +1029,7 @@
 			"default": ""
 		},
 
-		"situationHouse": {
+		"housingSituation": {
 			"type": "string",
 			"title": {
 				"es": "What is the situation of my house?"
@@ -1110,15 +1110,34 @@
 			"default": ""
 		},
 
-		"currentLevelEducation": {
+		"educationClientLevel": {
 			"type": "string",
 			"title": {
 				"es": "Current or maximum degree achieved"
 			},
-			"default": ""
+			"enum": [
+				"SCHOOL-INCOMPLETE",
+				"SCHOOL-COMPLETE",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"UNIVERSITY-INCOMPLETE",
+				"UNIVERSITY-COMPLETE",
+				"OTHER",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"School incomplete",
+				"School complete",
+				"Secondary complete",
+				"Secondary incomplete",
+				"University incomplete",
+				"University complete",
+				"Other",
+				"Prefer not to say"
+			]
 		},
 
-		"over15": {
+		"memberOver15": {
 			"type": "number",
 			"title": {
 				"es": "How many people over 15 are there in your family?"
@@ -1126,7 +1145,7 @@
 			"default": 0
 		},
 
-		"over15HaveAjob": {
+		"memberOver15HaveAjob": {
 			"type": "number",
 			"title": {
 				"es": "How many of those people over 15 have a job?"
@@ -1236,13 +1255,21 @@
 			"default": "NO"
 		},
 
+		"familyUbication": {
+			"type": "string",
+			"title": {
+				"es": "Please select the geographic location of your household"
+			},
+			"default": "8.470919, -13.238901"
+		},
+
 		"income": {
 			"type": "array",
 			"title": {
 				"es": "Income above the Poverty Line "
 			},
 			"description": {
-				"es": "Income "
+				"es": "We have enough income "
 			},
 			"items": {
 				"type": "object",
@@ -1282,7 +1309,7 @@
 				"es": "Family savings"
 			},
 			"description": {
-				"es": "Savings"
+				"es": "We have savings"
 			},
 			"items": {
 				"type": "object",
@@ -1317,13 +1344,13 @@
 			}]
 		},
 
-		"creditAccess": {
+		"accessToCredit": {
 			"type": "array",
 			"title": {
 				"es": "Access to credit"
 			},
 			"description": {
-				"es": "Credit"
+				"es": "We have access to credit"
 			},
 			"items": {
 				"type": "object",
@@ -1359,13 +1386,13 @@
 		},
 
 
-		"sourceIncome": {
+		"diversifiedSourcesOfIncome": {
 			"type": "array",
 			"title": {
-				"es": "Diversified source of income "
+				"es": "Diversified sources of income "
 			},
 			"description": {
-				"es": "Diversified source of income "
+				"es": "Diversified sources of income"
 			},
 			"items": {
 				"type": "object",
@@ -1437,13 +1464,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"environment": {
+		"unpollutedEnvironment": {
 			"type": "array",
 			"title": {
 				"es": "Unpolluted environment"
 			},
 			"description": {
-				"es": "Environment"
+				"es": "We live in a healthy environment"
 			},
 			"items": {
 				"type": "object",
@@ -1478,13 +1505,13 @@
 		},
 
 
-		"garbage": {
+		"garbageDisposal": {
 			"type": "array",
 			"title": {
 				"es": "Garbage disposal"
 			},
 			"description": {
-				"es": "Garbage"
+				"es": "We manage our garbage well"
 			},
 			"items": {
 				"type": "object",
@@ -1519,13 +1546,13 @@
 		},
 
 
-		"water": {
+		"drinkingWaterAccess": {
 			"type": "array",
 			"title": {
 				"es": "Access to drinking water"
 			},
 			"description": {
-				"es": "Water"
+				"es": "We have access to drinking water"
 			},
 			"items": {
 				"type": "object",
@@ -1559,13 +1586,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"heatlthService": {
+		"nearbyHealthPost": {
 			"type": "array",
 			"title": {
 				"es": "Access to health services "
 			},
 			"description": {
-				"es": "Health services "
+				"es": "We have access to health care"
 			},
 			"items": {
 				"type": "object",
@@ -1599,13 +1626,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"nutrition": {
+		"alimentation": {
 			"type": "array",
 			"title": {
 				"es": "Nutritious diet "
 			},
 			"description": {
-				"es": "Nutrition"
+				"es": "We have a nutritious diet"
 			},
 			"items": {
 				"type": "object",
@@ -1616,7 +1643,7 @@
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/2.jpg",
-						"description": "My family members’ diets do not include all of the components cited in the green level. However, in the past week, all members of my family had three meals a day, or if they skipped a meal, it was for voluntary reasons, not one associated with a lack of money or food.",
+						"description": "The diet of my family members does not include all of the components cited in the green level. However, in the past week, all members of my family had three meals a day, or if they skipped a meal, it was for voluntary reasons, not one associated with a lack of money or food.",
 						"value": "YELLOW"
 					},
 					{
@@ -1640,13 +1667,13 @@
 			}]
 		},
 
-		"hygiene": {
+		"personalHygiene": {
 			"type": "array",
 			"title": {
 				"es": "Personal Hygiene "
 			},
 			"description": {
-				"es": "Hygiene"
+				"es": "We keep a good level of hygiene"
 			},
 			"items": {
 				"type": "object",
@@ -1686,7 +1713,7 @@
 				"es": "Sexual health "
 			},
 			"description": {
-				"es": "Sexual health "
+				"es": "We understand sexual health"
 			},
 			"items": {
 				"type": "object",
@@ -1721,13 +1748,13 @@
 			}]
 		},
 
-		"teeth": {
+		"dentalCare": {
 			"type": "array",
 			"title": {
 				"es": "Healthy teeth"
 			},
 			"description": {
-				"es": "Teeth"
+				"es": "We have healthy teeth"
 			},
 			"items": {
 				"type": "object",
@@ -1762,13 +1789,13 @@
 			}]
 		},
 
-		"vision": {
+		"eyesight": {
 			"type": "array",
 			"title": {
 				"es": "Healthy vision "
 			},
 			"description": {
-				"es": "Vision"
+				"es": "We have good eyesight"
 			},
 			"items": {
 				"type": "object",
@@ -1803,13 +1830,13 @@
 			}]
 		},
 
-		"vaccines": {
+		"vaccinations": {
 			"type": "array",
 			"title": {
 				"es": "Vaccines"
 			},
 			"description": {
-				"es": "Vaccines"
+				"es": "We are up to date with vaccinations"
 			},
 			"items": {
 				"type": "object",
@@ -1850,7 +1877,7 @@
 				"es": "Insurance"
 			},
 			"description": {
-				"es": "Insurance"
+				"es": "We have insurance"
 			},
 			"items": {
 				"type": "object",
@@ -1886,13 +1913,13 @@
 		}
 
 	,
-		"house": {
+		"safeHouse": {
 			"type": "array",
 			"title": {
 				"es": "Safe house"
 			},
 			"description": {
-				"es": "House"
+				"es": "We have a safe house"
 			},
 			"items": {
 				"type": "object",
@@ -1926,13 +1953,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"confHome": {
+		"comfortOfTheHome": {
 			"type": "array",
 			"title": {
 				"es": "Comfortable home "
 			},
 			"description": {
-				"es": "Comfortable home "
+				"es": "We have the furniture we need"
 			},
 			"items": {
 				"type": "object",
@@ -1973,7 +2000,7 @@
 				"es": "Separate bedrooms "
 			},
 			"description": {
-				"es": "Separate bedrooms "
+				"es": "We have separate bedrooms"
 			},
 			"items": {
 				"type": "object",
@@ -2007,13 +2034,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"kitchen": {
+		"properKitchen": {
 			"type": "array",
 			"title": {
 				"es": "Raised and ventilated kitchen"
 			},
 			"description": {
-				"es": "Kitchen"
+				"es": "We have a proper kitchen"
 			},
 			"items": {
 				"type": "object",
@@ -2048,13 +2075,13 @@
 			}]
 		},
 
-		"bathroom": {
+		"safeBathroom": {
 			"type": "array",
 			"title": {
 				"es": "Bathroom"
 			},
 			"description": {
-				"es": "Bathroom"
+				"es": "We have a proper bathroom"
 			},
 			"items": {
 				"type": "object",
@@ -2095,7 +2122,7 @@
 				"es": "Refrigerator and other goods"
 			},
 			"description": {
-				"es": "Refrigerator"
+				"es": "We have refrigerator and other appliances"
 			},
 			"items": {
 				"type": "object",
@@ -2130,13 +2157,13 @@
 			}]
 		},
 
-		"telephone": {
+		"phone": {
 			"type": "array",
 			"title": {
 				"es": "Telephone or mobile phone "
 			},
 			"description": {
-				"es": "Telephone"
+				"es": "We have telephone"
 			},
 			"items": {
 				"type": "object",
@@ -2171,13 +2198,13 @@
 			}]
 		},
 
-		"clothing": {
+		"clothingAndFootwear": {
 			"type": "array",
 			"title": {
 				"es": "Sufficient and appropriate clothing"
 			},
 			"description": {
-				"es": "Clothing"
+				"es": "We have the clothing we need"
 			},
 			"items": {
 				"type": "object",
@@ -2220,7 +2247,7 @@
 				"es": "Personal safety"
 			},
 			"description": {
-				"es": "Safety"
+				"es": "Personal safety"
 			},
 			"items": {
 				"type": "object",
@@ -2257,7 +2284,7 @@
 
 	,
 
-		"securityProperty": {
+		"securityOfProperty": {
 			"type": "array",
 			"title": {
 				"es": "Security of property"
@@ -2300,13 +2327,13 @@
 
 	,
 
-		"electricity": {
+		"electricityAccess": {
 			"type": "array",
 			"title": {
 				"es": "Electricity"
 			},
 			"description": {
-				"es": "Electricity"
+				"es": "We have access to electricity"
 			},
 			"items": {
 				"type": "object",
@@ -2339,17 +2366,15 @@
 				"description": "My family has permanent access to electricity via a legal connection.",
 				"value": "GREEN"
 			}]
-		}
+		},
 
-	,
-
-		"transportation": {
+		"regularMeansOfTransportation": {
 			"type": "array",
 			"title": {
 				"es": "Regular means of transportation"
 			},
 			"description": {
-				"es": "Transportation"
+				"es": "We have regular means of transportation"
 			},
 			"items": {
 				"type": "object",
@@ -2392,7 +2417,7 @@
 				"es": "All-weather access road"
 			},
 			"description": {
-				"es": "Road"
+				"es": "All-weather access road "
 			},
 			"items": {
 				"type": "object",
@@ -2429,13 +2454,13 @@
 
 	,
 
-		"schooling": {
+		"middleEducation": {
 			"type": "array",
 			"title": {
 				"es": "Children enrolled throughout secondary school"
 			},
 			"description": {
-				"es": "Schooling"
+				"es": "Our children have access to education"
 			},
 			"items": {
 				"type": "object",
@@ -2472,13 +2497,13 @@
 
 	,
 
-		"literacy": {
+		"readAndWrite": {
 			"type": "array",
 			"title": {
 				"es": "Knows how to read, write and comprehend "
 			},
 			"description": {
-				"es": "Literacy"
+				"es": "We can read and write"
 			},
 			"items": {
 				"type": "object",
@@ -2514,13 +2539,13 @@
 		}
 
 	,
-		"schoolSupplies": {
+		"schoolSuppliesAndBooks": {
 			"type": "array",
 			"title": {
 				"es": "School supplies and books"
 			},
 			"description": {
-				"es": "Supplies"
+				"es": "Our children have school supplies"
 			},
 			"items": {
 				"type": "object",
@@ -2556,13 +2581,13 @@
 		}
 
 	,
-		"budget": {
+		"capacityToPlanAndBudget": {
 			"type": "array",
 			"title": {
 				"es": "Ability to plan and budget"
 			},
 			"description": {
-				"es": "Budget"
+				"es": "We have a budget"
 			},
 			"items": {
 				"type": "object",
@@ -2597,13 +2622,13 @@
 			}]
 		}
 	,
-		"generateIncome": {
+		"knowledgeAndSkillsToGenerateIncome": {
 			"type": "array",
 			"title": {
 				"es": "Ability to generate income"
 			},
 			"description": {
-				"es": "Generate income"
+				"es": "We know how to make money"
 			},
 			"items": {
 				"type": "object",
@@ -2645,7 +2670,7 @@
 				"es": "Access to information (TV or internet)"
 			},
 			"description": {
-				"es": "Access to information"
+				"es": "We have access to information"
 			},
 			"items": {
 				"type": "object",
@@ -2681,13 +2706,13 @@
 		}
 
 	,
-		"entertainment": {
+		"entertainmentAndRecreation": {
 			"type": "array",
 			"title": {
 				"es": "Access to entertainment"
 			},
 			"description": {
-				"es": "Entertainment"
+				"es": "Access to entertainment "
 			},
 			"items": {
 				"type": "object",
@@ -2723,7 +2748,7 @@
 		}
 
 	,
-		"diversityRespect": {
+		"respectForDiversity": {
 			"type": "array",
 			"title": {
 				"es": "Respect for diversity"
@@ -2765,7 +2790,7 @@
 		}
 
 	,
-		"humanRights": {
+		"awarenessOfHumanRights": {
 			"type": "array",
 			"title": {
 				"es": "Human rights awareness"
@@ -2813,7 +2838,7 @@
 				"es": "Child labor"
 			},
 			"description": {
-				"es": "Child labor"
+				"es": "Our children do not work and go to school"
 			},
 			"items": {
 				"type": "object",
@@ -2850,13 +2875,13 @@
 
 
 	,
-		"group": {
+		"socialCapital": {
 			"type": "array",
 			"title": {
 				"es": "Forms part of a group"
 			},
 			"description": {
-				"es": "Group"
+				"es": "We are involved in group participation"
 			},
 			"items": {
 				"type": "object",
@@ -2893,13 +2918,13 @@
 
 
 	,
-		"publicSectorInfluence": {
+		"influenceInPublicSector": {
 			"type": "array",
 			"title": {
 				"es": "Influence in the public sector"
 			},
 			"description": {
-				"es": "Influence"
+				"es": "We know how to petition"
 			},
 			"items": {
 				"type": "object",
@@ -2936,13 +2961,13 @@
 
 
 	,
-		"conflicts": {
+		"abilityToSolveProblemsAndConflicts": {
 			"type": "array",
 			"title": {
 				"es": "Ability to resolve problems and conflicts"
 			},
 			"description": {
-				"es": "Conflicts"
+				"es": "We solve our own problems"
 			},
 			"items": {
 				"type": "object",
@@ -2975,17 +3000,15 @@
 				"description": "When a problem or conflict arises, my family members have a conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse.",
 				"value": "GREEN"
 			}]
-		}
+		},
 
-
-	,
-		"voting": {
+		"registeredToVoteAndVotesInElections": {
 			"type": "array",
 			"title": {
 				"es": "Register to vote and vote during elections"
 			},
 			"description": {
-				"es": "Voting"
+				"es": "We vote in elections"
 			},
 			"items": {
 				"type": "object",
@@ -3022,21 +3045,22 @@
 
 
 	,
-		"lifePlan": {
+		"awarenessOfNeeds": {
 			"type": "array",
 			"title": {
 				"es": "Awareness of one’s needs"
 			},
 			"description": {
-				"es": "Life plan"
+				"es": "We know how to plan for the future"
 			},
 			"items": {
 				"type": "object",
-				"enum": [{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
-					"description": "My family is aware we can improve a current situation. For this we have goals that we want and can reach in the medium term (3 months) and long term.",
-					"value": "GREEN"
-				},
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
+						"description": "My family is aware we can improve the current situation. For this we have goals that we set and can reach in the medium term (3 months) and long term.",
+						"value": "GREEN"
+					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/2.jpg",
 						"description": "My family believes that we can improve our current situation, but we do not have medium and long term goals.",
@@ -3058,7 +3082,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
-				"description": "My family is aware we can improve a current situation. For this we have goals that we want and can reach in the medium term (3 months) and long term.",
+				"description": "My family is aware we can improve the current situation. For this we have goals that we set and can reach in the medium term (3 months) and long term.",
 				"value": "GREEN"
 			}]
 		}
@@ -3071,23 +3095,24 @@
 				"es": "Self esteem"
 			},
 			"description": {
-				"es": "Self esteem"
+				"es": "We have self esteem"
 			},
 			"items": {
 				"type": "object",
-				"enum": [{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
-					"description": "Generally I feel good about myself and I feel competent. Or many times people tell that I am competent or capable in what I do.",
-					"value": "GREEN"
-				},
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
+						"description": "Generally I feel good about myself and I feel competent, or many times people tell me that I am competent or capable in what I do.",
+						"value": "GREEN"
+					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/2.jpg",
-						"description": "Sometimes I feel good about myself and competent, but not all the time. People tell me I am competent or capable in what I do, but is not very often.",
+						"description": "Sometimes I feel good about myself and competent, but not all the time. People tell me I am competent or capable in what I do, but this is not very often",
 						"value": "YELLOW"
 					},
 					{
 						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/1.jpg",
-						"description": " I often feel bad about myself and incompetent. I don’t know or believe that people admire me or things I do.",
+						"description": "I often feel bad about myself and incompetent. I don’t know or don't believe that people admire me or things I do.",
 						"value": "RED"
 					},
 					{
@@ -3101,7 +3126,7 @@
 			"uniqueItems": true,
 			"default": [{
 				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
-				"description": "Generally I feel good about myself and I feel competent. Or many times people tell that I am competent or capable in what I do.",
+				"description": "Generally I feel good about myself and I feel competent, or many times people tell me that I am competent or capable in what I do.",
 				"value": "GREEN"
 			}]
 		}
@@ -3114,7 +3139,7 @@
 				"es": "Moral conscience"
 			},
 			"description": {
-				"es": "Moral conscience"
+				"es": "We consider others when making decisions"
 			},
 			"items": {
 				"type": "object",
@@ -3151,13 +3176,13 @@
 
 
 	,
-		"emotions": {
+		"emotionalIntelligence": {
 			"type": "array",
 			"title": {
 				"es": "Emotional-effective capacity"
 			},
 			"description": {
-				"es": "Emotions"
+				"es": "We control our emotions"
 			},
 			"items": {
 				"type": "object",
@@ -3194,13 +3219,13 @@
 
 
 	,
-		"DomesticViolence": {
+		"householdViolence": {
 			"type": "array",
 			"title": {
 				"es": "Domestic violence"
 			},
 			"description": {
-				"es": "Domestic violence"
+				"es": "We don't have violence in our house"
 			},
 			"items": {
 				"type": "object",
@@ -3233,17 +3258,15 @@
 				"description": "None of my family members are targets of domestic violence (physical/sexual, emotional and economic).",
 				"value": "GREEN"
 			}]
-		}
+		},
 
-
-	,
-		"entrepreneurship": {
+		"entrepreneurialSpirit": {
 			"type": "array",
 			"title": {
 				"es": "Entrepreneurial spirit"
 			},
 			"description": {
-				"es": "Entrepreneurship"
+				"es": "We are entrepreneurs"
 			},
 			"items": {
 				"type": "object",
@@ -3277,13 +3300,13 @@
 				"value": "GREEN"
 			}]
 		},
-		"autonomy": {
+		"autonomyDecisions": {
 			"type": "array",
 			"title": {
 				"es": "Autonomy and ability to make decisions"
 			},
 			"description": {
-				"es": "Autonomy"
+				"es": "We know how to make decisions"
 			},
 			"items": {
 				"type": "object",

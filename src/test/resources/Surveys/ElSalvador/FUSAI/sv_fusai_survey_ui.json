@@ -145,7 +145,7 @@
 		"autonomyDecisions": {
 			"ui:field": "gallery"
 		},
-		"water": {
+		"drinkingWaterAccess": {
 			"ui:field": "gallery"
 		},
 		"road": {
@@ -157,7 +157,7 @@
 		"childLabor": {
 			"ui:field": "gallery"
 		},
-		"lifePlan": {
+		"awarenessOfNeeds": {
 			"ui:field": "gallery"
 		},
 		"familyUbication": {
@@ -166,36 +166,40 @@
 		"birthdate": {
 			"ui:field": "date"
 		},
-		"benefitIncome": {
+		"householdMonthlyIncome": {
 			"ui:field": "numberFormat"
 		},
-		"salaryIncome": {
+		"otherMembersIncome": {
 			"ui:field": "numberFormat"
 		},
-		"otherMembersSalary": {
+		"receiveStateIncome": {
 			"ui:field": "numberFormat"
 		},
-		"otherMembersBusinessIncome": {
+		"manyPeopleHousehold": {
 			"ui:field": "numberFormat"
 		}
+
 	},
 	"ui:order": [
+		"identificationType",
+		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
+		"phoneNumber",
+		"email",
 		"countryOfBirth",
 		"gender",
+		"educationPersonMostStudied",
 		"manyPeopleHousehold",
-		"employmentStatusPrimary",
+		"areaOfResidence",
 		"activityMain",
-		"benefitIncome",
-		"salaryIncome",
-		"otherMembersSalary",
-		"otherMembersBusinessIncome",
+		"currency",
+		"householdMonthlyIncome",
+		"otherMembersIncome",
 		"receiveStateIncome",
 		"housingSituation",
 		"memberDisability",
-		"familyWaterAccess",
 		"memberDiedBefore5",
 		"familyCar",
 		"familyUbication",
@@ -206,7 +210,7 @@
 		"documentation",
 		"unpollutedEnvironment",
 		"garbageDisposal",
-		"water",
+		"drinkingWaterAccess",
 		"nearbyHealthPost",
 		"alimentation",
 		"personalHygiene",
@@ -242,7 +246,7 @@
 		"influenceInPublicSector",
 		"abilityToSolveProblemsAndConflicts",
 		"registeredToVoteAndVotesInElections",
-		"lifePlan",
+		"awarenessOfNeeds",
 		"selfEsteem",
 		"moralConscience",
 		"emotionalIntelligence",
@@ -251,24 +255,27 @@
 		"autonomyDecisions"
 	],
 	"ui:group:personal": [
+		"identificationType",
+		"identificationNumber",
 		"firstName",
 		"lastName",
 		"birthdate",
+		"phoneNumber",
+		"email",
 		"countryOfBirth",
 		"gender"
 	],
 	"ui:group:economics": [
+		"educationPersonMostStudied",
 		"manyPeopleHousehold",
-		"employmentStatusPrimary",
+		"areaOfResidence",
 		"activityMain",
-		"benefitIncome",
-		"salaryIncome",
-		"otherMembersSalary",
-		"otherMembersBusinessIncome",
+		"currency",
+		"householdMonthlyIncome",
+		"otherMembersIncome",
 		"receiveStateIncome",
 		"housingSituation",
 		"memberDisability",
-		"familyWaterAccess",
 		"memberDiedBefore5",
 		"familyCar",
 		"familyUbication"
@@ -281,7 +288,7 @@
 		"documentation",
 		"unpollutedEnvironment",
 		"garbageDisposal",
-		"water",
+		"drinkingWaterAccess",
 		"nearbyHealthPost",
 		"alimentation",
 		"personalHygiene",
@@ -317,7 +324,7 @@
 		"influenceInPublicSector",
 		"abilityToSolveProblemsAndConflicts",
 		"registeredToVoteAndVotesInElections",
-		"lifePlan",
+		"awarenessOfNeeds",
 		"selfEsteem",
 		"moralConscience",
 		"emotionalIntelligence",

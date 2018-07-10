@@ -59,6 +59,14 @@
 			}
 		},
 
+		"email": {
+			"type": "string",
+			"format" : "email",
+			"title": {
+				"es": "Ingrese su email"
+			}
+		},
+
 		"phoneNumber": {
 			"type": "string",
 			"title": {
@@ -574,6 +582,33 @@
 			]
 		},
 
+		"educationPersonMostStudied": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación de la persona con más estudios en la familia"
+			},
+			"enum": [
+				"INCOMPLETE-PRIMARY",
+				"COMPLETED-PRIMARY",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"INCOMPLETE-COLLEGE",
+				"COLLEGE-DEGREE",
+				"OTHER",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Primaria incompleta",
+				"Primaria completa",
+				"Secundaria incompleta",
+				"Secundaria completa",
+				"Universitaria incompleta",
+				"Título universitario",
+				"Otro",
+				"Prefiero no decir"
+			]
+		},
+
 		"manyPeopleHousehold": {
 			"type": "number",
 			"title": {
@@ -591,12 +626,10 @@
 				"RURAL"
 			],
 			"enumNames": [
-				"URBANA",
-				"RURAL"
+				"Urbana",
+				"Rural"
 			]
 		},
-
-
 
 		"activityMain": {
 			"type": "string",
@@ -613,18 +646,365 @@
 				"ONG",
 				"OTROS",
 				"NO TIENE"
-				],
+			],
 			"enumNames": [
-				"VENTAS (DESPENSA, COPETIN, COMESTIBLE)",
-				"SERVICIOS (PELUQUERIA, LIMPIEZA, MANICURA)",
-				"MANUFACTURA (ARTESANIA)",
-				"ENSEÑÁNZA",
-				"EMPLEADO/A DE EMPRESA PRIVADA",
-				"EMPLEADO/A DE EMPRESA PUBLICA",
-				"ONG: ORGANIZACION NO GUBERNAMENTAL",
-				"OTROS",
-				"NO TIENE"
+				"Ventas (Despensa, Copetín, Comestible)",
+				"Servicios (Peluquería, Limpieza, Manicura)",
+				"Manufactura (Arte)",
+				"Enseñanza",
+				"Empleado/a de empresa privada",
+				"Empleado/a de empresa pública",
+				"Empleado/a de ONG (Organización no Gurbernamental)",
+				"Otros",
+				"No tiene"
 			]
+		},
+
+		"currency": {
+			"type": "string",
+			"title": {
+				"es": "Moneda en la que percibe sus ingresos"
+			},
+			"enum": [
+				"AFN",
+				"MGA",
+				"AMD",
+				"AWG",
+				"AZN",
+				"THB",
+				"PAB",
+				"ETB",
+				"VEF",
+				"BOB",
+				"CVE",
+				"XOF",
+				"XAF",
+				"XPF",
+				"KES",
+				"UGX",
+				"SOS",
+				"TZS",
+				"CRC",
+				"NIO",
+				"CZK",
+				"DKK",
+				"ISK",
+				"NOK",
+				"SEK",
+				"GMD",
+				"MKD",
+				"DZD",
+				"BHD",
+				"IQD",
+				"JOD",
+				"KWD",
+				"LYD",
+				"RSD",
+				"TND",
+				"MAD",
+				"STN",
+				"AUD",
+				"CAD",
+				"BBD",
+				"BZD",
+				"BND",
+				"FJD",
+				"GYD",
+				"HKD",
+				"BSD",
+				"BMD",
+				"KYD",
+				"SBD",
+				"NAD",
+				"NZD",
+				"SGD",
+				"SRD",
+				"TTD",
+				"ZWL",
+				"XCD",
+				"USD",
+				"JMD",
+				"LRD",
+				"SVC",
+				"AED",
+				"EUR",
+				"ANG",
+				"HUF",
+				"KMF",
+				"CDF",
+				"BIF",
+				"DJF",
+				"RWF",
+				"GNF",
+				"CHF",
+				"GHS",
+				"HTG",
+				"PYG",
+				"UAH",
+				"PGK",
+				"HRK",
+				"ZMW",
+				"AOA",
+				"MMK",
+				"LAK",
+				"GEL",
+				"ALL",
+				"HNL",
+				"SLL",
+				"MDL",
+				"RON",
+				"BGN",
+				"GIP",
+				"FKP",
+				"EGP",
+				"GBP",
+				"LBP",
+				"SYP",
+				"SSP",
+				"SDG",
+				"SZL",
+				"TRY",
+				"LSL",
+				"MWK",
+				"BAM",
+				"MZN",
+				"BOV",
+				"NGN",
+				"ERN",
+				"BTN",
+				"TWD",
+				"ILS",
+				"MRU",
+				"TOP",
+				"MOP",
+				"ARS",
+				"CLP",
+				"COP",
+				"CUC",
+				"CUP",
+				"DOP",
+				"MXN",
+				"UYU",
+				"PHP",
+				"VND",
+				"BWP",
+				"GTQ",
+				"ZAR",
+				"BRL",
+				"QAR",
+				"IRR",
+				"OMR",
+				"YER",
+				"KHR",
+				"MYR",
+				"SAR",
+				"BYN",
+				"RUB",
+				"MVR",
+				"MUR",
+				"PKR",
+				"SCR",
+				"LKR",
+				"INR",
+				"NPR",
+				"IDR",
+				"SHP",
+				"XDR",
+				"PEN",
+				"KGS",
+				"TJS",
+				"XSU",
+				"BDT",
+				"WST",
+				"KZT",
+				"MNT",
+				"TMT",
+				"XUA",
+				"CLF",
+				"MXV",
+				"COU",
+				"UYI",
+				"UZS",
+				"VUV",
+				"CHE",
+				"CHW",
+				"KPW",
+				"KRW",
+				"JPY",
+				"CNY",
+				"PLN"
+
+			],
+			"enumNames": [
+				"Afghani",
+				"Ariary malgache",
+				"Armenian Dram",
+				"Aruban Florin",
+				"Azerbaiyán Manat",
+				"Baht",
+				"Balboa",
+				"Birr etíope",
+				"Bolívar",
+				"Boliviano",
+				"Cabo Verde Escudo",
+				"CFA Franc BCEAO",
+				"CFA Franc BEAC",
+				"CFP Franc",
+				"Chelín de Kenia",
+				"Chelín de Uganda",
+				"Chelín somalí",
+				"Chelín tanzano",
+				"Colon de Costa Rica",
+				"Cordoba Oro",
+				"Corona checa",
+				"Corona danesa",
+				"Corona de Islandia",
+				"Corona noruega",
+				"Corona sueca",
+				"Dalasi",
+				"Denar",
+				"Dinar argelino",
+				"Dinar bahreiní",
+				"Dinar iraquí",
+				"Dinar jordano",
+				"Dinar kuwaití",
+				"Dinar libio",
+				"Dinar serbio",
+				"Dinar tunecino",
+				"Dirham marroquí",
+				"Dobra",
+				"Dólar australiano",
+				"Dolar canadiense",
+				"Dólar de Barbados",
+				"Dólar de Belice",
+				"Dólar de Brunei",
+				"Dólar de Fiji",
+				"Dólar de Guyana",
+				"Dolar de Hong Kong",
+				"Dólar de las Bahamas",
+				"Dólar de las Bermudas",
+				"Dólar de las Islas Caimán",
+				"Dólar de las Islas Salomón",
+				"Dólar de Namibia",
+				"Dolar de Nueva Zelanda",
+				"Dolar de Singapur",
+				"Dólar de Surinam",
+				"Dólar de Trinidad y Tobago",
+				"Dólar de Zimbabwe",
+				"Dólar del Caribe Oriental",
+				"Dólar estadounidense",
+				"Dólar Jamaiquino",
+				"Dólar liberiano",
+				"El Salvador Colon",
+				"Emiratos Árabes Unidos Dirham",
+				"Euro",
+				"Florín de las Antillas Holandesas",
+				"Forint",
+				"Franco comorano",
+				"Franco congoleño",
+				"Franco de Burundi",
+				"Franco de Djibouti",
+				"Franco de Rwanda",
+				"Franco guineano",
+				"Franco suizo",
+				"Ghana Cedi",
+				"Gourde",
+				"Guarani",
+				"Hryvnia",
+				"Kina",
+				"Kuna",
+				"Kwacha de Zambia",
+				"Kwanza",
+				"Kyat",
+				"Lao Kip",
+				"Lari",
+				"Lek",
+				"Lempira",
+				"Leone",
+				"Leu moldavo",
+				"Leu rumano",
+				"Lev búlgaro",
+				"Libra de Gibraltar",
+				"Libra de las Islas Malvinas",
+				"Libra egipcia",
+				"Libra esterlina",
+				"Libra libanesa",
+				"Libra siria",
+				"Libra sudanesa del sur",
+				"Libra sudanesa",
+				"Lilangeni",
+				"Lira turca",
+				"Loti",
+				"Malawi Kwacha",
+				"Marca Convertible",
+				"Mozambique Metical",
+				"Mvdol",
+				"Naira",
+				"Nakfa",
+				"Ngultrum",
+				"Nuevo dólar de Taiwán",
+				"Nuevo shekel israelí",
+				"Ouguiya",
+				"Pa'anga",
+				"Pataca",
+				"Peso argentino",
+				"Peso chileno",
+				"Peso colombiano",
+				"Peso convertible",
+				"Peso cubano",
+				"Peso dominicano",
+				"Peso mexicano",
+				"Peso Uruguayo",
+				"Philippine Piso",
+				"Polla",
+				"Pula",
+				"Quetzal",
+				"Rand",
+				"Real brasileño",
+				"Rial de Qatar",
+				"Rial iraní",
+				"Rial Omani",
+				"Rial yemení",
+				"Riel",
+				"Ringgit malayo",
+				"Riyal saudí",
+				"Rublo bielorruso",
+				"Rublo ruso",
+				"Rufiyaa",
+				"Rupia de Mauricio",
+				"Rupia de Pakistán",
+				"Rupia de Seychelles",
+				"Rupia de Sri Lanka",
+				"Rupia india",
+				"Rupia nepalesa",
+				"Rupiah",
+				"Santa Helena Libra",
+				"SDR (Special Drawing Right)",
+				"Sol",
+				"Som",
+				"Somoni",
+				"Sucre",
+				"Taka",
+				"Tala",
+				"Tenge",
+				"Tugrik",
+				"Turkmenistán Nuevo Manat",
+				"Unidad de cuenta ADB",
+				"Unidad de Fomento",
+				"Unidad de Inversión Mexicana (UDI)",
+				"Unidad de Valor Real",
+				"Uruguay Peso en Unidades Indexadas (URUIURUI)",
+				"Uzbekistán Sum",
+				"Vatu",
+				"WIR Euro",
+				"WIR Franc",
+				"Won norcoreano",
+				"Won",
+				"Yen",
+				"Yuan Renminbi",
+				"Zloty"
+			],
+			"default": "PYG"
 		},
 
 		"householdMonthlyIncome": {
@@ -644,7 +1024,7 @@
 		"receiveStateIncome": {
 			"type": "number",
 			"title": {
-				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto"
+				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto mensual"
 			},
 			"default": 0
 		},
@@ -659,14 +1039,16 @@
 				"OWN-NO-TITTLE",
 				"FAMILY-PROPERTY",
 				"RENTED",
-				"BORROWED"
+				"BORROWED",
+				"PREFER-NOT-SAY"
 			],
 			"enumNames": [
 				"Propia con título",
 				"Propia sin título",
 				"En propiedad familiar",
 				"Alquilada",
-				"Prestada"
+				"Prestada",
+				"Prefiero no decir"
 			]
 		},"memberDisability": {
 			"type": "string",
@@ -679,7 +1061,8 @@
 				"Auditiva",
 				"Visual",
 				"Psicosocial",
-				"No-Discapacidad"
+				"No-Discapacidad",
+				"PREFER-NOT-SAY"
 			],
 			"enumNames": [
 				"Física",
@@ -687,7 +1070,8 @@
 				"Auditiva",
 				"Visual",
 				"Psicosocial",
-				"Ningun miembro de la familia con discapacidad"
+				"Ningún miembro de la familia con discapacidad",
+				"Prefiero no decir"
 			]
 		},
 		"memberDiedBefore5": {
@@ -697,11 +1081,15 @@
 			},
 			"enum": [
 				"YES",
-				"NO"
+				"NO",
+				"PREFER-NOT-SAY"
+
 			],
 			"enumNames": [
 				"Si",
-				"No"
+				"No",
+				"Prefiero no decir"
+
 			]
 		},
 
@@ -714,12 +1102,15 @@
 			"enum": [
 				"AUTOMOVIL",
 				"CAMIONETA",
-				"NO CUENTA"
+				"NO CUENTA",
+				"PREFER-NOT-SAY"
+
 			],
 			"enumNames": [
-				"AUTOMOVIL",
-				"CAMIONETA",
-				"NO CUENTA CON MOVILIDAD"
+				"Automovil",
+				"Camioneta",
+				"No cuenta con movilidad",
+				"Prefiero no decir"
 			]
 		},
 
@@ -1025,7 +1416,7 @@
 				}
 			]
 		},
-		"water": {
+		"drinkingWaterAccess": {
 			"type": "array",
 			"title": {
 				"es": "Acceso al agua potable"
@@ -2537,7 +2928,7 @@
 				}
 			]
 		},
-		"lifePlan": {
+		"awarenessOfNeeds": {
 			"type": "array",
 			"title": {
 				"es": "Conciencia de sus necesidades"
