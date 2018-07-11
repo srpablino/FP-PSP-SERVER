@@ -1115,7 +1115,26 @@
       "title": {
         "es": "Current or maximum degree achieved"
       },
-      "default": ""
+      "enum": [
+        "SCHOOL-INCOMPLETE",
+        "SCHOOL-COMPLETE",
+        "INCOMPLETE-SECONDARY",
+        "COMPLETED-SECONDARY",
+        "UNIVERSITY-INCOMPLETE",
+        "UNIVERSITY-COMPLETE",
+        "OTHER",
+        "PREFER-NOT-SAY"
+      ],
+      "enumNames": [
+        "School incomplete",
+        "School complete",
+        "Secondary complete",
+        "Secondary incomplete",
+        "University incomplete",
+        "University complete",
+        "Other",
+        "Prefer not to say"
+      ]
     },
 
     "over15": {
@@ -1234,6 +1253,14 @@
         "Not applicable"
       ],
       "default": "NO"
+    },
+
+    "familyUbication": {
+      "type": "string",
+      "title": {
+        "es": "Please select the geographic location of your household"
+      },
+      "default": "8.470919, -13.238901"
     },
 
     "income": {

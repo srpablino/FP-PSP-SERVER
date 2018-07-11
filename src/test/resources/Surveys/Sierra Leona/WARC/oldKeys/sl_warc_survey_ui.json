@@ -172,6 +172,9 @@
     "otherMembersSalary": {
       "ui:field": "numberFormat"
     },
+    "familyUbication": {
+      "ui:field": "gmap"
+    },
     "otherMembersBusinessIncome": {
       "ui:field": "numberFormat"
     }
@@ -209,6 +212,7 @@
     "partnerWorks",
     "partnerEarns",
     "partnerWorksMore",
+    "familyUbication",
 
 
     "income",
@@ -295,7 +299,8 @@
     "houseHoldWorkMore",
     "partnerWorks",
     "partnerEarns",
-    "partnerWorksMore"
+    "partnerWorksMore",
+    "familyUbication"
   ],
 
   "ui:group:indicators": [
