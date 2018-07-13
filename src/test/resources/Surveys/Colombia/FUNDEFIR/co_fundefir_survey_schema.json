@@ -1,0 +1,3207 @@
+{
+	"title": "Encuesta de Semáforo. FUNDEFIR - Colombia",
+	"description": "Estructura de la encuesta compuesta por: datos personales, socioeconómicos y 50 indicadores.",
+	"type": "object",
+	"required": [
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"lastName",
+		"birthdate",
+		"manyPeopleHousehold"
+	],
+
+	"properties": {
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su nombre"
+			}
+		},
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su apellido"
+			}
+		},
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Ingrese su fecha de nacimiento"
+			}
+		},
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su país de nacimiento"
+			},
+			"enum": [
+				"AR",
+				"PY",
+				"AD",
+				"AE",
+				"AF",
+				"AG",
+				"AI",
+				"AL",
+				"AM",
+				"AN",
+				"AO",
+				"AQ",
+				"AS",
+				"AT",
+				"AU",
+				"AW",
+				"AX",
+				"AZ",
+				"BA",
+				"BB",
+				"BD",
+				"BE",
+				"BF",
+				"BG",
+				"BH",
+				"BI",
+				"BJ",
+				"BL",
+				"BM",
+				"BN",
+				"BO",
+				"BR",
+				"BS",
+				"BT",
+				"BV",
+				"BW",
+				"BY",
+				"BZ",
+				"CA",
+				"CC",
+				"CF",
+				"CG",
+				"CH",
+				"CI",
+				"CK",
+				"CL",
+				"CM",
+				"CN",
+				"CO",
+				"CR",
+				"CU",
+				"CV",
+				"CX",
+				"CY",
+				"CZ",
+				"DE",
+				"DJ",
+				"DK",
+				"DM",
+				"DO",
+				"DZ",
+				"EC",
+				"EE",
+				"EG",
+				"EH",
+				"ER",
+				"ES",
+				"ET",
+				"FI",
+				"FJ",
+				"FK",
+				"FM",
+				"FO",
+				"FR",
+				"GA",
+				"GB",
+				"GD",
+				"GE",
+				"GF",
+				"GG",
+				"GH",
+				"GI",
+				"GL",
+				"GM",
+				"GN",
+				"GP",
+				"GQ",
+				"GR",
+				"GS",
+				"GT",
+				"GU",
+				"GW",
+				"GY",
+				"HK",
+				"HM",
+				"HN",
+				"HR",
+				"HT",
+				"HU",
+				"ID",
+				"IE",
+				"IL",
+				"IM",
+				"IN",
+				"IO",
+				"IQ",
+				"IR",
+				"IS",
+				"IT",
+				"JE",
+				"JM",
+				"JO",
+				"JP",
+				"KE",
+				"KG",
+				"KH",
+				"KI",
+				"KM",
+				"KN",
+				"KP",
+				"KR",
+				"KW",
+				"KY",
+				"KZ",
+				"LA",
+				"LB",
+				"LC",
+				"LI",
+				"LK",
+				"LR",
+				"LS",
+				"LT",
+				"LU",
+				"LV",
+				"LY",
+				"MA",
+				"MC",
+				"MD",
+				"ME",
+				"MG",
+				"MH",
+				"MK",
+				"ML",
+				"MM",
+				"MN",
+				"MO",
+				"MQ",
+				"MR",
+				"MS",
+				"MT",
+				"MU",
+				"MV",
+				"MW",
+				"MX",
+				"MY",
+				"MZ",
+				"NA",
+				"NC",
+				"NE",
+				"NF",
+				"NG",
+				"NI",
+				"NL",
+				"NO",
+				"NP",
+				"NR",
+				"NU",
+				"NZ",
+				"OM",
+				"PA",
+				"PE",
+				"PF",
+				"PG",
+				"PH",
+				"PK",
+				"PL",
+				"PM",
+				"PN",
+				"PR",
+				"PS",
+				"PT",
+				"PW",
+				"QA",
+				"RE",
+				"RO",
+				"RS",
+				"RU",
+				"RW",
+				"SA",
+				"SB",
+				"SC",
+				"SD",
+				"SE",
+				"SG",
+				"SH",
+				"SI",
+				"SJ",
+				"SK",
+				"SL",
+				"SM",
+				"SN",
+				"SO",
+				"SR",
+				"ST",
+				"SV",
+				"SY",
+				"SZ",
+				"TC",
+				"TD",
+				"TF",
+				"TG",
+				"TH",
+				"TH",
+				"TJ",
+				"TK",
+				"TL",
+				"TM",
+				"TN",
+				"TO",
+				"TR",
+				"TT",
+				"TV",
+				"TW",
+				"UA",
+				"UG",
+				"US",
+				"UY",
+				"UZ",
+				"VA",
+				"VC",
+				"VE",
+				"VG",
+				"VI",
+				"VN",
+				"VU",
+				"WF",
+				"WS",
+				"YE",
+				"YT",
+				"ZA"
+			],
+			"enumNames": [
+				"Argentina",
+				"Paraguay",
+				"Andorra",
+				"Emiratos Árabes Unidos",
+				"Afganistán",
+				"Antigua y Barbuda",
+				"Anguila",
+				"Albania",
+				"Armenia",
+				"Antillas Neerlandesas",
+				"Angola",
+				"Antártida",
+				"Samoa Americana",
+				"Austria",
+				"Australia",
+				"Aruba",
+				"Islas Áland",
+				"Azerbaiyán",
+				"Bosnia y Herzegovina",
+				"Barbados",
+				"Bangladesh",
+				"Bélgica",
+				"Burkina Faso",
+				"Bulgaria",
+				"Bahréin",
+				"Burundi",
+				"Benin",
+				"San Bartolomé",
+				"Bermudas",
+				"Brunéi",
+				"Bolivia",
+				"Brasil",
+				"Bahamas",
+				"Bhután",
+				"Isla Bouvet",
+				"Botsuana",
+				"Belarús",
+				"Belice",
+				"Canadá",
+				"Islas Cocos",
+				"República Centro-Africana",
+				"Congo",
+				"Suiza",
+				"Costa de Marfil",
+				"Islas Cook",
+				"Chile",
+				"Camerún",
+				"China",
+				"Colombia",
+				"Costa Rica",
+				"Cuba",
+				"Cabo Verde",
+				"Islas Christmas",
+				"Chipre",
+				"República Checa",
+				"Alemania",
+				"Yibuti",
+				"Dinamarca",
+				"Domínica",
+				"República Dominicana",
+				"Argel",
+				"Ecuador",
+				"Estonia",
+				"Egipto",
+				"Sahara Occidental",
+				"Eritrea",
+				"España",
+				"Etiopía",
+				"Finlandia",
+				"Fiji",
+				"Islas Malvinas",
+				"Micronesia",
+				"Islas Faroe",
+				"Francia",
+				"Gabón",
+				"Reino Unido",
+				"Granada",
+				"Georgia",
+				"Guayana Francesa",
+				"Guernsey",
+				"Ghana",
+				"Gibraltar",
+				"Groenlandia",
+				"Gambia",
+				"Guinea",
+				"Guadalupe",
+				"Guinea Ecuatorial",
+				"Grecia",
+				"Georgia del Sur e Islas Sandwich del Sur",
+				"Guatemala",
+				"Guam",
+				"Guinea-Bissau",
+				"Guayana",
+				"Hong Kong",
+				"Islas Heard y McDonald",
+				"Honduras",
+				"Croacia",
+				"Haití",
+				"Hungría",
+				"Indonesia",
+				"Irlanda",
+				"Israel",
+				"Isla de Man",
+				"India",
+				"Territorio Británico del Océano Índico",
+				"Irak",
+				"Irán",
+				"Islandia",
+				"Italia",
+				"Jersey",
+				"Jamaica",
+				"Jordania",
+				"Japón",
+				"Kenia",
+				"Kirguistán",
+				"Camboya",
+				"Kiribati",
+				"Comoros",
+				"San Cristóbal y Nieves",
+				"Corea del Norte",
+				"Corea del Sur",
+				"Kuwait",
+				"Islas Caimán",
+				"Kazajstán",
+				"Laos",
+				"Líbano",
+				"Santa Lucía",
+				"Liechtenstein",
+				"Sri Lanka",
+				"Liberia",
+				"Lesotho",
+				"Lituania",
+				"Luxemburgo",
+				"Letonia",
+				"Libia",
+				"Marruecos",
+				"Mónaco",
+				"Moldova",
+				"Montenegro",
+				"Madagascar",
+				"Islas Marshall",
+				"Macedonia",
+				"Mali",
+				"Myanmar",
+				"Mongolia",
+				"Macao",
+				"Martinica",
+				"Mauritania",
+				"Montserrat",
+				"Malta",
+				"Mauricio",
+				"Maldivas",
+				"Malawi",
+				"México",
+				"Malasia",
+				"Mozambique",
+				"Namibia",
+				"Nueva Caledonia",
+				"Níger",
+				"Islas Norkfolk",
+				"Nigeria",
+				"Nicaragua",
+				"Países Bajos",
+				"Noruega",
+				"Nepal",
+				"Nauru",
+				"Niue",
+				"Nueva Zelanda",
+				"Omán",
+				"Panamá",
+				"Perú",
+				"Polinesia Francesa",
+				"Papúa Nueva Guinea",
+				"Filipinas",
+				"Pakistán",
+				"Polonia",
+				"San Pedro y Miquelón",
+				"Islas Pitcairn",
+				"Puerto Rico",
+				"Palestina",
+				"Portugal",
+				"Islas Palaos",
+				"Qatar",
+				"Reunión",
+				"Rumanía",
+				"Serbia y Montenegro",
+				"Rusia",
+				"Ruanda",
+				"Arabia Saudita",
+				"Islas Solomón",
+				"Seychelles",
+				"Sudán",
+				"Suecia",
+				"Singapur",
+				"Santa Elena",
+				"Eslovenia",
+				"Islas Svalbard y Jan Mayen",
+				"Eslovaquia",
+				"Sierra Leona",
+				"San Marino",
+				"Senegal",
+				"Somalia",
+				"Surinam",
+				"Santo Tomé y Príncipe",
+				"El Salvador",
+				"Siria",
+				"Suazilandia",
+				"Islas Turcas y Caicos",
+				"Chad",
+				"Territorios Australes Franceses",
+				"Togo",
+				"Tailandia",
+				"Tanzania",
+				"Tayikistán",
+				"Tokelau",
+				"Timor-Leste",
+				"Turkmenistán",
+				"Túnez",
+				"Tonga",
+				"Turquía",
+				"Trinidad y Tobago",
+				"Tuvalu",
+				"Taiwán",
+				"Ucrania",
+				"Uganda",
+				"Estados Unidos de América",
+				"Uruguay",
+				"Uzbekistán",
+				"Ciudad del Vaticano",
+				"San Vicente y las Granadinas",
+				"Venezuela",
+				"Islas Vírgenes Británicas",
+				"Islas Vírgenes de los Estados Unidos de América",
+				"Vietnam",
+				"Vanuatu",
+				"Wallis y Futuna",
+				"Samoa",
+				"Yemen",
+				"Mayotte",
+				"Sudáfrica"
+			],
+			"default": "CO"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su género"
+			},
+			"enum": [
+				"F",
+				"M",
+				"O"
+			],
+			"enumNames": [
+				"Femenino",
+				"Masculino",
+				"Deseo no responder"
+			]
+		},
+
+		"email": {
+			"type": "string",
+			"format" : "email",
+			"title": {
+				"es": "Ingrese su email"
+			}
+		},
+
+		"phoneNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de teléfono"
+			}
+		},
+
+		"activityMain": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su actividad principal"
+			},
+			"enum": [
+				"VENTAS",
+				"SERVICIOS",
+				"MANUFACTURA",
+				"ENSEÑÁNZA",
+				"EMPLEADO/A DE EMPRESA PRIVADA",
+				"EMPLEADO/A DE EMPRESA PUBLICA",
+				"ONG",
+				"OTROS",
+				"NO TIENE"
+			],
+			"enumNames": [
+				"Ventas (Despensa, Copetín, Comestible)",
+				"Servicios (Peluquería, Limpieza, Manicura)",
+				"Manufactura (Arte)",
+				"Enseñanza",
+				"Empleado/a de empresa privada",
+				"Empleado/a de empresa pública",
+				"Empleado/a de ONG (Organización no Gubernamental)",
+				"Otros",
+				"No tiene"
+			]
+		},
+
+		"currency": {
+			"type": "string",
+			"title": {
+				"es": "Moneda en la que percibe sus ingresos"
+			},
+			"enum": [
+				"AFN",
+				"MGA",
+				"AMD",
+				"AWG",
+				"AZN",
+				"THB",
+				"PAB",
+				"ETB",
+				"VEF",
+				"BOB",
+				"CVE",
+				"XOF",
+				"XAF",
+				"XPF",
+				"KES",
+				"UGX",
+				"SOS",
+				"TZS",
+				"CRC",
+				"NIO",
+				"CZK",
+				"DKK",
+				"ISK",
+				"NOK",
+				"SEK",
+				"GMD",
+				"MKD",
+				"DZD",
+				"BHD",
+				"IQD",
+				"JOD",
+				"KWD",
+				"LYD",
+				"RSD",
+				"TND",
+				"MAD",
+				"STN",
+				"AUD",
+				"CAD",
+				"BBD",
+				"BZD",
+				"BND",
+				"FJD",
+				"GYD",
+				"HKD",
+				"BSD",
+				"BMD",
+				"KYD",
+				"SBD",
+				"NAD",
+				"NZD",
+				"SGD",
+				"SRD",
+				"TTD",
+				"ZWL",
+				"XCD",
+				"USD",
+				"JMD",
+				"LRD",
+				"SVC",
+				"AED",
+				"EUR",
+				"ANG",
+				"HUF",
+				"KMF",
+				"CDF",
+				"BIF",
+				"DJF",
+				"RWF",
+				"GNF",
+				"CHF",
+				"GHS",
+				"HTG",
+				"PYG",
+				"UAH",
+				"PGK",
+				"HRK",
+				"ZMW",
+				"AOA",
+				"MMK",
+				"LAK",
+				"GEL",
+				"ALL",
+				"HNL",
+				"SLL",
+				"MDL",
+				"RON",
+				"BGN",
+				"GIP",
+				"FKP",
+				"EGP",
+				"GBP",
+				"LBP",
+				"SYP",
+				"SSP",
+				"SDG",
+				"SZL",
+				"TRY",
+				"LSL",
+				"MWK",
+				"BAM",
+				"MZN",
+				"BOV",
+				"NGN",
+				"ERN",
+				"BTN",
+				"TWD",
+				"ILS",
+				"MRU",
+				"TOP",
+				"MOP",
+				"ARS",
+				"CLP",
+				"COP",
+				"CUC",
+				"CUP",
+				"DOP",
+				"MXN",
+				"UYU",
+				"PHP",
+				"VND",
+				"BWP",
+				"GTQ",
+				"ZAR",
+				"BRL",
+				"QAR",
+				"IRR",
+				"OMR",
+				"YER",
+				"KHR",
+				"MYR",
+				"SAR",
+				"BYN",
+				"RUB",
+				"MVR",
+				"MUR",
+				"PKR",
+				"SCR",
+				"LKR",
+				"INR",
+				"NPR",
+				"IDR",
+				"SHP",
+				"XDR",
+				"PEN",
+				"KGS",
+				"TJS",
+				"XSU",
+				"BDT",
+				"WST",
+				"KZT",
+				"MNT",
+				"TMT",
+				"XUA",
+				"CLF",
+				"MXV",
+				"COU",
+				"UYI",
+				"UZS",
+				"VUV",
+				"CHE",
+				"CHW",
+				"KPW",
+				"KRW",
+				"JPY",
+				"CNY",
+				"PLN"
+
+			],
+			"enumNames": [
+				"Afghani",
+				"Ariary malgache",
+				"Armenian Dram",
+				"Aruban Florin",
+				"Azerbaiyán Manat",
+				"Baht",
+				"Balboa",
+				"Birr etíope",
+				"Bolívar",
+				"Boliviano",
+				"Cabo Verde Escudo",
+				"CFA Franc BCEAO",
+				"CFA Franc BEAC",
+				"CFP Franc",
+				"Chelín de Kenia",
+				"Chelín de Uganda",
+				"Chelín somalí",
+				"Chelín tanzano",
+				"Colon de Costa Rica",
+				"Cordoba Oro",
+				"Corona checa",
+				"Corona danesa",
+				"Corona de Islandia",
+				"Corona noruega",
+				"Corona sueca",
+				"Dalasi",
+				"Denar",
+				"Dinar argelino",
+				"Dinar bahreiní",
+				"Dinar iraquí",
+				"Dinar jordano",
+				"Dinar kuwaití",
+				"Dinar libio",
+				"Dinar serbio",
+				"Dinar tunecino",
+				"Dirham marroquí",
+				"Dobra",
+				"Dólar australiano",
+				"Dolar canadiense",
+				"Dólar de Barbados",
+				"Dólar de Belice",
+				"Dólar de Brunei",
+				"Dólar de Fiji",
+				"Dólar de Guyana",
+				"Dolar de Hong Kong",
+				"Dólar de las Bahamas",
+				"Dólar de las Bermudas",
+				"Dólar de las Islas Caimán",
+				"Dólar de las Islas Salomón",
+				"Dólar de Namibia",
+				"Dolar de Nueva Zelanda",
+				"Dolar de Singapur",
+				"Dólar de Surinam",
+				"Dólar de Trinidad y Tobago",
+				"Dólar de Zimbabwe",
+				"Dólar del Caribe Oriental",
+				"Dólar estadounidense",
+				"Dólar Jamaiquino",
+				"Dólar liberiano",
+				"El Salvador Colon",
+				"Emiratos Árabes Unidos Dirham",
+				"Euro",
+				"Florín de las Antillas Holandesas",
+				"Forint",
+				"Franco comorano",
+				"Franco congoleño",
+				"Franco de Burundi",
+				"Franco de Djibouti",
+				"Franco de Rwanda",
+				"Franco guineano",
+				"Franco suizo",
+				"Ghana Cedi",
+				"Gourde",
+				"Guarani",
+				"Hryvnia",
+				"Kina",
+				"Kuna",
+				"Kwacha de Zambia",
+				"Kwanza",
+				"Kyat",
+				"Lao Kip",
+				"Lari",
+				"Lek",
+				"Lempira",
+				"Leone",
+				"Leu moldavo",
+				"Leu rumano",
+				"Lev búlgaro",
+				"Libra de Gibraltar",
+				"Libra de las Islas Malvinas",
+				"Libra egipcia",
+				"Libra esterlina",
+				"Libra libanesa",
+				"Libra siria",
+				"Libra sudanesa del sur",
+				"Libra sudanesa",
+				"Lilangeni",
+				"Lira turca",
+				"Loti",
+				"Malawi Kwacha",
+				"Marca Convertible",
+				"Mozambique Metical",
+				"Mvdol",
+				"Naira",
+				"Nakfa",
+				"Ngultrum",
+				"Nuevo dólar de Taiwán",
+				"Nuevo shekel israelí",
+				"Ouguiya",
+				"Pa'anga",
+				"Pataca",
+				"Peso argentino",
+				"Peso chileno",
+				"Peso colombiano",
+				"Peso convertible",
+				"Peso cubano",
+				"Peso dominicano",
+				"Peso mexicano",
+				"Peso Uruguayo",
+				"Philippine Piso",
+				"Polla",
+				"Pula",
+				"Quetzal",
+				"Rand",
+				"Real brasileño",
+				"Rial de Qatar",
+				"Rial iraní",
+				"Rial Omani",
+				"Rial yemení",
+				"Riel",
+				"Ringgit malayo",
+				"Riyal saudí",
+				"Rublo bielorruso",
+				"Rublo ruso",
+				"Rufiyaa",
+				"Rupia de Mauricio",
+				"Rupia de Pakistán",
+				"Rupia de Seychelles",
+				"Rupia de Sri Lanka",
+				"Rupia india",
+				"Rupia nepalesa",
+				"Rupiah",
+				"Santa Helena Libra",
+				"SDR (Special Drawing Right)",
+				"Sol",
+				"Som",
+				"Somoni",
+				"Sucre",
+				"Taka",
+				"Tala",
+				"Tenge",
+				"Tugrik",
+				"Turkmenistán Nuevo Manat",
+				"Unidad de cuenta ADB",
+				"Unidad de Fomento",
+				"Unidad de Inversión Mexicana (UDI)",
+				"Unidad de Valor Real",
+				"Uruguay Peso en Unidades Indexadas (URUIURUI)",
+				"Uzbekistán Sum",
+				"Vatu",
+				"WIR Euro",
+				"WIR Franc",
+				"Won norcoreano",
+				"Won",
+				"Yen",
+				"Yuan Renminbi",
+				"Zloty"
+			],
+			"default": "COP"
+		},
+
+		"benefitIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Tengo un negocio que me genera ingresos? ¿Cuánto?"
+			},
+			"default": 0
+		},
+
+		"salaryIncome" : {
+			"type": "number",
+			"title": {
+				"es": "¿Tengo un salario mensual? ¿Cuánto?"
+			},
+			"default": 0
+		},
+
+		"otherMembersIncome": {
+			"type": "number",
+			"title": {
+				"es": "El monto de ingresos que generan los otros miembros de mi familia mensualmente"
+			},
+			"default": 0
+		},
+		"receiveStateIncome": {
+			"type": "number",
+			"title": {
+				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto mensual"
+			},
+			"default": 0
+		},
+
+		"areaOfResidence": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese la zona en que vive"
+			},
+			"enum": [
+				"URBAN",
+				"RURAL"
+			],
+			"enumNames": [
+				"Urbana",
+				"Rural"
+			]
+		},
+
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "Situación de la vivienda"
+			},
+			"enum": [
+				"OWN-TITTLE",
+				"OWN-NO-TITTLE",
+				"FAMILY-PROPERTY",
+				"RENTED",
+				"BORROWED",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Propia con título",
+				"Propia sin título",
+				"En propiedad familiar",
+				"Alquilada",
+				"Prestada",
+				"Prefiero no decir"
+			]
+		},
+
+		"manyPeopleHousehold": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese la cantidad de miembros que conforman la familia"
+			}
+		},
+
+		"educationPersonMostStudied": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación de la persona con más estudios en la familia"
+			},
+			"enum": [
+				"INCOMPLETE-PRIMARY",
+				"COMPLETED-PRIMARY",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"INCOMPLETE-COLLEGE",
+				"COLLEGE-DEGREE",
+				"OTHER",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Primaria incompleta",
+				"Primaria completa",
+				"Secundaria incompleta",
+				"Secundaria completa",
+				"Universitaria incompleta",
+				"Título universitario",
+				"Otro",
+				"Prefiero no decir"
+			]
+		},
+
+		"memberDisability": {
+			"type": "string",
+			"title": {
+				"es": "¿En nuestra casa hay algún miembro con discapacidad?"
+			},
+			"enum": [
+				"Física",
+				"Intelectual",
+				"Auditiva",
+				"Visual",
+				"Psicosocial",
+				"No-Discapacidad",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Física",
+				"Intelectual",
+				"Auditiva",
+				"Visual",
+				"Psicosocial",
+				"Ningún miembro de la familia con discapacidad",
+				"Prefiero no decir"
+			]
+		},
+		"memberDiedBefore5": {
+			"type": "string",
+			"title": {
+				"es": "Durante los últimos cinco años, ¿algún miembro de mi familia falleció antes de cumplir 5 años?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+
+			],
+			"enumNames": [
+				"Si",
+				"No"
+
+			]
+		},
+
+
+		"familyCar": {
+			"type": "string",
+			"title": {
+				"es": "¿Mi familia tiene auto o camioneta?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+
+			],
+			"enumNames": [
+				"Si",
+				"No"
+			]
+		},
+
+		"familyUbication": {
+			"type": "string",
+			"title": {
+				"es": "Seleccione la ubicación geográfica de la familia"
+			},
+			"default": "4.687464, -74.137172"
+		},
+
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Ingresos superiores a la línea de pobreza"
+			},
+			"description": {
+				"es": "Tenemos ingresos suficientes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/1/3.jpg",
+						"description": "Mi familia tiene ingresos que superan la línea de pobreza total.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/1/2.jpg",
+						"description": "Mi familia tiene ingresos inferiores a la línea de pobreza total y superiores a la línea de pobreza extrema.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/1/1.jpg",
+						"description": "Mi familia tiene ingresos inferiores a la línea de pobreza extrema. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/1/3.jpg",
+					"description": "Mi familia tiene ingresos que superan la línea de pobreza total.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"familySavings": {
+			"type": "array",
+			"title": {
+				"es": "Ahorros familiares"
+			},
+			"description": {
+				"es": "Tenemos ahorros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/2/3.jpg",
+						"description": "Uno o más miembros de mi familia tienen ahorros hace al menos seis meses y tiene una cuenta de ahorro a su nombre (bancos comunales, cuentas de ahorro a su nombre, depósitos a plazo fijo, bonos/acciones/fondos,  plan de pensiones, fondo de empleados o similar).",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/2/2.jpg",
+						"description": "Uno o más miembros de mi familia tienen ahorros de manera informal (mantienen la plata en casa o en la propiedad, grupos informales de ahorro, etc.). O tienen una cuenta de ahorro hace menos de seis meses.  ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/2/1.jpg",
+						"description": "Ningún miembro de mi familia tiene ahorros.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/2/3.jpg",
+					"description": "Uno o más miembros de mi familia tienen ahorros hace al menos seis meses y tiene una cuenta de ahorro a su nombre (bancos comunales, cuentas de ahorro a su nombre, depósitos a plazo fijo, bonos/acciones/fondos,  plan de pensiones, fondo de empleados o similar).",
+					"value": "GREEN"
+				}
+			]
+		},
+		"accessToCredit": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al crédito"
+			},
+			"description": {
+				"es": "Podemos sacar créditos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/3/3.jpg",
+						"description": "Al menos un miembro de mi familia accedió a créditos de instituciones formales (bancos, cooperativas, microfinancieras, fondo de empleados) y en condiciones justas de mercado, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias, sin embargo, pueden acceder a un crédito si lo necesitan.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/3/2.jpg",
+						"description": "Al menos un miembro de mi familia accedió a créditos en los últimos doce meses, pero solamente de instituciones informales (familiares, patrón, casas de empeño, natilleras).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/3/1.jpg",
+						"description": "Ningún miembro de la familia ha accedido a ningún tipo de crédito en los últimos doce meses o tiene crédito gota a gota.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/3/3.jpg",
+					"description": "Al menos un miembro de mi familia accedió a créditos de instituciones formales (bancos, cooperativas, microfinancieras, fondo de empleados) y en condiciones justas de mercado, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias, sin embargo, pueden acceder a un crédito si lo necesitan.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"diversifiedSourcesOfIncome": {
+			"type": "array",
+			"title": {
+				"es": "Fuente de ingreso diversificada"
+			},
+			"description": {
+				"es": "Tenemos varias fuentes de ingresos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/4/3.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría su nivel de consumo durante el próximo mes. Se daría así porque tiene varias fuentes de ingresos que le ayudarían (otros miembros trabajan, tienen ahorros o activos que pueden vender rápidamente, etc.). ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/4/2.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, su consumo sufriría moderadamente durante el próximo mes. Se daría así porque tiene otra fuente de ingresos que le ayudaría (algún miembro trabaja, tienen ahorros o activos que pueden vender rápidamente, etc.).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/4/1.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, su consumo sufriría fuertemente durante el próximo mes. No tendría fuentes de ingresos. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/4/3.jpg",
+					"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría su nivel de consumo durante el próximo mes. Se daría así porque tiene varias fuentes de ingresos que le ayudarían (otros miembros trabajan, tienen ahorros o activos que pueden vender rápidamente, etc.). ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "Documentación: Cédula de Ciudadanía"
+			},
+			"description": {
+				"es": "Tenemos CC"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/5/3.jpg",
+						"description": "Todos los miembros de mi familia cuentan con sus respectivos documentos según le corresponda por edad (registro civil, tarjeta de identidad,  cédula de ciudadanía o extranjería).",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/5/2.jpg",
+						"description": "Un miembro de mi familia no cuenta con la documentación de identidad correspondiente a su edad (registro civil, tarjeta de identidad,  cédula de ciudadanía o extranjería). ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/5/1.jpg",
+						"description": "Más de un miembro de la familia no cuenta con la documentación de identidad correspondiente a su edad (registro civil, tarjeta de identidad, cédula de ciudadanía o extranjería).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/5/3.jpg",
+					"description": "Todos los miembros de mi familia cuentan con sus respectivos documentos según le corresponda por edad (registro civil, tarjeta de identidad,  cédula de ciudadanía o extranjería).",
+					"value": "GREEN"
+				}
+			]
+		},
+		"unpollutedEnvironment": {
+			"type": "array",
+			"title": {
+				"es": "Ambiente no contaminado"
+			},
+			"description": {
+				"es": "Vivimos en un ambiente saludable"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/6/3.jpg",
+						"description": "Mi familia vive en un ambiente no contaminado. No hay malos olores, ni humos inapropiados provenientes de industrias, producción pecuaria u otras fuentes; tampoco residuos de productos químicos mala eliminación o ausencia de tratamiento de basuras. Si hubo o hay contaminación se gestiona para resolverla.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/6/2.jpg",
+						"description": "Mi familia vive en un ambiente donde ocasionalmente hay contaminación. Hay malos olores y humo inapropiados provenientes de industrias, producción pecuaria u otras fuentes, residuos de productos químicos y mala eliminación o ausencia de tratamiento de basuras. Probablemente existe peligro para nuestra salud, pero no ha gestionado para solucionar la contaminación. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/6/1.jpg",
+						"description": "Mi familia vive en un ambiente donde siempre hay malos olores y humo inapropiados provenientes de industrias, producción pecuaria u otras fuentes, además de, residuos de productos químicos, mala eliminación o ausencia de tratamiento de basuras. Existe peligro para su salud, pero no ha gestionado su solución porque piensa que nada  se puede hacer para solucionar la contaminación. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/6/3.jpg",
+					"description": "Mi familia vive en un ambiente no contaminado. No hay malos olores, ni humos inapropiados provenientes de industrias, producción pecuaria u otras fuentes; tampoco residuos de productos químicos mala eliminación o ausencia de tratamiento de basuras. Si hubo o hay contaminación se gestiona para resolverla.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"garbageDisposal": {
+			"type": "array",
+			"title": {
+				"es": "Disposición de basura"
+			},
+			"description": {
+				"es": "Manejamos bien nuestra basura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/7/3.jpg",
+						"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hueco tapado distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo y recicla los desechos inorgánicos.   ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/7/2.jpg",
+						"description": "Los miembros de mi familia entierran sus residuos en un hueco tapado dentro de su terreno, pero está distanciado a menos de veinte metros de la vivienda, fuentes de agua y campo de cultivo.  O entierran sus desechos inorgánicos.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/7/1.jpg",
+						"description": "Los miembros de mi familia queman sus basuras o las tiran al aire libre en su terreno o cerca de la vivienda, fuentes de agua o campos de cultivo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/7/3.jpg",
+					"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hueco tapado distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo y recicla los desechos inorgánicos.   ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"drinkingWaterAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al agua potable"
+			},
+			"description": {
+				"es": "Tenemos agua potable"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/8/3.jpg",
+						"description": "Mi familia cuenta con agua potable y accede a ella a través de un grifo dentro del terreno de la vivienda.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/8/2.jpg",
+						"description": "Mi familia tiene acceso al agua potable fuera del terreno de la vivienda, a través de un grifo, un pozo protegido, agua de manantial o pluvial protegido. La distancia para acceder a ella es menos de treinta minutos de caminata ida y vuelta de la vivienda.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/8/1.jpg",
+						"description": "Mi familia bebe agua no potable o tiene que acarrearla desde un punto a más de 30 minutos de caminata ida y vuelta de la vivienda.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/8/3.jpg",
+					"description": "Mi familia cuenta con agua potable y accede a ella a través de un grifo dentro del terreno de la vivienda.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"nearbyHealthPost": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a servicios de salud"
+			},
+			"description": {
+				"es": "Tenemos acceso al servicio de salud"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/9/3.jpg",
+						"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/9/2.jpg",
+						"description": "En los últimos 3 meses, cuando algún miembro de mi familia necesitó atención médica de emergencia básica, pudo obtenerla. Pero no pudo obtener atención especializada y las consultas o medicinas le eran muy caras.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/9/1.jpg",
+						"description": "En los últimos 3 meses, cuando mi familia necesitó atención médica por alguna enfermedad o accidente, no pudo obtenerla, debido a que no contaba con atención, la atención fue mala, y/o las consultas o medicinas fueron demasiado caras.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/9/3.jpg",
+					"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"alimentation": {
+			"type": "array",
+			"title": {
+				"es": "Alimentación nutritiva"
+			},
+			"description": {
+				"es": "Tenemos una alimentación nutritiva"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/10/3.jpg",
+						"description": "Todos los miembros de mi familia: \n a). Consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cerdo, etc.), 2. leche y/o derivados, 3. verduras variadas, 4. huevos, 5. frutas variadas, 6. Arroz y pastas, 7. Papa, yuca, o plátano, 8. Fríjoles/legumbres, 9. Maíz, maní, u otro cereal, \n y b). Tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).  ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/10/2.jpg",
+						"description": "Los miembros de mi familia no incluyeron en su dieta todos los componentes citados en el nivel verde, pero en la última semana todos los miembros de mi familia tuvieron tres comidas en el día – o si se saltaron una, fue por motivos voluntarios no asociados a la falta de dinero o alimentos.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/10/1.jpg",
+						"description": "En la última semana, por lo menos una vez, un miembro de mi familia se acostó con hambre o saltó una comida involuntariamente por falta de alimentos o dinero.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/10/3.jpg",
+					"description": "Todos los miembros de mi familia: \n a). Consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cerdo, etc.), 2. leche y/o derivados, 3. verduras variadas, 4. huevos, 5. frutas variadas, 6. Arroz y pastas, 7. Papa, yuca, o plátano, 8. Fríjoles/legumbres, 9. Maíz, maní, u otro cereal, \n y b). Tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).  ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"personalHygiene": {
+			"type": "array",
+			"title": {
+				"es": "Higiene personal"
+			},
+			"description": {
+				"es": "Cuidamos nuestra higiene"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/11/3.jpg",
+						"description": "Todos los miembros de mi familia: \n a) Se lavan las manos con jabón siempre que utilizan los servicios sanitarios. \n b) Se lavan las manos con jabón antes de consumir y preparar los alimentos. \n c) Se cepillan los dientes diariamente y d) Se bañan/asean diariamente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/11/2.jpg",
+						"description": "Algunos miembros de mi familia no cumplen con uno de los hábitos higiénicos descritos en el nivel verde. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/11/1.jpg",
+						"description": "Algunos miembros de mi familia no cumplen con más de uno de los hábitos higiénicos descritos en el nivel verde. \n O no estoy seguro de cuáles son los hábitos higiénicos de mi familia.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/11/3.jpg",
+					"description": "Todos los miembros de mi familia: \n a) Se lavan las manos con jabón siempre que utilizan los servicios sanitarios. \n b) Se lavan las manos con jabón antes de consumir y preparar los alimentos. \n c) Se cepillan los dientes diariamente y d) Se bañan/asean diariamente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"sexualHealth": {
+			"type": "array",
+			"title": {
+				"es": "Salud sexual"
+			},
+			"description": {
+				"es": "Salud Sexual. Nos hacemos los controles que necesitamos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/12/3.jpg",
+						"description": "Los miembros adultos de la familia:  \n a) Tienen conocimiento de planificación familiar. \n  b) Si tiene actividad sexual, aplican instrumentos de planificación familiar (excepto si quiere quedar embarazada) \n c) las mujeres han efectuado un control ginecológico en los últimos 12 meses. \n d) embarazada ha efectúa todos los controles prenatales requeridos. \n c) Los hombres y mujeres se han realizado su autoexamen. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/12/2.jpg",
+						"description": "Los miembros de mi familia no cumplen con una de las características del nivel verde.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/12/1.jpg",
+						"description": "Los miembros de mi familia no cumplen con más de una de las características del nivel verde. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/12/3.jpg",
+					"description": "Los miembros adultos de la familia:  \n a) Tienen conocimiento de planificación familiar. \n  b) Si tiene actividad sexual, aplican instrumentos de planificación familiar (excepto si quiere quedar embarazada) \n c) las mujeres han efectuado un control ginecológico en los últimos 12 meses. \n d) embarazada ha efectúa todos los controles prenatales requeridos. \n c) Los hombres y mujeres se han realizado su autoexamen. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"dentalCare": {
+			"type": "array",
+			"title": {
+				"es": "Dientes sanos"
+			},
+			"description": {
+				"es": "Nuestros dientes son sanos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/13/3.jpg",
+						"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/13/2.jpg",
+						"description": "Un integrante de mi familia tiene problemas de dentadura y no está siendo tratado. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/13/1.jpg",
+						"description": "Más de un miembro de mi familia tiene problemas de dentadura y no está siendo tratado.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/13/3.jpg",
+					"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"eyesight": {
+			"type": "array",
+			"title": {
+				"es": "Vista sana"
+			},
+			"description": {
+				"es": "Tenemos buena visión "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/14/3.jpg",
+						"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/14/2.jpg",
+						"description": "Un integrante de mi familia tiene problemas de vista y no está siendo tratado o la familia no se ha realizado un control oftalmológico hasta más de 1 año.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/14/1.jpg",
+						"description": "Más de un miembro de mi familia tiene problemas de vista y no está siendo tratado. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/14/3.jpg",
+					"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"vaccinations": {
+			"type": "array",
+			"title": {
+				"es": "Vacunas"
+			},
+			"description": {
+				"es": "Estamos vacunados"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/15/3.jpg",
+						"description": "Todos los miembros mi familia están inmunizados y al día con todas las vacunas obligatorias según el calendario de vacunación del Ministerio de Salud.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/15/2.jpg",
+						"description": "Un miembro de mi familia no está vacunado o no estoy seguro de que tiene todas las vacunas obligatorias según el Ministerio de Salud. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/15/1.jpg",
+						"description": "Más de un miembro de mi familia no está inmunizado o al día con todas las vacunas obligatorias según el Ministerio de Salud Pública; o la familia no estamos seguros del estado de vacunación de más de un miembros de la familia. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/15/3.jpg",
+					"description": "Todos los miembros mi familia están inmunizados y al día con todas las vacunas obligatorias según el calendario de vacunación del Ministerio de Salud.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"insurance": {
+			"type": "array",
+			"title": {
+				"es": "Seguros"
+			},
+			"description": {
+				"es": "Tenemos seguros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/16/3.jpg",
+						"description": "Mi familia tiene un seguro exequial y otro tipo de seguro que puede ser; seguro de vehículo, seguro de propiedad, seguros del negocio, seguro de los bienes.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/16/2.jpg",
+						"description": "Mi familia tiene seguro exequial.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/16/1.jpg",
+						"description": "Mi familia no tiene ningún tipo de seguro.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/16/3.jpg",
+					"description": "Mi familia tiene un seguro exequial y otro tipo de seguro que puede ser; seguro de vehículo, seguro de propiedad, seguros del negocio, seguro de los bienes.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeHouse": {
+			"type": "array",
+			"title": {
+				"es": "Vivienda segura"
+			},
+			"description": {
+				"es": "Nuestra vivienda es segura."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/17/3.jpg",
+						"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material de barro (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de madera o de barro. \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/17/2.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con uno de los componentes del nivel verde.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/17/1.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con dos o más de los componentes del nivel verde. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/17/3.jpg",
+					"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material de barro (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de madera o de barro. \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"comfortOfTheHome": {
+			"type": "array",
+			"title": {
+				"es": "Confort del hogar"
+			},
+			"description": {
+				"es": "Tenemos muebles y comodidades suficientes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/18/3.jpg",
+						"description": "Mi familia dispone de:  \n a. Sillas, mesas y vajillas en suficiente cantidad para todos los miembros. \n b. Camas en suficiente cantidad para todos (1 por persona o por pareja) \n c. Ventiladores o aires acondicionados acorde con su clima.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/18/2.jpg",
+						"description": "Mi familia carece de uno de los elementos descritos en la definición (no los tiene o no tienen en suficiente cantidad).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/18/1.jpg",
+						"description": "Mi familia carece de dos o más elementos descritos en la definición (no los tiene o no tienen en suficiente cantidad).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/18/3.jpg",
+					"description": "Mi familia dispone de:  \n a. Sillas, mesas y vajillas en suficiente cantidad para todos los miembros. \n b. Camas en suficiente cantidad para todos (1 por persona o por pareja) \n c. Ventiladores o aires acondicionados acorde con su clima.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Dormitorios separados"
+			},
+			"description": {
+				"es": "Dormimos en cuartos separados."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/19/3.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/19/2.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Algunos de los grupos (niños, adolescente y adulto) lo comparten involuntariamente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/19/1.jpg",
+						"description": "Cada dormitorio es utilizado en promedio por tres o más miembros de mi familia. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/19/3.jpg",
+					"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"properKitchen": {
+			"type": "array",
+			"title": {
+				"es": "Cocina elevada y ventilada"
+			},
+			"description": {
+				"es": "Tenemos cocina elevada y ventilada."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/20/3.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una estufa elevada y no utiliza estiércol, carbón o leña.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/20/2.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido pero no ventilado o cocina al aire libre o en fogón (no cuenta con estufa elevada). En ningún caso utiliza estiércol, carbón o leña. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/20/1.jpg",
+						"description": "Mi familia cocina utilizando, principalmente, estiércol, carbón o leña.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/20/3.jpg",
+					"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una estufa elevada y no utiliza estiércol, carbón o leña.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeBathroom": {
+			"type": "array",
+			"title": {
+				"es": "Baño"
+			},
+			"description": {
+				"es": "Tenemos baño moderno"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/21/3.jpg",
+						"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo; \n b) cisterna; \n c) asegura la privacidad; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, f) se mantiene limpio.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/21/2.jpg",
+						"description": "Aunque el baño de mi familia no reúne todos los requisitos descriptos para el nivel verde, cuenta con algún tipo de inodoro con agua, una letrina con losa y buena ventilación, o inodoro orgánico. No se comparte con otra familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/21/1.jpg",
+						"description": "Mi familia comparte su baño o letrina con otra familia o no reúne los requisitos para el nivel amarillo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/21/3.jpg",
+					"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo; \n b) cisterna; \n c) asegura la privacidad; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, f) se mantiene limpio.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Neveras y otros activos"
+			},
+			"description": {
+				"es": "Tenemos nevera y otros electrodomesticos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/22/3.jpg",
+						"description": "Mi familia tiene nevera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/22/2.jpg",
+						"description": "Mi familia tiene dos de estos activos: radio, TV, teléfono, motocicleta, lavarropas, heladera. \n O si tiene más de dos, no tiene heladera.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/22/1.jpg",
+						"description": "Mi familia tiene uno o ninguno de estos activos: radio, TV, teléfono, motocicleta, lavarropas, heladera.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/22/3.jpg",
+					"description": "Mi familia tiene nevera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"phone": {
+			"type": "array",
+			"title": {
+				"es": "Teléfono o celular"
+			},
+			"description": {
+				"es": "Tenemos teléfono "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/23/3.jpg",
+						"description": "Mi familia cuenta con teléfono fijo o celular con plan fijo de minutos y/o datos disponible de manera constante en el hogar.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/23/2.jpg",
+						"description": "Mi familia cuenta teléfono fijo o celular, pero puede utilizarlo solamente parte del tiempo. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/23/1.jpg",
+						"description": "Mi familia no cuenta con servicio de telefonía (ni celular, ni fijo).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/23/3.jpg",
+					"description": "Mi familia cuenta con teléfono fijo o celular con plan fijo de minutos y/o datos disponible de manera constante en el hogar.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"clothingAndFootwear": {
+			"type": "array",
+			"title": {
+				"es": "Vestimenta suficiente y apropiada"
+			},
+			"description": {
+				"es": "Tenemos  ropa para cambiarnos diariamente "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/24/3.jpg",
+						"description": "Todos los miembros de mi familia cuentan con ropas y calzados apropiados para el clima, en cantidad suficiente, para cambiarse diariamente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/24/2.jpg",
+						"description": "Todos los miembros de mi familia tienen ropas y calzados apropiados para el clima, pero no para cambiarse diariamente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/24/1.jpg",
+						"description": "Por lo menos un miembro de mi familia carece de ropa y calzado apropiados para el clima.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/24/3.jpg",
+					"description": "Todos los miembros de mi familia cuentan con ropas y calzados apropiados para el clima, en cantidad suficiente, para cambiarse diariamente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safety": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de las personas"
+			},
+			"description": {
+				"es": "Seguridad de las personas"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/25/3.jpg",
+						"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.   ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/25/2.jpg",
+						"description": " Al menos un miembro de mi familia sufrió́ un acto de violencia contra su persona en los últimos doce meses, pero igualmente pudo seguir con sus actividades o asistir al trabajo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/25/1.jpg",
+						"description": "Al menos un miembro de mi familia sufrió un acto de violencia contra su persona en los últimos doce meses y como resultado no pudo trabajar por un día entero o más, o fue causa de muerte.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/25/3.jpg",
+					"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.   ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"securityOfProperty": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de la propiedad"
+			},
+			"description": {
+				"es": "Mi familia no fue robada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/26/3.jpg",
+						"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/26/2.jpg",
+						"description": "Mi familia sufrió un acto de violencia y/o robo contra sus bienes en los últimos doce meses, y el valor de la propiedad dañada o robada es menor al equivalente de una semana de los ingresos de la familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/26/1.jpg",
+						"description": "Mi familia sufrió más de un acto de violencia y/o robo contra su propiedad en los últimos doce meses, o sufrió un solo acto donde el valor del bien dañado o robado es equivalente o mayor a una semana de los ingresos de la familia. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/26/3.jpg",
+					"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Electricidad"
+			},
+			"description": {
+				"es": "Tenemos acceso a la electricidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/27/3.jpg",
+						"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/27/2.jpg",
+						"description": "Mi familia tiene acceso a la electricidad, pero es clandestino y/o insuficiente (pasa 4 horas o más del día sin electricidad en temporada alta).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/27/1.jpg",
+						"description": "Mi familia no tiene acceso a la electricidad.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/27/3.jpg",
+					"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"regularMeansOfTransportation": {
+			"type": "array",
+			"title": {
+				"es": "Medios de transporte regulares"
+			},
+			"description": {
+				"es": "Tenemos transporte regular"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/28/3.jpg",
+						"description": "Mi familia tiene acceso a transporte regular y confiable, ya sea propio o público a menos de diez minutos de la casa y que pasa por lo menos cada una hora.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/28/2.jpg",
+						"description": "Mi familia tiene acceso a transporte que no es regular y/o confiable, ya sea propio o público a menos de treinta minutos de la casa y que pasa por lo menos cada dos horas. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/28/1.jpg",
+						"description": "Mi familia no tiene acceso a transporte propio y el público se encuentra a más de 30 minutos de la casa o pasa con frecuencia mayor a dos horas. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/28/3.jpg",
+					"description": "Mi familia tiene acceso a transporte regular y confiable, ya sea propio o público a menos de diez minutos de la casa y que pasa por lo menos cada una hora.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"road": {
+			"type": "array",
+			"title": {
+				"es": "Camino de acceso de todo tiempo"
+			},
+			"description": {
+				"es": "Tenemos calles transitables"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/29/3.jpg",
+						"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano esta pavimentado, empedrado, adoquinado, enripiado, y es accesible todo el tiempo, incluso en periodo de lluvias fuertes o continuas.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/29/2.jpg",
+						"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano es de tierra o esta pavimentado, empedrado, adoquinado, enripiado, en mal estado y difícil de transitar en periodo de lluvias fuertes o continuas.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/29/1.jpg",
+						"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano es de tierra y ante la menor inclemencia del tiempo, se vuelve difícil de transitar. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/29/3.jpg",
+					"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano esta pavimentado, empedrado, adoquinado, enripiado, y es accesible todo el tiempo, incluso en periodo de lluvias fuertes o continuas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"middleEducation": {
+			"type": "array",
+			"title": {
+				"es": "Hijos escolarizados hasta once bachillerato"
+			},
+			"description": {
+				"es": "Los niños y jóvenes tienen acceso a la educación"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/30/3.jpg",
+						"description": "Todos los miembros de mi familia en edad escolar van a la escuela o terminaron el grado once de bachillerato.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/30/2.jpg",
+						"description": "Entre los miembros de mi familia hay al menos un niño o un adolescente en edad escolar que no asiste a la escuela o al colegio.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/30/1.jpg",
+						"description": "Ningún miembro de mi familia en edad escolar asiste a la escuela o al colegio.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/30/3.jpg",
+					"description": "Todos los miembros de mi familia en edad escolar van a la escuela o terminaron el grado once de bachillerato.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"readAndWrite": {
+			"type": "array",
+			"title": {
+				"es": "Sabe leer, escribir y comprender"
+			},
+			"description": {
+				"es": "Sabemos leer y escribir"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/31/3.jpg",
+						"description": "Todos los miembros de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilidad.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/31/2.jpg",
+						"description": "Todos los miembros de mi familia (quince años y más) saben leer y escribir, pero al menos uno siente que le cuesta leer y/o escribir sus ideas.  ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/31/1.jpg",
+						"description": "Al menos un miembro de mi familia (quince años y más) no puede leer y/o escribir.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/31/3.jpg",
+					"description": "Todos los miembros de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilidad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"schoolSuppliesAndBooks": {
+			"type": "array",
+			"title": {
+				"es": "Útiles escolares y libros"
+			},
+			"description": {
+				"es": "Tenemos útiles escolares"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/32/3.jpg",
+						"description": "Los miembros de mi familia, que están escolarizados, cuentan con todos los útiles escolares y libros recomendados por el docente. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/32/2.jpg",
+						"description": "Los miembros de mi familia, que están escolarizados, no cuentan con todos los útiles escolares, aunque lo haya recomendado el docente.  ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/32/1.jpg",
+						"description": "Los miembros de la familia, que están escolarizados, no tienen la mayoría de los útiles escolares recomendados por el docente.  ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/32/3.jpg",
+					"description": "Los miembros de mi familia, que están escolarizados, cuentan con todos los útiles escolares y libros recomendados por el docente. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"capacityToPlanAndBudget": {
+			"type": "array",
+			"title": {
+				"es": "Capacidad de planificar y presupuestar"
+			},
+			"description": {
+				"es": "Tenemos presupuesto familiar"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/33/3.jpg",
+						"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual y un plan de ahorros, que sigue constantemente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/33/2.jpg",
+						"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual escrito y/o un plan de ahorro, pero no lo sigue constantemente. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/33/1.jpg",
+						"description": "Mi familia no planifica su futuro económico, no tiene un presupuesto escrito y tampoco tiene un plan de ahorros.  ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/33/3.jpg",
+					"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual y un plan de ahorros, que sigue constantemente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"type": "array",
+			"title": {
+				"es": "Capacidad para generar ingresos"
+			},
+			"description": {
+				"es": "Sabemos ganar plata"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/34/3.jpg",
+						"description": "Al menos un miembro de mi familia:  \n a) tiene formación profesional, técnico, tecnólogo u otras habilidades desarrolladas y adquiridas  para generar ingreso, y estas características le permiten  encontrar trabajo con facilidad. \n O, b) cuenta con un emprendimiento (negocio o actividad propia) que le genera ingresos suficientes para cubrir los gastos básicos del hogar.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/34/2.jpg",
+						"description": "Al menos un miembro de mi familia:  \n a)  tiene formación profesional técnico, tecnólogo u otras habilidades desarrolladas y adquiridas  para generar ingreso, sin embargo, hay situaciones en las que no sabe/sabría cómo afrontar para generar ingresos. \n O b) cuenta con un emprendimiento (negocio o actividad propia) que le genera ingresos, pero estos son insuficientes para cubrir los gastos básicos del hogar.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/34/1.jpg",
+						"description": "Ningún miembro de mi familia:  \n a) tiene formación profesional u otras habilidades desarrolladas y adquiridas  para generar ingresos,  \n ni b) cuenta con un emprendimiento (negocio o actividad propia).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/34/3.jpg",
+					"description": "Al menos un miembro de mi familia:  \n a) tiene formación profesional, técnico, tecnólogo u otras habilidades desarrolladas y adquiridas  para generar ingreso, y estas características le permiten  encontrar trabajo con facilidad. \n O, b) cuenta con un emprendimiento (negocio o actividad propia) que le genera ingresos suficientes para cubrir los gastos básicos del hogar.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"informationAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a la información (TV e internet)"
+			},
+			"description": {
+				"es": "Tenemos internet y tele"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/35/3.jpg",
+						"description": "Mi familia cuenta con un televisor o acceso a internet. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/35/2.jpg",
+						"description": "Mi familia cuenta solo con una radio.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/35/1.jpg",
+						"description": "Mi familia no cuenta con radio, televisor o internet. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/35/3.jpg",
+					"description": "Mi familia cuenta con un televisor o acceso a internet. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"entertainmentAndRecreation": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al entretenimiento"
+			},
+			"description": {
+				"es": "Tenemos pasatiempos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/36/3.jpg",
+						"description": "Todos los miembros de mi familia tienen actividades de entretenimiento semanales.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/36/2.jpg",
+						"description": "Algunos miembros de mi familia tienen actividades de entretenimiento semanales.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/36/1.jpg",
+						"description": "La mayoría de los miembros de mi familia no tienen actividades de entretenimiento semanales.  ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/36/3.jpg",
+					"description": "Todos los miembros de mi familia tienen actividades de entretenimiento semanales.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"respectForDiversity": {
+			"type": "array",
+			"title": {
+				"es": "Respeto a la diversidad"
+			},
+			"description": {
+				"es": "Respeto las diferencias "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/37/3.jpg",
+						"description": "Pienso que todas las personas, independientemente de su religión, etnia, idioma, capacidades, genero, orientación sexual, o similar, merecen ser tratadas con respeto.  ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/37/2.jpg",
+						"description": "Pienso que la mayoría de las personas deben ser tratadas con respeto, aunque hay algunas religiones, etnias, genero, orientaciones sexuales o características físicas que no merecen mi respeto. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/37/1.jpg",
+						"description": "Pienso que tratar a las personas con respeto no es importante. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/37/3.jpg",
+					"description": "Pienso que todas las personas, independientemente de su religión, etnia, idioma, capacidades, genero, orientación sexual, o similar, merecen ser tratadas con respeto.  ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"awarenessOfHumanRights": {
+			"type": "array",
+			"title": {
+				"es": "Conciencia de los derechos humanos"
+			},
+			"description": {
+				"es": "Conciencia de los derechos humanos "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/38/3.jpg",
+						"description": "Pienso que cada persona debe tener los mismos derechos básicos, y que todos tenemos la misma responsabilidad de respetar siempre los derechos humanos. Los derechos básicos son los mismos independientemente de sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/38/2.jpg",
+						"description": "Pienso que cada persona debe tener los mismos derechos básicos, pero pienso que no es mi responsabilidad respetar siempre estos derechos, será de acuerdo a su sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/38/1.jpg",
+						"description": "Pienso que las personas no deben tener los mismos derechos básicos y que no es mi responsabilidad respetarles. Esto depende de su sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/38/3.jpg",
+					"description": "Pienso que cada persona debe tener los mismos derechos básicos, y que todos tenemos la misma responsabilidad de respetar siempre los derechos humanos. Los derechos básicos son los mismos independientemente de sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"childLabor": {
+			"type": "array",
+			"title": {
+				"es": "Trabajo infantil"
+			},
+			"description": {
+				"es": "En mi casa los niños no trabajan"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/39/3.jpg",
+						"description": "Entre los miembros de mi familia ningún miembro hasta los 17 años está trabajando.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/39/2.jpg",
+						"description": "Entre los miembros de mi familia hay un miembro menor a 17 años está trabajando, pero asiste a la escuela regularmente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/39/1.jpg",
+						"description": "Entre los miembros de mi familia hay al menos un miembro menor a 17 años que está trabajando y por eso no asiste a la escuela regularmente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/39/3.jpg",
+					"description": "Entre los miembros de mi familia ningún miembro hasta los 17 años está trabajando.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"socialCapital": {
+			"type": "array",
+			"title": {
+				"es": "Forma  parte de un grupo"
+			},
+			"description": {
+				"es": "Integramos grupos en la comunidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/40/3.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/40/2.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en un grupo de manera permanente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/40/1.jpg",
+						"description": "Ningún miembro de mi familia participa en un grupo de manera permanente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/40/3.jpg",
+					"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"influenceInPublicSector": {
+			"type": "array",
+			"title": {
+				"es": "Incidencia en el sector público"
+			},
+			"description": {
+				"es": "Sabemos peticionar a las autoridades"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/41/3.jpg",
+						"description": "Mi familia no tiene problemas que requieren de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento. O se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/41/2.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado. Presentó una solicitud, pero no le da seguimiento. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/41/1.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado, pero no presenta una solicitud. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/41/3.jpg",
+					"description": "Mi familia no tiene problemas que requieren de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento. O se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"abilityToSolveProblemsAndConflicts": {
+			"type": "array",
+			"title": {
+				"es": "Capacidad de resolver problemas y conflictos"
+			},
+			"description": {
+				"es": "Resolvemos nuestros problemas"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/42/3.jpg",
+						"description": "Cuando surge un problema o conflicto, los miembros de mi familia tienen una conversación civilizada (sin insultos, violencia o peleas) sobre el asunto con todas las personas involucradas y lo resuelven sin que este se agrave.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/42/2.jpg",
+						"description": "Cuando surge un problema o conflicto, los miembros de mi familia, ocasionalmente, no tienen una conversación civilizada  sobre el asunto y este puede agravarse (hay insultos, violencia o peleas). ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/42/1.jpg",
+						"description": "Cuando surge un problema o conflicto, los miembros de mi familia no tienen una conversación civilizada. Los insultos, violencia o las peleas se dan frecuentemente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/42/3.jpg",
+					"description": "Cuando surge un problema o conflicto, los miembros de mi familia tienen una conversación civilizada (sin insultos, violencia o peleas) sobre el asunto con todas las personas involucradas y lo resuelven sin que este se agrave.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"registeredToVoteAndVotesInElections": {
+			"type": "array",
+			"title": {
+				"es": "Vota en elecciones"
+			},
+			"description": {
+				"es": "Votamos en las elecciones"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/43/3.jpg",
+						"description": "Todos los adultos de mi familia votaron en las últimas elecciones organizadas por el Consejo Nacional Electoral.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/43/2.jpg",
+						"description": "Solo algunos adultos de mi familia votaron en las últimas elecciones organizadas por el Concejo Nacional Electoral. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/43/1.jpg",
+						"description": "No todos los adultos de mi familia están inscritos en el registro electoral, o ninguno de los adultos votó en las últimas elecciones organizadas por el Consejo Nacional Electoral.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/43/3.jpg",
+					"description": "Todos los adultos de mi familia votaron en las últimas elecciones organizadas por el Consejo Nacional Electoral.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"awarenessOfNeeds": {
+			"type": "array",
+			"title": {
+				"es": "Conciencia de sus necesidades"
+			},
+			"description": {
+				"es": "Tenemos metas de vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/44/3.jpg",
+						"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realiza acciones continuamente para lograrlas. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/44/2.jpg",
+						"description": "Mi familia piensa que puede mejorar su situación actual, pero no tiene metas a mediano (seis meses) y a largo plazo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/44/1.jpg",
+						"description": "Mi familia piensa que no puede mejorar su situación actual o no lo quiere hacer porque está cómoda.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/44/3.jpg",
+					"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realiza acciones continuamente para lograrlas. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Confianza en sí mismo"
+			},
+			"description": {
+				"es": "Confío en mi capacidad y mis logros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/45/3.jpg",
+						"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/45/2.jpg",
+						"description": "A veces me siento apto y tengo un sentimiento de logro por lo que hago, pero con la misma frecuencia me siento incapaz o no es frecuente que la gente diga que soy competente o capaz en lo que hago. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/45/1.jpg",
+						"description": "No me siento apto, y casi nunca logro lo que quiero. No creo que me admiren por lo que hago.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/45/3.jpg",
+					"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"moralConscience": {
+			"type": "array",
+			"title": {
+				"es": "Conciencia moral"
+			},
+			"description": {
+				"es": "Pensamos en los demás cuando tomamos decisiones"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/46/3.jpg",
+						"description": "Mi familia toma decisiones teniendo en cuenta a quienes afectarían las consecuencias de sus  acciones. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/46/2.jpg",
+						"description": "Mi familia toma decisiones, muchas veces, sin tener en cuenta a quienes afectarían las consecuencias de las acciones. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/46/1.jpg",
+						"description": "Mi familia actúa pensando solo en sí misma, no sabe que las consecuencias de sus acciones pueden afectar a los demás. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/46/3.jpg",
+					"description": "Mi familia toma decisiones teniendo en cuenta a quienes afectarían las consecuencias de sus  acciones. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"emotionalIntelligence": {
+			"type": "array",
+			"title": {
+				"es": "Capacidad emocional-afectiva"
+			},
+			"description": {
+				"es": "Manejamos nuestras emociones"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/47/3.jpg",
+						"description": "Entiendo que emociones como la ira, la tristeza, el temor o los celos pueden tener una influencia negativa en mi vida y que hay formas de controlarlas. En general, logro controlarlas, y trato de no tomar acciones o decisiones en el acaloramiento del momento. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/47/2.jpg",
+						"description": "Entiendo que emociones como la ira, la tristeza, el temor o los celos pueden tener una influencia negativa en mi vida, y que hay formas de controlarlas. Sin embargo, muchas veces me cuesta, y mis emociones me llevan a cometer hechos de los que más tarde me arrepiento. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/47/1.jpg",
+						"description": "Las emociones como la ira, la tristeza, el temor, los celos, son constantes en mi vida y determinan mis acciones. No hay nada que uno pueda hacer para influir en eso (no hay forma de controlarlas).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/47/3.jpg",
+					"description": "Entiendo que emociones como la ira, la tristeza, el temor o los celos pueden tener una influencia negativa en mi vida y que hay formas de controlarlas. En general, logro controlarlas, y trato de no tomar acciones o decisiones en el acaloramiento del momento. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"householdViolence": {
+			"type": "array",
+			"title": {
+				"es": "Violencia intrafamiliar"
+			},
+			"description": {
+				"es": "No hay violencia en nuestra familia"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/48/3.jpg",
+						"description": "Ningún miembro de mi familia es objeto de violencia familiar.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/48/2.jpg",
+						"description": "Existe violencia en mi familia. Sin embargo, la víctima no la ve como normal y toma acciones para evitarla.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/48/1.jpg",
+						"description": "Existe violencia en mi familia y no se toman acciones para evitarla.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/48/3.jpg",
+					"description": "Ningún miembro de mi familia es objeto de violencia familiar.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"entrepreneurialSpirit": {
+			"type": "array",
+			"title": {
+				"es": "Espíritu emprendedor"
+			},
+			"description": {
+				"es": "Somos emprendedores"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/49/3.jpg",
+						"description": "La mayoría de mi familia tiene espíritu emprendedor, no se conforman con la situación actual y hacen algo para cambiarla. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/49/2.jpg",
+						"description": "Al menos un miembro de mi familia tiene espíritu emprendedor, no se conforma con la situación actual y quiere cambiarla.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/49/1.jpg",
+						"description": "Los miembros de mi familia no emprenden nada nuevo. Piensan que nada puede cambiar o no quieren cambiar, se conforman.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/49/3.jpg",
+					"description": "La mayoría de mi familia tiene espíritu emprendedor, no se conforman con la situación actual y hacen algo para cambiarla. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"autonomyDecisions": {
+			"type": "array",
+			"title": {
+				"es": "Autonomía y capacidad de tomar decisiones"
+			},
+			"description": {
+				"es": "Tomo decisiones sobre mi vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/50/3.jpg",
+						"description": "Tomo las decisiones en los aspectos claves de mi vida y participó activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/50/2.jpg",
+						"description": "Tomo algunas decisiones en los aspectos claves de mi vida y participo en algunas decisiones de mi familia. Algunas decisiones reflejan lo que valoro y otras son tomadas, principalmente, para complacer a otros o evitar consecuencias negativas.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/50/1.jpg",
+						"description": "No tomo las decisiones en los aspectos claves de mi vida. Hago lo que me dicen y mis decisiones son para complacer a otros o evitar consecuencias negativas. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/50/3.jpg",
+					"description": "Tomo las decisiones en los aspectos claves de mi vida y participó activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+					"value": "GREEN"
+				}
+			]
+		}
+	}
+}
