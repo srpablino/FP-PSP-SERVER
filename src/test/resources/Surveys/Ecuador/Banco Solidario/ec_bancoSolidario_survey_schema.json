@@ -1,0 +1,2325 @@
+{
+	"title": "Encuesta de Semáforo. Banco Solidario - Ecuador",
+	"description": "Estructura de la encuesta compuesta por: datos personales, socioeconómicos y 50 indicadores.",
+	"type": "object",
+	"required": [
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"lastName",
+		"birthdate",
+		"manyPeopleHousehold"
+	],
+
+	"properties": {
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su nombre"
+			}
+		},
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su apellido"
+			}
+		},
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Ingrese su fecha de nacimiento"
+			}
+		},
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su país de nacimiento"
+			},
+			"enum": [
+				"AR",
+				"PY",
+				"AD",
+				"AE",
+				"AF",
+				"AG",
+				"AI",
+				"AL",
+				"AM",
+				"AN",
+				"AO",
+				"AQ",
+				"AS",
+				"AT",
+				"AU",
+				"AW",
+				"AX",
+				"AZ",
+				"BA",
+				"BB",
+				"BD",
+				"BE",
+				"BF",
+				"BG",
+				"BH",
+				"BI",
+				"BJ",
+				"BL",
+				"BM",
+				"BN",
+				"BO",
+				"BR",
+				"BS",
+				"BT",
+				"BV",
+				"BW",
+				"BY",
+				"BZ",
+				"CA",
+				"CC",
+				"CF",
+				"CG",
+				"CH",
+				"CI",
+				"CK",
+				"CL",
+				"CM",
+				"CN",
+				"CO",
+				"CR",
+				"CU",
+				"CV",
+				"CX",
+				"CY",
+				"CZ",
+				"DE",
+				"DJ",
+				"DK",
+				"DM",
+				"DO",
+				"DZ",
+				"EC",
+				"EE",
+				"EG",
+				"EH",
+				"ER",
+				"ES",
+				"ET",
+				"FI",
+				"FJ",
+				"FK",
+				"FM",
+				"FO",
+				"FR",
+				"GA",
+				"GB",
+				"GD",
+				"GE",
+				"GF",
+				"GG",
+				"GH",
+				"GI",
+				"GL",
+				"GM",
+				"GN",
+				"GP",
+				"GQ",
+				"GR",
+				"GS",
+				"GT",
+				"GU",
+				"GW",
+				"GY",
+				"HK",
+				"HM",
+				"HN",
+				"HR",
+				"HT",
+				"HU",
+				"ID",
+				"IE",
+				"IL",
+				"IM",
+				"IN",
+				"IO",
+				"IQ",
+				"IR",
+				"IS",
+				"IT",
+				"JE",
+				"JM",
+				"JO",
+				"JP",
+				"KE",
+				"KG",
+				"KH",
+				"KI",
+				"KM",
+				"KN",
+				"KP",
+				"KR",
+				"KW",
+				"KY",
+				"KZ",
+				"LA",
+				"LB",
+				"LC",
+				"LI",
+				"LK",
+				"LR",
+				"LS",
+				"LT",
+				"LU",
+				"LV",
+				"LY",
+				"MA",
+				"MC",
+				"MD",
+				"ME",
+				"MG",
+				"MH",
+				"MK",
+				"ML",
+				"MM",
+				"MN",
+				"MO",
+				"MQ",
+				"MR",
+				"MS",
+				"MT",
+				"MU",
+				"MV",
+				"MW",
+				"MX",
+				"MY",
+				"MZ",
+				"NA",
+				"NC",
+				"NE",
+				"NF",
+				"NG",
+				"NI",
+				"NL",
+				"NO",
+				"NP",
+				"NR",
+				"NU",
+				"NZ",
+				"OM",
+				"PA",
+				"PE",
+				"PF",
+				"PG",
+				"PH",
+				"PK",
+				"PL",
+				"PM",
+				"PN",
+				"PR",
+				"PS",
+				"PT",
+				"PW",
+				"QA",
+				"RE",
+				"RO",
+				"RS",
+				"RU",
+				"RW",
+				"SA",
+				"SB",
+				"SC",
+				"SD",
+				"SE",
+				"SG",
+				"SH",
+				"SI",
+				"SJ",
+				"SK",
+				"SL",
+				"SM",
+				"SN",
+				"SO",
+				"SR",
+				"ST",
+				"SV",
+				"SY",
+				"SZ",
+				"TC",
+				"TD",
+				"TF",
+				"TG",
+				"TH",
+				"TH",
+				"TJ",
+				"TK",
+				"TL",
+				"TM",
+				"TN",
+				"TO",
+				"TR",
+				"TT",
+				"TV",
+				"TW",
+				"UA",
+				"UG",
+				"US",
+				"UY",
+				"UZ",
+				"VA",
+				"VC",
+				"VE",
+				"VG",
+				"VI",
+				"VN",
+				"VU",
+				"WF",
+				"WS",
+				"YE",
+				"YT",
+				"ZA"
+			],
+			"enumNames": [
+				"Argentina",
+				"Paraguay",
+				"Andorra",
+				"Emiratos Árabes Unidos",
+				"Afganistán",
+				"Antigua y Barbuda",
+				"Anguila",
+				"Albania",
+				"Armenia",
+				"Antillas Neerlandesas",
+				"Angola",
+				"Antártida",
+				"Samoa Americana",
+				"Austria",
+				"Australia",
+				"Aruba",
+				"Islas Áland",
+				"Azerbaiyán",
+				"Bosnia y Herzegovina",
+				"Barbados",
+				"Bangladesh",
+				"Bélgica",
+				"Burkina Faso",
+				"Bulgaria",
+				"Bahréin",
+				"Burundi",
+				"Benin",
+				"San Bartolomé",
+				"Bermudas",
+				"Brunéi",
+				"Bolivia",
+				"Brasil",
+				"Bahamas",
+				"Bhután",
+				"Isla Bouvet",
+				"Botsuana",
+				"Belarús",
+				"Belice",
+				"Canadá",
+				"Islas Cocos",
+				"República Centro-Africana",
+				"Congo",
+				"Suiza",
+				"Costa de Marfil",
+				"Islas Cook",
+				"Chile",
+				"Camerún",
+				"China",
+				"Colombia",
+				"Costa Rica",
+				"Cuba",
+				"Cabo Verde",
+				"Islas Christmas",
+				"Chipre",
+				"República Checa",
+				"Alemania",
+				"Yibuti",
+				"Dinamarca",
+				"Domínica",
+				"República Dominicana",
+				"Argel",
+				"Ecuador",
+				"Estonia",
+				"Egipto",
+				"Sahara Occidental",
+				"Eritrea",
+				"España",
+				"Etiopía",
+				"Finlandia",
+				"Fiji",
+				"Islas Malvinas",
+				"Micronesia",
+				"Islas Faroe",
+				"Francia",
+				"Gabón",
+				"Reino Unido",
+				"Granada",
+				"Georgia",
+				"Guayana Francesa",
+				"Guernsey",
+				"Ghana",
+				"Gibraltar",
+				"Groenlandia",
+				"Gambia",
+				"Guinea",
+				"Guadalupe",
+				"Guinea Ecuatorial",
+				"Grecia",
+				"Georgia del Sur e Islas Sandwich del Sur",
+				"Guatemala",
+				"Guam",
+				"Guinea-Bissau",
+				"Guayana",
+				"Hong Kong",
+				"Islas Heard y McDonald",
+				"Honduras",
+				"Croacia",
+				"Haití",
+				"Hungría",
+				"Indonesia",
+				"Irlanda",
+				"Israel",
+				"Isla de Man",
+				"India",
+				"Territorio Británico del Océano Índico",
+				"Irak",
+				"Irán",
+				"Islandia",
+				"Italia",
+				"Jersey",
+				"Jamaica",
+				"Jordania",
+				"Japón",
+				"Kenia",
+				"Kirguistán",
+				"Camboya",
+				"Kiribati",
+				"Comoros",
+				"San Cristóbal y Nieves",
+				"Corea del Norte",
+				"Corea del Sur",
+				"Kuwait",
+				"Islas Caimán",
+				"Kazajstán",
+				"Laos",
+				"Líbano",
+				"Santa Lucía",
+				"Liechtenstein",
+				"Sri Lanka",
+				"Liberia",
+				"Lesotho",
+				"Lituania",
+				"Luxemburgo",
+				"Letonia",
+				"Libia",
+				"Marruecos",
+				"Mónaco",
+				"Moldova",
+				"Montenegro",
+				"Madagascar",
+				"Islas Marshall",
+				"Macedonia",
+				"Mali",
+				"Myanmar",
+				"Mongolia",
+				"Macao",
+				"Martinica",
+				"Mauritania",
+				"Montserrat",
+				"Malta",
+				"Mauricio",
+				"Maldivas",
+				"Malawi",
+				"México",
+				"Malasia",
+				"Mozambique",
+				"Namibia",
+				"Nueva Caledonia",
+				"Níger",
+				"Islas Norkfolk",
+				"Nigeria",
+				"Nicaragua",
+				"Países Bajos",
+				"Noruega",
+				"Nepal",
+				"Nauru",
+				"Niue",
+				"Nueva Zelanda",
+				"Omán",
+				"Panamá",
+				"Perú",
+				"Polinesia Francesa",
+				"Papúa Nueva Guinea",
+				"Filipinas",
+				"Pakistán",
+				"Polonia",
+				"San Pedro y Miquelón",
+				"Islas Pitcairn",
+				"Puerto Rico",
+				"Palestina",
+				"Portugal",
+				"Islas Palaos",
+				"Qatar",
+				"Reunión",
+				"Rumanía",
+				"Serbia y Montenegro",
+				"Rusia",
+				"Ruanda",
+				"Arabia Saudita",
+				"Islas Solomón",
+				"Seychelles",
+				"Sudán",
+				"Suecia",
+				"Singapur",
+				"Santa Elena",
+				"Eslovenia",
+				"Islas Svalbard y Jan Mayen",
+				"Eslovaquia",
+				"Sierra Leona",
+				"San Marino",
+				"Senegal",
+				"Somalia",
+				"Surinam",
+				"Santo Tomé y Príncipe",
+				"El Salvador",
+				"Siria",
+				"Suazilandia",
+				"Islas Turcas y Caicos",
+				"Chad",
+				"Territorios Australes Franceses",
+				"Togo",
+				"Tailandia",
+				"Tanzania",
+				"Tayikistán",
+				"Tokelau",
+				"Timor-Leste",
+				"Turkmenistán",
+				"Túnez",
+				"Tonga",
+				"Turquía",
+				"Trinidad y Tobago",
+				"Tuvalu",
+				"Taiwán",
+				"Ucrania",
+				"Uganda",
+				"Estados Unidos de América",
+				"Uruguay",
+				"Uzbekistán",
+				"Ciudad del Vaticano",
+				"San Vicente y las Granadinas",
+				"Venezuela",
+				"Islas Vírgenes Británicas",
+				"Islas Vírgenes de los Estados Unidos de América",
+				"Vietnam",
+				"Vanuatu",
+				"Wallis y Futuna",
+				"Samoa",
+				"Yemen",
+				"Mayotte",
+				"Sudáfrica"
+			],
+			"default": "EC"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su género"
+			},
+			"enum": [
+				"F",
+				"M",
+				"O"
+			],
+			"enumNames": [
+				"Femenino",
+				"Masculino",
+				"Deseo no responder"
+			]
+		},
+
+		"email": {
+			"type": "string",
+			"format" : "email",
+			"title": {
+				"es": "Ingrese su email"
+			}
+		},
+
+		"phoneNumber": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su número de teléfono"
+			}
+		},
+
+		"activityMain": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese su actividad principal"
+			},
+			"enum": [
+				"VENTAS",
+				"SERVICIOS",
+				"MANUFACTURA",
+				"ENSEÑÁNZA",
+				"EMPLEADO/A DE EMPRESA PRIVADA",
+				"EMPLEADO/A DE EMPRESA PUBLICA",
+				"ONG",
+				"OTROS",
+				"NO TIENE"
+			],
+			"enumNames": [
+				"Ventas (Despensa, Copetín, Comestible)",
+				"Servicios (Peluquería, Limpieza, Manicura)",
+				"Manufactura (Arte)",
+				"Enseñanza",
+				"Empleado/a de empresa privada",
+				"Empleado/a de empresa pública",
+				"Empleado/a de ONG (Organización no Gubernamental)",
+				"Otros",
+				"No tiene"
+			]
+		},
+
+		"currency": {
+			"type": "string",
+			"title": {
+				"es": "Moneda en la que percibe sus ingresos"
+			},
+			"enum": [
+				"AFN",
+				"MGA",
+				"AMD",
+				"AWG",
+				"AZN",
+				"THB",
+				"PAB",
+				"ETB",
+				"VEF",
+				"BOB",
+				"CVE",
+				"XOF",
+				"XAF",
+				"XPF",
+				"KES",
+				"UGX",
+				"SOS",
+				"TZS",
+				"CRC",
+				"NIO",
+				"CZK",
+				"DKK",
+				"ISK",
+				"NOK",
+				"SEK",
+				"GMD",
+				"MKD",
+				"DZD",
+				"BHD",
+				"IQD",
+				"JOD",
+				"KWD",
+				"LYD",
+				"RSD",
+				"TND",
+				"MAD",
+				"STN",
+				"AUD",
+				"CAD",
+				"BBD",
+				"BZD",
+				"BND",
+				"FJD",
+				"GYD",
+				"HKD",
+				"BSD",
+				"BMD",
+				"KYD",
+				"SBD",
+				"NAD",
+				"NZD",
+				"SGD",
+				"SRD",
+				"TTD",
+				"ZWL",
+				"XCD",
+				"USD",
+				"JMD",
+				"LRD",
+				"SVC",
+				"AED",
+				"EUR",
+				"ANG",
+				"HUF",
+				"KMF",
+				"CDF",
+				"BIF",
+				"DJF",
+				"RWF",
+				"GNF",
+				"CHF",
+				"GHS",
+				"HTG",
+				"PYG",
+				"UAH",
+				"PGK",
+				"HRK",
+				"ZMW",
+				"AOA",
+				"MMK",
+				"LAK",
+				"GEL",
+				"ALL",
+				"HNL",
+				"SLL",
+				"MDL",
+				"RON",
+				"BGN",
+				"GIP",
+				"FKP",
+				"EGP",
+				"GBP",
+				"LBP",
+				"SYP",
+				"SSP",
+				"SDG",
+				"SZL",
+				"TRY",
+				"LSL",
+				"MWK",
+				"BAM",
+				"MZN",
+				"BOV",
+				"NGN",
+				"ERN",
+				"BTN",
+				"TWD",
+				"ILS",
+				"MRU",
+				"TOP",
+				"MOP",
+				"ARS",
+				"CLP",
+				"COP",
+				"CUC",
+				"CUP",
+				"DOP",
+				"MXN",
+				"UYU",
+				"PHP",
+				"VND",
+				"BWP",
+				"GTQ",
+				"ZAR",
+				"BRL",
+				"QAR",
+				"IRR",
+				"OMR",
+				"YER",
+				"KHR",
+				"MYR",
+				"SAR",
+				"BYN",
+				"RUB",
+				"MVR",
+				"MUR",
+				"PKR",
+				"SCR",
+				"LKR",
+				"INR",
+				"NPR",
+				"IDR",
+				"SHP",
+				"XDR",
+				"PEN",
+				"KGS",
+				"TJS",
+				"XSU",
+				"BDT",
+				"WST",
+				"KZT",
+				"MNT",
+				"TMT",
+				"XUA",
+				"CLF",
+				"MXV",
+				"COU",
+				"UYI",
+				"UZS",
+				"VUV",
+				"CHE",
+				"CHW",
+				"KPW",
+				"KRW",
+				"JPY",
+				"CNY",
+				"PLN"
+
+			],
+			"enumNames": [
+				"Afghani",
+				"Ariary malgache",
+				"Armenian Dram",
+				"Aruban Florin",
+				"Azerbaiyán Manat",
+				"Baht",
+				"Balboa",
+				"Birr etíope",
+				"Bolívar",
+				"Boliviano",
+				"Cabo Verde Escudo",
+				"CFA Franc BCEAO",
+				"CFA Franc BEAC",
+				"CFP Franc",
+				"Chelín de Kenia",
+				"Chelín de Uganda",
+				"Chelín somalí",
+				"Chelín tanzano",
+				"Colon de Costa Rica",
+				"Cordoba Oro",
+				"Corona checa",
+				"Corona danesa",
+				"Corona de Islandia",
+				"Corona noruega",
+				"Corona sueca",
+				"Dalasi",
+				"Denar",
+				"Dinar argelino",
+				"Dinar bahreiní",
+				"Dinar iraquí",
+				"Dinar jordano",
+				"Dinar kuwaití",
+				"Dinar libio",
+				"Dinar serbio",
+				"Dinar tunecino",
+				"Dirham marroquí",
+				"Dobra",
+				"Dólar australiano",
+				"Dolar canadiense",
+				"Dólar de Barbados",
+				"Dólar de Belice",
+				"Dólar de Brunei",
+				"Dólar de Fiji",
+				"Dólar de Guyana",
+				"Dolar de Hong Kong",
+				"Dólar de las Bahamas",
+				"Dólar de las Bermudas",
+				"Dólar de las Islas Caimán",
+				"Dólar de las Islas Salomón",
+				"Dólar de Namibia",
+				"Dolar de Nueva Zelanda",
+				"Dolar de Singapur",
+				"Dólar de Surinam",
+				"Dólar de Trinidad y Tobago",
+				"Dólar de Zimbabwe",
+				"Dólar del Caribe Oriental",
+				"Dólar estadounidense",
+				"Dólar Jamaiquino",
+				"Dólar liberiano",
+				"El Salvador Colon",
+				"Emiratos Árabes Unidos Dirham",
+				"Euro",
+				"Florín de las Antillas Holandesas",
+				"Forint",
+				"Franco comorano",
+				"Franco congoleño",
+				"Franco de Burundi",
+				"Franco de Djibouti",
+				"Franco de Rwanda",
+				"Franco guineano",
+				"Franco suizo",
+				"Ghana Cedi",
+				"Gourde",
+				"Guarani",
+				"Hryvnia",
+				"Kina",
+				"Kuna",
+				"Kwacha de Zambia",
+				"Kwanza",
+				"Kyat",
+				"Lao Kip",
+				"Lari",
+				"Lek",
+				"Lempira",
+				"Leone",
+				"Leu moldavo",
+				"Leu rumano",
+				"Lev búlgaro",
+				"Libra de Gibraltar",
+				"Libra de las Islas Malvinas",
+				"Libra egipcia",
+				"Libra esterlina",
+				"Libra libanesa",
+				"Libra siria",
+				"Libra sudanesa del sur",
+				"Libra sudanesa",
+				"Lilangeni",
+				"Lira turca",
+				"Loti",
+				"Malawi Kwacha",
+				"Marca Convertible",
+				"Mozambique Metical",
+				"Mvdol",
+				"Naira",
+				"Nakfa",
+				"Ngultrum",
+				"Nuevo dólar de Taiwán",
+				"Nuevo shekel israelí",
+				"Ouguiya",
+				"Pa'anga",
+				"Pataca",
+				"Peso argentino",
+				"Peso chileno",
+				"Peso colombiano",
+				"Peso convertible",
+				"Peso cubano",
+				"Peso dominicano",
+				"Peso mexicano",
+				"Peso Uruguayo",
+				"Philippine Piso",
+				"Polla",
+				"Pula",
+				"Quetzal",
+				"Rand",
+				"Real brasileño",
+				"Rial de Qatar",
+				"Rial iraní",
+				"Rial Omani",
+				"Rial yemení",
+				"Riel",
+				"Ringgit malayo",
+				"Riyal saudí",
+				"Rublo bielorruso",
+				"Rublo ruso",
+				"Rufiyaa",
+				"Rupia de Mauricio",
+				"Rupia de Pakistán",
+				"Rupia de Seychelles",
+				"Rupia de Sri Lanka",
+				"Rupia india",
+				"Rupia nepalesa",
+				"Rupiah",
+				"Santa Helena Libra",
+				"SDR (Special Drawing Right)",
+				"Sol",
+				"Som",
+				"Somoni",
+				"Sucre",
+				"Taka",
+				"Tala",
+				"Tenge",
+				"Tugrik",
+				"Turkmenistán Nuevo Manat",
+				"Unidad de cuenta ADB",
+				"Unidad de Fomento",
+				"Unidad de Inversión Mexicana (UDI)",
+				"Unidad de Valor Real",
+				"Uruguay Peso en Unidades Indexadas (URUIURUI)",
+				"Uzbekistán Sum",
+				"Vatu",
+				"WIR Euro",
+				"WIR Franc",
+				"Won norcoreano",
+				"Won",
+				"Yen",
+				"Yuan Renminbi",
+				"Zloty"
+			],
+			"default": "USD"
+		},
+
+		"benefitIncome": {
+			"type": "number",
+			"title": {
+				"es": "¿Tengo un negocio que me genera ingresos? ¿Cuánto?"
+			},
+			"default": 0
+		},
+
+		"salaryIncome" : {
+			"type": "number",
+			"title": {
+				"es": "¿Tengo un salario mensual? ¿Cuánto?"
+			},
+			"default": 0
+		},
+
+		"otherMembersIncome": {
+			"type": "number",
+			"title": {
+				"es": "El monto de ingresos que generan los otros miembros de mi familia mensualmente"
+			},
+			"default": 0
+		},
+		"receiveStateIncome": {
+			"type": "number",
+			"title": {
+				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto mensual"
+			},
+			"default": 0
+		},
+
+		"areaOfResidence": {
+			"type": "string",
+			"title": {
+				"es": "Ingrese la zona en que vive"
+			},
+			"enum": [
+				"URBAN",
+				"RURAL"
+			],
+			"enumNames": [
+				"Urbana",
+				"Rural"
+			]
+		},
+
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "Situación de la vivienda"
+			},
+			"enum": [
+				"OWN-TITTLE",
+				"OWN-NO-TITTLE",
+				"FAMILY-PROPERTY",
+				"RENTED",
+				"BORROWED",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Propia con título",
+				"Propia sin título",
+				"En propiedad familiar",
+				"Alquilada",
+				"Prestada",
+				"Prefiero no decir"
+			]
+		},
+
+		"manyPeopleHousehold": {
+			"type": "number",
+			"title": {
+				"es": "Ingrese la cantidad de miembros que conforman la familia"
+			}
+		},
+
+		"educationPersonMostStudied": {
+			"type": "string",
+			"title": {
+				"es": "Nivel de educación de la persona con más estudios en la familia"
+			},
+			"enum": [
+				"INCOMPLETE-PRIMARY",
+				"COMPLETED-PRIMARY",
+				"INCOMPLETE-SECONDARY",
+				"COMPLETED-SECONDARY",
+				"INCOMPLETE-COLLEGE",
+				"COLLEGE-DEGREE",
+				"OTHER",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Primaria incompleta",
+				"Primaria completa",
+				"Secundaria incompleta",
+				"Secundaria completa",
+				"Universitaria incompleta",
+				"Título universitario",
+				"Otro",
+				"Prefiero no decir"
+			]
+		},
+
+		"memberDisability": {
+			"type": "string",
+			"title": {
+				"es": "¿En nuestra casa hay algún miembro con discapacidad?"
+			},
+			"enum": [
+				"Física",
+				"Intelectual",
+				"Auditiva",
+				"Visual",
+				"Psicosocial",
+				"No-Discapacidad",
+				"PREFER-NOT-SAY"
+			],
+			"enumNames": [
+				"Física",
+				"Intelectual",
+				"Auditiva",
+				"Visual",
+				"Psicosocial",
+				"Ningún miembro de la familia con discapacidad",
+				"Prefiero no decir"
+			]
+		},
+		"memberDiedBefore5": {
+			"type": "string",
+			"title": {
+				"es": "Durante los últimos cinco años, ¿algún miembro de mi familia falleció antes de cumplir 5 años?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+
+			],
+			"enumNames": [
+				"Si",
+				"No"
+
+			]
+		},
+
+
+		"familyCar": {
+			"type": "string",
+			"title": {
+				"es": "¿Mi familia tiene auto o camioneta?"
+			},
+			"enum": [
+				"YES",
+				"NO"
+
+			],
+			"enumNames": [
+				"Si",
+				"No"
+			]
+		},
+
+		"familyUbication": {
+			"type": "string",
+			"title": {
+				"es": "Seleccione la ubicación geográfica de la familia"
+			},
+			"default": "-0.178569, -78.461620"
+		},
+
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Ingresos superiores a la línea de pobreza"
+			},
+			"description": {
+				"es": "Tenemos ingresos suficientes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/1/3.jpg",
+						"description": "Mi familia tiene ingresos que superan la línea de pobreza total. \n Cálculos en base a:  son mayores a $ 126 por persona",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/1/2.jpg",
+						"description": "Mi familia tiene ingresos inferiores a la línea de pobreza total y superiores a la línea de pobreza extrema. \n Cálculos en base a:  entre $84, 25 y $126",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/1/1.jpg",
+						"description": "Mi familia tiene ingresos inferiores a la línea de pobreza extrema. \n Cálculos en base a: menos de $84, 25 por persona ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/1/3.jpg",
+					"description": "Mi familia tiene ingresos que superan la línea de pobreza total. \n Cálculos en base a:  son mayores a $ 126 por persona",
+					"value": "GREEN"
+				}
+			]
+		},
+		"familySavings": {
+			"type": "array",
+			"title": {
+				"es": "Ahorros familiares"
+			},
+			"description": {
+				"es": "Tenemos ahorros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/2/3.jpg",
+						"description": "La familia tiene ahorros monetarios en el sistema financiero formal y una “cultura del ahorro” y mantiene esta práctica desde hace al menos seis meses.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/2/2.jpg",
+						"description": "La familia tiene ahorros monetarios, no siempre en el sistema financiero formal, lo hace desde hace menos de seis meses y/o sólo ahorra ocasionalmente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/2/1.jpg",
+						"description": "La familia nunca o casi nunca ha ahorrado.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/2/3.jpg",
+					"description": "La familia tiene ahorros monetarios en el sistema financiero formal y una “cultura del ahorro” y mantiene esta práctica desde hace al menos seis meses.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"accessToCredit": {
+			"type": "array",
+			"title": {
+				"es": "Acceso al crédito"
+			},
+			"description": {
+				"es": "Podemos sacar créditos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/3/3.jpg",
+						"description": "Al menos un miembro de mi familia ha accedido a créditos de instituciones legales, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias; sin embargo, pueden acceder a un crédito si lo necesitan.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/3/2.jpg",
+						"description": "Mi familia ha accedido a créditos en los últimos doce meses, pero solamente de instituciones no legales (familiares, prestadores informales, etc.).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/3/1.jpg",
+						"description": "Ninguno de los miembros de mi familia ha accedido a crédito en los últimos doce meses, a pesar de que necesiten hacerlo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/3/3.jpg",
+					"description": "Al menos un miembro de mi familia ha accedido a créditos de instituciones legales, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias; sin embargo, pueden acceder a un crédito si lo necesitan.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"diversifiedSourcesOfIncome": {
+			"type": "array",
+			"title": {
+				"es": "Fuente de ingreso diversificada"
+			},
+			"description": {
+				"es": "Tenemos varias fuentes de ingresos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/4/3.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría su nivel de consumo durante el próximo mes. Se daría así porque tiene varias fuentes de ingresos que le ayudarían (otros miembros trabajan, tienen ahorros o activos que pueden vender rápidamente, etc.). ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/4/2.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, su consumo sufriría moderadamente durante el próximo mes. Se daría así porque tiene otra fuente de ingresos que le ayudaría (algún miembro trabaja, tienen ahorros o activos que pueden vender rápidamente, etc.).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/4/1.jpg",
+						"description": "Si mi familia perdiera su principal fuente de ingresos, su consumo sufriría fuertemente durante el próximo mes. No tendría fuentes de ingresos.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/4/3.jpg",
+					"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría su nivel de consumo durante el próximo mes. Se daría así porque tiene varias fuentes de ingresos que le ayudarían (otros miembros trabajan, tienen ahorros o activos que pueden vender rápidamente, etc.). ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "Documentación: Cédula de Identidad"
+			},
+			"description": {
+				"es": "Tenemos Cédula"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/5/3.jpg",
+						"description": "Todos los miembros de mi familia, mayores a 12 años cuentan con sus respectivos documentos de identidad vigente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/5/2.jpg",
+						"description": "Un miembro de mi familia, mayor a 12 años, no cuenta con su documentación. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/5/1.jpg",
+						"description": "Más de un miembro de la familia, mayor a 12 años, no cuenta con la documentación de identidad vigente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/5/3.jpg",
+					"description": "Todos los miembros de mi familia, mayores a 12 años cuentan con sus respectivos documentos de identidad vigente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"garbageDisposal": {
+			"type": "array",
+			"title": {
+				"es": "Disposición de basura"
+			},
+			"description": {
+				"es": "Manejamos bien nuestra basura"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/6/3.jpg",
+						"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hoyo distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campos de cultivos y recicla los inorgánicos.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/6/2.jpg",
+						"description": "Los miembros de mi familia entierran sus residuos en un hoyo tapado dentro de su terreno, pero está distanciado a  menos de veinte metros de la vivienda, fuentes de agua y campo de cultivo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/6/1.jpg",
+						"description": "La familia: quema la basura o tira en un terreno a cielo abierto y/o cerca de viviendas/fuentes de agua o campos cultivados.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/6/3.jpg",
+					"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hoyo distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campos de cultivos y recicla los inorgánicos.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"drinkingWaterAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a agua potable"
+			},
+			"description": {
+				"es": "Tenemos agua potable"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/7/3.jpg",
+						"description": "Mi familia cuenta con agua potable y accede a ella a través de un grifo dentro del terreno de la vivienda.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/7/2.jpg",
+						"description": "Mi familia tiene acceso al agua potable fuera del terreno de la vivienda, a través de un grifo, un pozo protegido, tanque de agua, agua de manantial o pluvial protegido. La distancia para acceder a ella es menos de treinta minutos de caminata ida y vuelta de la vivienda.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/7/1.jpg",
+						"description": "Mi familia bebe agua no potable o tiene que acarrearla desde un punto a más de 30 minutos de caminata ida y vuelta de la vivienda.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/7/3.jpg",
+					"description": "Mi familia cuenta con agua potable y accede a ella a través de un grifo dentro del terreno de la vivienda.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"nearbyHealthPost": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a servicios de salud"
+			},
+			"description": {
+				"es": "Tenemos acceso al servicio de salud"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/8/3.jpg",
+						"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/8/2.jpg",
+						"description": "En los últimos 3 meses, cuando algún miembro de mi familia necesitó atención médica de emergencia básica, pudo obtenerla. Pero no pudo obtener atención especializada y las consultas o medicinas le eran muy caras.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/8/1.jpg",
+						"description": "En los últimos 3 meses, cuando mi familia necesitó atención médica por alguna enfermedad o accidente, no pudo obtenerla, debido a que no contaba con atención, la atención fue mala, y/o las consultas o medicinas fueron demasiado caras.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/8/3.jpg",
+					"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"alimentation": {
+			"type": "array",
+			"title": {
+				"es": "Alimentación nutritiva"
+			},
+			"description": {
+				"es": "Tenemos una alimentación nutritiva"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/9/3.jpg",
+						"description": "Todos los miembros de mi familia: \n a). consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cerdo, etc.), 2. leche y/o derivados, 3. verduras \n variadas, 4. huevos, 5. frutas variadas, 6. Arroz y pastas, 7. Papa, yuca, o plátano, 8. Fríjoles/legumbres, 9. Maíz, maní, u otro cereal, \n y b). tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  \n Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/9/2.jpg",
+						"description": "Los miembros de mi familia no incluyeron en su dieta todos los componentes citados en el nivel verde, pero en la última semana todos los miembros de mi familia tuvieron tres comidas en el día – o si se saltaron una, fue por motivos voluntarios no asociados a la falta de dinero o alimentos.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/9/1.jpg",
+						"description": "En la última semana, por lo menos una vez, un miembro de mi familia se acostó con hambre o saltó una comida involuntariamente por falta de alimentos o dinero.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/9/3.jpg",
+					"description": "Todos los miembros de mi familia: \n a). consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cerdo, etc.), 2. leche y/o derivados, 3. verduras \n variadas, 4. huevos, 5. frutas variadas, 6. Arroz y pastas, 7. Papa, yuca, o plátano, 8. Fríjoles/legumbres, 9. Maíz, maní, u otro cereal, \n y b). tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  \n Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).",
+					"value": "GREEN"
+				}
+			]
+		},
+		"dentalCare": {
+			"type": "array",
+			"title": {
+				"es": "Dientes sanos"
+			},
+			"description": {
+				"es": "Nuestros dientes son sanos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/10/3.jpg",
+						"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/10/2.jpg",
+						"description": "Un integrante de mi familia tiene problemas de dentadura y no está siendo tratado. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/10/1.jpg",
+						"description": "Más de un miembro de mi familia tiene problemas de dentadura y no está siendo tratado.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/10/3.jpg",
+					"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"eyesight": {
+			"type": "array",
+			"title": {
+				"es": "Vista sana"
+			},
+			"description": {
+				"es": "Tenemos buena visión "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/11/3.jpg",
+						"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/11/2.jpg",
+						"description": "Un integrante de mi familia tiene problemas de vista y no está siendo tratado o la familia no se ha realizado un control oftalmológico hasta más de 1 año.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/11/1.jpg",
+						"description": "Más de un miembro de mi familia tiene problemas de vista y no está siendo tratado. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/11/3.jpg",
+					"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeHouse": {
+			"type": "array",
+			"title": {
+				"es": "Vivienda segura"
+			},
+			"description": {
+				"es": "Nuestra vivienda es segura."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/12/3.jpg",
+						"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material de barro (ladrillo, baldosa, cemento, cerámica o similar),  c) piso de madera o de barro. \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/12/2.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con uno de los componentes del nivel verde.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/12/1.jpg",
+						"description": "Mi familia tiene una vivienda que no cuenta con dos o más de los componentes del nivel verde. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/12/3.jpg",
+					"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material de barro (ladrillo, baldosa, cemento, cerámica o similar),  c) piso de madera o de barro. \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Dormitorios separados"
+			},
+			"description": {
+				"es": "Dormimos en cuartos separados."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/13/3.jpg",
+						"description": "La pareja de adultos,  niñas y adolescentes mujeres y  niños y adolescentes varones, duermen en dormitorios separados.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/13/2.jpg",
+						"description": "Algunos de los tres grupos mencionados en el nivel verde comparten el mismo dormitorio.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/13/1.jpg",
+						"description": "Los tres grupos mencionados en el nivel verde comparten el mismo dormitorio. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+                  "url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/13/3.jpg",
+                  "description": "La pareja de adultos,  niñas y adolescentes mujeres y  niños y adolescentes varones, duermen en dormitorios separados.",
+                  "value": "GREEN"
+				}
+			]
+		},
+		"properKitchen": {
+			"type": "array",
+			"title": {
+				"es": "Cocina elevada y ventilada"
+			},
+			"description": {
+				"es": "Tenemos cocina elevada y ventilada."
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/14/3.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una estufa elevada y no utiliza estiércol, carbón o leña.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/14/2.jpg",
+						"description": "Mi familia cocina en un espacio cubierto, protegido pero no ventilado o cocina al aire libre o en fogón (no cuenta con estufa elevada). En ningún caso utiliza estiércol, carbón o leña.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/14/1.jpg",
+						"description": "Mi familia cocina utilizando, principalmente, estiércol, carbón o leña.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/14/3.jpg",
+					"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una estufa elevada y no utiliza estiércol, carbón o leña.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safeBathroom": {
+			"type": "array",
+			"title": {
+				"es": "Baño"
+			},
+			"description": {
+				"es": "Tenemos baño moderno"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/15/3.jpg",
+						"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo (WC); \n b) cisterna; \n c) asegura la privacidad; es un espacio cerrado y cubierto; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, y \n f) se mantiene limpio.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/15/2.jpg",
+						"description": "Aunque el baño de mi familia no reúne todos los requisitos descriptos para el nivel verde, cuenta con algún tipo de inodoro con agua, una letrina con losa y buena ventilación, o inodoro orgánico. No se comparte con otra familia.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/15/1.jpg",
+						"description": "Mi familia comparte su baño o letrina con otra familia o no reúne los requisitos para el nivel amarillo.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/15/3.jpg",
+					"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo (WC); \n b) cisterna; \n c) asegura la privacidad; es un espacio cerrado y cubierto; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, y \n f) se mantiene limpio.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Refrigerador y otros activos"
+			},
+			"description": {
+				"es": "Tenemos refrigerador y otros electrodomesticos"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/16/3.jpg",
+						"description": "Mi familia tiene refrigerador y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/16/2.jpg",
+						"description": "Mi familia tiene dos de estos activos: radio, TV, teléfono, motocicleta, lavarropas, refrigerador. \n O si tiene más de dos, no tiene heladera.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/16/1.jpg",
+						"description": "Mi familia tiene uno o ninguno de estos activos: radio, TV, teléfono, motocicleta, lavarropas, refrigerador.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/16/3.jpg",
+					"description": "Mi familia tiene refrigerador y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"phone": {
+			"type": "array",
+			"title": {
+				"es": "Teléfono o celular"
+			},
+			"description": {
+				"es": "Tenemos teléfono "
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/17/3.jpg",
+						"description": "Mi familia cuenta con línea fija disponible de manera constante.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/17/2.jpg",
+						"description": "Mi familia cuenta teléfono fijo o línea fija, pero puede utilizarlo solamente parte del tiempo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/17/1.jpg",
+						"description": "Mi familia no cuenta con servicio de telefonía (ni celular, ni fijo).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/17/3.jpg",
+					"description": "Mi familia cuenta con línea fija disponible de manera constante.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"safety": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de las personas"
+			},
+			"description": {
+				"es": "Seguridad de las personas"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/18/3.jpg",
+						"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/18/2.jpg",
+						"description": "Al menos un miembro de mi familia sufrió́ un acto de violencia contra su persona en los últimos doce meses, pero igualmente pudo seguir con sus actividades o asistir al trabajo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/18/1.jpg",
+						"description": "Al menos un miembro de mi familia sufrió un acto de violencia contra su persona en los últimos doce meses y como resultado no pudo trabajar por un día entero o más, o fue causa de muerte.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/18/3.jpg",
+					"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"securityOfProperty": {
+			"type": "array",
+			"title": {
+				"es": "Seguridad de la propiedad"
+			},
+			"description": {
+				"es": "Mi familia no fue robada"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/19/3.jpg",
+						"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/19/2.jpg",
+						"description": "Mi familia sufrió un acto de violencia y/o robo contra sus bienes en los últimos doce meses, y el valor de la propiedad dañada o robada es menor al equivalente de una semana de los ingresos de la familia. ",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/19/1.jpg",
+						"description": "Mi familia sufrió más de un acto de violencia y/o robo contra su propiedad en los últimos doce meses, o sufrió un solo acto donde el valor del bien dañado o robado es equivalente o mayor a una semana de los ingresos de la familia.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/19/3.jpg",
+					"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
+					"value": "GREEN"
+				}
+			]
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Electricidad"
+			},
+			"description": {
+				"es": "Tenemos acceso a la electricidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/20/3.jpg",
+						"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/20/2.jpg",
+						"description": "Mi familia tiene acceso a la electricidad, pero es clandestino y/o insuficiente (pasa 4 horas o más del día sin electricidad en temporada alta).",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/20/1.jpg",
+						"description": "Mi familia no tiene acceso a la electricidad.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/20/3.jpg",
+					"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"middleEducation": {
+			"type": "array",
+			"title": {
+				"es": "Hijos escolarizados hasta el bachillerato"
+			},
+			"description": {
+				"es": "Los niños y jóvenes tienen acceso a la educación"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/21/3.jpg",
+						"description": "Todos los miembros de mi familia en edad escolar (6 a 18 años) van a la escuela o terminaron el 3 ° año del Bachillerato.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/21/2.jpg",
+						"description": "Entre los miembros de mi familia hay al menos un niño o un adolescente en edad escolar (6 a 18 años) que no asiste a la escuela o al Bachillerato.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/21/1.jpg",
+						"description": "Ningún miembro de mi familia en edad escolar (6 a 18 años) asiste a la escuela o al Bachillerato.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/21/3.jpg",
+					"description": "Todos los miembros de mi familia en edad escolar (6 a 18 años) van a la escuela o terminaron el 3 ° año del Bachillerato.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"readAndWrite": {
+			"type": "array",
+			"title": {
+				"es": "Los adultos saben leer, escribir y comprender textos"
+			},
+			"description": {
+				"es": "Sabemos leer y escribir"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/22/3.jpg",
+						"description": "Todos los miembros de  la familia (con quince años o más)  pueden leer, escribir y sienten que lo hacen con facilidad.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/22/2.jpg",
+						"description": "Todos los  miembros de mi familia (con quince años o más) saben leer y escribir, pero al menos uno siente que le cuesta leer y/o escribir sus ideas.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/22/1.jpg",
+						"description": "Al menos un miembro adulto no puede leer y/o escribir.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/22/3.jpg",
+					"description": "Todos los miembros de  la familia (con quince años o más)  pueden leer, escribir y sienten que lo hacen con facilidad.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"capacityToPlanAndBudget": {
+			"type": "array",
+			"title": {
+				"es": "Capacidad de planificar y presupuestar"
+			},
+			"description": {
+				"es": "Tenemos presupuesto familiar"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/23/3.jpg",
+						"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual escrito, que utiliza y rige la economía permanentemente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/23/2.jpg",
+						"description": "La familia planifica su futuro económico y elabora un presupuesto mensual escrito, pero no lo utiliza ni rige su economía permanentemente",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/23/1.jpg",
+						"description": "Mi familia no planifica su futuro económico y no tiene un presupuesto escrito.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/23/3.jpg",
+					"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual escrito, que utiliza y rige la economía permanentemente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"informationAccess": {
+			"type": "array",
+			"title": {
+				"es": "Acceso a la información (TV e internet)"
+			},
+			"description": {
+				"es": "Tenemos internet y tele"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/24/3.jpg",
+						"description": "Mi familia cuenta con un televisor o acceso a internet permanentemente.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/24/2.jpg",
+						"description": "Mi familia cuenta solo con una radio.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/24/1.jpg",
+						"description": "Mi familia no cuenta con radio, televisor o internet.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/24/3.jpg",
+					"description": "Mi familia cuenta con un televisor o acceso a internet permanentemente.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"socialCapital": {
+			"type": "array",
+			"title": {
+				"es": "Forma  parte de un grupo"
+			},
+			"description": {
+				"es": "Integramos grupos en la comunidad"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/25/3.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/25/2.jpg",
+						"description": "Al menos un miembro de mi familia participa activamente en un grupo de manera permanente.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/25/1.jpg",
+						"description": "Ningún miembro de mi familia participa en un grupo de manera permanente.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/25/3.jpg",
+					"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"influenceInPublicSector": {
+			"type": "array",
+			"title": {
+				"es": "Incidencia en el sector público"
+			},
+			"description": {
+				"es": "Sabemos peticionar a las autoridades"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/26/3.jpg",
+						"description": "Mi familia no tiene problemas que requieren de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento. O se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/26/2.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado. Presentó una solicitud, pero no le da seguimiento.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/26/1.jpg",
+						"description": "Mi familia tiene problemas que requieren de intervención del Estado, pero no presenta una solicitud.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/26/3.jpg",
+					"description": "Mi familia no tiene problemas que requieren de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento. O se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"awarenessOfNeeds": {
+			"type": "array",
+			"title": {
+				"es": "Conciencia de sus necesidades"
+			},
+			"description": {
+				"es": "Tenemos metas de vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/27/3.jpg",
+						"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realiza acciones continuamente para lograrlas.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/27/2.jpg",
+						"description": "Mi familia piensa que puede mejorar su situación actual, pero no tiene metas a mediano (seis meses) y a largo plazo.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/27/1.jpg",
+						"description": "Mi familia piensa que no puede mejorar su situación actual o no lo quiere hacer porque está cómoda.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/27/3.jpg",
+					"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realiza acciones continuamente para lograrlas.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Confianza en sí mismo"
+			},
+			"description": {
+				"es": "Confío en mi capacidad y mis logros"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/28/3.jpg",
+						"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/28/2.jpg",
+						"description": "A veces me siento apto y tengo un sentimiento de logro por lo que hago, pero con la misma frecuencia me siento incapaz o no es frecuente que la gente diga que soy competente o capaz en lo que hago.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/28/1.jpg",
+						"description": "No me siento apto, y casi nunca logro lo que quiero. No creo que me admiren por lo que hago.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/28/3.jpg",
+					"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
+					"value": "GREEN"
+				}
+			]
+		},
+		"autonomyDecisions": {
+			"type": "array",
+			"title": {
+				"es": "Autonomía y capacidad de tomar decisiones"
+			},
+			"description": {
+				"es": "Tomo decisiones sobre mi vida"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/29/3.jpg",
+						"description": "Tomo las decisiones en los aspectos claves de mi vida y participo activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+						"value": "GREEN"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/29/2.jpg",
+						"description": "Tomo algunas decisiones en los aspectos claves de mi vida y participo en algunas decisiones de mi familia. Algunas decisiones reflejan lo que valoro y otras son tomadas, principalmente, para complacer a otros o evitar consecuencias negativas.",
+						"value": "YELLOW"
+					},
+					{
+						"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/29/1.jpg",
+						"description": "No tomo las decisiones en los aspectos claves de mi vida. Hago lo que me dicen y mis decisiones son para complacer a otros o evitar consecuencias negativas.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true,
+			"default": [
+				{
+					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/ecuador/bancoSolidario/29/3.jpg",
+					"description": "Tomo las decisiones en los aspectos claves de mi vida y participo activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
+					"value": "GREEN"
+				}
+			]
+		}
+	}
+}
