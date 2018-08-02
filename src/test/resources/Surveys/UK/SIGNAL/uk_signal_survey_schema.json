@@ -28,6 +28,9 @@
 			"title": {
 				"es": "Personal Reference"
 			},
+            "shortName": {
+                "es": "Identification Type"
+            },
 			"enum": [
 				"NATIONALINSURANCE",
 				"ORGANISATIONALREFERENCENUMBER",
@@ -45,13 +48,19 @@
 			"type": "string",
 			"title": {
 				"es": "Please enter your selected personal reference"
-			}
+			},
+            "shortName": {
+                "es": "Identification Number"
+            }
 		},
 
 		"firstName": {
 			"type": "string",
 			"title": {
 				"es": "Enter your first name"
+            },
+            "shortName": {
+                "es": "First Name"
 			}
 		},
 
@@ -59,6 +68,9 @@
 			"type": "string",
 			"title": {
 				"es": "Enter your surname"
+            },
+            "shortName": {
+                "es": "Last Name"
 			}
 		},
 
@@ -67,6 +79,9 @@
 			"format": "date",
 			"title": {
 				"es": "Enter your date of birth"
+            },
+            "shortName": {
+                "es": "Birthdate"
 			}
 		},
 
@@ -75,6 +90,9 @@
 			"title": {
 				"es": "Enter your country of birth"
 			},
+            "shortName": {
+                "es": "Country of Birth"
+            },
 			"enum": [
 				"AF",
 				"AL",
@@ -567,6 +585,9 @@
 			"title": {
 				"es": "Enter your gender"
 			},
+            "shortName": {
+                "es": "Gender"
+            },
 			"enum": [
 				"F",
 				"M",
@@ -584,13 +605,19 @@
 			"type": "string",
 			"title": {
 				"es": "Email address"
-			}
+			},
+            "shortName": {
+                "es": "Email"
+            }
 		},
 
 		"postCode": {
 			"type": "string",
 			"title": {
 				"es": "Please enter your postal code"
+			},
+            "shortName": {
+                "es": "Post Code"
 			}
 		},
 
@@ -598,6 +625,9 @@
 			"type": "string",
 			"title": {
 				"es": "Please enter the area you live in"
+			},
+            "shortName": {
+                "es": "Area of Residence"
 			},
 			"enum": [
 				"URBAN",
@@ -616,6 +646,9 @@
 			"title": {
 				"es": "Please enter the currency in which you earn your main income"
 			},
+            "shortName": {
+                "es": "Currency"
+            },
 			"default": "GBP/Pound Sterling "
 		},
 		"employmentStatusPrimary": {
@@ -623,6 +656,9 @@
 			"title": {
 				"es": "What is your primary economic activity?"
 			},
+            "shortName": {
+                "es": "Primary Employment Status"
+            },
 			"enum": [
 				"EMPLOYED",
 				"SELF-EMPLOYED",
@@ -651,6 +687,9 @@
 			"title": {
 				"es": "Please estimate your gross monthly household income (i.e, before taxes National Insurance contributions or other deductions)"
 			},
+            "shortName": {
+                "es": "Household Monthly Income"
+            },
 			"default": 0
 		},
 
@@ -659,6 +698,9 @@
 			"title": {
 				"es": "How many people are in your household?"
 			},
+            "shortName": {
+                "es": "People in Household"
+            },
 			"default": 0
 		},
 
@@ -667,6 +709,9 @@
 			"title": {
 				"es": "How many people in your household have an income?"
 			},
+            "shortName": {
+                "es": "People in Household with Income"
+            },
 			"default": 0
 		},
 
@@ -675,6 +720,9 @@
 			"title": {
 				"es": "How many people under 18 live in your household?"
 			},
+            "shortName": {
+                "es": "People Under 18 in Household"
+            },
 			"default": 0
 		},
 
@@ -683,6 +731,9 @@
 			"title": {
 				"es": "Do you receive any state income. (e.g. allowances, benefits, disability, pension)?"
 			},
+            "shortName": {
+                "es": "Receive State Income"
+            },
 			"enum": [
 				"YES",
 				"NO"
@@ -699,6 +750,9 @@
 			"title": {
 				"es": "What is your highest educational level?"
 			},
+            "shortName": {
+                "es": "Your Highest Educational Level"
+            },
 			"enum": [
 				"SCHOOL-INCOMPLETE",
 				"SCHOOL-COMPLETE",
@@ -726,6 +780,9 @@
 			"title": {
 				"es": "What is your highest educational level in your household"
 			},
+            "shortName": {
+                "es": "Highest Educational Level in Household"
+            },
 			"enum": [
 				"SCHOOL-INCOMPLETE",
 				"SCHOOL-COMPLETE",
@@ -753,6 +810,9 @@
 			"title": {
 				"es": "What is the property title situation of your household?"
 			},
+            "shortName": {
+                "es": "Housing Situation"
+            },
 			"enum": [
 				"OWNER",
 				"COUNCIL-HOUSING-ASSOCIATION",
@@ -782,6 +842,9 @@
 			"title": {
 				"es": "Is there any member with disabilities in your household? Please indicate the disability type"
 			},
+            "shortName": {
+                "es": "Household Member with Disabilities"
+            },
 			"enum": [
 				"PHYSICAL",
 				"MENTAL",
@@ -805,12 +868,18 @@
 			"title": {
 				"es": "Please select the geographic location of your household"
 			},
+            "shortName": {
+                "es": "Family Location"
+            },
 			"default": "54.979645, -1.617649"
 		},
 
 		"income": {
 			"type": "array",
 			"title": {
+				"es": "Income Above the Poverty Line"
+			},
+			"shortName": {
 				"es": "Income Above the Poverty Line"
 			},
 			"description": {
@@ -852,6 +921,9 @@
 			"title": {
 				"es": "Stable Income"
 			},
+            "shortName": {
+                "es": "Stable Income"
+            },
 			"description": {
 				"es": "Our monthly income doesn't change"
 			},
@@ -891,6 +963,9 @@
 			"title": {
 				"es": "Credit Access"
 			},
+            "shortName": {
+                "es": "Access to Credit"
+            },
 			"description": {
 				"es": "We can get credit"
 			},
@@ -930,6 +1005,9 @@
 			"title": {
 				"es": "Family Savings"
 			},
+            "shortName": {
+                "es": "Family Savings"
+            },
 			"description": {
 				"es": "We have savings"
 			},
@@ -969,6 +1047,9 @@
 			"title": {
 				"es": "Varied Sources of Income"
 			},
+            "shortName": {
+                "es": "Income from more than one Source"
+            },
 			"description": {
 				"es": "We have more than one source of income"
 			},
@@ -1008,6 +1089,9 @@
 			"title": {
 				"es": "Personal Identification"
 			},
+            "shortName": {
+                "es": "Personal Identification"
+            },
 			"description": {
 				"es": "We have ID"
 			},
@@ -1048,6 +1132,9 @@
 			"title": {
 				"es": "Stable Housing"
 			},
+            "shortName": {
+                "es": "Stable Housing"
+            },
 			"description": {
 				"es": "Our housing situation is secure"
 			},
@@ -1088,6 +1175,9 @@
 			"title": {
 				"es": "Household Appliances"
 			},
+            "shortName": {
+                "es": "Household Appliances"
+            },
 			"description": {
 				"es": "We have essential household appliances"
 			},
@@ -1128,6 +1218,9 @@
 			"title": {
 				"es": "Cooking Facilities"
 			},
+            "shortName": {
+                "es": "Cooking Facilities"
+            },
 			"description": {
 				"es": "We have proper facilities to prepare food"
 			},
@@ -1168,6 +1261,9 @@
 			"title": {
 				"es": "Access to Gas/Electricity"
 			},
+            "shortName": {
+                "es": "Access to Gas and Electricity"
+            },
 			"description": {
 				"es": "We always have gas/electricity"
 			},
@@ -1208,6 +1304,9 @@
 			"title": {
 				"es": "Safe Home"
 			},
+            "shortName": {
+                "es": "Safe House"
+            },
 			"description": {
 				"es": "We have a safe house"
 			},
@@ -1248,6 +1347,9 @@
 			"title": {
 				"es": "Sanitation and Sewage"
 			},
+            "shortName": {
+                "es": "Sanitation and Sewage"
+            },
 			"description": {
 				"es": "We have a proper bathroom"
 			},
@@ -1288,6 +1390,9 @@
 			"title": {
 				"es": "Separate Bedrooms"
 			},
+            "shortName": {
+                "es": "Separate Bedrooms"
+            },
 			"description": {
 				"es": "We have separate bedrooms"
 			},
@@ -1327,6 +1432,9 @@
 			"title": {
 				"es": "Home Comforts"
 			},
+            "shortName": {
+                "es": "Comfort of the Home"
+            },
 			"description": {
 				"es": "We have the furniture we need"
 			},
@@ -1366,6 +1474,9 @@
 			"title": {
 				"es": "Reliable Transport"
 			},
+            "shortName": {
+                "es": "Regular Means of Transportation"
+            },
 			"description": {
 				"es": "We have access to good transportation"
 			},
@@ -1405,6 +1516,9 @@
 			"title": {
 				"es": "Access to Shops and Services"
 			},
+            "shortName": {
+                "es": "Access to Shops and Services"
+            },
 			"description": {
 				"es": "We can access the shops we need"
 			},
@@ -1444,6 +1558,9 @@
 			"title": {
 				"es": "Communication"
 			},
+            "shortName": {
+                "es": "Communication"
+            },
 			"description": {
 				"es": "We have a phone and internet access"
 			},
@@ -1484,6 +1601,9 @@
 			"title": {
 				"es": "Security"
 			},
+            "shortName": {
+                "es": "Security"
+            },
 			"description": {
 				"es": "We feel safe where we live and work"
 			},
@@ -1524,6 +1644,9 @@
 			"title": {
 				"es": "Clothing and Footwear"
 			},
+            "shortName": {
+                "es": "Clothing and Footwear"
+            },
 			"description": {
 				"es": "We have the clothing we need"
 			},
@@ -1564,6 +1687,9 @@
 			"title": {
 				"es": "Insurance"
 			},
+            "shortName": {
+                "es": "Insurance"
+            },
 			"description": {
 				"es": "We have insurance "
 			},
@@ -1604,6 +1730,9 @@
 			"title": {
 				"es": "Set Meals"
 			},
+            "shortName": {
+                "es": "Regularity of Meals"
+            },
 			"description": {
 				"es": "We have plenty to eat"
 			},
@@ -1644,6 +1773,9 @@
 			"title": {
 				"es": "Eating a Nutritious Diet"
 			},
+            "shortName": {
+                "es": "Eating a Nutritious Diet"
+            },
 			"description": {
 				"es": "We eat a healthy diet"
 			},
@@ -1683,6 +1815,9 @@
 			"title": {
 				"es": "Health-Care Access"
 			},
+            "shortName": {
+                "es": "Access to Health Care"
+            },
 			"description": {
 				"es": "We have access to health care"
 			},
@@ -1722,6 +1857,9 @@
 			"title": {
 				"es": "Personal Hygiene"
 			},
+            "shortName": {
+                "es": "Personal Hygiene"
+            },
 			"description": {
 				"es": "We keep a good level of hygiene"
 			},
@@ -1761,6 +1899,9 @@
 			"title": {
 				"es": "Sexual Health"
 			},
+            "shortName": {
+                "es": "Sexual Health"
+            },
 			"description": {
 				"es": "We understand sexual health"
 			},
@@ -1800,6 +1941,9 @@
 			"title": {
 				"es": "Eyesight"
 			},
+            "shortName": {
+                "es": "Eyesight"
+            },
 			"description": {
 				"es": "We have good eyesight or glasses"
 			},
@@ -1839,6 +1983,9 @@
 			"title": {
 				"es": "Dental Care"
 			},
+            "shortName": {
+                "es": "Dental Care"
+            },
 			"description": {
 				"es": "We visit the dentist regularly"
 			},
@@ -1878,6 +2025,9 @@
 			"title": {
 				"es": "Vaccinations"
 			},
+            "shortName": {
+                "es": "Vaccinations"
+            },
 			"description": {
 				"es": "We are up to date with vaccinations"
 			},
@@ -1917,6 +2067,9 @@
 			"title": {
 				"es": "Rubbish Disposal"
 			},
+            "shortName": {
+                "es": "Rubbish Disposal"
+            },
 			"description": {
 				"es": "We manage our rubbish well"
 			},
@@ -1956,6 +2109,9 @@
 			"title": {
 				"es": "Clean Environment"
 			},
+            "shortName": {
+                "es": "Unpolluted Environment"
+            },
 			"description": {
 				"es": "Our neighbourhood is free of pollution"
 			},
@@ -1995,6 +2151,9 @@
 			"title": {
 				"es": "Literacy"
 			},
+            "shortName": {
+                "es": "Literacy"
+            },
 			"description": {
 				"es": "We can read and write in English"
 			},
@@ -2035,6 +2194,9 @@
 			"title": {
 				"es": "Children Enrolled in and Attending School"
 			},
+            "shortName": {
+                "es": "Children Enrolled and Attend School"
+            },
 			"description": {
 				"es": "Our children attend school"
 			},
@@ -2075,6 +2237,9 @@
 			"title": {
 				"es": "Knowledge and Skills to Generate Income"
 			},
+            "shortName": {
+                "es": "Knowledge and Skills to Generate Income"
+            },
 			"description": {
 				"es": "We know how to get a job or make money"
 			},
@@ -2115,6 +2280,9 @@
 			"title": {
 				"es": "Planning and Budgeting"
 			},
+            "shortName": {
+                "es": "Capacity to Plan and Budget"
+            },
 			"description": {
 				"es": "We have a budget"
 			},
@@ -2155,6 +2323,9 @@
 			"title": {
 				"es": "Communication and Social Capital"
 			},
+            "shortName": {
+                "es": "Communication and Social Capital"
+            },
 			"description": {
 				"es": "We have good friendship groups"
 			},
@@ -2195,6 +2366,9 @@
 			"title": {
 				"es": "School Supplies and Books"
 			},
+            "shortName": {
+                "es": "School Supplies and Books"
+            },
 			"description": {
 				"es": "Our children have school supplies"
 			},
@@ -2235,6 +2409,9 @@
 			"title": {
 				"es": "Access to Information"
 			},
+            "shortName": {
+                "es": "Access to Information"
+            },
 			"description": {
 				"es": "We are well informed"
 			},
@@ -2275,6 +2452,9 @@
 			"title": {
 				"es": "Entertainment and Recreation"
 			},
+            "shortName": {
+                "es": "Entertainment and Recreation"
+            },
 			"description": {
 				"es": "We get involved in activities"
 			},
@@ -2315,6 +2495,9 @@
 			"title": {
 				"es": "Cultural Traditions and Heritage"
 			},
+            "shortName": {
+                "es": "Cultural Traditions and Heritage"
+            },
 			"description": {
 				"es": "We value our culture"
 			},
@@ -2355,6 +2538,9 @@
 			"title": {
 				"es": "Respect for Diversity"
 			},
+            "shortName": {
+                "es": "Respect for Diversity"
+            },
 			"description": {
 				"es": "We respect differences"
 			},
@@ -2395,6 +2581,9 @@
 			"title": {
 				"es": "Human-Rights’ Awareness"
 			},
+            "shortName": {
+                "es": "Awareness of Human Rights"
+            },
 			"description": {
 				"es": "We respect human rights"
 			},
@@ -2435,6 +2624,9 @@
 			"title": {
 				"es": "Participating in Group Activities"
 			},
+            "shortName": {
+                "es": "Part of Group Activities"
+            },
 			"description": {
 				"es": "We are actively involved in [groups] group-participation"
 			},
@@ -2475,6 +2667,9 @@
 			"title": {
 				"es": "Public-Sector Influence"
 			},
+            "shortName": {
+                "es": "Influence on the Public Sector"
+            },
 			"description": {
 				"es": "We know how to petition"
 			},
@@ -2515,6 +2710,9 @@
 			"title": {
 				"es": "Registered to Vote and Voting"
 			},
+            "shortName": {
+                "es": "Registered to Vote and Vote in Elections"
+            },
 			"description": {
 				"es": "We vote in elections"
 			},
@@ -2555,6 +2753,9 @@
 			"title": {
 				"es": "Problem-and Conflict-Solving"
 			},
+            "shortName": {
+                "es": "Ability to Solve Problems and Conflicts"
+            },
 			"description": {
 				"es": "We solve our own problems"
 			},
@@ -2595,6 +2796,9 @@
 			"title": {
 				"es": "Needs-Awareness/ Life-Map"
 			},
+            "shortName": {
+                "es": "Awareness of Needs-Life Map"
+            },
 			"description": {
 				"es": "We know how to plan for the future"
 			},
@@ -2635,6 +2839,9 @@
 			"title": {
 				"es": "Self-Confidence and Self-Esteem"
 			},
+            "shortName": {
+                "es": "Self Confidence and Self Esteem"
+            },
 			"description": {
 				"es": "We believe in self-worth"
 			},
@@ -2675,6 +2882,9 @@
 			"title": {
 				"es": "Moral Conscience"
 			},
+            "shortName": {
+                "es": "Moral Conscience"
+            },
 			"description": {
 				"es": "We consider others when making decisions"
 			},
@@ -2715,6 +2925,9 @@
 			"title": {
 				"es": "Emotional Intelligence"
 			},
+            "shortName": {
+                "es": "Emotional Intelligence"
+            },
 			"description": {
 				"es": "We control our emotions"
 			},
@@ -2755,6 +2968,9 @@
 			"title": {
 				"es": "Self-Expression"
 			},
+            "shortName": {
+                "es": "Self Expression"
+            },
 			"description": {
 				"es": "We have good self-perception"
 			},
@@ -2795,6 +3011,9 @@
 			"title": {
 				"es": "Readiness/Desire to Develop Skills and Knowledge"
 			},
+            "shortName": {
+                "es": "Willingness/Desire to Develop Skills and Knowledge"
+            },
 			"description": {
 				"es": "We look to learn new skills"
 			},
@@ -2835,6 +3054,9 @@
 			"title": {
 				"es": "Household Violence"
 			},
+            "shortName": {
+                "es": "Household Violence"
+            },
 			"description": {
 				"es": "We don't have violence in our house"
 			},
@@ -2875,6 +3097,9 @@
 			"title": {
 				"es": "Entrepreneurial Spirit"
 			},
+            "shortName": {
+                "es": "Entrepreneurial Spirit"
+            },
 			"description": {
 				"es": "We have goals and aspirations"
 			},
@@ -2915,6 +3140,9 @@
 			"title": {
 				"es": "Autonomy"
 			},
+            "shortName": {
+                "es": "Autonomy"
+            },
 			"description": {
 				"es": "We know how to make decisions"
 			},
