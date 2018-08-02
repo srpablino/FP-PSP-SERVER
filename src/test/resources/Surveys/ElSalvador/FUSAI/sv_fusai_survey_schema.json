@@ -17,6 +17,9 @@
 			"title": {
 				"es": "Tipo de documento"
 			},
+            "shortName": {
+                "es": "Tipo de Documento"
+            },
 			"enum": [
 				"DUI",
 				"PASSPORT",
@@ -34,27 +37,39 @@
 			"type": "string",
 			"title": {
 				"es": "Ingrese su número de documento"
-			}
+			},
+            "shortName": {
+                "es": "Número de Documento"
+            }
 		},
 
 		"firstName": {
 			"type": "string",
 			"title": {
 				"es": "Ingrese su nombre"
-			}
+			},
+            "shortName": {
+                "es": "Nombre"
+            }
 		},
 		"lastName": {
 			"type": "string",
 			"title": {
 				"es": "Ingrese su apellido"
-			}
+			},
+            "shortName": {
+                "es": "Apellido"
+            }
 		},
 		"birthdate": {
 			"type": "string",
 			"format": "date",
 			"title": {
 				"es": "Ingrese su fecha de nacimiento"
-			}
+			},
+            "shortName": {
+                "es": "Fecha de Nacimiento"
+            }
 		},
 
 		"email": {
@@ -62,14 +77,20 @@
 			"format" : "email",
 			"title": {
 				"es": "Ingrese su email"
-			}
+			},
+            "shortName": {
+                "es": "Email"
+            }
 		},
 
 		"phoneNumber": {
 			"type": "string",
 			"title": {
 				"es": "Ingrese su número de teléfono"
-			}
+			},
+            "shortName": {
+                "es": "Número de Teléfono"
+            }
 		},
 
 		"countryOfBirth": {
@@ -77,6 +98,9 @@
 			"title": {
 				"es": "Ingrese su país de nacimiento"
 			},
+            "shortName": {
+                "es": "País de Nacimiento"
+            },
 			"enum": [
 				"AR",
 				"PY",
@@ -568,6 +592,9 @@
 			"title": {
 				"es": "Ingrese su género"
 			},
+            "shortName": {
+                "es": "Género"
+            },
 			"enum": [
 				"F",
 				"M",
@@ -585,6 +612,9 @@
 			"title": {
 				"es": "Nivel de educación de la persona con más estudios en la familia"
 			},
+            "shortName": {
+                "es": "Persona con más Estudios en la Familia"
+            },
 			"enum": [
 				"INCOMPLETE-PRIMARY",
 				"COMPLETED-PRIMARY",
@@ -611,7 +641,10 @@
 			"type": "number",
 			"title": {
 				"es": "Ingrese la cantidad de miembros que conforman la familia"
-			}
+			},
+            "shortName": {
+                "es": "Cantidad de Miembros de la Familia"
+            }
 		},
 
 		"areaOfResidence": {
@@ -619,6 +652,9 @@
 			"title": {
 				"es": "Ingrese la zona en que vive"
 			},
+            "shortName": {
+                "es": "Zona en que vive"
+            },
 			"enum": [
 				"URBAN",
 				"RURAL"
@@ -634,6 +670,9 @@
 			"title": {
 				"es": "Ingrese su actividad principal"
 			},
+            "shortName": {
+                "es": "Actividad Principal"
+            },
 			"enum": [
 				"VENTAS",
 				"SERVICIOS",
@@ -663,6 +702,9 @@
 			"title": {
 				"es": "Moneda en la que percibe sus ingresos"
 			},
+            "shortName": {
+                "es": "Moneda"
+            },
 			"enum": [
 				"AFN",
 				"MGA",
@@ -1010,6 +1052,9 @@
 			"title": {
 				"es": "Mi ingreso mensual es: "
 			},
+            "shortName": {
+                "es": "Ingreso Mensual"
+            },
 			"default": 0
 		},
 		"otherMembersIncome": {
@@ -1017,6 +1062,9 @@
 			"title": {
 				"es": "El monto de ingresos que generan los otros miembros de mi familia mensualmente"
 			},
+            "shortName": {
+                "es": "Ingresos de otros miembros de la Familia"
+            },
 			"default": 0
 		},
 		"receiveStateIncome": {
@@ -1024,6 +1072,9 @@
 			"title": {
 				"es": "Si recibe ingresos transferidos por Programas del Gobierno, ingrese el monto mensual"
 			},
+            "shortName": {
+                "es": "Recibe Ingresos del Gobierno"
+            },
 			"default": 0
 		},
 
@@ -1032,6 +1083,9 @@
 			"title": {
 				"es": "Situación de la vivienda"
 			},
+            "shortName": {
+                "es": "Situación de la Vivienda"
+            },
 			"enum": [
 				"OWN-TITTLE",
 				"OWN-NO-TITTLE",
@@ -1053,6 +1107,9 @@
 			"title": {
 				"es": "¿En nuestra casa hay algún miembro con discapacidad?"
 			},
+            "shortName": {
+                "es": "Miembro con Discapacidad en la Familia"
+            },
 			"enum": [
 				"Física",
 				"Intelectual",
@@ -1077,6 +1134,9 @@
 			"title": {
 				"es": "Durante los últimos cinco años, ¿algún miembro de mi familia falleció antes de cumplir 5 años?"
 			},
+            "shortName": {
+                "es": "Miembro de la Familia fallecido antes de los 5 Años"
+            },
 			"enum": [
 				"YES",
 				"NO",
@@ -1097,6 +1157,9 @@
 			"title": {
 				"es": "¿Mi familia tiene auto o camioneta?"
 			},
+            "shortName": {
+                "es": "Vehículo Familiar"
+            },
 			"enum": [
 				"SI",
 				"NO"
@@ -1113,6 +1176,9 @@
 			"title": {
 				"es": "Seleccione la ubicación geográfica de la familia"
 			},
+            "shortName": {
+                "es": "Ubicación Geográfica"
+            },
 			"default": "13.6914757,-89.2497993"
 		},
 
@@ -1121,6 +1187,9 @@
 			"title": {
 				"es": "Ingresos superiores a la línea de pobreza"
 			},
+            "shortName": {
+                "es": "Ingresos"
+            },
 			"description": {
 				"es": "Tenemos ingresos suficientes"
 			},
@@ -1163,6 +1232,9 @@
 			"title": {
 				"es": "Ahorros familiares"
 			},
+            "shortName": {
+                "es": "Ahorros"
+            },
 			"description": {
 				"es": "Tenemos ahorros"
 			},
@@ -1205,6 +1277,9 @@
 			"title": {
 				"es": "Acceso al crédito"
 			},
+            "shortName": {
+                "es": "Crédito"
+            },
 			"description": {
 				"es": "Podemos sacar créditos"
 			},
@@ -1247,6 +1322,9 @@
 			"title": {
 				"es": "Fuente de ingreso diversificada"
 			},
+            "shortName": {
+                "es": "Diversificación"
+            },
 			"description": {
 				"es": "Tenemos varias fuentes de ingresos"
 			},
@@ -1289,6 +1367,9 @@
 			"title": {
 				"es": "Documentación: Documento unico de identidad (DUI)"
 			},
+            "shortName": {
+                "es": "Cédula"
+            },
 			"description": {
 				"es": "Tenemos DUI"
 			},
@@ -1331,6 +1412,9 @@
 			"title": {
 				"es": "Ambiente no contaminado"
 			},
+            "shortName": {
+                "es": "Medioambiente"
+            },
 			"description": {
 				"es": "Vivimos en un ambiente saludable"
 			},
@@ -1373,6 +1457,9 @@
 			"title": {
 				"es": "Disposición de basura"
 			},
+            "shortName": {
+                "es": "Basura"
+            },
 			"description": {
 				"es": "Manejamos bien nuestra basura"
 			},
@@ -1415,6 +1502,9 @@
 			"title": {
 				"es": "Acceso al agua potable"
 			},
+            "shortName": {
+                "es": "Agua"
+            },
 			"description": {
 				"es": "Tenemos agua potable"
 			},
@@ -1457,6 +1547,9 @@
 			"title": {
 				"es": "Acceso a servicios de salud"
 			},
+            "shortName": {
+                "es": "Acceso a la Salud"
+            },
 			"description": {
 				"es": "Tenemos acceso al servicio de salud"
 			},
@@ -1499,6 +1592,9 @@
 			"title": {
 				"es": "Alimentación nutritiva"
 			},
+            "shortName": {
+                "es": "Alimentación"
+            },
 			"description": {
 				"es": "Tenemos una alimentación nutritiva"
 			},
@@ -1541,6 +1637,9 @@
 			"title": {
 				"es": "Higiene personal"
 			},
+            "shortName": {
+                "es": "Higiene"
+            },
 			"description": {
 				"es": "Cuidamos nuestra higiene"
 			},
@@ -1583,6 +1682,9 @@
 			"title": {
 				"es": "Salud sexual"
 			},
+            "shortName": {
+                "es": "Salud Sexual"
+            },
 			"description": {
 				"es": "Salud Sexual. Nos hacemos los controles que necesitamos"
 			},
@@ -1625,6 +1727,9 @@
 			"title": {
 				"es": "Dientes sanos"
 			},
+            "shortName": {
+                "es": "Dientes"
+            },
 			"description": {
 				"es": "Nuestros dientes son sanos"
 			},
@@ -1667,6 +1772,9 @@
 			"title": {
 				"es": "Vista sana"
 			},
+            "shortName": {
+                "es": "Vista"
+            },
 			"description": {
 				"es": "Tenemos buena visión "
 			},
@@ -1709,6 +1817,9 @@
 			"title": {
 				"es": "Vacunas"
 			},
+            "shortName": {
+                "es": "Vacunas"
+            },
 			"description": {
 				"es": "Estamos vacunados"
 			},
@@ -1751,6 +1862,9 @@
 			"title": {
 				"es": "Seguros"
 			},
+            "shortName": {
+                "es": "Seguros"
+            },
 			"description": {
 				"es": "Tenemos seguros"
 			},
@@ -1793,6 +1907,9 @@
 			"title": {
 				"es": "Hogar seguro."
 			},
+            "shortName": {
+                "es": "Vivienda"
+            },
 			"description": {
 				"es": "Nuestro hogar es seguro."
 			},
@@ -1835,6 +1952,9 @@
 			"title": {
 				"es": "Confort del hogar."
 			},
+            "shortName": {
+                "es": "Confort"
+            },
 			"description": {
 				"es": "Tenemos muebles y comodidades suficientes"
 			},
@@ -1877,6 +1997,9 @@
 			"title": {
 				"es": "Dormitorios separados."
 			},
+            "shortName": {
+                "es": "Dormitorios"
+            },
 			"description": {
 				"es": "Dormimos en cuartos separados."
 			},
@@ -1919,6 +2042,9 @@
 			"title": {
 				"es": "Cocina elevada y ventilada."
 			},
+            "shortName": {
+                "es": "Cocina"
+            },
 			"description": {
 				"es": "Tenemos cocina elevada y ventilada."
 			},
@@ -1961,6 +2087,9 @@
 			"title": {
 				"es": "Letrina sanitaria y cloaca"
 			},
+            "shortName": {
+                "es": "Baño"
+            },
 			"description": {
 				"es": "Tenemos baño moderno"
 			},
@@ -2001,10 +2130,13 @@
 		"refrigerator": {
 			"type": "array",
 			"title": {
-				"es": "Regrigeradoras y otros electrodomesticos"
+				"es": "Refrigeradoras y otros electrodomesticos"
 			},
+            "shortName": {
+                "es": "Heladera"
+            },
 			"description": {
-				"es": "Tenemos regrigeradoras y otros electrodomesticos"
+				"es": "Tenemos refrigeradoras y otros electrodomesticos"
 			},
 			"items": {
 				"type": "object",
@@ -2045,6 +2177,9 @@
 			"title": {
 				"es": "Teléfono o celular"
 			},
+            "shortName": {
+                "es": "Teléfono"
+            },
 			"description": {
 				"es": "Tenemos teléfono "
 			},
@@ -2087,6 +2222,9 @@
 			"title": {
 				"es": "Vestimenta suficiente y apropiada"
 			},
+            "shortName": {
+                "es": "Vestimenta"
+            },
 			"description": {
 				"es": "Tenemos  ropa para cambiarnos diariamente "
 			},
@@ -2129,6 +2267,9 @@
 			"title": {
 				"es": "Seguridad de las personas"
 			},
+            "shortName": {
+                "es": "Seguridad de la Persona"
+            },
 			"description": {
 				"es": "Seguridad de las personas"
 			},
@@ -2171,6 +2312,9 @@
 			"title": {
 				"es": "Seguridad de la propiedad"
 			},
+            "shortName": {
+                "es": "Seguridad de los Activos"
+            },
 			"description": {
 				"es": "Mi familia no fue robada"
 			},
@@ -2213,6 +2357,9 @@
 			"title": {
 				"es": "Electricidad"
 			},
+            "shortName": {
+                "es": "Electricidad"
+            },
 			"description": {
 				"es": "Tenemos acceso a la electricidad"
 			},
@@ -2255,6 +2402,9 @@
 			"title": {
 				"es": "Medios de transporte regulares"
 			},
+            "shortName": {
+                "es": "Transporte"
+            },
 			"description": {
 				"es": "Tenemos transporte regular"
 			},
@@ -2297,6 +2447,9 @@
 			"title": {
 				"es": "Vía o camino de acceso de todo tiempo"
 			},
+            "shortName": {
+                "es": "Camino"
+            },
 			"description": {
 				"es": "Tenemos calles transitables"
 			},
@@ -2339,6 +2492,9 @@
 			"title": {
 				"es": "Hijos escolarizados hasta el Bachillerato"
 			},
+            "shortName": {
+                "es": "Escolaridad"
+            },
 			"description": {
 				"es": "Los niños y jóvenes tienen acceso a la educación"
 			},
@@ -2381,6 +2537,9 @@
 			"title": {
 				"es": "Sabe leer, escribir y comprender en español"
 			},
+            "shortName": {
+                "es": "Alfabetismo"
+            },
 			"description": {
 				"es": "Sabemos leer y escribir"
 			},
@@ -2423,6 +2582,9 @@
 			"title": {
 				"es": "Útiles escolares y libros"
 			},
+            "shortName": {
+                "es": "Útiles"
+            },
 			"description": {
 				"es": "Tenemos útiles escolares"
 			},
@@ -2465,6 +2627,9 @@
 			"title": {
 				"es": "Capacidad de planificar y presupuestar"
 			},
+            "shortName": {
+                "es": "Presupuesto"
+            },
 			"description": {
 				"es": "Tenemos presupuesto familiar"
 			},
@@ -2507,6 +2672,9 @@
 			"title": {
 				"es": "Capacidad para generar ingresos"
 			},
+            "shortName": {
+                "es": "Generar Ingresos"
+            },
 			"description": {
 				"es": "Sabemos ganar plata"
 			},
@@ -2549,6 +2717,9 @@
 			"title": {
 				"es": "Acceso a la información (TV e internet)"
 			},
+            "shortName": {
+                "es": "Información"
+            },
 			"description": {
 				"es": "Tenemos internet y tele"
 			},
@@ -2591,6 +2762,9 @@
 			"title": {
 				"es": "Acceso al entretenimiento"
 			},
+            "shortName": {
+                "es": "Entretenimiento"
+            },
 			"description": {
 				"es": "Tenemos pasatiempos"
 			},
@@ -2633,6 +2807,9 @@
 			"title": {
 				"es": "Respeto a la diversidad"
 			},
+            "shortName": {
+                "es": "Diversidad"
+            },
 			"description": {
 				"es": "Respeto las diferencias "
 			},
@@ -2675,6 +2852,9 @@
 			"title": {
 				"es": "Conciencia de los derechos humanos"
 			},
+            "shortName": {
+                "es": "DD.HH."
+            },
 			"description": {
 				"es": "Conciencia de los derechos humanos "
 			},
@@ -2717,6 +2897,9 @@
 			"title": {
 				"es": "Trabajo infantil"
 			},
+            "shortName": {
+                "es": "Trabajo Infantil"
+            },
 			"description": {
 				"es": "En mi casa los niños no trabajan"
 			},
@@ -2759,6 +2942,9 @@
 			"title": {
 				"es": "Forma  parte de un grupo de autoayuda"
 			},
+            "shortName": {
+                "es": "Grupos"
+            },
 			"description": {
 				"es": "Integramos grupos de autoayuda en la comunidad"
 			},
@@ -2801,6 +2987,9 @@
 			"title": {
 				"es": "Incidencia en el sector público"
 			},
+            "shortName": {
+                "es": "Incidencia"
+            },
 			"description": {
 				"es": "Sabemos peticionar a las autoridades"
 			},
@@ -2843,6 +3032,9 @@
 			"title": {
 				"es": "Capacidad de resolver problemas y conflictos"
 			},
+            "shortName": {
+                "es": "Problemas y Conflictos"
+            },
 			"description": {
 				"es": "Resolvemos nuestros problemas"
 			},
@@ -2885,6 +3077,9 @@
 			"title": {
 				"es": "Inscripta en el registro electoral y vota en elecciones"
 			},
+            "shortName": {
+                "es": "Vota"
+            },
 			"description": {
 				"es": "Votamos en las elecciones"
 			},
@@ -2927,6 +3122,9 @@
 			"title": {
 				"es": "Conciencia de sus necesidades"
 			},
+            "shortName": {
+                "es": "Mapa de Vida"
+            },
 			"description": {
 				"es": "Tenemos metas de vida"
 			},
@@ -2969,6 +3167,9 @@
 			"title": {
 				"es": "Confianza en sí mismo"
 			},
+            "shortName": {
+                "es": "Autoestima"
+            },
 			"description": {
 				"es": "Confío en mi capacidad y mis logros"
 			},
@@ -3011,6 +3212,9 @@
 			"title": {
 				"es": "Conciencia moral"
 			},
+            "shortName": {
+                "es": "Conciencia Moral"
+            },
 			"description": {
 				"es": "Pensamos en los demás cuando tomamos decisiones"
 			},
@@ -3053,6 +3257,9 @@
 			"title": {
 				"es": "Capacidad emocional-afectiva"
 			},
+            "shortName": {
+                "es": "Capacidad emocional-afectiva"
+            },
 			"description": {
 				"es": "Manejamos nuestras emociones"
 			},
@@ -3095,6 +3302,9 @@
 			"title": {
 				"es": "Violencia intrafamiliar"
 			},
+            "shortName": {
+                "es": "Violencia Intrafamiliar"
+            },
 			"description": {
 				"es": "No hay violencia en nuestra familia"
 			},
@@ -3137,6 +3347,9 @@
 			"title": {
 				"es": "Espíritu emprendedor"
 			},
+            "shortName": {
+                "es": "Emprendedurismo"
+            },
 			"description": {
 				"es": "Somos emprendedores"
 			},
@@ -3179,6 +3392,9 @@
 			"title": {
 				"es": "Autonomía y capacidad de tomar decisiones"
 			},
+            "shortName": {
+                "es": "Autonomía"
+            },
 			"description": {
 				"es": "Tomo decisiones sobre mi vida"
 			},
