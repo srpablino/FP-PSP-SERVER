@@ -17,6 +17,9 @@
       "type": "string",
       "title": {
         "es": "Please, insert your name"
+      },
+      "shortName": {
+          "es": "First Name"
       }
     },
 
@@ -24,6 +27,9 @@
       "type": "string",
       "title": {
         "es": "Please insert your surname"
+      },
+      "shortName": {
+          "es": "Last Name"
       }
     },
 
@@ -32,7 +38,10 @@
       "format": "date",
       "title": {
         "es": "Please select your date of birth"
-      }
+      },
+        "shortName": {
+            "es": "Birthdate"
+        }
     },
 
     "countryOfBirth": {
@@ -40,6 +49,9 @@
       "title": {
         "es": "Please select your country of birth"
       },
+        "shortName": {
+            "es": "Country of Birth"
+        },
       "enum": [
         "AF",
         "AL",
@@ -532,6 +544,9 @@
       "title": {
         "es": "Gender"
       },
+        "shortName": {
+            "es": "Gender"
+        },
       "enum": [
         "F",
         "M",
@@ -549,6 +564,9 @@
       "title": {
         "es": "Please select the currency in which you earn your main income"
       },
+        "shortName": {
+            "es": "Currency"
+        },
       "enum": [
         "AFN",
         "XUA",
@@ -900,6 +918,9 @@
       "title": {
         "es": "Please select your main economic activity"
       },
+        "shortName": {
+            "es": "Main Economic Activity"
+        },
       "enum": [
         "CF",
         "VF",
@@ -943,6 +964,9 @@
       "title": {
         "es": "Please select your secondary economic activity"
       },
+        "shortName": {
+            "es": "Secondary Economic Activity"
+        },
       "enum": [
         "CF",
         "VF",
@@ -986,6 +1010,9 @@
       "title": {
         "es": "Do I have a business that generates me income? How much (daily)?"
       },
+        "shortName": {
+            "es": "Benefit Income"
+        },
       "default": 0
     },
 
@@ -994,6 +1021,9 @@
       "title": {
         "es": "Do I have a monthly salary? How much?"
       },
+        "shortName": {
+            "es": "Salary Income"
+        },
       "default": 0
     },
 
@@ -1002,6 +1032,9 @@
       "title": {
         "es": "What are other members income? (daily)"
       },
+        "shortName": {
+            "es": "Other Members Income"
+        },
       "default": ""
     },
 
@@ -1010,6 +1043,9 @@
       "title": {
         "es": "Do they have a salary? How much?"
       },
+        "shortName": {
+            "es": "Other Members Salary"
+        },
       "default": 0
     },
 
@@ -1018,6 +1054,9 @@
       "title": {
         "es": "Do they have business with daily income?"
       },
+        "shortName": {
+            "es": "Other Members Business Income"
+        },
       "default": 0
     },
 
@@ -1026,6 +1065,9 @@
       "title": {
         "es": "Does my family receives cash benefits from the government?"
       },
+        "shortName": {
+            "es": "Cash Benefits From the Government"
+        },
       "default": ""
     },
 
@@ -1034,6 +1076,9 @@
       "title": {
         "es": "What is the situation of my house?"
       },
+        "shortName": {
+            "es": "Situation of House"
+        },
       "enum": [
         "OT",
         "ONT",
@@ -1059,6 +1104,9 @@
       "title": {
         "es": "In your house is there a member with a disability?"
       },
+        "shortName": {
+            "es": "Household Member with Disabilities"
+        },
       "default": ""
     },
 
@@ -1067,6 +1115,9 @@
       "title": {
         "es": "During the past five years, did any member of my family die before the age of 5?"
       },
+        "shortName": {
+            "es": "Member Died Before 5"
+        },
       "enum": [
         "YES",
         "NO"
@@ -1083,6 +1134,9 @@
       "title": {
         "es": "Is there water service at your family's place of residence? If not, how does your family obtain water?"
       },
+        "shortName": {
+            "es": "Family Water Access"
+        },
       "default": ""
     },
 
@@ -1091,6 +1145,9 @@
       "title": {
         "es": "Does your family have a car or truck?"
       },
+        "shortName": {
+            "es": "Family Car"
+        },
       "enum": [
         "YES",
         "NO"
@@ -1107,6 +1164,9 @@
       "title": {
         "es": "Are you currently attending school or an educational program?"
       },
+        "shortName": {
+            "es": "Educational Attend"
+        },
       "default": ""
     },
 
@@ -1115,6 +1175,9 @@
       "title": {
         "es": "Current or maximum degree achieved"
       },
+        "shortName": {
+            "es": "Current Education Level"
+        },
       "enum": [
         "SCHOOL-INCOMPLETE",
         "SCHOOL-COMPLETE",
@@ -1142,6 +1205,9 @@
       "title": {
         "es": "How many people over 15 are there in your family?"
       },
+        "shortName": {
+            "es": "People Over 15"
+        },
       "default": 0
     },
 
@@ -1150,6 +1216,9 @@
       "title": {
         "es": "How many of those people over 15 have a job?"
       },
+        "shortName": {
+            "es": "People Over 15 with Job"
+        },
       "default": 0
     },
 
@@ -1158,6 +1227,9 @@
       "title": {
         "es": "Do you work at least 30 hours a week?"
       },
+        "shortName": {
+            "es": "Work 30 Hours a Week"
+        },
       "enum": [
         "YES",
         "NO"
@@ -1174,6 +1246,9 @@
       "title": {
         "es": "Do you earn at least the minimum wage?"
       },
+        "shortName": {
+            "es": "Earn at least Minimum Wage"
+        },
       "enum": [
         "YES",
         "NO"
@@ -1190,6 +1265,9 @@
       "title": {
         "es": "If you do not work or work less than 30 hours a week, would you like to work or work more?"
       },
+        "shortName": {
+            "es": "Would Like to Work More"
+        },
       "enum": [
         "YES",
         "NO"
@@ -1206,6 +1284,9 @@
       "title": {
         "es": "Does your partner work at least 30 hours a week?"
       },
+        "shortName": {
+            "es": "Partner Work at least 30 hour a Week"
+        },
       "enum": [
         "YES",
         "NO",
@@ -1224,6 +1305,9 @@
       "title": {
         "es": "Does your partner earn at least the minimum wage? "
       },
+        "shortName": {
+            "es": "Partner Earns at least Minimum Wage"
+        },
       "enum": [
         "YES",
         "NO",
@@ -1242,6 +1326,9 @@
       "title": {
         "es": "If your partner does not work or works less than 30 hours a week, would he/she like to work or to work more?"
       },
+        "shortName": {
+            "es": "Partner Would Like to Work More"
+        },
       "enum": [
         "YES",
         "NO",
@@ -1260,6 +1347,9 @@
       "title": {
         "es": "Please select the geographic location of your household"
       },
+        "shortName": {
+            "es": "Family Location"
+        },
       "default": "8.470919, -13.238901"
     },
 
@@ -1268,6 +1358,9 @@
       "title": {
         "es": "Income above the Poverty Line "
       },
+        "shortName": {
+            "es": "Income"
+        },
       "description": {
         "es": "Income "
       },
@@ -1308,6 +1401,9 @@
       "title": {
         "es": "Family savings"
       },
+        "shortName": {
+            "es": "Savings"
+        },
       "description": {
         "es": "Savings"
       },
@@ -1349,6 +1445,9 @@
       "title": {
         "es": "Access to credit"
       },
+        "shortName": {
+            "es": "Credit"
+        },
       "description": {
         "es": "Credit"
       },
@@ -1391,6 +1490,9 @@
       "title": {
         "es": "Diversified source of income "
       },
+        "shortName": {
+            "es": "Diversification"
+        },
       "description": {
         "es": "Diversified source of income "
       },
@@ -1430,6 +1532,9 @@
       "title": {
         "es": "Documentation: Identity document"
       },
+        "shortName": {
+            "es": "Identification"
+        },
       "description": {
         "es": "Identification"
       },
@@ -1469,6 +1574,9 @@
       "title": {
         "es": "Unpolluted environment"
       },
+        "shortName": {
+            "es": "Environment"
+        },
       "description": {
         "es": "Environment"
       },
@@ -1510,6 +1618,9 @@
       "title": {
         "es": "Garbage disposal"
       },
+        "shortName": {
+            "es": "Garbage"
+        },
       "description": {
         "es": "Garbage"
       },
@@ -1551,6 +1662,9 @@
       "title": {
         "es": "Access to drinking water"
       },
+        "shortName": {
+            "es": "Water"
+        },
       "description": {
         "es": "Water"
       },
@@ -1591,6 +1705,9 @@
       "title": {
         "es": "Access to health services "
       },
+        "shortName": {
+            "es": "Health Services"
+        },
       "description": {
         "es": "Health services "
       },
@@ -1631,6 +1748,9 @@
       "title": {
         "es": "Nutritious diet "
       },
+        "shortName": {
+            "es": "Nutrition"
+        },
       "description": {
         "es": "Nutrition"
       },
@@ -1672,6 +1792,9 @@
       "title": {
         "es": "Personal Hygiene "
       },
+        "shortName": {
+            "es": "Hygiene"
+        },
       "description": {
         "es": "Hygiene"
       },
@@ -1712,6 +1835,9 @@
       "title": {
         "es": "Sexual health "
       },
+        "shortName": {
+            "es": "Sexual Health"
+        },
       "description": {
         "es": "Sexual health "
       },
@@ -1753,6 +1879,9 @@
       "title": {
         "es": "Healthy teeth"
       },
+        "shortName": {
+            "es": "Teeth"
+        },
       "description": {
         "es": "Teeth"
       },
@@ -1794,6 +1923,9 @@
       "title": {
         "es": "Healthy vision "
       },
+        "shortName": {
+            "es": "Vision"
+        },
       "description": {
         "es": "Vision"
       },
@@ -1835,6 +1967,9 @@
       "title": {
         "es": "Vaccines"
       },
+        "shortName": {
+            "es": "Vaccines"
+        },
       "description": {
         "es": "Vaccines"
       },
@@ -1876,6 +2011,9 @@
       "title": {
         "es": "Insurance"
       },
+        "shortName": {
+            "es": "Insurance"
+        },
       "description": {
         "es": "Insurance"
       },
@@ -1918,6 +2056,9 @@
       "title": {
         "es": "Safe house"
       },
+        "shortName": {
+            "es": "House"
+        },
       "description": {
         "es": "House"
       },
@@ -1958,6 +2099,9 @@
       "title": {
         "es": "Comfortable home "
       },
+        "shortName": {
+            "es": "Comfort"
+        },
       "description": {
         "es": "Comfortable home "
       },
@@ -1999,6 +2143,9 @@
       "title": {
         "es": "Separate bedrooms "
       },
+        "shortName": {
+            "es": "Bedrooms"
+        },
       "description": {
         "es": "Separate bedrooms "
       },
@@ -2039,6 +2186,9 @@
       "title": {
         "es": "Raised and ventilated kitchen"
       },
+        "shortName": {
+            "es": "Kitchen"
+        },
       "description": {
         "es": "Kitchen"
       },
@@ -2080,6 +2230,9 @@
       "title": {
         "es": "Bathroom"
       },
+        "shortName": {
+            "es": "Bathroom"
+        },
       "description": {
         "es": "Bathroom"
       },
@@ -2121,6 +2274,9 @@
       "title": {
         "es": "Refrigerator and other goods"
       },
+        "shortName": {
+            "es": "Refrigerator"
+        },
       "description": {
         "es": "Refrigerator"
       },
@@ -2162,6 +2318,9 @@
       "title": {
         "es": "Telephone or mobile phone "
       },
+        "shortName": {
+            "es": "Telephone"
+        },
       "description": {
         "es": "Telephone"
       },
@@ -2203,6 +2362,9 @@
       "title": {
         "es": "Sufficient and appropriate clothing"
       },
+        "shortName": {
+            "es": "Clothing"
+        },
       "description": {
         "es": "Clothing"
       },
@@ -2246,6 +2408,9 @@
       "title": {
         "es": "Personal safety"
       },
+        "shortName": {
+            "es": "Safety"
+        },
       "description": {
         "es": "Safety"
       },
@@ -2289,6 +2454,9 @@
       "title": {
         "es": "Security of property"
       },
+        "shortName": {
+            "es": "Security"
+        },
       "description": {
         "es": "Security of property"
       },
@@ -2332,6 +2500,9 @@
       "title": {
         "es": "Electricity"
       },
+        "shortName": {
+            "es": "Electricity"
+        },
       "description": {
         "es": "Electricity"
       },
@@ -2375,6 +2546,9 @@
       "title": {
         "es": "Regular means of transportation"
       },
+        "shortName": {
+            "es": "Transportation"
+        },
       "description": {
         "es": "Transportation"
       },
@@ -2418,6 +2592,9 @@
       "title": {
         "es": "All-weather access road"
       },
+        "shortName": {
+            "es": "Road"
+        },
       "description": {
         "es": "Road"
       },
@@ -2461,6 +2638,9 @@
       "title": {
         "es": "Children enrolled throughout secondary school"
       },
+        "shortName": {
+            "es": "Schooling"
+        },
       "description": {
         "es": "Schooling"
       },
@@ -2504,6 +2684,9 @@
       "title": {
         "es": "Knows how to read, write and comprehend "
       },
+        "shortName": {
+            "es": "Literacy"
+        },
       "description": {
         "es": "Literacy"
       },
@@ -2546,6 +2729,9 @@
       "title": {
         "es": "School supplies and books"
       },
+        "shortName": {
+            "es": "Supplies"
+        },
       "description": {
         "es": "Supplies"
       },
@@ -2588,6 +2774,9 @@
       "title": {
         "es": "Ability to plan and budget"
       },
+        "shortName": {
+            "es": "Budget"
+        },
       "description": {
         "es": "Budget"
       },
@@ -2629,6 +2818,9 @@
       "title": {
         "es": "Ability to generate income"
       },
+        "shortName": {
+            "es": "Generate Income"
+        },
       "description": {
         "es": "Generate income"
       },
@@ -2671,6 +2863,9 @@
       "title": {
         "es": "Access to information (TV or internet)"
       },
+        "shortName": {
+            "es": "Information"
+        },
       "description": {
         "es": "Access to information"
       },
@@ -2713,6 +2908,9 @@
       "title": {
         "es": "Access to entertainment"
       },
+        "shortName": {
+            "es": "Entertainment"
+        },
       "description": {
         "es": "Entertainment"
       },
@@ -2755,6 +2953,9 @@
       "title": {
         "es": "Respect for diversity"
       },
+        "shortName": {
+            "es": "Diversity"
+        },
       "description": {
         "es": "Respect for diversity"
       },
@@ -2797,6 +2998,9 @@
       "title": {
         "es": "Human rights awareness"
       },
+        "shortName": {
+            "es": "Human Rights"
+        },
       "description": {
         "es": "Human rights awareness"
       },
@@ -2839,6 +3043,9 @@
       "title": {
         "es": "Child labor"
       },
+        "shortName": {
+            "es": "Child Labor"
+        },
       "description": {
         "es": "Child labor"
       },
@@ -2882,6 +3089,9 @@
       "title": {
         "es": "Forms part of a group"
       },
+        "shortName": {
+            "es": "Groups"
+        },
       "description": {
         "es": "Group"
       },
@@ -2925,6 +3135,9 @@
       "title": {
         "es": "Influence in the public sector"
       },
+        "shortName": {
+            "es": "Influence"
+        },
       "description": {
         "es": "Influence"
       },
@@ -2968,6 +3181,9 @@
       "title": {
         "es": "Ability to resolve problems and conflicts"
       },
+        "shortName": {
+            "es": "Conflicts"
+        },
       "description": {
         "es": "Conflicts"
       },
@@ -3011,6 +3227,9 @@
       "title": {
         "es": "Register to vote and vote during elections"
       },
+        "shortName": {
+            "es": "Voting"
+        },
       "description": {
         "es": "Voting"
       },
@@ -3054,6 +3273,9 @@
       "title": {
         "es": "Awareness of one’s needs"
       },
+        "shortName": {
+            "es": "Life Plan"
+        },
       "description": {
         "es": "Life plan"
       },
@@ -3098,6 +3320,9 @@
       "title": {
         "es": "Self esteem"
       },
+        "shortName": {
+            "es": "Self Esteem"
+        },
       "description": {
         "es": "Self esteem"
       },
@@ -3142,6 +3367,9 @@
       "title": {
         "es": "Moral conscience"
       },
+        "shortName": {
+            "es": "Moral Conscience"
+        },
       "description": {
         "es": "Moral conscience"
       },
@@ -3185,6 +3413,9 @@
       "title": {
         "es": "Emotional-effective capacity"
       },
+        "shortName": {
+            "es": "Emotions"
+        },
       "description": {
         "es": "Emotions"
       },
@@ -3228,6 +3459,9 @@
       "title": {
         "es": "Domestic violence"
       },
+        "shortName": {
+            "es": "Domestic Violence"
+        },
       "description": {
         "es": "Domestic violence"
       },
@@ -3271,6 +3505,9 @@
       "title": {
         "es": "Entrepreneurial spirit"
       },
+        "shortName": {
+            "es": "Entrepreneurship"
+        },
       "description": {
         "es": "Entrepreneurship"
       },
@@ -3311,6 +3548,9 @@
       "title": {
         "es": "Autonomy and ability to make decisions"
       },
+        "shortName": {
+            "es": "Autonomy"
+        },
       "description": {
         "es": "Autonomy"
       },
