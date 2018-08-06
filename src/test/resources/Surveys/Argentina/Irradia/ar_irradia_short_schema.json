@@ -15,26 +15,38 @@
 			"type": "string",
 			"title": {
 				"es": "Ingrese su nombre"
-			}
+			},
+            "shortName": {
+                "es": "Nombre"
+            }
 		},
 		"lastName": {
 			"type": "string",
 			"title": {
 				"es": "Ingrese su apellido"
-			}
+			},
+            "shortName": {
+                "es": "Apellido"
+            }
 		},
 		"birthdate": {
 			"type": "string",
 			"format": "date",
 			"title": {
 				"es": "Ingrese su fecha de nacimiento"
-			}
+			},
+            "shortName": {
+                "es": "Fecha de Nacimiento"
+            }
 		},
 		"countryOfBirth": {
 			"type": "string",
 			"title": {
 				"es": "Ingrese su país de nacimiento"
 			},
+            "shortName": {
+                "es": "País de Nacimiento"
+            },
 			"enum": [
 				"AR",
 				"PY",
@@ -526,6 +538,9 @@
 			"title": {
 				"es": "Ingrese su género"
 			},
+            "shortName": {
+                "es": "Género"
+            },
 			"enum": [
 				"F",
 				"M",
@@ -543,6 +558,9 @@
 			"title": {
 				"es": "¿Cuál es su ingreso mensual por salario?"
 			},
+            "shortName": {
+                "es": "Ingreso por Salario"
+            },
 			"default": 0
 		},
 		"benefitIncome": {
@@ -550,6 +568,9 @@
 			"title": {
 				"es": "¿Recibe algún tipo de beneficio del estado u organización? En caso de ser positivo ingrese el monto mensual."
 			},
+            "shortName": {
+                "es": "Ingreso por Beneficio"
+            },
 			"default": 0
 		},
 		"memberDiedBefore5": {
@@ -557,6 +578,9 @@
 			"title": {
 				"es": "Durante los últimos cinco años, ¿algún miembro de mi familia falleció antes de cumplir 5 años?"
 			},
+            "shortName": {
+                "es": "Miembro de la Familia fallecido antes de los 5 Años"
+            },
 			"enum": [
 				"YES",
 				"NO"
@@ -569,8 +593,11 @@
 		"familyCar": {
 			"type": "string",
 			"title": {
-				"es": "¿Mi familia tine auto o camioneta?"
+				"es": "¿Mi familia tiene auto o camioneta?"
 			},
+            "shortName": {
+                "es": "Vehículo Familiar"
+            },
 			"enum": [
 				"Yes",
 				"No"
@@ -585,6 +612,9 @@
 			"title": {
 				"es": "Ingresos superiores a la línea de pobreza"
 			},
+            "shortName": {
+                "es": "Ingresos"
+            },
 			"description": {
 				"es": "Tenemos ingresos suficientes"
 			},
@@ -627,6 +657,9 @@
 			"title": {
 				"es": "Acceso al crédito"
 			},
+            "shortName": {
+                "es": "Crédito"
+            },
 			"description": {
 				"es": "Podemos sacar créditos"
 			},
@@ -669,6 +702,9 @@
 			"title": {
 				"es": "DNI"
 			},
+            "shortName": {
+                "es": "Cédula"
+            },
 			"description": {
 				"es": "Tenemos DNI"
 			},
@@ -711,6 +747,9 @@
 			"title": {
 				"es": "Disposición de basura"
 			},
+            "shortName": {
+                "es": "Basura"
+            },
 			"description": {
 				"es": "Manejamos bien nuestra basura"
 			},
@@ -753,6 +792,9 @@
 			"title": {
 				"es": "Acceso al agua segura"
 			},
+            "shortName": {
+                "es": "Agua"
+            },
 			"description": {
 				"es": "Tenemos agua segura"
 			},
@@ -795,6 +837,9 @@
 			"title": {
 				"es": "Acceso a servicios de salud"
 			},
+            "shortName": {
+                "es": "Acceso a la Salud"
+            },
 			"description": {
 				"es": "Tenemos acceso al servicio de salud"
 			},
@@ -837,6 +882,9 @@
 			"title": {
 				"es": "Alimentación adecuada"
 			},
+            "shortName": {
+                "es": "Alimentación"
+            },
 			"description": {
 				"es": "Tenemos buena alimentación"
 			},
@@ -879,6 +927,9 @@
 			"title": {
 				"es": "Hogar seguro."
 			},
+            "shortName": {
+                "es": "Vivienda"
+            },
 			"description": {
 				"es": "Nuestro hogar es seguro."
 			},
@@ -921,6 +972,9 @@
 			"title": {
 				"es": "Dormitorios separados."
 			},
+            "shortName": {
+                "es": "Dormitorios"
+            },
 			"description": {
 				"es": "Dormimos en cuartos separados."
 			},
@@ -963,6 +1017,9 @@
 			"title": {
 				"es": "Cocina elevada y ventilada."
 			},
+            "shortName": {
+                "es": "Cocina"
+            },
 			"description": {
 				"es": "Tenemos cocina elevada y ventilada."
 			},
@@ -1005,6 +1062,9 @@
 			"title": {
 				"es": "Baño moderno"
 			},
+            "shortName": {
+                "es": "Baño"
+            },
 			"description": {
 				"es": "Tenemos baño moderno"
 			},
@@ -1047,6 +1107,9 @@
 			"title": {
 				"es": "Heladera y otros activos"
 			},
+            "shortName": {
+                "es": "Heladera"
+            },
 			"description": {
 				"es": "Tenemos heladera y otros activos"
 			},
@@ -1089,6 +1152,9 @@
 			"title": {
 				"es": "Teléfono o celular"
 			},
+            "shortName": {
+                "es": "Teléfono"
+            },
 			"description": {
 				"es": "Tenemos teléfono "
 			},
@@ -1131,6 +1197,9 @@
 			"title": {
 				"es": "Seguridad de la persona"
 			},
+            "shortName": {
+                "es": "Seguridad de la Persona"
+            },
 			"description": {
 				"es": "Mi familia no fue asaltada"
 			},
@@ -1173,6 +1242,9 @@
 			"title": {
 				"es": "Seguridad de los bienes"
 			},
+            "shortName": {
+                "es": "Seguridad de los Activos"
+            },
 			"description": {
 				"es": "Mi familia no fue robada"
 			},
@@ -1215,6 +1287,9 @@
 			"title": {
 				"es": "Acceso a la energía"
 			},
+            "shortName": {
+                "es": "Electricidad"
+            },
 			"description": {
 				"es": "Tenemos acceso a la energía"
 			},
@@ -1257,6 +1332,9 @@
 			"title": {
 				"es": "Educación "
 			},
+            "shortName": {
+                "es": "Escolaridad"
+            },
 			"description": {
 				"es": "Los niños y jóvenes tienen acceso a la educación"
 			},
@@ -1299,6 +1377,9 @@
 			"title": {
 				"es": "Sabe leer, escribir y comprender en español"
 			},
+            "shortName": {
+                "es": "Alfabetismo"
+            },
 			"description": {
 				"es": "Sabemos leer y escribir"
 			},
@@ -1341,6 +1422,9 @@
 			"title": {
 				"es": "Acceso a la información (TV e internet)"
 			},
+            "shortName": {
+                "es": "Información"
+            },
 			"description": {
 				"es": "Tenemos internet y tele"
 			},
@@ -1383,6 +1467,9 @@
 			"title": {
 				"es": "Forma parte de un grupo con objetivos comunes"
 			},
+            "shortName": {
+                "es": "Grupos"
+            },
 			"description": {
 				"es": "Integramos grupos en la comunidad"
 			},
@@ -1423,8 +1510,11 @@
 		"influenceInPublicSector": {
 			"type": "array",
 			"title": {
-				"es": "Influencia en el sector público"
+				"es": "Incidencia en el sector público"
 			},
+            "shortName": {
+                "es": "Incidencia"
+            },
 			"description": {
 				"es": "Sabemos peticionar a las autoridades"
 			},
@@ -1467,6 +1557,9 @@
 			"title": {
 				"es": "Conciencia de necesidades y establecimiento de metas"
 			},
+            "shortName": {
+                "es": "Mapa de Vida"
+            },
 			"description": {
 				"es": "Tenemos metas de vida"
 			},
@@ -1509,6 +1602,9 @@
 			"title": {
 				"es": "Confianza en sí mismo"
 			},
+            "shortName": {
+                "es": "Autoestima"
+            },
 			"description": {
 				"es": "Confío en mi capacidad y mis logros"
 			},
@@ -1551,6 +1647,9 @@
 			"title": {
 				"es": "Autonomía y capacidad de tomar decisiones"
 			},
+            "shortName": {
+                "es": "Autonomía"
+            },
 			"description": {
 				"es": "Tomo decisiones sobre mi vida"
 			},
