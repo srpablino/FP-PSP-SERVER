@@ -1389,12 +1389,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/1/3.jpg",
-				"description": "Family income is $1.90 per day or above",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"familySavings": {
 			"type": "array",
@@ -1432,12 +1427,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/2/3.jpg",
-				"description": "One or more family members have savings for at least 6 months from formal institutions.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"accessToCredit": {
@@ -1476,12 +1466,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/3/3.jpg",
-				"description": "At least one family member has had access to formal credit under fair market conditions in the last 12 months or can access to such credit if they need it.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 
@@ -1520,12 +1505,7 @@
 		  			}
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/4/3.jpg",
-				"description": "There are at least two sources of income from different family members.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"documentation": {
 			"type": "array",
@@ -1562,12 +1542,7 @@
 		  			}
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/5/3.jpg",
-				"description": "All members of my family have a valid identity document appropriate for their age (ID card, school certificate, birth certificate).",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"unpollutedEnvironment": {
 			"type": "array",
@@ -1604,12 +1579,7 @@
 		  			}
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/6/3.jpg",
-				"description": "My family lives in an unpolluted environment. There is no smoke or bad odors coming from livestock production or other sources; there is also no chemical waste, no poor waste disposal or poor waste management systems. If there is or there was contamination, steps are taken to solve the issue.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 
@@ -1648,12 +1618,7 @@
 		  			}
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/7/3.jpg",
-				"description": "My family members dispose of their garbage in a trash can until it is collected or they bury their organic waste in a hole, at least 20 meters away from the house, water sources and farming areas. My family recycles inorganic waste.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 
@@ -1693,12 +1658,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/8/3.jpg",
-				"description": "My family has access to drinking water through a tap inside of the house.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"nearbyHealthPost": {
 			"type": "array",
@@ -1736,12 +1696,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/9/3.jpg",
-				"description": "In the last 3 months every time a member of family needed basic or specialized medical attention they received.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"alimentation": {
 			"type": "array",
@@ -1779,12 +1734,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/10/3.jpg",
-				"description": "All members of my family: \n a) consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. \n and b) had, at least, three meals a day: breakfast, lunch and dinner.\n If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"personalHygiene": {
@@ -1823,12 +1773,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/11/3.jpg",
-				"description": "All of my family members: \n a) wash their hands with soap every time they use the bathroom, \n b) wash their hands with soap before eating and cooking any meal, \n c) brush their teeth on a daily basis, and \n d) bathe every day. ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"sexualHealth": {
 			"type": "array",
@@ -1866,12 +1811,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/12/3.jpg",
-				"description": "All members of my family: \n a) in their reproductive years use some kind of family planning; \n b)  the women that need gynecological exams are aware and have had one in the last 12 months, and \n c) those that are pregnant attend all of the requisite prenatal exams.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"dentalCare": {
@@ -1910,12 +1850,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/13/3.jpg",
-				"description": "My family members do not have any dental issues, or if they do, they are being properly treated.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"eyesight": {
@@ -1954,12 +1889,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/14/3.jpg",
-				"description": "My family members do not have problems with their vision, or if they do, they are being properly treated (using glasses, for example).",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"vaccinations": {
@@ -1998,12 +1928,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/15/3.jpg",
-				"description": "I know all the vaccines that my family members needs to have and all  members of my family are immunized and up-to-date with all the mandatory vaccines according to the Ministry of Public Health and Sanitation.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"insurance": {
@@ -2042,12 +1967,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/16/3.jpg",
-				"description": "All members of my family have medical and retirement insurance, and if we own a bike/automobile it is also insured.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2087,12 +2007,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/17/3.jpg",
-				"description": "My family has a home that has: \n a) tile roof, zinc sheet roof or reinforced concrete roof, \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"comfortOfTheHome": {
 			"type": "array",
@@ -2130,12 +2045,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/18/3.jpg",
-				"description": "My family has: \n a) more than one room, \n b) enough mattresses for all its members (one per person or couple), and \n c) mosquito net for every bed",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"separateBedrooms": {
@@ -2174,12 +2084,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/19/3.jpg",
-				"description": "On average, each bedroom is used by two or less members of my family. If any of the age groups (children, teenagers, or adults) share a room, it is because they want to.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"properKitchen": {
 			"type": "array",
@@ -2217,12 +2122,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/20/3.jpg",
-				"description": "My family cooks in a covered, separate and protected space. We have a raised stove and do not use manure, wood or charcoal.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"safeBathroom": {
@@ -2261,12 +2161,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/21/3.jpg",
-				"description": "My family has one or several bathrooms with the following characteristics: a) has a complete toilet (WC) b) cistern inside c) ensures privacy, d) has a good evacuation system, is e) not shared with other families  and f) it is kept clean.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"refrigerator": {
@@ -2305,12 +2200,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/22/3.jpg",
-				"description": "My family has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"phone": {
@@ -2349,12 +2239,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/23/3.jpg",
-				"description": "My family has a landline or wireless service constantly at their disposal (such as always having enough top-up).",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"clothingAndFootwear": {
@@ -2393,12 +2278,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/24/3.jpg",
-				"description": "All members of my family have clothes and footwear that are appropriate for each season, and enough of them to change every day.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2439,12 +2319,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/25/3.jpg",
-				"description": "None of my family members have suffered acts of physical violence in the last twelve months.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2485,12 +2360,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/26/3.jpg",
-				"description": "My family has not suffered an act of violence and/or theft against our property in the last twelve months.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2531,12 +2401,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/27/3.jpg",
-				"description": "My family has permanent access to electricity via a legal connection.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"regularMeansOfTransportation": {
@@ -2575,12 +2440,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/28/3.jpg",
-				"description": "My family has access to a regular and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2621,12 +2481,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/29/3.jpg",
-				"description": "The road my family uses to go to the nearest urban center is asphalted, gravelly, cobbled, or paved in a way to make it accessible at all times, even during strong and continuous rainfall.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2667,12 +2522,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/30/3.jpg",
-				"description": "All of my school aged family members attend school or finished high school.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2713,12 +2563,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/31/3.jpg",
-				"description": "All of my family members aged 15 years and older can read and write in English with ease.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2758,12 +2603,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/32/3.jpg",
-				"description": "The members of my family currently attending school have all of the school supplies and books recommended by the teacher.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2803,12 +2643,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/33/3.jpg",
-				"description": "In my family we plan our economic future and do a monthly budget, which we routinely use to manage the money we spend. ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 	,
 		"knowledgeAndSkillsToGenerateIncome": {
@@ -2847,12 +2682,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/34/3.jpg",
-				"description": "At least one member of my family: \n a) has professional training, or has acquired or developed other special skills for the generation of income. This allows them to find work easily; or \n b) has an enterprise (business or their own endeavor) that generates enough income to sustain the home’s basic expenditures.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2892,12 +2722,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/35/3.jpg",
-				"description": "My family has a television or internet access. ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2937,12 +2762,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/36/3.jpg",
-				"description": "All of my family members have weekly recreational activities.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -2982,12 +2802,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/37/3.jpg",
-				"description": "I believe that all people, regardless of their religion, ethnicity, language, abilities, gender, deserve to be treated equally.  ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -3027,12 +2842,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/38/3.jpg",
-				"description": "There are certain rights that no one can take away from me based on who I am, regardless of sex, age, ethnic or racial origin, nationality, social class, sexual orientation, religion, disability, et cetera. ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	,
@@ -3072,12 +2882,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/39/3.jpg",
-				"description": "In my family, no boy/girl between the ages of ten to fourteen years old is working. ",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3118,12 +2923,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/40/3.jpg",
-				"description": "At least one member of my family actively and regularly participates in two or more groups, or one or more members play a leadership role in a group.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3164,12 +2964,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/41/3.jpg",
-				"description": "My family does not have problems that requires intervention by local authorities, or if there is a problem we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3210,12 +3005,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/42/3.jpg",
-				"description": "When a problem or conflict arises, my family members have a conversation  (without insults, violence, or fights) about the matter, with all parties involved, and resolve it without making it worse.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"registeredToVoteAndVotesInElections": {
@@ -3254,12 +3044,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/43/3.jpg",
-				"description": "All of the adults in my family voted in the last elections.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3301,12 +3086,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/44/3.jpg",
-				"description": "My family is aware we can improve the current situation. For this we have goals that we set and can reach in the medium term (3 months) and long term.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3348,12 +3128,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/45/3.jpg",
-				"description": "Generally I feel good about myself and I feel competent, or many times people tell me that I am competent or capable in what I do.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3394,12 +3169,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/46/3.jpg",
-				"description": "My family takes into account who their actions might affect when they make decisions.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3440,12 +3210,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/47/3.jpg",
-				"description": "I understand that emotions, like anger, sadness, fear, or jealousy can have a negative influence on my life and there are ways to control them. In general, I manage to control them, and I try not act hastily or make decisions in the heat of the moment.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 
@@ -3486,12 +3251,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/48/3.jpg",
-				"description": "None of my family members are targets of domestic violence (physical/sexual, emotional and economic).",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 
 		"entrepreneurialSpirit": {
@@ -3530,12 +3290,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/49/3.jpg",
-				"description": "At least two members of my family have an entrepreneurial spirit, they actively seek to change the situation in their personal lives or the community. They have a plan and know how to enact it",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		},
 		"autonomyDecisions": {
 			"type": "array",
@@ -3573,12 +3328,7 @@
 
 				]
 			},
-			"uniqueItems": true,
-			"default": [{
-				"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/sierra_leone/50/3.jpg",
-				"description": "I make all decisions about the key aspects of my life and participate actively in the decisions of my family. These decisions reflect what I value, I know there are limits, but I arrange my own life within them.",
-				"value": "GREEN"
-			}]
+			"uniqueItems": true
 		}
 
 	}
