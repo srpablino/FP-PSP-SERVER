@@ -1,0 +1,314 @@
+{
+	"properties": {},
+	"ui:custom:fields": {
+		"income": {
+			"ui:field": "gallery"
+		},
+		"familySavings": {
+			"ui:field": "gallery"
+		},
+		"creditScore": {
+			"ui:field": "gallery"
+		},
+		"debt": {
+			"ui:field": "gallery"
+		},
+		"diversifiedSourcesOfIncome": {
+			"ui:field": "gallery"
+		},
+		"documentation": {
+			"ui:field": "gallery"
+		},
+		"unpollutedEnvironment": {
+			"ui:field": "gallery"
+		},
+		"garbageDisposal": {
+			"ui:field": "gallery"
+		},
+		"drinkingWaterAccess": {
+			"ui:field": "gallery"
+		},
+		"nearbyHealthPost": {
+			"ui:field": "gallery"
+		},
+		"mentalHealthServices": {
+			"ui:field": "gallery"
+		},
+		"alimentation": {
+			"ui:field": "gallery"
+		},
+		"weightDiabetes": {
+			"ui:field": "gallery"
+		},
+		"alcoholDrugs": {
+			"ui:field": "gallery"
+		},
+		"sexualHealth": {
+			"ui:field": "gallery"
+		},
+		"dentalCare": {
+			"ui:field": "gallery"
+		},
+		"eyesight": {
+			"ui:field": "gallery"
+		},
+		"vaccinations": {
+			"ui:field": "gallery"
+		},
+		"stableHousing": {
+			"ui:field": "gallery"
+		},
+		"safeHouse": {
+			"ui:field": "gallery"
+		},
+		"separateBedrooms": {
+			"ui:field": "gallery"
+		},
+		"properKitchen": {
+			"ui:field": "gallery"
+		},
+		"safeBathroom": {
+			"ui:field": "gallery"
+		},
+		"refrigerator": {
+			"ui:field": "gallery"
+		},
+		"phone": {
+			"ui:field": "gallery"
+		},
+		"internetAccess": {
+			"ui:field": "gallery"
+		},
+		"safety": {
+			"ui:field": "gallery"
+		},
+		"securityOfProperty": {
+			"ui:field": "gallery"
+		},
+		"electricityAccess": {
+			"ui:field": "gallery"
+		},
+		"regularMeansOfTransportation": {
+			"ui:field": "gallery"
+		},
+		"middleEducation": {
+			"ui:field": "gallery"
+		},
+		"suspensionsExpulsions": {
+			"ui:field": "gallery"
+		},
+		"incarcerationStatus": {
+			"ui:field": "gallery"
+		},
+		"collegeGraduation": {
+			"ui:field": "gallery"
+		},
+		"readAndWrite": {
+			"ui:field": "gallery"
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"ui:field": "gallery"
+		},
+		"entertainmentAndRecreation": {
+			"ui:field": "gallery"
+		},
+		"awarenessOfHumanRights": {
+			"ui:field": "gallery"
+		},
+		"trustLawEnforcement": {
+			"ui:field": "gallery"
+		},
+		"socialCapital": {
+			"ui:field": "gallery"
+		},
+		"culturalTraditionsAndHeritage": {
+			"ui:field": "gallery"
+		},
+		"influenceInPublicSector": {
+			"ui:field": "gallery"
+		},
+		"registeredToVoteAndVotesInElections": {
+			"ui:field": "gallery"
+		},
+		"awarenessOfNeeds": {
+			"ui:field": "gallery"
+		},
+		"selfEsteem": {
+			"ui:field": "gallery"
+		},
+		"happiness": {
+			"ui:field": "gallery"
+		},
+		"empoweredCareGiver": {
+			"ui:field": "gallery"
+		},
+		"externalSupportFromAdults": {
+			"ui:field": "gallery"
+		},
+		"householdViolence": {
+			"ui:field": "gallery"
+		},
+
+		"autonomyDecisions": {
+			"ui:field": "gallery"
+		},
+
+		"birthdate": {
+			"ui:field": "date"
+		}
+
+	},
+	"ui:order": [
+
+		"firstName",
+		"lastName",
+		"birthdate",
+		"organizationId",
+		"phoneNumber",
+		"email",
+		"address",
+		"postCode",
+		"ethnicity",
+		"countryOfBirth",
+		"gender",
+		"relationHousehold",
+
+		"familyCar",
+		"householdMonthlyIncomeYesNo",
+		"employmentStatusPrimary",
+		"otherMembersIncomeYesNo",
+		"receiveStateIncomeYesNo",
+		"housingSituation",
+		"membersOver18Diploma",
+		"memberDiedBefore5",
+
+
+		"income",
+		"familySavings",
+		"creditScore",
+		"debt",
+		"diversifiedSourcesOfIncome",
+		"documentation",
+		"unpollutedEnvironment",
+		"garbageDisposal",
+		"drinkingWaterAccess",
+		"nearbyHealthPost",
+		"mentalHealthServices",
+		"alimentation",
+		"weightDiabetes",
+		"alcoholDrugs",
+		"sexualHealth",
+		"dentalCare",
+		"eyesight",
+		"vaccinations",
+		"stableHousing",
+		"safeHouse",
+		"separateBedrooms",
+		"properKitchen",
+		"safeBathroom",
+		"refrigerator",
+		"phone",
+		"internetAccess",
+		"safety",
+		"securityOfProperty",
+		"electricityAccess",
+		"regularMeansOfTransportation",
+		"middleEducation",
+		"suspensionsExpulsions",
+		"incarcerationStatus",
+		"collegeGraduation",
+		"readAndWrite",
+		"knowledgeAndSkillsToGenerateIncome",
+		"entertainmentAndRecreation",
+		"awarenessOfHumanRights",
+		"trustLawEnforcement",
+		"socialCapital",
+		"culturalTraditionsAndHeritage",
+		"influenceInPublicSector",
+		"registeredToVoteAndVotesInElections",
+		"awarenessOfNeeds",
+		"selfEsteem",
+		"happiness",
+		"empoweredCareGiver",
+		"externalSupportFromAdults",
+		"householdViolence",
+		"autonomyDecisions"
+	],
+	"ui:group:personal": [
+
+		"firstName",
+		"lastName",
+		"birthdate",
+		"organizationId",
+		"phoneNumber",
+		"email",
+		"address",
+		"postCode",
+		"ethnicity",
+		"countryOfBirth",
+		"gender",
+		"relationHousehold"
+	],
+	"ui:group:economics": [
+		"familyCar",
+		"householdMonthlyIncomeYesNo",
+		"employmentStatusPrimary",
+		"otherMembersIncomeYesNo",
+		"receiveStateIncomeYesNo",
+		"housingSituation",
+		"membersOver18Diploma",
+		"memberDiedBefore5"
+	],
+	"ui:group:indicators": [
+		"income",
+		"familySavings",
+		"creditScore",
+		"debt",
+		"diversifiedSourcesOfIncome",
+		"documentation",
+		"unpollutedEnvironment",
+		"garbageDisposal",
+		"drinkingWaterAccess",
+		"nearbyHealthPost",
+		"mentalHealthServices",
+		"alimentation",
+		"weightDiabetes",
+		"alcoholDrugs",
+		"sexualHealth",
+		"dentalCare",
+		"eyesight",
+		"vaccinations",
+		"stableHousing",
+		"safeHouse",
+		"separateBedrooms",
+		"properKitchen",
+		"safeBathroom",
+		"refrigerator",
+		"phone",
+		"internetAccess",
+		"safety",
+		"securityOfProperty",
+		"electricityAccess",
+		"regularMeansOfTransportation",
+		"middleEducation",
+		"suspensionsExpulsions",
+		"incarcerationStatus",
+		"collegeGraduation",
+		"readAndWrite",
+		"knowledgeAndSkillsToGenerateIncome",
+		"entertainmentAndRecreation",
+		"awarenessOfHumanRights",
+		"trustLawEnforcement",
+		"socialCapital",
+		"culturalTraditionsAndHeritage",
+		"influenceInPublicSector",
+		"registeredToVoteAndVotesInElections",
+		"awarenessOfNeeds",
+		"selfEsteem",
+		"happiness",
+		"empoweredCareGiver",
+		"externalSupportFromAdults",
+		"householdViolence",
+		"autonomyDecisions"
+	]
+}

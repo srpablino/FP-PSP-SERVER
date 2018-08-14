@@ -1,0 +1,2712 @@
+{
+	"title": "Stockton Household Stoplight",
+	"description": "Survey structure composed of: personal and socioeconomic questions and 50 indicators",
+	"type": "object",
+	"required": [
+		"countryOfBirth",
+		"firstName",
+		"gender",
+		"identificationNumber",
+		"lastName",
+		"birthdate",
+		"manyPeopleHousehold"
+	],
+	"properties": {
+
+
+		"firstName": {
+			"type": "string",
+			"title": {
+				"es": "Enter your first name"
+			},
+            "shortName": {
+                "es": "Name"
+            }
+		},
+		"lastName": {
+			"type": "string",
+			"title": {
+				"es": "Enter your surname"
+			},
+            "shortName": {
+                "es": "Surname"
+            }
+		},
+		"birthdate": {
+			"type": "string",
+			"format": "date",
+			"title": {
+				"es": "Enter your date of birth"
+			},
+            "shortName": {
+                "es": "Date of birth"
+            }
+		},
+
+		"organizationId": {
+			"type": "string",
+			"title": {
+				"es": "Enter your organization ID"
+			},
+			"shortName": {
+				"es": "Organization ID"
+			}
+		},
+
+		"phoneNumber": {
+			"type": "string",
+			"title": {
+				"es": "Enter your phone number"
+			},
+			"shortName": {
+				"es": "Phone number"
+			}
+		},
+
+
+		"email": {
+			"type": "string",
+			"format" : "email",
+			"title": {
+				"es": "Enter you email"
+			},
+            "shortName": {
+                "es": "Email"
+            }
+		},
+
+		"address": {
+			"type": "string",
+			"title": {
+				"es": "Enter you address"
+			},
+			"shortName": {
+				"es": "Address"
+			}
+		},
+
+		"postCode": {
+			"type": "string",
+			"title": {
+				"es": "Enter you zip code"
+			},
+			"shortName": {
+				"es": "Zip code"
+			}
+		},
+
+		"ethnicity": {
+			"type": "string",
+			"title": {
+				"es": "How do you identify ?"
+			},
+			"enum": [
+				"Hispanic/Latino",
+				"American Indian or Alaska Native",
+				"Asian",
+				"Black/African American",
+				"Native Hawaiian/ Pacific Islander",
+				"White",
+				"Two or more races"
+			],
+			"enumNames": [
+				"Hispanic/Latino",
+				"American Indian or Alaska Native",
+				"Asian",
+				"Black/African American",
+				"Native Hawaiian/ Pacific Islander",
+				"White",
+				"Two or more races"
+			]
+		},
+
+
+		"countryOfBirth": {
+			"type": "string",
+			"title": {
+				"es": "Country of origin"
+			},
+            "shortName": {
+                "es": "Country of birth"
+            },
+			"enum": [
+				"AF",
+				"AL",
+				"DZ",
+				"AS",
+				"AD",
+				"AO",
+				"AQ",
+				"AR",
+				"AM",
+				"AW",
+				"AU",
+				"AT",
+				"AZ",
+				"BS",
+				"BH",
+				"BD",
+				"BB",
+				"BY",
+				"BE",
+				"BZ",
+				"BJ",
+				"BM",
+				"BT",
+				"BO",
+				"BA",
+				"BW",
+				"BV",
+				"BR",
+				"IO",
+				"VG",
+				"BN",
+				"BG",
+				"BF",
+				"BI",
+				"KH",
+				"CM",
+				"CV",
+				"KY",
+				"CF",
+				"TD",
+				"CL",
+				"CN",
+				"CX",
+				"CC",
+				"CO",
+				"KM",
+				"CG",
+				"CK",
+				"CR",
+				"HR",
+				"CU",
+				"CY",
+				"CZ",
+				"DK",
+				"DJ",
+				"DM",
+				"DO",
+				"EC",
+				"AI",
+				"EG",
+				"GQ",
+				"ER",
+				"EE",
+				"ET",
+				"FK",
+				"FO",
+				"FJ",
+				"FI",
+				"FR",
+				"GF",
+				"PF",
+				"TF",
+				"GA",
+				"GM",
+				"GE",
+				"DE",
+				"GH",
+				"GI",
+				"CA",
+				"GR",
+				"GL",
+				"GP",
+				"GU",
+				"GT",
+				"GG",
+				"GY",
+				"GN",
+				"GW",
+				"HT",
+				"HM",
+				"HN",
+				"HK",
+				"HU",
+				"IS",
+				"IN",
+				"ID",
+				"IR",
+				"IQ",
+				"IE",
+				"AX",
+				"IM",
+				"IL",
+				"IT",
+				"CI",
+				"JM",
+				"JP",
+				"JO",
+				"KZ",
+				"KE",
+				"KI",
+				"KW",
+				"KG",
+				"LA",
+				"LV",
+				"LB",
+				"LS",
+				"LR",
+				"LY",
+				"LI",
+				"LT",
+				"LU",
+				"MO",
+				"MK",
+				"MG",
+				"MW",
+				"MY",
+				"MV",
+				"ML",
+				"MT",
+				"MH",
+				"MQ",
+				"MU",
+				"MR",
+				"YT",
+				"RE",
+				"MX",
+				"FM",
+				"MD",
+				"MC",
+				"MN",
+				"ME",
+				"MS",
+				"MA",
+				"MZ",
+				"MM",
+				"NA",
+				"NR",
+				"NP",
+				"NL",
+				"AN",
+				"NC",
+				"NZ",
+				"NI",
+				"NE",
+				"NG",
+				"NU",
+				"NF",
+				"KP",
+				"NO",
+				"EH",
+				"AG",
+				"OM",
+				"PK",
+				"PW",
+				"PS",
+				"PA",
+				"PG",
+				"PY",
+				"PE",
+				"PH",
+				"PN",
+				"PL",
+				"GD",
+				"PT",
+				"PR",
+				"QA",
+				"RO",
+				"RU",
+				"RW",
+				"KN",
+				"PM",
+				"WS",
+				"BL",
+				"SM",
+				"ST",
+				"SA",
+				"SN",
+				"RS",
+				"SC",
+				"SL",
+				"SG",
+				"SK",
+				"SI",
+				"SB",
+				"SO",
+				"ZA",
+				"GS",
+				"KR",
+				"ES",
+				"LK",
+				"SH",
+				"LC",
+				"VC",
+				"SD",
+				"SR",
+				"SJ",
+				"SZ",
+				"JE",
+				"SE",
+				"CH",
+				"SY",
+				"TW",
+				"TJ",
+				"TH",
+				"TH",
+				"SV",
+				"TL",
+				"TG",
+				"TK",
+				"TO",
+				"TT",
+				"TN",
+				"TR",
+				"TM",
+				"TC",
+				"TV",
+				"UG",
+				"UA",
+				"AE",
+				"GB",
+				"US",
+				"UY",
+				"UZ",
+				"VU",
+				"VA",
+				"VE",
+				"VN",
+				"VI",
+				"WF",
+				"YE"
+			],
+			"enumNames": [
+				"Afghanistan",
+				"Albania",
+				"Algiers",
+				"American Samoa",
+				"Andorra",
+				"Angola",
+				"Antarctica",
+				"Argentina",
+				"Armenia",
+				"Aruba",
+				"Australia",
+				"Austria",
+				"Azerbaijan",
+				"Bahamas",
+				"Bahrain",
+				"Bangladesh",
+				"Barbados",
+				"Belarus",
+				"Belgium",
+				"Belize",
+				"Benin",
+				"Bermuda",
+				"Bhutan",
+				"Bolivia",
+				"Bosnia and Herzegovina",
+				"Botswana",
+				"Bouvet Island",
+				"Brazil",
+				"British Indian Ocean Territory",
+				"British Virgin Islands",
+				"Brunei",
+				"Bulgaria",
+				"Burkina Faso",
+				"Burundi",
+				"Cambodia",
+				"Cameroon",
+				"Cape Verde",
+				"Cayman Islands",
+				"Central African Republic",
+				"Chad",
+				"Chile",
+				"China",
+				"Christmas Islands",
+				"Cocos Islands",
+				"Colombia",
+				"Comoros",
+				"Congo",
+				"Cook Islands",
+				"Costa Rica",
+				"Croatia",
+				"Cuba",
+				"Cyprus",
+				"Czech Republic",
+				"Denmark",
+				"Djibouti",
+				"Domínica",
+				"Dominican Republic",
+				"Ecuador",
+				"Eel",
+				"Egypt",
+				"Equatorial Guinea",
+				"Eritrea",
+				"Estonia",
+				"Ethiopia",
+				"Falkland Islands",
+				"Faroe Islands",
+				"Fiji",
+				"Finland",
+				"France",
+				"French Guiana",
+				"French Polynesia",
+				"French Southern Territories",
+				"Gabon",
+				"Gambia",
+				"Georgia",
+				"Germany",
+				"Ghana",
+				"Gibraltar",
+				"Glen",
+				"Greece",
+				"Greenland",
+				"Guadalupe",
+				"Guam",
+				"Guatemala",
+				"Guernsey",
+				"Guiana",
+				"Guinea",
+				"Guinea-Bissau",
+				"Haiti",
+				"Heard and McDonald Islands",
+				"Honduras",
+				"Hong Kong",
+				"Hungary",
+				"Iceland",
+				"India",
+				"Indonesia",
+				"Iran",
+				"Iraq",
+				"Ireland",
+				"Islas Áland",
+				"Isle of Man",
+				"Israel",
+				"Italy",
+				"Ivory Coast",
+				"Jamaica",
+				"Japan",
+				"Jordan",
+				"Kazakhstan",
+				"Kenya",
+				"Kiribati",
+				"Kuwait",
+				"Kyrgyzstan",
+				"Laos",
+				"Latvia",
+				"Lebanon",
+				"Lesotho",
+				"Liberia",
+				"Libya",
+				"Liechtenstein",
+				"Lithuania",
+				"Luxembourg",
+				"Macao",
+				"Macedonia",
+				"Madagascar",
+				"Malawi",
+				"Malaysia",
+				"Maldives",
+				"Mali",
+				"Malt",
+				"Marshall Islands",
+				"Martinique",
+				"Mauricio",
+				"Mauritania",
+				"Mayotte",
+				"Meeting",
+				"Mexico",
+				"Micronesia",
+				"Moldova",
+				"Monaco",
+				"Mongolia",
+				"Montenegro",
+				"Montserrat",
+				"Morocco",
+				"Mozambique",
+				"Myanmar",
+				"Namibia",
+				"Nauru",
+				"Nepal",
+				"Netherlands",
+				"Netherlands Antilles",
+				"New Caledonia",
+				"New Zealand",
+				"Nicaragua",
+				"Niger",
+				"Nigeria",
+				"Niue",
+				"Norkfolk Islands",
+				"North Korea",
+				"Norway",
+				"Occidental Sahara",
+				"Old and bearded",
+				"Oman",
+				"Pakistan",
+				"Palau Islands",
+				"Palestine",
+				"Panama",
+				"Papua New Guinea",
+				"Paraguay",
+				"Peru",
+				"Philippines",
+				"Pitcairn Islands",
+				"Poland",
+				"Pomegranate",
+				"Portugal",
+				"Puerto Rico",
+				"Qatar",
+				"Romania",
+				"Russia",
+				"Rwanda",
+				"Saint Kitts and Nevis",
+				"Saint Pierre and Miquelon",
+				"Samoa",
+				"San Bartolome",
+				"San Marino",
+				"Sao Tome and Principe",
+				"Saudi Arabia",
+				"Senegal",
+				"Serbia and Montenegro",
+				"Seychelles",
+				"Sierra Leone",
+				"Singapore",
+				"Slovakia",
+				"Slovenia",
+				"Solomon Islands",
+				"Somalia",
+				"South Africa",
+				"South Georgia and the South Sandwich Islands",
+				"South Korea",
+				"Spain",
+				"Sri Lanka",
+				"St. Helen",
+				"St. lucia",
+				"St. Vincent and the Grenadines",
+				"Sudan",
+				"Surinam",
+				"Svalbard and Jan Mayen Islands",
+				"Swaziland",
+				"Sweater",
+				"Sweden",
+				"Switzerland",
+				"Syria",
+				"Taiwan",
+				"Tajikistan",
+				"Tanzania",
+				"Thailand",
+				"The Savior",
+				"Timor-Leste",
+				"Togo",
+				"Tokelau",
+				"Tonga",
+				"Trinidad and Tobago",
+				"Tunisia",
+				"Turkey",
+				"Turkmenistan",
+				"Turks and Caicos Islands",
+				"Tuvalu",
+				"Uganda",
+				"Ukraine",
+				"United Arab Emirates",
+				"United Kingdom",
+				"United States of America",
+				"Uruguay",
+				"Uzbekistan",
+				"Vanuatu",
+				"Vatican CITY",
+				"Venezuela",
+				"Vietnam",
+				"Virgin Islands of the United States of America",
+				"Wallis and Futuna",
+				"Yemen"
+			],
+			"default": "US"
+		},
+
+		"gender": {
+			"type": "string",
+			"title": {
+				"es": "Enter your gender"
+			},
+			"enum": [
+				"F",
+				"M",
+				"ND",
+				"O"
+			],
+			"enumNames": [
+				"Female",
+				"Male",
+				"Prefer not to say",
+				"Other"
+			]
+		},
+
+
+		"relationHousehold": {
+			"type": "string",
+			"title": {
+				"es": "Relation to household"
+			},
+            "shortName": {
+                "es": "Relation to household"
+            },
+			"enum": [
+				"Parent/Head of household",
+				"Child/dependent",
+				"Other"
+			],
+			"enumNames": [
+				"Parent/Head of household",
+				"Child/dependent",
+				"Other"
+			]
+		},
+
+		"familyCar": {
+			"type": "string",
+			"title": {
+				"es": "Do you have access to a car/truck? "
+			},
+			"enum": [
+				"Yes",
+				"No"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			]
+		},
+
+		"householdMonthlyIncomeYesNo": {
+			"type": "string",
+			"title": {
+				"es": "Do you have a monthly salary?"
+			},
+			"enum": [
+				"Yes",
+				"No"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			]
+		},
+
+		"employmentStatusPrimary": {
+			"type": "string",
+			"title": {
+				"es": "What best describes your primary economic activity?"
+			},
+			"shortName": {
+				"es": "Primary Economic Activity"
+			},
+			"enum": [
+				"Employed full-time",
+				"Employed part-time",
+				"Unemployed",
+				"Student"
+			],
+			"enumNames": [
+				"Employed full-time",
+				"Employed part-time",
+				"Unemployed",
+				"Student"
+
+			]
+		},
+
+		"otherMembersIncomeYesNo": {
+			"type": "string",
+			"title": {
+				"es": "Do other members of household have income?"
+			},
+			"enum": [
+				"Yes",
+				"No"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			]
+		},
+
+		"receiveStateIncomeYesNo": {
+			"type": "string",
+			"title": {
+				"es": "Do you receive any state assistance (i.e. food stamps, TANF, SSI)?"
+			},
+			"shortName": {
+				"es": "Receive State Income"
+			},
+			"enum": [
+				"YES",
+				"NO"
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			]
+		},
+
+
+		"housingSituation": {
+			"type": "string",
+			"title": {
+				"es": "Housing Situation"
+			},
+			"shortName": {
+				"es": "Housing Situation"
+			},
+			"enum": [
+				"Single-detached house",
+				"Apartment/condominium unit",
+				"Trailer/mobile camper",
+				"Houseless",
+				"Other"
+			],
+			"enumNames": [
+				"Single-detached house",
+				"Apartment/condominium unit",
+				"Trailer/mobile camper",
+				"Houseless",
+				"Other"
+			]
+		},
+
+		"membersOver18Diploma": {
+			"type": "string",
+			"title": {
+				"es": "What best describes your household members over 18 years old in terms of GED/HS diploma attainment?"
+			},
+            "shortName": {
+                "es": "Members over 18 diploma"
+            },
+			"enum": [
+				"One or more persons",
+				"One person",
+				"No one in my household"
+			],
+			"enumNames": [
+				"One or more persons",
+				"One person",
+				"No one in my household"
+			]
+		},
+
+		"memberDiedBefore5": {
+			"type": "string",
+			"title": {
+				"es": "During the last 5 years have any family members died before turning 5 years old? "
+			},
+            "shortName": {
+                "es": "Family member died before 5"
+            },
+			"enum": [
+				"Yes",
+				"No"
+
+			],
+			"enumNames": [
+				"Yes",
+				"No"
+			]
+		},
+
+
+		"income": {
+			"type": "array",
+			"title": {
+				"es": "Income above poverty line"
+			},
+            "shortName": {
+                "es": "Sufficient income"
+            },
+			"description": {
+				"es": "We have enough income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/1/3.png",
+						"description": " Our household’s yearly income is above the federal poverty line. (more than $41,000).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/1/2.png",
+						"description": "Our household’s yearly income is below the federal poverty line (below $41,000 but over $21,000) but above the extreme poverty line.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/1/1.png",
+						"description": "Our household’s yearly income is below the federal poverty line, (less than $21,000).",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"familySavings": {
+			"type": "array",
+			"title": {
+				"es": "Savings"
+			},
+            "shortName": {
+                "es": "Household Savings"
+            },
+			"description": {
+				"es": "We have savings"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/2/3.png",
+						"description": "Our household saves money every month and has done so for at least the last year. We have enough savings to provide in case of an emergency.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/2/2.png",
+						"description": "Our household saves money some months but not all. We would struggle if there was an emergency.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/2/1.png",
+						"description": "Our household does not save money. We do not have anything for emergencies, and we live month to month. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"creditScore": {
+			"type": "array",
+			"title": {
+				"es": "Credit score"
+			},
+            "shortName": {
+                "es": "Credit"
+            },
+			"description": {
+				"es": "We have good credit score"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/3/3.jpg",
+						"description": "I know I have a good credit score (above 700)  and have checked it in the last 6 months",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/3/2.png",
+						"description": " I have checked my credit in the last 6 months and do not have a good credit (less than 700) score but I have a plan in place to improve it.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/3/1.png",
+						"description": "I do not have a good credit score (less than 700) or do not know what it is and do not have a plan in place to improve it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"debt": {
+			"type": "array",
+			"title": {
+				"es": "Debt"
+			},
+            "shortName": {
+                "es": "Debt"
+            },
+			"description": {
+				"es": "We have few debts"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/4/3.png",
+						"description": "Our household’s monthly debt payments (rent/mortgage, car payments, student loans, credit cards, any other loans) is 25% or less of our combined take-home pay",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/4/2.png",
+						"description": " Our household’s monthly debt payment(rent/mortgage, car payments, student loans, credit cards, any other loans) is between 26-49% of our combined take-home pay",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/4/1.png",
+						"description": "Our household’s monthly debt payment (rent/mortgage, car payments, student loans, credit cards, any other loans) is more than 50% of our combined take-home pay",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"diversifiedSourcesOfIncome": {
+			"type": "array",
+			"title": {
+				"es": "Do we have multiple sources of income?"
+			},
+            "shortName": {
+                "es": "Diversified income"
+            },
+			"description": {
+				"es": "Diversified sources of income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/5/3.png",
+						"description": "If my household was to lose its main source of income, we have multiple sources of income that could sustain our quality of life in the short term (more than four weeks).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/5/2.png",
+						"description": "If my household was to lose its main source of income, our quality of life would suffer moderately in the next four weeks, because we have another source of income. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/5/1.jpg",
+						"description": "f my household was to lose its main source of income, our quality of life would heavily suffer in the next four weeks. We would not have any sources of income",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"documentation": {
+			"type": "array",
+			"title": {
+				"es": "Documentation: Identity document"
+			},
+            "shortName": {
+                "es": "Identification"
+            },
+			"description": {
+				"es": "Identification"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/6/3.jpg",
+						"description": "All members of my household have valid identity documents.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/6/2.png",
+						"description": "A member of my household does not have a valid identity document",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/6/1.png",
+						"description": "More than one member of my household does not have a valid Identity document.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"unpollutedEnvironment": {
+			"type": "array",
+			"title": {
+				"es": "Unpolluted environment"
+			},
+            "shortName": {
+                "es": "Environment"
+            },
+			"description": {
+				"es": "We live in a healthy environment"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/7/3.jpg",
+						"description": "My family lives in an unpolluted neighborhood. If there is or if there was contamination, steps are taken to solve the issue. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/7/2.jpg",
+						"description": "My household lives in a neighborhood which sometimes is contaminated. Steps are being taken to solve the problem.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/7/1.jpg",
+						"description": "My household lives in a neighborhood where there are always bad odors and contamination. Steps are not being taken to solve this or we do not know what we can do about it.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			}
+		},
+		"garbageDisposal": {
+			"type": "array",
+			"title": {
+				"es": "Garbage disposal"
+			},
+            "shortName": {
+                "es": "Garbage"
+            },
+			"description": {
+				"es": "We manage our garbage well"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/8/3.png",
+						"description": " My family members dispose of their garbage in an appropriate and sanitary way",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/8/2.png",
+						"description": "We have the option to dispose of garbage in the appropriate way but do not always use it.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/8/1.png",
+						"description": "Red: My household lacks the means or accessibility to properly dispose of waste.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"drinkingWaterAccess": {
+			"type": "array",
+			"title": {
+				"es": "Access to drinking water"
+			},
+            "shortName": {
+                "es": "Water"
+            },
+			"description": {
+				"es": "We have access to drinking water"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/9/3.png",
+						"description": "Our household has clean tap water. and we never worry about the quality of the tap water. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/9/2.png",
+						"description": "My family has access to clean drinking water outside of their home.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/9/1.png",
+						"description": "My household does not have access to clean drinking water. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"nearbyHealthPost": {
+			"type": "array",
+			"title": {
+				"es": "Access to health services"
+			},
+            "shortName": {
+                "es": "Health service"
+            },
+			"description": {
+				"es": "We have access to health care"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/10/3.png",
+						"description": " In the last 12 months, any time a member of my household needed medical, they were able to receive it from a hospital.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/10/2.jpg",
+						"description": "In the last 12 months, Any time a member of my household needed basic urgent medical attention, they could obtain it. They could not obtain specialized attention and the medical consultations, or the medications were very expensive.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/10/1.jpg",
+						"description": "In the last 12 months, any time my household needed medical attention regarding an illness or accident, we could not obtain it due to one or more of the following: we do not have access to any medical care nearby, the care that was provided was poor, or the medical consultations or the medications were too expensive.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"mentalHealthServices": {
+			"type": "array",
+			"title": {
+				"es": "Access / utilization of mental health services"
+			},
+            "shortName": {
+                "es": "Mental health"
+            },
+			"description": {
+				"es": "We have access to mental health care"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/11/3.png",
+						"description": " People in our household do not have any mental health concerns; or people in my household do have mental health concerns but they are being sufficiently treated through medication and therapy. We have good mental wellbeing.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/11/2.jpg",
+						"description": "People in my household have mental health concerns and are receiving treatment but it is not enough. Example: a person is receiving medication but also needs therapy. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/11/1.png",
+						"description": "Someone in my household has mental health concerns, but they are not being treated for any reason, including: cost, transportation, social stigma, etc.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+
+		},
+		"alimentation": {
+			"type": "array",
+			"title": {
+				"es": "Nutritious diet"
+			},
+            "shortName": {
+                "es": "Nutrition"
+            },
+			"description": {
+				"es": "We have a nutritious diet"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/12/3.jpeg",
+						"description": "All members of my household: \n a). consumed a wide variety of food during the last week: 1. meat (beef, chicken, fish, lamb, etc.), 2. milk and/or dairy, 3. a variety of vegetables, 4. eggs, 5. different kinds of fruit, 6. rice, pasta, potato, cassava, corn, etc. and b). had, at least, three meals a day: breakfast, lunch and dinner. If they skipped a meal or a specific type of food, it was voluntary, and not associated with a lack of money or food (due to religious or philosophical beliefs, for example).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/12/2.jpg",
+						"description": "My household’s diet do not include all of the components cited in the green level. However, in the past week, all members of my family had three meals a day, or if they skipped a meal, it was for voluntary reasons, not one associated with a lack of money or food.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/12/1.jpg",
+						"description": "During the last week, at least once, a member of my family went to bed hungry or skipped a meal involuntarily due to a lack of money or food.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"weightDiabetes": {
+			"type": "array",
+			"title": {
+				"es": "Weight/Diabetes"
+			},
+            "shortName": {
+                "es": "Weight"
+            },
+			"description": {
+				"es": "We have appropiate weight and we have no diabetes"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/13/3.png",
+						"description": " All members of my household have an appropriate weight for their height, age and demographic. No member of my household have type II diabetes (if they are then they are being treated).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/13/2.jpg",
+						"description": "Some members of my household are overweight / obese (BMI >25) but no members are diagnosed with type II diabetes (if they are then they are being treated).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/13/1.png",
+						"description": "Some members of my household are overweight/obese (BMI >25) and at least one members of my household has been diagnosed with type II diabetes and is not being treated.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"alcoholDrugs": {
+			"type": "array",
+			"title": {
+				"es": "Alcohol / Drug Use"
+			},
+            "shortName": {
+                "es": "Alcohol/Drugs"
+            },
+			"description": {
+				"es": "We dont have alcohol or drugs issues"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/14/3.png",
+						"description": "Members of my household don’t drink alcohol at all or they drink but it does not cause significant issues in our lives. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/14/2.png",
+						"description": " At least one member of my household drinks alcohol and it causes significant issues in our lives. We would like to seek support to reduce alcohol consumption in the household.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/14/1.png",
+						"description": "At least one member of my household has an addiction problem with alcohol and has no plan for treatment  \n and/or at least one member of my household uses hard drugs (i.e. heroin, cocaine, meth) causing significant issues in our lives.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"sexualHealth": {
+			"type": "array",
+			"title": {
+				"es": "Reproductive health"
+			},
+            "shortName": {
+                "es": "Reproductive health"
+            },
+			"description": {
+				"es": "We understand sexual health"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/15/3.jpg",
+						"description": "Individuals in my household, especially those who are sexually active and/or can get pregnant, have done one or several of the following in the last 12 months: \n a) access to information in regards to parent planning and/or pregnancy prevention methods \n b) taken tests to check for sexually transmitted infections (STIs) \n c) access to gynecological care",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/15/2.jpg",
+						"description": "Although individuals in my household have done one or several of the actions described in the green level, we feel that we don't have access to all the reproductive health services or information we need",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/15/1.png",
+						"description": "Individuals in my household have not done any of the actions described in the green level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"dentalCare": {
+			"type": "array",
+			"title": {
+				"es": "Healthy teeth"
+			},
+            "shortName": {
+                "es": "Teeth"
+            },
+			"description": {
+				"es": "We have healthy teeth"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/16/3.png",
+						"description": "My household members do not have any dental issues, or if they do, they are being properly treated.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/16/2.png",
+						"description": "One of my household members has dental problems that are not being treated.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/16/1.png",
+						"description": "More than one of my household members has dental problems and they are not being treated. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"eyesight": {
+			"type": "array",
+			"title": {
+				"es": "Healthy vision"
+			},
+            "shortName": {
+                "es": "Vision"
+            },
+			"description": {
+				"es": "We have healthy vision"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/17/3.png",
+						"description": " My household members do not have problems with their vision, or if they do, they are being properly treated (using glasses, for example).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/17/2.png",
+						"description": "One member of my household has problems with their vision and is not being treated.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/17/1.jpg",
+						"description": "More than one of my household members have problems with their vision and are not being treated.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"vaccinations": {
+			"type": "array",
+			"title": {
+				"es": "Vaccines"
+			},
+            "shortName": {
+                "es": "Vaccines"
+            },
+			"description": {
+				"es": "We are up to date with vaccinations"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/18/3.jpeg",
+						"description": "All members of my household are immunized and up-to-date with all the mandatory vaccines according to the State Public Health guidelines.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/18/2.png",
+						"description": "One member of my household is either not immunized or not up-to-date with the State Public Health guidelines. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/18/1.jpg",
+						"description": "More than one member of my household is not immunized or not up-to-date with the mandatory vaccines established by State Public Health guidelines.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"stableHousing": {
+			"type": "array",
+			"title": {
+				"es": "Stable housing."
+			},
+            "shortName": {
+                "es": "Stable housing"
+            },
+			"description": {
+				"es": "We have stable housing"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/19/3.jpg",
+						"description": "We have stable rental terms  or own our property. We are happy with our rent contract and confident that we can get alternative housing if we need it.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/19/2.jpg",
+						"description": " We are unhappy with my current tenancy contract or we are at risk of having to move. \n Or in the near future we might not be able to afford where we currently live.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/19/1.jpg",
+						"description": " We are homeless, living in temporary accommodation, or are in serious risk of eviction and needing to leave our home without wanting to.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"safeHouse": {
+			"type": "array",
+			"title": {
+				"es": "Safe house"
+			},
+            "shortName": {
+                "es": "Safe house"
+            },
+			"description": {
+				"es": "Our house is safe"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/20/3.png",
+						"description": "My household has a house that has: \n a) tile roof, reinforced concrete roof, or stable non-leaking roof \n B) solid walls made out of wood, concrete or fired materials (like clay, bricks, ceramics, concrete, or something similar), \n c) wooden floor or floor made from fired materials, \n d) hard wood or metal external doors and windows, and they all lock in a safe way using locks, padlocks, locking pins, or other similar devices, \n e) the home is prepared for different climatic conditions.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/20/2.png",
+						"description": "My household has a home that does not include one of the components described in the green level.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/20/1.png",
+						"description": " My household has a home that does not include two or more components described in the green level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"separateBedrooms": {
+			"type": "array",
+			"title": {
+				"es": "Separate bedrooms"
+			},
+            "shortName": {
+                "es": "Bedrooms"
+            },
+			"description": {
+				"es": "We have separate bedrooms"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/21/3.png",
+						"description": "On average, each bedroom is used by two or less members of my household. If any of the age groups (children, teenagers or adults) share a room, it is because they want to.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/21/2.png",
+						"description": " On average, each bedroom is used by two or less members of my household. Some age groups (children, teenagers or adults) share rooms unwillingly.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/21/1.png",
+						"description": " On average, each bedroom is used by three or more members of my household and/or we have multiple families living in one home.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+
+		},
+		"properKitchen": {
+			"type": "array",
+			"title": {
+				"es": "Raised and ventilated kitchen "
+			},
+            "shortName": {
+                "es": "Kitchen"
+            },
+			"description": {
+				"es": "We have a proper kitchen"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/22/3.png",
+						"description": "My household cooks in a covered and protected space that they can use  anytime they need to cook and  without sharing with other households. We have a raised stove and we do not use wood or charcoal.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/22/2.png",
+						"description": "My household cooks in a covered and protected space, but do not have consistent use to a kitchen or needs to share a kitchen with other households. We have a raised stove and we do not use wood or charcoal.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/22/1.png",
+						"description": "My household cooks outside or we cook  using coal or wood.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"safeBathroom": {
+			"type": "array",
+			"title": {
+				"es": "Bathroom"
+			},
+            "shortName": {
+                "es": "Bathroom"
+            },
+			"description": {
+				"es": "We have a proper bathroom"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/23/3.png",
+						"description": "Green: My household has one or several bathrooms with the following characteristics: \n a) Has a complete toilet; \n b) cistern; \n  c) ensures privacy; \n d) has a good evacuation system; \n e) it is not shared with other families, and \n f) it is kept clean.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/23/2.png",
+						"description": "Although my household’s bathroom does not contain all of the components described in the green level, it has some kind of toilet with water  and good ventilation, or organic toilet. It is not shared with another household.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/23/1.png",
+						"description": "My household shares its bathroom with other households, or does not qualify for the yellow level.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"refrigerator": {
+			"type": "array",
+			"title": {
+				"es": "Refrigerator and other goods"
+			},
+            "shortName": {
+                "es": "Refrigerator"
+            },
+			"description": {
+				"es": "We have refrigerator and other appliances"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/24/3.png",
+						"description": "My household has a refrigerator and two or more of the following goods: radio, TV, telephone, motorcycle, and/ or washing machine.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/24/2.png",
+						"description": "My household has two of the following goods: radio, TV, phone, motorcycle, washing machine, and/or refrigerator. \n Or if there are more than two, we do not own a refrigerator.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/24/1.png",
+						"description": "My household has one or none of the following goods: radio, TV, telephone, motorcycle, washing machine, or refrigerator. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"phone": {
+			"type": "array",
+			"title": {
+				"es": "Telephone or mobile phone "
+			},
+            "shortName": {
+                "es": "Phone"
+            },
+			"description": {
+				"es": "We have telephone"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/25/3.jpg",
+						"description": "My household has a landline or wireless service constantly at their disposal.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/25/2.jpg",
+						"description": "My household has a landline or wireless service, but it can only be used sometimes.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/25/1.png",
+						"description": "My household does not have phone service (neither landline nor wireless) OR I do not have access to a phone.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"internetAccess": {
+			"type": "array",
+			"title": {
+				"es": "Internet access"
+			},
+            "shortName": {
+                "es": "Internet"
+            },
+			"description": {
+				"es": "We have internet access"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/26/3.jpeg",
+						"description": "I have consistent internet access at home on a computer (not only on a phone).",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/26/2.jpg",
+						"description": " I have internet access on my phone or I have internet access at a local library or community center.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/26/1.png",
+						"description": "My household does not have internet access. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"safety": {
+			"type": "array",
+			"title": {
+				"es": "Personal safety"
+			},
+            "shortName": {
+                "es": "Safety"
+            },
+			"description": {
+				"es": "Personal safety"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/27/3.jpg",
+						"description": "No one in my household has been the victim of a violent crime (inc. assault, battery, homicide)  in past 12 months because our neighborhood is very safe. Household members feel comfortable walking around, even if it is at night or I am alone. There are few crimes here.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/27/2.jpg",
+						"description": "My household has been the victim of at least one violent crime in the past 12 months. Our neighborhood is somewhat safe. Household members may not feel comfortable walking around at night or by myself, but in general, we usually do not worry about crime or my safety.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/27/1.png",
+						"description": "My household has been the victim of multiple crimes in the past 12 months. Our neighborhood is not safe at all. We do not feel comfortable walking around at any time, and we worry a lot about crime and our own safety.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"securityOfProperty": {
+			"type": "array",
+			"title": {
+				"es": "Security of property"
+			},
+			"shortName": {
+				"es": "Security"
+			},
+			"description": {
+				"es": "Security of property"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/28/3.png",
+						"description": "My household has not suffered an act of violence and/or theft against our property in the last twelve months.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/28/2.png",
+						"description": "My household has suffered an act of violence and/or theft against our property in the last twelve months, and the value of the damaged or stolen property was less than the equivalent of a week’s worth of our household's income.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/28/1.png",
+						"description": "My household has suffered more than one act of violence and/or theft against our property in the last twelve months,  \n or we suffered a single act where the value of the damaged or stolen property is equivalent or higher than a week’s worth of my household's income.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"electricityAccess": {
+			"type": "array",
+			"title": {
+				"es": "Electricity"
+			},
+            "shortName": {
+                "es": "Electricity"
+            },
+			"description": {
+				"es": "We have access to electricity"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/29/3.png",
+						"description": "Our household’s electricity has been consistently available for the last year or more.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/29/2.png",
+						"description": "My family has access to electricity, but it is via an illegal connection and/or insufficient or inconsistent (i.e. PGE electricity shutoff, power outages).",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/29/1.png",
+						"description": "Our electricity is turned off currently, or my household has no access to electricity.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"regularMeansOfTransportation": {
+			"type": "array",
+			"title": {
+				"es": "Regular means of transportation"
+			},
+            "shortName": {
+                "es": "Transportation"
+            },
+			"description": {
+				"es": "We have access to transportation"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/30/3.jpeg",
+						"description": "My family has access to a regular, affordable, and reliable means of transportation, either our own or public. If it is public, it comes by at least every hour, and the stop is less than ten minutes away from our house.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/30/2.png",
+						"description": "My family has access to transportation, but it is irregular, costly, or unreliable. It is either our own or public. If it is public, it comes by at least every two hours, and the stop is less than thirty minutes away from our house.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/30/1.jpg",
+						"description": "My family has access to transportation, but it is irregular, costly, or unreliable. It is either our own or public. If it is public, it comes by at least every two hours, and the stop is less than thirty minutes away from our house.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"middleEducation": {
+			"type": "array",
+			"title": {
+				"es": "High School Enrollment & Graduation"
+			},
+            "shortName": {
+                "es": "Schooling"
+            },
+			"description": {
+				"es": "Our children have access to education"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/31/3.png",
+						"description": "Everyone in the household that is of school age have graduated from high school, or are  on track to graduate. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/31/2.jpg",
+						"description": "Some members of the household of school age are at risk of not graduating from high school.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/31/1.jpg",
+						"description": "In my household there is at least one school aged child or a teenager that does not attend school or has dropped out of high school. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"suspensionsExpulsions": {
+			"type": "array",
+			"title": {
+				"es": "Suspensions and Expulsions"
+			},
+            "shortName": {
+                "es": "Suspensions and Expulsions"
+            },
+			"description": {
+				"es": "Members of the family have not experienced suspensions/expulsions"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/32/3.png",
+						"description": "No individuals in my household have experienced school suspensions or expulsions or if they have they have been able to get back on track to graduate high school. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/32/2.jpg",
+						"description": "At least one individual in my household has experienced a school suspension or expulsion but they are currently receiving or being connected to services to help get them back on track. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/32/1.jpeg",
+						"description": "At least one individual in my house have dropped out of high school due to experiencing a high amount of suspensions and/or expulsions and are receiving no support.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"incarcerationStatus": {
+			"type": "array",
+			"title": {
+				"es": "Incarceration status"
+			},
+            "shortName": {
+                "es": "Incarceration"
+            },
+			"description": {
+				"es": "Members of the family have not been incarcerated"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/33/3.jpg",
+						"description": "No one in our household has ever been incarcerated or held in juvenile hall, or if they have they have been able to find the employment and services they need to get back on their feet and have not had any instances of recidivism within the past two years.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/33/2.jpg",
+						"description": "At least one member of our household has been incarcerated or detained in juvenile hall and they have been able to receive some services but have recidivism or are at high risk of recidivating. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/33/1.jpg",
+						"description": " At least one member of our household has been incarcerated or detained in juvenile hall and they have not been receiving any services or are resistant to services. There is high chances or recidivism. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"collegeGraduation": {
+			"type": "array",
+			"title": {
+				"es": "College graduation"
+			},
+            "shortName": {
+                "es": "College graduation"
+            },
+			"description": {
+				"es": "Members of my family recieved education beyond hig school"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/34/3.png",
+						"description": "Someone in my household has recieved education beyond high school, has graduated college, or is on track to graduate college, including post-high school technical/vocational programs.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/34/2.jpeg",
+						"description": "Someone in my household received some education beyond high school, either in college and/or a technical/vocational program, but is not on track to complete the requirements for graduation.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/34/1.jpg",
+						"description": "No one in my household received an education beyond high school.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"readAndWrite": {
+			"type": "array",
+			"title": {
+				"es": "Knows how to read, write and comprehend"
+			},
+            "shortName": {
+                "es": "Literacy"
+            },
+			"description": {
+				"es": "We can read and write"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/35/3.jpeg",
+						"description": "All individuals in my house can read and write well in English",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/35/2.png",
+						"description": " Most individuals in my house can read and write well in English.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/35/1.jpg",
+						"description": "Most individual in my household struggle with reading and writing well in English.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"knowledgeAndSkillsToGenerateIncome": {
+			"type": "array",
+			"title": {
+				"es": "Ability to generate income"
+			},
+            "shortName": {
+                "es": "Generate income"
+            },
+			"description": {
+				"es": "We have the ability to generate income"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/36/3.jpeg",
+						"description": "At least one member in my household in my household are certified to work. They have degrees or training in the specific skills used in their field of work.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/36/2.jpg",
+						"description": "Individuals in my household have the skills they need to work in their field but none were formally certified or trained. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/36/1.jpeg",
+						"description": "No Individual in my household have the skills they need to make money, or they have never worked. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"entertainmentAndRecreation": {
+			"type": "array",
+			"title": {
+				"es": "Entertainment and recreation "
+			},
+            "shortName": {
+                "es": "Recreation"
+            },
+			"description": {
+				"es": "We have access to entertainment"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/37/3.png",
+						"description": "My household participates in entertainment and recreation activities like neighborhood sport leagues.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/37/2.jpg",
+						"description": "My household participates in recreation activities but we typically only do this with other household members. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/37/1.jpg",
+						"description": "My household does not participate in entertainment and recreation. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"awarenessOfHumanRights": {
+			"type": "array",
+			"title": {
+				"es": "Human rights awareness"
+			},
+            "shortName": {
+                "es": "Human rights"
+            },
+			"description": {
+				"es": "Human rights awareness"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/38/3.jpg",
+						"description": " I have never felt exploited or discriminated due to an aspect of my identity (such as race, gender, sexuality, religious background, citizenship status) or if I have, I know my legal rights and how to get support and respond. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/38/2.jpg",
+						"description": "At least sometimes, I have felt exploited or disrespected due to an aspect of my identity (such as race, gender, sexuality, religious background, citizenship status). I know my rights but need to be connected to more resources, organizations, and services for help.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/38/1.jpg",
+						"description": "At least sometimes, I have felt exploited or disrespected due to an aspect of my identity (such as race, gender, sexuality, religious background, citizenship status) and do not know about my legal rights and where to get support. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"trustLawEnforcement": {
+			"type": "array",
+			"title": {
+				"es": "Trust in law enforcement"
+			},
+            "shortName": {
+                "es": "Police trust"
+            },
+			"description": {
+				"es": "We trust in law enforcement"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/39/3.jpg",
+						"description": "I trust in law enforcement to address safety concerns in my community because they comply with constitutional and professional norms. I feel comfortable contacting them if a safety incident were to occur.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/39/2.jpeg",
+						"description": "I am skeptical about law enforcement to address safety concerns in my community because only  sometimes will they comply with constitutional and professional norms. I do not feel comfortable contacting them if a safety incident were to occur. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/39/1.jpg",
+						"description": "I do not trust law enforcement to address safety concerns in my community because they almost always break their compliance to constitutional and professional norms. I do not feel comfortable to contact them if a safety incident were to occur. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"socialCapital": {
+			"type": "array",
+			"title": {
+				"es": "Forms part of a group or network"
+			},
+            "shortName": {
+                "es": "oups and network"
+            },
+			"description": {
+				"es": "We are involved in group participation"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/40/3.jpg",
+						"description": " At least one member of my household actively and regularly participates in two or more groups, or one or more members play a leadership role in a group. Household members can turn to these networks for business or life opportunities.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/40/2.jpg",
+						"description": "At least one member of my household actively and regularly participates in a group. Our household might have broad networks, but we don’t have the confidence to draw on those as we wish to. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/40/1.jpeg",
+						"description": "No one in my household actively and regularly participates in a group. Household members do not socialize with other groups outside the household that can open up opportunities, or if they do, they have negative influence.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"culturalTraditionsAndHeritage": {
+			"type": "array",
+			"title": {
+				"es": "Cultural Traditions"
+			},
+            "shortName": {
+                "es": "Cultural traditions"
+            },
+			"description": {
+				"es": "We value our culture"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/41/3.png",
+						"description": "Our household shows interest in and participates in several traditions of our ethnic culture (e.g. ethnic studies; healing circles; food; cultural parades, festivals, and holidays; etc). We feel a sense of belonging and pride  in the community.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/41/2.png",
+						"description": " Our household does not participate in traditions of our ethnic culture, but we appreciate them. We sometimes feel culturally isolated and wish that there were more activities and events for us to participate.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/41/1.png",
+						"description": "Our household shows no interest in traditions of our ethnic culture and sometimes we actively reject them. We feel no pride or connection to our ethnic culture because we don’t value or think it is important to us.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"influenceInPublicSector": {
+			"type": "array",
+			"title": {
+				"es": "Influence in the public sector"
+			},
+            "shortName": {
+                "es": "Influence"
+            },
+			"description": {
+				"es": "We know how to petition"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/42/3.png",
+						"description": "My household does not have problems that require intervention by community organizations or government, or if there is a problem, we make an official request and follow up on it. Or we have organized ourselves with other people in the same situation to strengthen our position. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/42/2.jpg",
+						"description": "My household has problems that require intervention by community organizations or government. We submitted a request, but we did not follow up.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/42/1.png",
+						"description": " My household has problems that require intervention by community organizations or government, but we did not submit a request.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"registeredToVoteAndVotesInElections": {
+			"type": "array",
+			"title": {
+				"es": "Register to vote and vote during elections"
+			},
+            "shortName": {
+                "es": "Voting"
+            },
+			"description": {
+				"es": "We vote in elections"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/43/3.jpeg",
+						"description": "All of the adults in my household are registered to vote and vote at every election.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/43/2.jpeg",
+						"description": "Members of my household (one or more) are registered to vote. However, they vote infrequently or don’t vote.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/43/1.jpg",
+						"description": "No adults in my household are registered to vote.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"awarenessOfNeeds": {
+			"type": "array",
+			"title": {
+				"es": "Awareness of one’s needs"
+			},
+            "shortName": {
+                "es": "Life plan"
+            },
+			"description": {
+				"es": "We know how to plan for the future"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/44/3.jpeg",
+						"description": "My family is aware that we can improve our current circumstances. For this, we have attainable goals in the short, medium term (six months), and long term. We continuously work to achieve them.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/44/2.jpeg",
+						"description": "My family believes that we can improve our current circumstances and may have short term goals, but we do not have medium (6 months) and long-term goals",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/44/1.png",
+						"description": "My family believes that we cannot better our current circumstances.  ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"selfEsteem": {
+			"type": "array",
+			"title": {
+				"es": "Self confidence"
+			},
+            "shortName": {
+                "es": "Self confidence"
+            },
+			"description": {
+				"es": "We have self confidence"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/45/3.jpeg",
+						"description": " I have high self-confidence. I believe in myself and my abilities. Others tell me that I am good at what I do.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/45/2.jpeg",
+						"description": "Sometimes I feel competent and confident. I have a feeling of accomplishment about what I do, but just as often I feel incapable. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/45/1.png",
+						"description": "I do not feel competent and confident. I doubt my ability to accomplish things, and I usually do not try. I’m not sure how to express myself or I close myself off to others. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"happiness": {
+			"type": "array",
+			"title": {
+				"es": "Happiness"
+			},
+            "shortName": {
+                "es": "Happiness"
+            },
+			"description": {
+				"es": "We are happy"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/46/3.jpeg",
+						"description": "In the past month, sadness, hopelessness or a lack of motivation did not keep anyone in my household from doing all of their normal, day-to-day activities.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/46/2.png",
+						"description": " Once or twice in the past month, a member of my household was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/46/1.png",
+						"description": " Several times in the past month, a member of my household was unable to do normal day-to-day activities due to feeling sad, hopeless or unmotivated. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"empoweredCareGiver": {
+			"type": "array",
+			"title": {
+				"es": "Empowered Caregiver or Legal Guardian"
+			},
+            "shortName": {
+                "es": "Empowered Caregiver or Legal Guardian"
+            },
+			"description": {
+				"es": "Empowered Caregiver or Legal Guardian"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/47/3.jpg",
+						"description": "The caregiver or legal guardian find or create opportunities to use their skills in support of improving the lives of their dependents. ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/47/2.jpeg",
+						"description": "The caregiver or legal guardian would like to participate in opportunities to learn skills that can help improve the lives of their dependents, but cannot find these opportunities.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/47/1.jpg",
+						"description": "The caregiver or legal guardian do not participate or cannot find any opportunities to learn skills that could improve how they care for and motivate their dependents.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"externalSupportFromAdults": {
+			"type": "array",
+			"title": {
+				"es": "External support from adult figures"
+			},
+            "shortName": {
+                "es": "External support"
+            },
+			"description": {
+				"es": "External support from adult figures"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/48/3.jpeg",
+						"description": "Youth receive love and support from adult figures in their lives in and outside of the household (e.g. parents, legal guardians, mentors, teachers). They feel validated and appreciated.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/48/2.png",
+						"description": "Youth receive infrequent love and support from adult figures - both household members and other adults. They sometimes feel underappreciated. ",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/48/1.jpeg",
+						"description": "Youth never or rarely receive love and support from adult figures.  The feel isolated and unsupported by adult figures. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"householdViolence": {
+			"type": "array",
+			"title": {
+				"es": "Household violence"
+			},
+            "shortName": {
+                "es": "Domestic violence"
+            },
+			"description": {
+				"es": "We don't have violence in our house"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/49/3.jpg",
+						"description": "None of my household members are the targets of domestic abuse (mental, physical, emotional, or economic). ",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/49/2.jpeg",
+						"description": "Abuse exists in my household. However, the victims do not believe it is normal and they take steps to avoid it.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/49/1.png",
+						"description": "Abuse exists in my household and we do nothing to stop it. ",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		},
+		"autonomyDecisions": {
+			"type": "array",
+			"title": {
+				"es": "Autonomy and ability to make decisions"
+			},
+            "shortName": {
+                "es": "Autonomy"
+            },
+			"description": {
+				"es": "We know how to make decisions"
+			},
+			"items": {
+				"type": "object",
+				"enum": [
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/50/3.png",
+						"description": "Household members make their own decisions about key aspects of their lives and participate actively in the broader decisions of the household. These decisions reflect what each individual values.",
+						"value": "GREEN"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/50/2.png",
+						"description": "Household members make some decisions about the key aspects of their lives and participate actively in the broader decisions of the household. Some decisions reflect a particular individual’s values while others are taken mainly to please others or avoid negative consequences.",
+						"value": "YELLOW"
+					},
+					{
+						"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/usa/stockton/50/1.png",
+						"description": "Household members do not participate in making decisions about key aspects of their life or the household. Members do as they are told and their decisions are made to please others or avoid negative consequences.",
+						"value": "RED"
+					},
+					{
+						"url": "NONE",
+						"description": "",
+						"value": "NONE"
+					}
+				]
+			},
+			"uniqueItems": true
+		}
+	}
+}
