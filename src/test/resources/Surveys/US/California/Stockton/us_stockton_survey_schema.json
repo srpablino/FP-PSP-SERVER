@@ -6,10 +6,10 @@
 		"countryOfBirth",
 		"firstName",
 		"gender",
-		"identificationNumber",
 		"lastName",
 		"birthdate",
-		"manyPeopleHousehold"
+		"memberDiedBefore5",
+		"familyCar"
 	],
 	"properties": {
 
@@ -101,22 +101,44 @@
 				"es": "How do you identify ?"
 			},
 			"enum": [
-				"Hispanic/Latino",
-				"American Indian or Alaska Native",
-				"Asian",
+				"Chinese",
+				"Filipino",
+				"Japanese",
+				"Cambodian",
+				"Vietnamese",
+				"Hmong",
+				"Other Asian",
 				"Black/African American",
-				"Native Hawaiian/ Pacific Islander",
+				"African",
+				"Caribbean",
+				"Central American",
+				"South American",
+				"South Asian",
+				"Mexican American",
 				"White",
-				"Two or more races"
+				"Native Hawaiian/other Pacific Islander",
+				"Alaskan Native/Native american",
+				"Multiracial (two or more races)"
 			],
 			"enumNames": [
-				"Hispanic/Latino",
-				"American Indian or Alaska Native",
-				"Asian",
+				"Chinese",
+				"Filipino",
+				"Japanese",
+				"Cambodian",
+				"Vietnamese",
+				"Hmong",
+				"Other Asian",
 				"Black/African American",
-				"Native Hawaiian/ Pacific Islander",
+				"African",
+				"Caribbean",
+				"Central American",
+				"South American",
+				"South Asian",
+				"Mexican American",
 				"White",
-				"Two or more races"
+				"Native Hawaiian/other Pacific Islander",
+				"Alaskan Native/Native american",
+				"Multiracial (two or more races)"
 			]
 		},
 
