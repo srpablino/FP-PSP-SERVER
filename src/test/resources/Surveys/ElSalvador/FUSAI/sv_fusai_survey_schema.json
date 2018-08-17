@@ -1218,14 +1218,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/1/3.jpg",
-					"description": "Mi familia tiene ingresos que superan la pobreza relativa.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"familySavings": {
 			"type": "array",
@@ -1263,14 +1256,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/2/3.jpg",
-					"description": "Uno o más miembros de mi familia tienen ahorros hace al menos seis meses y utilizan servicios de instituciones financieras formales. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"accessToCredit": {
 			"type": "array",
@@ -1308,14 +1294,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/3/3.jpg",
-					"description": "Al menos un miembro de mi familia ha accedido a créditos de instituciones financieras formales, en los últimos doce meses. Además , los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de ingresos propios y acceder a un crédito si lo necesitan.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"diversifiedSourcesOfIncome": {
 			"type": "array",
@@ -1353,14 +1332,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/4/3.jpg",
-					"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría nuestro nivel de consumo en las próximas cuatro semanas. Se daría así porque tenemos varias fuentes de ingresos que nos ayudarían (otros miembros trabajan, tenemos ahorros o activos que podemos vender rápidamente, etc.).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"documentation": {
 			"type": "array",
@@ -1398,14 +1370,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/5/3.jpg",
-					"description": "Todos los miembros de mi familia,  documentos de identitdad vigente (partida de nacimiento, carnet de minoridad o documento unico de identidad).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"unpollutedEnvironment": {
 			"type": "array",
@@ -1443,14 +1408,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/6/3.jpg",
-					"description": "Mi familia vive en un ambiente no contaminado. No hay malos olores, ni humo inapropiados provenientes de industrias, producción pecuaria u otras fuentes; tampoco residuos de productos químicos mala eliminación o ausencia de tratamiento de basuras. Si hubo o hay contaminación se gestiona para resolverla.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"garbageDisposal": {
 			"type": "array",
@@ -1488,14 +1446,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/7/3.jpg",
-					"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hoyo distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo. Mi familia recicla los desechos inorgánicos.  ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"drinkingWaterAccess": {
 			"type": "array",
@@ -1533,14 +1484,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/8/3.jpg",
-					"description": "Mi familia cuenta con agua potable y accede a ella a través de una  chorro o grifo a traves de la red de distribucion del agua potable dentro del terreno de la vivienda.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"nearbyHealthPost": {
 			"type": "array",
@@ -1578,14 +1522,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/9/3.jpg",
-					"description": "En los últimos tres meses, todas las veces que algún miembro de mi familia necesitó atención médica pudimos obtenerla. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"alimentation": {
 			"type": "array",
@@ -1623,14 +1560,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/10/3.jpg",
-					"description": "Todos los miembros de mi familia:  \n a). consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cordero, etc.), 2. leche y/o derivados, 3. verduras \n variadas, 4. huevos, 5. frutas variadas, 6. arroz, fideo, papa, mandioca, maíz, etc.,  \n y b). tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena. \n Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"personalHygiene": {
 			"type": "array",
@@ -1668,14 +1598,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/11/3.jpg",
-					"description": " Todos los miembros de mi familia: \n a) se lavan las manos con jabón o alcohol siempre que utilizan los servicios sanitarios,  \n b) se lavan las manos con jabón o alcohol antes de consumir y preparar sus alimentos, \n c) se cepillan los dientes diariamente, \n y d) se bañan diariamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"sexualHealth": {
 			"type": "array",
@@ -1713,14 +1636,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/12/3.jpg",
-					"description": "Los miembros de mi familia:  \n a) Los miembros en edad reproductiva utilizan algún método de planificación familiar; \n b) las mujeres que requieren conocen y han efectuado un control ginecológico en los últimos doce meses, y \n c) las que están embarazadas asisten a todos los controles prenatales requeridos.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"dentalCare": {
 			"type": "array",
@@ -1758,14 +1674,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/13/3.jpg",
-					"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"eyesight": {
 			"type": "array",
@@ -1803,14 +1712,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/14/3.jpg",
-					"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"vaccinations": {
 			"type": "array",
@@ -1848,14 +1750,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/15/3.jpg",
-					"description": "Todos los miembros de mi familia están inmunizados y al día con todas las vacunas obligatorias según el calendario de vacunación del Ministerio de Salud Pública y Bienestar Social. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"insurance": {
 			"type": "array",
@@ -1893,14 +1788,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/18/3.jpg",
-					"description": "Todos los miembros de mi familia tienen un seguro médico. Además , otro tipo de seguro que puede ser: del hogar, contra robo del vehículo, contra incendio, de cosecha, de ganado, de empresa, de vida, de sepelio, etc. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safeHouse": {
 			"type": "array",
@@ -1938,14 +1826,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/19/3.jpg",
-					"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, Lamina o duralita. \n b) paredes sólidas de madera, cemente o material cocido (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de ladrillo o cemento. \n d) puertas y ventanas externas son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparadas para distintas condiciones climáticas. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"comfortOfTheHome": {
 			"type": "array",
@@ -1983,14 +1864,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/20/3.jpg",
-					"description": " Mi familia dispone de:  \n a) sillas, mesas y cubiertos suficientes para todos los miembros,  \n b) camas suficientes para todos (una por persona o por pareja),  \n y c) ventiladores o acondicionadores de aire.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"separateBedrooms": {
 			"type": "array",
@@ -2028,14 +1902,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/21/3.jpg",
-					"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"properKitchen": {
 			"type": "array",
@@ -2073,14 +1940,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/22/3.jpg",
-					"description": "Mi familia cocina en un espacio cubierto y protegido. Cuenta con una cocina elevada y no utiliza estiércol, carbón o leña. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safeBathroom": {
 			"type": "array",
@@ -2118,14 +1978,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/23/3.jpg",
-					"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo (WC); \n b) cisterna; \n c) asegura la privacidad; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, \n y f) se mantiene limpio.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"refrigerator": {
 			"type": "array",
@@ -2163,14 +2016,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/24/3.jpg",
-					"description": "Mi familia tiene heladera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"phone": {
 			"type": "array",
@@ -2208,14 +2054,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/25/3.jpg",
-					"description": "Mi familia cuenta con servicio de telefonía fija o celular disponible de manera constante.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"clothingAndFootwear": {
 			"type": "array",
@@ -2253,14 +2092,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/26/3.jpg",
-					"description": "Todos los miembros de mi familia cuentan con ropas y calzados apropiados para la estación, en cantidad suficiente, para cambiarse diariamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safety": {
 			"type": "array",
@@ -2298,14 +2130,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/27/3.jpg",
-					"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"securityOfProperty": {
 			"type": "array",
@@ -2343,14 +2168,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/28/3.jpg",
-					"description": "Mi familia no ha sufrido actos de violencia y/o robo contra su propiedad en los últimos doce meses. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"electricityAccess": {
 			"type": "array",
@@ -2388,14 +2206,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/29/3.jpg",
-					"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"regularMeansOfTransportation": {
 			"type": "array",
@@ -2433,14 +2244,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/30/3.jpg",
-					"description": "Mi familia tiene acceso a transporte regular y confiable, ya sea propio o público a menos de diez minutos de la casa y que pasa por lo menos cada una hora.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"road": {
 			"type": "array",
@@ -2478,14 +2282,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/31/3.jpg",
-					"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano es asfaltado, empedrado, adoquinado, enripiado, y es accesible todo el tiempo, incluso en periodo de lluvias fuertes o continuas.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"middleEducation": {
 			"type": "array",
@@ -2523,14 +2320,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/32/3.jpg",
-					"description": "Todos los miembros de mi familia en edad escolar van a la escuela o terminaron el bachillerato",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"readAndWrite": {
 			"type": "array",
@@ -2568,14 +2358,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/33/3.jpg",
-					"description": "Todos los miembros adultos de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilitad.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"schoolSuppliesAndBooks": {
 			"type": "array",
@@ -2613,14 +2396,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/34/3.jpg",
-					"description": "Los miembros de mi familia, que están escolarizados, cuentan con todos los útiles escolares y libros recomendados por el docente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"capacityToPlanAndBudget": {
 			"type": "array",
@@ -2658,14 +2434,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/35/3.jpg",
-					"description": "Alguien de mi familia planifica en funcion de los ingresos  y elabora un presupuesto mensual escrito. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"knowledgeAndSkillsToGenerateIncome": {
 			"type": "array",
@@ -2703,14 +2472,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/36/3.jpg",
-					"description": "Al menos un miembro de mi familia:  \n a) tiene formación profesional u otras habilidades o experiencias especiales que le permiten encontrar trabajo con facilidad  \n o, b) cuenta con un emprendimiento (negocio o actividad propia) que le genera ingresos suficientes para cubrir los gastos básicos del hogar.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"informationAccess": {
 			"type": "array",
@@ -2748,14 +2510,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/37/3.jpg",
-					"description": "Mi familia cuenta con un televisor o acceso a internet. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"entertainmentAndRecreation": {
 			"type": "array",
@@ -2793,14 +2548,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/38/3.jpg",
-					"description": "Todos los miembros de mi familia tienen actividades de entretenimiento semanales.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"respectForDiversity": {
 			"type": "array",
@@ -2838,14 +2586,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/39/3.jpg",
-					"description": "Pienso que todas las personas, independientemente de su religión, etnia, idioma, capacidades, sexo, orientación sexual, o similar, merecen ser tratadas con respeto. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"awarenessOfHumanRights": {
 			"type": "array",
@@ -2883,14 +2624,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/40/3.jpg",
-					"description": "Pienso que cada persona (sea hombre, mujer, niño(a), o anciano) debe tener los mismos derechos básicos, independientemente de su sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc. Pienso que todos tenemos la responsabilidad de respetar siempre estos derechos. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"childLabor": {
 			"type": "array",
@@ -2928,14 +2662,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/41/3.jpg",
-					"description": "Entre los miembros de mi familia ningún niño(a) menor de catorce años está trabajando.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"socialCapital": {
 			"type": "array",
@@ -2973,14 +2700,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/42/3.jpg",
-					"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"influenceInPublicSector": {
 			"type": "array",
@@ -3018,14 +2738,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/43/3.jpg",
-					"description": "Mi familia no tiene problemas que requieren de intervención del Estado o del gobierno local, o si la tienen presentamos una solicitud y le dimos seguimiento. Además , nos hemos organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"abilityToSolveProblemsAndConflicts": {
 			"type": "array",
@@ -3063,14 +2776,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/44/3.jpg",
-					"description": "Cuando surge un problema o conflicto, los miembros de mi familia tienen una conversación civilizada (sin insultos, violencia o peleas) sobre el asunto con todas las personas involucradas y lo resuelven sin que este se agrave.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"registeredToVoteAndVotesInElections": {
 			"type": "array",
@@ -3108,14 +2814,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/45/3.jpg",
-					"description": "Todos los adultos de mi familia votamos en las últimas elecciones organizadas por el Tribunal Supremo Electoral.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"awarenessOfNeeds": {
 			"type": "array",
@@ -3153,14 +2852,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/46/3.jpg",
-					"description": "Mi familia sabe que podemos mejorar nuestra situación actual. Para ello, tenemos metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realizamos acciones continuamente para lograrlas. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"selfEsteem": {
 			"type": "array",
@@ -3198,14 +2890,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/47/3.jpg",
-					"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro. Muchas veces, la gente me dice que soy competente o capaz en lo que hago.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"moralConscience": {
 			"type": "array",
@@ -3243,14 +2928,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/48/3.jpg",
-					"description": "Mi familia toma decisiones teniendo en cuenta a quienes afectaría las consecuencias de las acciones. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"emotionalIntelligence": {
 			"type": "array",
@@ -3288,14 +2966,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/49/3.jpg",
-					"description": "Entiendo que emociones como la ira, la tristeza, el temor o los celos pueden tener una influencia negativa en mi vida y que hay formas de controlarlas. En general, logro controlarlas, y trato de no tomar acciones o decisiones en el acaloramiento del momento. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"householdViolence": {
 			"type": "array",
@@ -3333,14 +3004,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/50/3.jpg",
-					"description": "Ningún miembro de mi familia es objeto de violencia familiar.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"entrepreneurialSpirit": {
 			"type": "array",
@@ -3378,14 +3042,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/51/3.jpg",
-					"description": "Al menos dos miembros de mi familia tienen espíritu emprendedor, no se conforman con la situación actual y hacen algo para cambiarla.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"autonomyDecisions": {
 			"type": "array",
@@ -3423,14 +3080,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url": "https://s3.us-east-2.amazonaws.com/fp-psp-images/elSalvador/fusai/52/3.jpg",
-					"description": "Participo activamente en todas las decisiones sobre los aspectos claves de mi vida. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		}
 	}
 }
