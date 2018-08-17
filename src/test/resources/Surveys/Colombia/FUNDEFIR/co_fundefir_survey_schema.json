@@ -1201,14 +1201,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/1/3.jpg",
-					"description": "Mi familia tiene ingresos que superan la línea de pobreza total.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"familySavings": {
 			"type": "array",
@@ -1246,14 +1239,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/2/3.jpg",
-					"description": "Uno o más miembros de mi familia tienen ahorros hace al menos seis meses y tiene una cuenta de ahorro a su nombre (bancos comunales, cuentas de ahorro a su nombre, depósitos a plazo fijo, bonos/acciones/fondos,  plan de pensiones, fondo de empleados o similar).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"accessToCredit": {
 			"type": "array",
@@ -1291,14 +1277,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/3/3.jpg",
-					"description": "Al menos un miembro de mi familia accedió a créditos de instituciones formales (bancos, cooperativas, microfinancieras, fondo de empleados) y en condiciones justas de mercado, en los últimos doce meses. O los miembros de mi familia no requieren créditos porque pueden financiar todas sus necesidades a través de fuentes propias, sin embargo, pueden acceder a un crédito si lo necesitan.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"diversifiedSourcesOfIncome": {
 			"type": "array",
@@ -1336,14 +1315,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/4/3.jpg",
-					"description": "Si mi familia perdiera su principal fuente de ingresos, no afectaría su nivel de consumo durante el próximo mes. Se daría así porque tiene varias fuentes de ingresos que le ayudarían (otros miembros trabajan, tienen ahorros o activos que pueden vender rápidamente, etc.). ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"documentation": {
 			"type": "array",
@@ -1381,14 +1353,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/5/3.jpg",
-					"description": "Todos los miembros de mi familia cuentan con sus respectivos documentos según le corresponda por edad (registro civil, tarjeta de identidad,  cédula de ciudadanía o extranjería).",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"unpollutedEnvironment": {
 			"type": "array",
@@ -1426,14 +1391,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/6/3.jpg",
-					"description": "Mi familia vive en un ambiente no contaminado. No hay malos olores, ni humos inapropiados provenientes de industrias, producción pecuaria u otras fuentes; tampoco residuos de productos químicos mala eliminación o ausencia de tratamiento de basuras. Si hubo o hay contaminación se gestiona para resolverla.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"garbageDisposal": {
 			"type": "array",
@@ -1471,14 +1429,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/7/3.jpg",
-					"description": "Los miembros de mi familia depositan sus residuos en un basurero hasta su recolección o entierran los desechos orgánicos en un hueco tapado distanciado al menos unos veinte metros de la vivienda, fuentes de agua y campo de cultivo y recicla los desechos inorgánicos.   ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"drinkingWaterAccess": {
 			"type": "array",
@@ -1516,14 +1467,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/8/3.jpg",
-					"description": "Mi familia cuenta con agua potable y accede a ella a través de un grifo dentro del terreno de la vivienda.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"nearbyHealthPost": {
 			"type": "array",
@@ -1561,14 +1505,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/9/3.jpg",
-					"description": "En los últimos 3 meses, todas las veces cuando algún miembro de mi familia necesitó atención médica pudo obtenerla.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"alimentation": {
 			"type": "array",
@@ -1606,14 +1543,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/10/3.jpg",
-					"description": "Todos los miembros de mi familia: \n a). Consumieron una buena variedad de alimentos durante la última semana: 1. carnes (vaca, pollo, pescado, cerdo, etc.), 2. leche y/o derivados, 3. verduras variadas, 4. huevos, 5. frutas variadas, 6. Arroz y pastas, 7. Papa, yuca, o plátano, 8. Fríjoles/legumbres, 9. Maíz, maní, u otro cereal, \n y b). Tuvieron, al menos, tres comidas en el día: desayuno, almuerzo y cena.  Si se saltaron una comida o algún tipo de alimento fue por motivos voluntarios no asociados a la falta de dinero o alimentos (ej. religiosas o filosóficas).  ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"personalHygiene": {
 			"type": "array",
@@ -1651,14 +1581,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/11/3.jpg",
-					"description": "Todos los miembros de mi familia: \n a) Se lavan las manos con jabón siempre que utilizan los servicios sanitarios. \n b) Se lavan las manos con jabón antes de consumir y preparar los alimentos. \n c) Se cepillan los dientes diariamente y d) Se bañan/asean diariamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"sexualHealth": {
 			"type": "array",
@@ -1696,14 +1619,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/12/3.jpg",
-					"description": "Los miembros adultos de la familia:  \n a) Tienen conocimiento de planificación familiar. \n  b) Si tiene actividad sexual, aplican instrumentos de planificación familiar (excepto si quiere quedar embarazada) \n c) las mujeres han efectuado un control ginecológico en los últimos 12 meses. \n d) embarazada ha efectúa todos los controles prenatales requeridos. \n c) Los hombres y mujeres se han realizado su autoexamen. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"dentalCare": {
 			"type": "array",
@@ -1741,14 +1657,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/13/3.jpg",
-					"description": "Los miembros de mi familia no tienen problemas de dentadura, o si los tienen están siendo atendidos apropiadamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"eyesight": {
 			"type": "array",
@@ -1786,14 +1695,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/14/3.jpg",
-					"description": "Los miembros de mi familia no tienen problemas de vista o, si lo tienen están siendo atendidos apropiadamente, por ejemplo, utilizan lentes.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"vaccinations": {
 			"type": "array",
@@ -1831,14 +1733,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/15/3.jpg",
-					"description": "Todos los miembros mi familia están inmunizados y al día con todas las vacunas obligatorias según el calendario de vacunación del Ministerio de Salud.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"insurance": {
 			"type": "array",
@@ -1876,14 +1771,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/16/3.jpg",
-					"description": "Mi familia tiene un seguro exequial y otro tipo de seguro que puede ser; seguro de vehículo, seguro de propiedad, seguros del negocio, seguro de los bienes.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safeHouse": {
 			"type": "array",
@@ -1921,14 +1809,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/17/3.jpg",
-					"description": "Mi familia tiene una vivienda con:  \n a) techo de tejas, chapa de zinc u hormigón armado,  \n b) paredes sólidas de madera, cemento o material de barro (ladrillo, baldosa, cemento, cerámica o similar),  \n c) piso de madera o de barro. \n d) puertas y ventanas externas que son de madera maciza o metal y todas se cierran de manera segura utilizando candados, cerraduras, trancas, pasadores resistentes u otros similares,  \n e) la vivienda está preparada para distintas condiciones climáticas.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"comfortOfTheHome": {
 			"type": "array",
@@ -1966,14 +1847,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/18/3.jpg",
-					"description": "Mi familia dispone de:  \n a. Sillas, mesas y vajillas en suficiente cantidad para todos los miembros. \n b. Camas en suficiente cantidad para todos (1 por persona o por pareja) \n c. Ventiladores o aires acondicionados acorde con su clima.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"separateBedrooms": {
 			"type": "array",
@@ -2011,14 +1885,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/19/3.jpg",
-					"description": "Cada dormitorio es utilizado en promedio por dos o menos miembros de mi familia. Si algunos de los grupos (niños, adolescente y adulto) lo comparten es por su voluntad.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"properKitchen": {
 			"type": "array",
@@ -2056,14 +1923,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/20/3.jpg",
-					"description": "Mi familia cocina en un espacio cubierto, protegido y ventilado. Cuenta con una estufa elevada y no utiliza estiércol, carbón o leña.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safeBathroom": {
 			"type": "array",
@@ -2101,14 +1961,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/21/3.jpg",
-					"description": "Mi familia tiene un baño(s) con las siguientes características: \n a) Cuenta con inodoro completo; \n b) cisterna; \n c) asegura la privacidad; \n d) cuenta con un buen sistema de evacuación; \n e) no se comparte con otra familia, f) se mantiene limpio.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"refrigerator": {
 			"type": "array",
@@ -2146,14 +1999,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/22/3.jpg",
-					"description": "Mi familia tiene nevera y dos o más de los siguientes activos: radio, TV, teléfono, motocicleta, lavarropas. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"phone": {
 			"type": "array",
@@ -2191,14 +2037,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/23/3.jpg",
-					"description": "Mi familia cuenta con teléfono fijo o celular con plan fijo de minutos y/o datos disponible de manera constante en el hogar.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"clothingAndFootwear": {
 			"type": "array",
@@ -2236,14 +2075,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/24/3.jpg",
-					"description": "Todos los miembros de mi familia cuentan con ropas y calzados apropiados para el clima, en cantidad suficiente, para cambiarse diariamente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"safety": {
 			"type": "array",
@@ -2281,14 +2113,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/25/3.jpg",
-					"description": "Ningún miembro de mi familia ha sufrido actos de violencia contra su persona en los últimos doce meses.   ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"securityOfProperty": {
 			"type": "array",
@@ -2326,14 +2151,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/26/3.jpg",
-					"description": "Mi familia no ha sufrido actos de violencia y/o robo contra sus bienes en los últimos doce meses. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"electricityAccess": {
 			"type": "array",
@@ -2371,14 +2189,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/27/3.jpg",
-					"description": "Mi familia tiene acceso permanente y no clandestino a la electricidad.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"regularMeansOfTransportation": {
 			"type": "array",
@@ -2416,14 +2227,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/28/3.jpg",
-					"description": "Mi familia tiene acceso a transporte regular y confiable, ya sea propio o público a menos de diez minutos de la casa y que pasa por lo menos cada una hora.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"road": {
 			"type": "array",
@@ -2461,14 +2265,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/29/3.jpg",
-					"description": "El camino que utiliza mi familia para trasladarse al centro urbano más cercano esta pavimentado, empedrado, adoquinado, enripiado, y es accesible todo el tiempo, incluso en periodo de lluvias fuertes o continuas.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"middleEducation": {
 			"type": "array",
@@ -2506,14 +2303,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/30/3.jpg",
-					"description": "Todos los miembros de mi familia en edad escolar van a la escuela o terminaron el grado once de bachillerato.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"readAndWrite": {
 			"type": "array",
@@ -2551,14 +2341,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/31/3.jpg",
-					"description": "Todos los miembros de mi familia (quince años y más) pueden leer y escribir y sienten que lo hacen con facilidad.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"schoolSuppliesAndBooks": {
 			"type": "array",
@@ -2596,14 +2379,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/32/3.jpg",
-					"description": "Los miembros de mi familia, que están escolarizados, cuentan con todos los útiles escolares y libros recomendados por el docente. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"capacityToPlanAndBudget": {
 			"type": "array",
@@ -2641,14 +2417,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/33/3.jpg",
-					"description": "Mi familia planifica su futuro económico y elabora un presupuesto mensual y un plan de ahorros, que sigue constantemente.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"knowledgeAndSkillsToGenerateIncome": {
 			"type": "array",
@@ -2686,14 +2455,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/34/3.jpg",
-					"description": "Al menos un miembro de mi familia:  \n a) tiene formación profesional, técnico, tecnólogo u otras habilidades desarrolladas y adquiridas  para generar ingreso, y estas características le permiten  encontrar trabajo con facilidad. \n O, b) cuenta con un emprendimiento (negocio o actividad propia) que le genera ingresos suficientes para cubrir los gastos básicos del hogar.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"informationAccess": {
 			"type": "array",
@@ -2731,14 +2493,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/35/3.jpg",
-					"description": "Mi familia cuenta con un televisor o acceso a internet. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"entertainmentAndRecreation": {
 			"type": "array",
@@ -2776,14 +2531,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/36/3.jpg",
-					"description": "Todos los miembros de mi familia tienen actividades de entretenimiento semanales.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"respectForDiversity": {
 			"type": "array",
@@ -2821,14 +2569,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/37/3.jpg",
-					"description": "Pienso que todas las personas, independientemente de su religión, etnia, idioma, capacidades, genero, orientación sexual, o similar, merecen ser tratadas con respeto.  ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"awarenessOfHumanRights": {
 			"type": "array",
@@ -2866,14 +2607,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/38/3.jpg",
-					"description": "Pienso que cada persona debe tener los mismos derechos básicos, y que todos tenemos la misma responsabilidad de respetar siempre los derechos humanos. Los derechos básicos son los mismos independientemente de sexo, edad, origen étnico o racial, nacionalidad, clase social, orientación sexual, religión, discapacidad, etc.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"childLabor": {
 			"type": "array",
@@ -2911,14 +2645,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/39/3.jpg",
-					"description": "Entre los miembros de mi familia ningún miembro hasta los 17 años está trabajando.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"socialCapital": {
 			"type": "array",
@@ -2956,14 +2683,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/40/3.jpg",
-					"description": "Al menos un miembro de mi familia participa activamente en dos o más grupos de manera permanente, o uno o más miembros juegan un papel de liderazgo en un grupo. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"influenceInPublicSector": {
 			"type": "array",
@@ -3001,14 +2721,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/41/3.jpg",
-					"description": "Mi familia no tiene problemas que requieren de intervención del Estado, o si las tiene presenta una solicitud y le da seguimiento. O se ha organizado con otras personas en la misma situación para tener fuerza de grupo con la solicitud. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"abilityToSolveProblemsAndConflicts": {
 			"type": "array",
@@ -3046,14 +2759,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/42/3.jpg",
-					"description": "Cuando surge un problema o conflicto, los miembros de mi familia tienen una conversación civilizada (sin insultos, violencia o peleas) sobre el asunto con todas las personas involucradas y lo resuelven sin que este se agrave.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"registeredToVoteAndVotesInElections": {
 			"type": "array",
@@ -3091,14 +2797,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/43/3.jpg",
-					"description": "Todos los adultos de mi familia votaron en las últimas elecciones organizadas por el Consejo Nacional Electoral.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"awarenessOfNeeds": {
 			"type": "array",
@@ -3136,14 +2835,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/44/3.jpg",
-					"description": "Mi familia sabe que puede mejorar su situación actual. Para ello, tiene metas alcanzables en el mediano plazo (seis meses) y largo plazo. Realiza acciones continuamente para lograrlas. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"selfEsteem": {
 			"type": "array",
@@ -3181,14 +2873,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/45/3.jpg",
-					"description": "Generalmente, me siento capacitado, y la mayor parte de las veces tengo un sentimiento de logro o frecuentemente la gente me dice que soy competente o capaz en lo que hago.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"moralConscience": {
 			"type": "array",
@@ -3226,14 +2911,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/46/3.jpg",
-					"description": "Mi familia toma decisiones teniendo en cuenta a quienes afectarían las consecuencias de sus  acciones. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"emotionalIntelligence": {
 			"type": "array",
@@ -3271,14 +2949,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/47/3.jpg",
-					"description": "Entiendo que emociones como la ira, la tristeza, el temor o los celos pueden tener una influencia negativa en mi vida y que hay formas de controlarlas. En general, logro controlarlas, y trato de no tomar acciones o decisiones en el acaloramiento del momento. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"householdViolence": {
 			"type": "array",
@@ -3316,14 +2987,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/48/3.jpg",
-					"description": "Ningún miembro de mi familia es objeto de violencia familiar.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"entrepreneurialSpirit": {
 			"type": "array",
@@ -3361,14 +3025,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/49/3.jpg",
-					"description": "La mayoría de mi familia tiene espíritu emprendedor, no se conforman con la situación actual y hacen algo para cambiarla. ",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		},
 		"autonomyDecisions": {
 			"type": "array",
@@ -3406,14 +3063,7 @@
 					}
 				]
 			},
-			"uniqueItems": true,
-			"default": [
-				{
-					"url":"https://s3.us-east-2.amazonaws.com/fp-psp-images/colombia/fundefir/50/3.jpg",
-					"description": "Tomo las decisiones en los aspectos claves de mi vida y participó activamente en las decisiones de la familia. Estas decisiones reflejan lo que valoro, sé que hay restricciones, pero dentro de estos formo mi propia vida.",
-					"value": "GREEN"
-				}
-			]
+			"uniqueItems": true
 		}
 	}
 }
